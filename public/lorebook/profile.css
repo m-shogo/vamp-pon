@@ -1,32 +1,45 @@
-.profile-hint {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 9px;
-  margin: 12px 0 0;
-  color: #9d9587;
-  font-size: 9px;
-}
-.profile-hint span::before { content: '·'; margin-right: 6px; color: #d6b56f; }
-.profile-hint span:first-child::before { content: ''; margin: 0; }
-.personal-profile-section { margin-top: 28px; padding-top: 26px; border-top: 1px solid rgba(233,224,200,.18); }
-.profile-section-heading { display:flex; justify-content:space-between; align-items:flex-end; gap:18px; margin-bottom:16px; }
-.profile-section-heading span { display:block; color:#d6b56f; font-size:9px; letter-spacing:.14em; }
-.profile-section-heading h3 { margin:4px 0 0; font:500 24px "Yu Mincho", "Hiragino Mincho ProN", serif; }
-.profile-section-heading small { color:#8d8578; font-size:10px; text-align:right; }
-.profile-snapshot-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
-.profile-snapshot-grid article { min-height:118px; padding:16px; border:1px solid rgba(233,224,200,.14); background:rgba(255,255,255,.02); }
-.profile-snapshot-grid span { display:block; color:#847d70; font-size:8px; letter-spacing:.1em; text-transform:uppercase; }
-.profile-snapshot-grid strong { display:block; margin-top:8px; font:500 13px/1.6 "Yu Mincho", "Hiragino Mincho ProN", serif; color:#e9e0c8; }
-.profile-snapshot-grid p { margin:8px 0 0; color:#aaa193; font-size:10px; }
-.daily-life-scene { position:relative; margin:14px 0; padding:20px 20px 20px 72px; border-left:2px solid #d6b56f; background:rgba(214,181,111,.05); color:#d0c5af; font:400 13px/1.9 "Yu Mincho", "Hiragino Mincho ProN", serif; }
-.daily-life-scene span { position:absolute; left:16px; top:21px; color:#8f877a; font:8px sans-serif; letter-spacing:.12em; writing-mode:vertical-rl; }
-.name-rationale { border-top:1px dashed rgba(233,224,200,.14); padding-top:13px; color:#aaa193; }
-.name-rationale summary { cursor:pointer; color:#d6b56f; font-size:11px; }
-.name-rationale p { font-size:11px; }
-.name-rationale code { color:#817a70; font-size:9px; }
-@media (max-width: 600px) {
-  .profile-section-heading { display:grid; }
-  .profile-section-heading small { text-align:left; }
-  .profile-snapshot-grid { grid-template-columns:1fr; }
-  .daily-life-scene { padding-left:54px; }
-}
+.profile-book-guide { margin:4px 0 26px; padding:24px 0 20px; border-top:1px solid rgba(233,224,200,.16); border-bottom:1px solid rgba(233,224,200,.16); }
+.profile-book-guide > header { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:24px; align-items:end; }
+.profile-book-guide > header span { color:#d6b56f; font-size:8px; letter-spacing:.14em; }
+.profile-book-guide > header h3 { margin:7px 0 0; font:500 24px/1.45 "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.profile-book-guide > header > p { margin:0; color:#777066; font-size:8px; text-align:right; }
+.profile-book-guide > header > p b { color:#cbbd9f; font-size:12px; font-weight:500; }
+.profile-book-nav-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin-top:17px; }
+.profile-book-nav-card { display:grid; grid-template-columns:28px minmax(0,1fr); gap:10px; min-height:168px; padding:14px; border:1px solid rgba(233,224,200,.10); background:linear-gradient(145deg,rgba(214,181,111,.025),transparent 55%),rgba(31,29,37,.36); }
+.profile-book-nav-index { color:rgba(214,181,111,.36); font:400 22px/1 "Yu Mincho",serif; }
+.profile-book-nav-card small { color:#8e819a; font-size:7px; letter-spacing:.1em; }
+.profile-book-nav-card h3 { margin:4px 0 6px; color:#d8cdbb; font:500 13px/1.45 "Yu Mincho",serif; }
+.profile-book-nav-card p { margin:0; color:#817a70; font-size:8px; line-height:1.65; }
+.profile-book-nav-card footer { grid-column:1 / -1; align-self:end; display:flex; flex-wrap:wrap; gap:4px; padding-top:8px; border-top:1px dashed rgba(233,224,200,.08); }
+.profile-book-nav-card footer span { color:#716978; font-size:6px; padding:3px 5px; border:1px solid rgba(145,128,170,.12); }
+.profile-source-legend { margin-top:11px; border:1px solid rgba(233,224,200,.09); }
+.profile-source-legend summary { padding:10px 12px; color:#928979; font-size:8px; cursor:pointer; }
+.profile-source-legend > div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; border-top:1px solid rgba(233,224,200,.08); background:rgba(233,224,200,.04); }
+.profile-source-legend article { padding:10px 11px; background:#1d1b23; }
+.profile-source-legend b { color:#b7aa91; font-size:7px; letter-spacing:.06em; }
+.profile-source-legend p { margin:4px 0 0; color:#756e67; font-size:7px; line-height:1.55; }
+.profile-book-guide-rule { margin:9px 0 0; color:#69635d; font-size:7px; line-height:1.6; }
+.profile-hint { display:flex; flex-wrap:wrap; gap:5px; margin:7px 0 9px; }
+.profile-hint span { padding:4px 7px; border:1px solid rgba(214,181,111,.18); border-radius:999px; color:#9b8f75; font-size:7px; }
+.profile-book-read-strip { display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px; margin-bottom:13px; padding:9px 10px; border:1px solid rgba(103,135,162,.15); background:rgba(103,135,162,.025); }
+.profile-book-read-strip span { color:#87a2b7; font-size:6px; letter-spacing:.1em; }
+.profile-book-read-strip b { color:#b8aa90; font-size:8px; font-weight:500; }
+.profile-book-read-strip small { margin-left:auto; color:#68636a; font-size:6px; }
+.personal-profile-section { margin-top:26px; padding-top:22px; border-top:1px solid rgba(233,224,200,.14); }
+.profile-section-heading { display:flex; justify-content:space-between; gap:18px; align-items:flex-end; }
+.profile-section-heading span { color:#d6b56f; font-size:8px; letter-spacing:.13em; }
+.profile-section-heading h3 { margin:5px 0 0; font:500 20px "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.profile-section-heading small { color:#7e766b; font-size:8px; text-align:right; }
+.profile-snapshot-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; margin-top:15px; }
+.profile-snapshot-grid article { min-height:105px; padding:13px; border:1px solid rgba(233,224,200,.10); background:rgba(255,255,255,.014); }
+.profile-snapshot-grid span { display:block; color:#786f65; font-size:7px; letter-spacing:.07em; }
+.profile-snapshot-grid strong { display:block; margin-top:7px; color:#d3c8b5; font:500 11px/1.55 "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.profile-snapshot-grid p { margin:6px 0 0; color:#817970; font-size:8px; line-height:1.6; }
+.daily-life-scene { position:relative; margin:12px 0 0; padding:15px 16px 14px 22px; border-left:2px solid rgba(214,181,111,.38); background:linear-gradient(90deg,rgba(214,181,111,.045),transparent); color:#aea393; font:400 10px/1.85 "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.daily-life-scene span { display:block; margin-bottom:5px; color:#756b5d; font:600 6px sans-serif; letter-spacing:.11em; }
+.name-rationale { margin-top:11px; border-top:1px dashed rgba(233,224,200,.10); }
+.name-rationale summary { padding:10px 0; color:#867d70; font-size:8px; cursor:pointer; }
+.name-rationale p { margin:0 0 8px; color:#8e867a; font-size:8px; line-height:1.7; }
+.name-rationale code { color:#675f69; font-size:6px; }
+.profile-book-detail-rule { margin:10px 0 0; padding-top:8px; border-top:1px dashed rgba(233,224,200,.07); color:#68615d; font-size:7px; line-height:1.6; }
+@media (max-width:760px) { .profile-book-guide > header { grid-template-columns:1fr; } .profile-book-guide > header > p { text-align:left; } .profile-book-nav-grid { grid-template-columns:1fr; } .profile-source-legend > div { grid-template-columns:1fr; } .profile-snapshot-grid { grid-template-columns:1fr; } .profile-book-read-strip small { margin-left:0; width:100%; } }
