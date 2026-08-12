@@ -1,0 +1,52 @@
+name: unity-copper-tuning-fork-prototype
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/CopperTuningForkPrototypeRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/CopperTuningForkPrototypeRuntime.cs.meta'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyTargetChainSelectionRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-unity-copper-tuning-fork-prototype.ts'
+      - 'scripts/quality/unity-copper-tuning-fork/**'
+      - 'docs/unity-copper-tuning-fork-prototype-v1.md'
+      - '.github/workflows/unity-copper-tuning-fork-prototype.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/CopperTuningForkPrototypeRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/CopperTuningForkPrototypeRuntime.cs.meta'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-unity-copper-tuning-fork-prototype.ts'
+      - 'scripts/quality/unity-copper-tuning-fork/**'
+      - 'docs/unity-copper-tuning-fork-prototype-v1.md'
+      - '.github/workflows/unity-copper-tuning-fork-prototype.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Check Copper Tuning Fork staged caller proof
+        run: node --experimental-strip-types scripts/quality/check-unity-copper-tuning-fork-prototype.ts
+      - name: Compile and execute Copper Tuning Fork contract
+        run: dotnet run --project scripts/quality/unity-copper-tuning-fork/UnityCopperTuningFork.Contract.csproj --configuration Release
+      - name: Re-check target-chain foundation
+        run: node --experimental-strip-types scripts/quality/check-unity-target-chain-selection-primitive.ts
+      - name: Re-check Title1 Base Weapon admission
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
+      - name: Re-check Title1 Content Master integrity
+        run: node --experimental-strip-types scripts/quality/check-title1-content-master-integrity.ts
