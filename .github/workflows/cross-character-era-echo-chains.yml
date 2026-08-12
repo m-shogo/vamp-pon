@@ -1,0 +1,33 @@
+name: Cross Character Era Echo Chains
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/characterCrossEraEchoReservoir.ts'
+      - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'scripts/quality/check-cross-character-era-echo-chains.ts'
+      - 'docs/cross-character-era-echo-chains-v1.md'
+      - '.github/workflows/cross-character-era-echo-chains.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/characterCrossEraEchoReservoir.ts'
+      - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'scripts/quality/check-cross-character-era-echo-chains.ts'
+      - 'docs/cross-character-era-echo-chains-v1.md'
+      - '.github/workflows/cross-character-era-echo-chains.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 10 cross-character echo chains
+        run: node --experimental-strip-types scripts/quality/check-cross-character-era-echo-chains.ts
