@@ -14,6 +14,8 @@ const CURRENT21_EXTENDED_IDS = new Set([
 const COUNCIL_DOC = 'docs/visual/world-character-scenario-design-council-master-v1.md';
 const COUNCIL_JSON = 'data/visual/world-character-scenario-design-council-master-v1.json';
 const WORLD_MASTER = 'docs/00-current-story-world-master.md';
+const ERA_LIFE_DOC = 'docs/visual/core5-era-life-design-master-v1.md';
+const ERA_LIFE_JSON = 'data/visual/core5-era-life-design-master-v1.json';
 
 type CliOptions = {
   characterId: string;
@@ -23,6 +25,7 @@ type CliOptions = {
 };
 
 type LivingVisualProfile = Record<string, unknown> & { id: string; name?: string };
+type EraLifeProfile = Record<string, unknown> & { id: string; name?: string };
 
 function parseArgs(args: string[]): CliOptions {
   let characterId = '';
@@ -75,6 +78,14 @@ function loadProfile(characterId: string): { path: string; status: string | null
   return { path, status: typeof document.status === 'string' ? document.status : null, profile };
 }
 
+function loadEraLifeProfile(characterId: string): EraLifeProfile | null {
+  if (!CORE5_IDS.has(characterId)) return null;
+  const document = JSON.parse(readFileSync(resolve(process.cwd(), ERA_LIFE_JSON), 'utf8'));
+  const profile = (document.characters ?? []).find((entry: EraLifeProfile) => entry.id === characterId);
+  if (!profile) throw new Error(`Core5 Era Life Profile missing for ${characterId} in ${ERA_LIFE_JSON}; export blocked.`);
+  return profile;
+}
+
 function loadCouncil() {
   const council = JSON.parse(readFileSync(resolve(process.cwd(), COUNCIL_JSON), 'utf8'));
   if (council.status !== 'CURRENT_CROSS_DISCIPLINE_AUTHORITY') {
@@ -86,7 +97,12 @@ function loadCouncil() {
   return council;
 }
 
-function resolvedPromptBlock(profilePath: string, profile: LivingVisualProfile, council: any): string {
+function resolvedPromptBlock(
+  profilePath: string,
+  profile: LivingVisualProfile,
+  council: any,
+  eraLife: EraLifeProfile | null,
+): string {
   return [
     'WORLD / CHARACTER / SCENARIO DESIGN COUNCIL — REQUIRED CROSS-DISCIPLINE AUTHORITY.',
     `World authority: ${WORLD_MASTER}.`,
@@ -95,6 +111,16 @@ function resolvedPromptBlock(profilePath: string, profile: LivingVisualProfile, 
     `Council final question: ${council.finalQuestion}`,
     'Before decoration, ask what world/era/life function requires the element and what this person would choose or tolerate.',
     'For character assets, world context, ordinary physical use, and scenario role must not be overridden by beauty/coolness/premium rendering.',
+    ...(eraLife
+      ? [
+          'CORE5 ERA LIFE PROFILE — REQUIRED ERA/LIFE AUTHORITY.',
+          `Era authority: ${ERA_LIFE_DOC}.`,
+          `Era machine rules: ${ERA_LIFE_JSON}.`,
+          'Do not express era only through costume styling. Preserve ordinary-system assumptions: communication, money/payment, transport/navigation, shopping/availability, repair/replacement, food/packaging, waiting, privacy/records, work/institution, household comfort, carried objects, and conversational assumptions.',
+          'Dream translation may stylize the character, but must preserve some Reality-era habits in storage, repair, movement, object handling, posture, or acting.',
+          JSON.stringify(eraLife, null, 2),
+        ]
+      : []),
     'LIVING VISUAL PROFILE — REQUIRED CHARACTER AUTHORITY.',
     `Source: ${profilePath}.`,
     'The person is already designed. Do not redesign them from genre defaults.',
@@ -108,9 +134,10 @@ function resolvedPromptBlock(profilePath: string, profile: LivingVisualProfile, 
   ].join('\n');
 }
 
-function authorityOrder(profilePath: string): string[] {
+function authorityOrder(characterId: string, profilePath: string): string[] {
   return [
     WORLD_MASTER,
+    ...(CORE5_IDS.has(characterId) ? [ERA_LIFE_DOC, ERA_LIFE_JSON] : []),
     'docs/visual/character-living-visual-master-v1.md',
     profilePath,
     'docs/character-appearance-source-book-v1.md',
@@ -126,8 +153,9 @@ function renderMarkdown(options: CliOptions) {
   const prompt = getCharacterAssetPrompt(options.characterId, options.kind);
   if (!prompt) throw new Error(`Character asset prompt not found: ${options.characterId} / ${options.kind}`);
   const living = loadProfile(options.characterId);
+  const eraLife = loadEraLifeProfile(options.characterId);
   const council = loadCouncil();
-  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile, council)].join('\n');
+  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile, council, eraLife)].join('\n');
   return [
     '# Yoru no Shirube — Resolved Character Asset Prompt',
     '',
@@ -138,10 +166,11 @@ function renderMarkdown(options: CliOptions) {
     `Living Visual Profile: ${living.path}`,
     `Living Visual Source Status: ${living.status ?? 'unknown'}`,
     `Design Council: ${COUNCIL_DOC}`,
+    ...(eraLife ? [`Core5 Era Life Profile: ${ERA_LIFE_JSON}#${options.characterId}`] : []),
     '',
     '## Mandatory authority order',
     '',
-    ...authorityOrder(living.path).map((entry, index) => `${index + 1}. ${entry}`),
+    ...authorityOrder(options.characterId, living.path).map((entry, index) => `${index + 1}. ${entry}`),
     '',
     '## Resolved Prompt',
     '',
@@ -158,6 +187,12 @@ function renderMarkdown(options: CliOptions) {
     '## Review Checklist',
     '',
     '- World / Character / Scenario Councilの二層必要性テストに通る',
+    ...(eraLife
+      ? [
+          '- Core5のEra差が衣装だけでなく、収納・修繕・持ち物・移動・所作へ反映されている',
+          '- generic period costume / generic future fashionへ落ちていない',
+        ]
+      : []),
     '- Living Visual ProfileのabsoluteNever違反がない',
     '- positivePreferenceが少なくとも複数、自然な形で見た目に反映されている',
     '- Era / location / ordinary actionで衣装と小物が実際に使える',
@@ -172,9 +207,10 @@ function renderJson(options: CliOptions) {
   const prompt = getCharacterAssetPrompt(options.characterId, options.kind);
   if (!prompt) throw new Error(`Character asset prompt not found: ${options.characterId} / ${options.kind}`);
   const living = loadProfile(options.characterId);
+  const eraLife = loadEraLifeProfile(options.characterId);
   const council = loadCouncil();
   return `${JSON.stringify({
-    schemaVersion: 2,
+    schemaVersion: 3,
     generatedBy: 'tools/asset-factory/scripts/export-character-asset-prompt.ts',
     characterId: options.characterId,
     kind: options.kind,
@@ -183,15 +219,23 @@ function renderJson(options: CliOptions) {
     designCouncilDataPath: COUNCIL_JSON,
     designCouncilFinalQuestion: council.finalQuestion,
     designCouncilCharacterAssetGates: council.productionGates.characterAsset,
+    eraLifeMasterPath: eraLife ? ERA_LIFE_JSON : null,
+    eraLifeProfile: eraLife,
     livingVisualProfilePath: living.path,
     livingVisualProfileSourceStatus: living.status,
     livingVisualProfile: living.profile,
     unknownLifePreferenceMayBeInventedByImageModel: false,
-    authorityOrder: authorityOrder(living.path),
-    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile, council)}`,
+    authorityOrder: authorityOrder(options.characterId, living.path),
+    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile, council, eraLife)}`,
     negativePrompt: prompt.negativePrompt,
     reviewChecklist: [
       'World / Character / Scenario Councilの二層必要性テストに通る',
+      ...(eraLife
+        ? [
+            'Core5のEra差が衣装だけでなく収納・修繕・持ち物・移動・所作へ反映されている',
+            'generic period costume / generic future fashionへ落ちていない',
+          ]
+        : []),
       'Living Visual ProfileのabsoluteNever違反がない',
       'positivePreferenceが自然に反映されている',
       'Era / location / ordinary actionで衣装と小物が実際に使える',
