@@ -1,0 +1,31 @@
+name: Tomori Old Atlas Evidence
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/constellationTomoriAtlasEvidenceRegistry.ts'
+      - 'docs/research/tomori-old-atlas-evidence-v1.md'
+      - 'scripts/quality/check-tomori-old-atlas-evidence.ts'
+      - '.github/workflows/tomori-old-atlas-evidence.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/constellationTomoriAtlasEvidenceRegistry.ts'
+      - 'docs/research/tomori-old-atlas-evidence-v1.md'
+      - 'scripts/quality/check-tomori-old-atlas-evidence.ts'
+      - '.github/workflows/tomori-old-atlas-evidence.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Tomori old-atlas evidence boundaries
+        run: node --experimental-strip-types scripts/quality/check-tomori-old-atlas-evidence.ts
