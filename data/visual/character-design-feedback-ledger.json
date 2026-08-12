@@ -1,0 +1,44 @@
+{
+  "id": "yoru-no-shirube-character-design-feedback-ledger-v1",
+  "date": "2026-08-12",
+  "status": "DESIGNER_LEARNING_NON_CANON",
+  "purpose": "Preserve candidate-by-candidate human feedback without mixing it with assistant interpretation.",
+  "rules": {
+    "userFeedbackIsHighestPriorityWithinCandidateReview": true,
+    "assistantDiagnosisMustBeSeparate": true,
+    "singleReactionDoesNotCreateGlobalHardRule": true,
+    "repeatedPatternMayBecomeCandidateLearning": true,
+    "humanApprovalRequiredForPromotionToApprovedDesignRule": true,
+    "namedArtistOrIpStyleTargetAllowed": false
+  },
+  "candidateReviewSchema": {
+    "candidateId": "string",
+    "characterId": "string",
+    "brainVersion": "string",
+    "generationBriefVersion": "string|null",
+    "referencesUsed": [
+      {
+        "path": "string",
+        "role": "identity-evidence|rendering-evidence|composition-evidence",
+        "authority": "string"
+      }
+    ],
+    "userVerdict": "KEEP|OPEN|REWORK|REJECT|null",
+    "userFeedback": ["faithful user statement or paraphrase"],
+    "likedParts": ["string"],
+    "dislikedParts": ["string"],
+    "assistantDiagnosis": [
+      {
+        "class": "DESIGN_HYPOTHESIS",
+        "dimension": "identity|rendering|costume|composition|world-fit|acting|derivation|association",
+        "note": "string"
+      }
+    ],
+    "keepElements": ["string"],
+    "changeElements": ["string"],
+    "associationNotes": ["string"],
+    "nextDelta": ["string"],
+    "promotionState": "prototype-only|candidate-learning|human-approved-design-rule|reference-candidate|commercial-candidate|rejected"
+  },
+  "candidateReviews": []
+}
