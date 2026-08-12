@@ -34,25 +34,26 @@ assert(!title1BaseWeaponRuntimeAdmissionSummary.runtimeAutoPromotionAllowed, 'pr
 
 const implementedCapabilities = [
   'NEAREST_TARGET_PROJECTILE','MULTI_PROJECTILE_LOOP','CIRCULAR_GROUND_AREA','MULTI_TARGET_PROJECTILE_SELECTION','STATUS_APPLICATION',
-  'TWO_TARGET_TETHER','KNOCKBACK_VECTOR','CONE_QUERY','SLAM_WAVE_QUERY','BREAK_STAGGER_APPLICATION','HOMING_PRIORITY_SELECTION','RETURNING_PROJECTILE',
+  'TWO_TARGET_TETHER','KNOCKBACK_VECTOR','CONE_QUERY','TARGET_CHAIN_SELECTION','SLAM_WAVE_QUERY','BREAK_STAGGER_APPLICATION',
+  'HOMING_PRIORITY_SELECTION','RETURNING_PROJECTILE',
 ] as const;
 for (const capability of implementedCapabilities) {
   assert(currentUnityWeaponRuntimeCapabilities[capability] === 'IMPLEMENTED', `${capability} evidence drift`);
   assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === capability), `${capability} must not remain in missing frequency`);
 }
-for (const capability of ['TARGET_CHAIN_SELECTION','TRAP_PERSISTENCE','DELAYED_TRIGGER'] as const) {
+for (const capability of ['TRAP_PERSISTENCE','DELAYED_TRIGGER'] as const) {
   assert(currentUnityWeaponRuntimeCapabilities[capability] === 'MISSING', `${capability} foundation must remain unpromoted until consumer proof`);
 }
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 12, `expected 12 implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 10, `expected 10 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 13, `expected 13 implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 9, `expected 9 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION must not remain a blocker');
 
-const expectedCallerIds = ['ember_matchcase','rain_thread','bellows_fan','pavement_hammer','star_map_pin','return_compass_needle'] as const;
+const expectedCallerIds = ['ember_matchcase','rain_thread','bellows_fan','copper_tuning_fork','pavement_hammer','star_map_pin','return_compass_needle'] as const;
 assert(new Set<string>(unityPrototypeCallerImplementedWeaponIds).size === unityPrototypeCallerImplementedWeaponIds.length, 'prototype caller proof IDs must be unique');
 assert(unityPrototypeCallerImplementedWeaponIds.join(',') === expectedCallerIds.join(','), 'caller-proof registry drift');
-assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 6, 'caller-proof summary drift');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 6, `expected 6 implementation-review admissions, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 10, `expected 10 blocked Selected16 entries, got ${title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 7, 'caller-proof summary drift');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 7, `expected 7 implementation-review admissions, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 9, `expected 9 blocked Selected16 entries, got ${title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === expectedCallerIds.join(','), 'implementation-review admitted IDs drift');
 assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no primitive-complete Selected16 entry should remain without caller proof');
 
@@ -77,39 +78,20 @@ const byId = (weaponId: string) => {
   return entry;
 };
 
-const ember = byId('ember_matchcase');
-assert(ember.requiredUnityCapabilities.join(',') === 'MULTI_TARGET_PROJECTILE_SELECTION,STATUS_APPLICATION', 'Ember requirements drift');
-assert(ember.missingUnityCapabilities.length === 0 && ember.prototypeCallerImplemented, 'Ember primitive/caller proof incomplete');
-assert(ember.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && ember.mayEnterUnityRuntimeRegistry, 'Ember implementation-review admission drift');
+for (const weaponId of ['ember_matchcase','rain_thread','bellows_fan','pavement_hammer','star_map_pin','return_compass_needle'] as const) {
+  const entry = byId(weaponId);
+  assert(entry.missingUnityCapabilities.length === 0 && entry.prototypeCallerImplemented, `${weaponId} primitive/caller proof incomplete`);
+  assert(entry.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && entry.mayEnterUnityRuntimeRegistry, `${weaponId} implementation-review admission drift`);
+}
 
-const rainThread = byId('rain_thread');
-assert(rainThread.requiredUnityCapabilities.join(',') === 'TWO_TARGET_TETHER,KNOCKBACK_VECTOR,STATUS_APPLICATION', `unexpected Rain Thread requirements: ${rainThread.requiredUnityCapabilities.join(',')}`);
-assert(rainThread.missingUnityCapabilities.length === 0 && rainThread.prototypeCallerImplemented, 'Rain Thread primitive/caller proof incomplete');
-assert(rainThread.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && rainThread.mayEnterUnityRuntimeRegistry, 'Rain Thread implementation-review admission drift');
-
-const bellows = byId('bellows_fan');
-assert(bellows.requiredUnityCapabilities.join(',') === 'CONE_QUERY,KNOCKBACK_VECTOR,STATUS_APPLICATION', 'Bellows requirements drift');
-assert(bellows.missingUnityCapabilities.length === 0 && bellows.prototypeCallerImplemented, 'Bellows primitive/caller proof incomplete');
-assert(bellows.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && bellows.mayEnterUnityRuntimeRegistry, 'Bellows implementation-review admission drift');
-
-const hammer = byId('pavement_hammer');
-assert(hammer.requiredUnityCapabilities.join(',') === 'SLAM_WAVE_QUERY,KNOCKBACK_VECTOR,BREAK_STAGGER_APPLICATION,STATUS_APPLICATION', 'Pavement Hammer requirements drift');
-assert(hammer.missingUnityCapabilities.length === 0 && hammer.prototypeCallerImplemented, 'Pavement Hammer primitive/caller proof incomplete');
-assert(hammer.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && hammer.mayEnterUnityRuntimeRegistry, 'Pavement Hammer implementation-review admission drift');
-
-const starPin = byId('star_map_pin');
-assert(starPin.requiredUnityCapabilities.join(',') === 'HOMING_PRIORITY_SELECTION,STATUS_APPLICATION', `unexpected Star Map Pin requirements: ${starPin.requiredUnityCapabilities.join(',')}`);
-assert(starPin.missingUnityCapabilities.length === 0 && starPin.prototypeCallerImplemented, 'Star Map Pin primitive/caller proof incomplete');
-assert(starPin.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && starPin.mayEnterUnityRuntimeRegistry, 'Star Map Pin implementation-review admission drift');
-
-const returnNeedle = byId('return_compass_needle');
-assert(returnNeedle.archetype === 'RETURN_HOMING', 'Return Compass Needle archetype drift');
-assert(returnNeedle.requiredUnityCapabilities.join(',') === 'RETURNING_PROJECTILE,HOMING_PRIORITY_SELECTION,STATUS_APPLICATION', `Return Compass requirements drift: ${returnNeedle.requiredUnityCapabilities.join(',')}`);
-assert(returnNeedle.implementedUnityCapabilities.join(',') === 'RETURNING_PROJECTILE,HOMING_PRIORITY_SELECTION,STATUS_APPLICATION', 'Return Compass should inherit verified return + homing + Status primitives');
-assert(returnNeedle.missingUnityCapabilities.length === 0, 'Return Compass primitive blockers should be clear after atomic return admission');
-assert(returnNeedle.prototypeCallerImplemented, 'Return Compass executable caller proof must be registered');
-assert(returnNeedle.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && returnNeedle.mayEnterUnityRuntimeRegistry, 'Return Compass should enter implementation review after verified caller + capability admission');
-assert(returnNeedle.runtimeStatus === 'NOT_IMPLEMENTED', 'Return Compass implementation review must not claim live runtime');
+const copper = byId('copper_tuning_fork');
+assert(copper.archetype === 'PULSE_CHAIN', 'Copper Tuning Fork archetype drift');
+assert(copper.requiredUnityCapabilities.join(',') === 'TARGET_CHAIN_SELECTION,STATUS_APPLICATION', `Copper requirements drift: ${copper.requiredUnityCapabilities.join(',')}`);
+assert(copper.implementedUnityCapabilities.join(',') === 'TARGET_CHAIN_SELECTION,STATUS_APPLICATION', 'Copper should inherit verified chain + Status primitives');
+assert(copper.missingUnityCapabilities.length === 0, 'Copper primitive blockers should be clear after chain admission');
+assert(copper.prototypeCallerImplemented, 'Copper executable caller proof must be registered');
+assert(copper.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && copper.mayEnterUnityRuntimeRegistry, 'Copper should enter implementation review after verified caller + capability admission');
+assert(copper.runtimeStatus === 'NOT_IMPLEMENTED', 'Copper implementation review must not claim live runtime');
 
 for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
   if (expectedCallerIds.includes(entry.weaponId as typeof expectedCallerIds[number])) continue;
@@ -120,23 +102,18 @@ for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
 }
 
 const coordinatorSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', import.meta.url), 'utf8');
-const returnSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/ReturnCompassNeedlePrototypeRuntime.cs', import.meta.url), 'utf8');
+const copperSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/CopperTuningForkPrototypeRuntime.cs', import.meta.url), 'utf8');
 for (const token of [
-  'public sealed class ReturnCompassNeedlePrototypeState',
-  'public const string WeaponId = "return_compass_needle";',
-  'OUTBOUND_LINE_THEN_MARKED_PRIORITY_RETURN_WAYPOINT_THEN_OWNER',
-  'ONE_HIT_PER_TARGET_PER_LEG_OUTBOUND_AND_RETURN_SEPARATE',
-  'U2EnemyHomingPrioritySelectionRuntime.TrySelect(',
-  'U2ReturningWaypointMotionState',
-  'EnemyStatusRuntimeKind.Marked',
-  'target.TakeDamage(damage, damageFlashSeconds)',
+  'public sealed class CopperTuningForkPrototypeRuntime','public const string WeaponId = "copper_tuning_fork";',
+  'PRIORITY_SNAPSHOT_CHAIN_DAMAGE_SURVIVING_SHOCK_THEN_CONDUCTIVE','U2EnemyTargetChainSelectionRuntime.SelectChain(',
+  'EnemyStatusRuntimeKind.Shock','EnemyStatusRuntimeKind.Conductive','target.TakeDamage(damage, damageFlashSeconds)',
 ]) {
-  assert(returnSource.includes(token), `Return Compass caller evidence missing token: ${token}`);
+  assert(copperSource.includes(token), `Copper caller evidence missing token: ${token}`);
 }
-assert(!coordinatorSource.includes('ReturnCompassNeedlePrototypeState') && !coordinatorSource.includes('return_compass_needle') && !coordinatorSource.includes('U2ReturningWaypointMotionState'), 'Return Compass prototype must remain outside live Stage1 coordinator');
+assert(!coordinatorSource.includes('CopperTuningForkPrototypeRuntime') && !coordinatorSource.includes('copper_tuning_fork') && !coordinatorSource.includes('U2EnemyTargetChainSelectionRuntime'), 'Copper prototype must remain outside live Stage1 coordinator');
 
 const doc = readFileSync(new URL('../../docs/title1-base-weapon-runtime-admission-v1.md', import.meta.url), 'utf8');
-for (const token of ['Selected16','12 implemented','10 missing','admitted=6','blocked=10','RETURNING_PROJECTILE','return_compass_needle','ReturnCompassNeedlePrototypeState','ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW','repair_spanner','HOLD_RETURN_FAMILY_OVERLAP','TARGET_CHAIN_SELECTION','TRAP_PERSISTENCE','DELAYED_TRIGGER','fake projectile','CONTENT_MASTER']) {
+for (const token of ['Selected16','13 implemented','9 missing','admitted=7','blocked=9','TARGET_CHAIN_SELECTION','copper_tuning_fork','CopperTuningForkPrototypeRuntime','ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW','RETURNING_PROJECTILE','TRAP_PERSISTENCE','DELAYED_TRIGGER','fake projectile','CONTENT_MASTER']) {
   assert(doc.includes(token), `Base Weapon runtime admission doc missing token: ${token}`);
 }
 
@@ -147,12 +124,12 @@ console.log(JSON.stringify({
   implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount,
   missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount,
   primitiveCompleteMissingCallerProof: title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount,
-  returnCompassNeedle: {
-    implemented: returnNeedle.implementedUnityCapabilities,
-    missing: returnNeedle.missingUnityCapabilities,
-    decision: returnNeedle.unityDecision,
-    callerProof: returnNeedle.prototypeCallerImplemented,
-    runtimeStatus: returnNeedle.runtimeStatus,
+  copperTuningFork: {
+    implemented: copper.implementedUnityCapabilities,
+    missing: copper.missingUnityCapabilities,
+    decision: copper.unityDecision,
+    callerProof: copper.prototypeCallerImplemented,
+    runtimeStatus: copper.runtimeStatus,
   },
   liveStage1PrototypeCallers: 0,
 }, null, 2));
