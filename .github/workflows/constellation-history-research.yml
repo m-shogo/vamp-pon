@@ -1,0 +1,31 @@
+name: Constellation History Research
+
+on:
+  pull_request:
+    paths:
+      - 'docs/research/constellation-history-usable-v1.md'
+      - 'src/game/data/constellationHistoryResearch.ts'
+      - 'scripts/quality/check-constellation-history-research.ts'
+      - '.github/workflows/constellation-history-research.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/research/constellation-history-usable-v1.md'
+      - 'src/game/data/constellationHistoryResearch.ts'
+      - 'scripts/quality/check-constellation-history-research.ts'
+      - '.github/workflows/constellation-history-research.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate constellation-history research boundary
+        run: node --experimental-strip-types scripts/quality/check-constellation-history-research.ts
