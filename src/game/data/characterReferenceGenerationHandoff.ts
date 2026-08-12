@@ -6,6 +6,17 @@ import {
 
 export type CharacterReferenceHandoffMode = 'generate' | 'review_existing' | 'revalidate';
 
+const CORE5_IDS = new Set(['yui', 'asa', 'nagi', 'michiru', 'tomori']);
+const CURRENT21_EXTENDED_IDS = new Set([
+  'sen','ritsu','koyori','gen','hana','yubi','madoka','shiro','tobari','nemu','kuroori','kage1','kage2','kage3','kage4','ren',
+]);
+
+function resolveLivingVisualProfilePath(characterId: string): string {
+  if (CORE5_IDS.has(characterId)) return 'data/visual/core5-living-visual-profiles-v1.json';
+  if (CURRENT21_EXTENDED_IDS.has(characterId)) return 'data/visual/current21-extended-living-visual-profiles-v1.json';
+  return 'data/visual/future15-living-visual-profiles-v1.json';
+}
+
 export type CharacterReferenceGenerationHandoffItem = {
   characterId: string;
   displayName: string;
@@ -17,6 +28,10 @@ export type CharacterReferenceGenerationHandoffItem = {
   sizeSpec: string | null;
   prompt: string | null;
   negativePrompt: string | null;
+  visualAuthorityPaths: string[];
+  livingVisualProfilePath: string;
+  livingVisualProfileRequired: true;
+  unknownLifePreferenceMayBeInventedByImageModel: false;
   reviewChecklist: string[];
   downstreamRule: string;
   approvalStateAfterGeneration: 'CANDIDATE_REVIEW_REQUIRED';
@@ -36,6 +51,8 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
       ? 'review_existing'
       : 'revalidate';
 
+  const livingVisualProfilePath = resolveLivingVisualProfilePath(entry.characterId);
+
   return {
     characterId: entry.characterId,
     displayName: entry.displayName,
@@ -47,10 +64,25 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     sizeSpec: referencePrompt?.sizeSpec ?? null,
     prompt: mode === 'generate' ? referencePrompt?.prompt ?? null : null,
     negativePrompt: mode === 'generate' ? referencePrompt?.negativePrompt ?? null : null,
+    visualAuthorityPaths: [
+      'docs/visual/character-living-visual-master-v1.md',
+      livingVisualProfilePath,
+      'docs/character-appearance-source-book-v1.md',
+      'docs/character-appearance-distinction-generation-contract-v1.md',
+      'data/visual/character-designer-ai-brain.json',
+    ],
+    livingVisualProfilePath,
+    livingVisualProfileRequired: true,
+    unknownLifePreferenceMayBeInventedByImageModel: false,
     reviewChecklist: mode === 'generate'
-      ? referencePrompt?.reviewChecklist ?? []
+      ? [
+          'Living Visual Profileの露出 / piercing / tattoo / clothing / absoluteNever / positivePreferenceを先に確認する',
+          '未設定項目をgeneric fantasy / gacha conventionで補完しない',
+          ...(referencePrompt?.reviewChecklist ?? []),
+        ]
       : [
           '既存masterをCurrent21 silhouette matrixと比較する',
+          'Living Visual Profileと照合し、本人が選ばない装飾・露出・body modificationが混入していないか確認する',
           'body / age / posture / clothing mass / Named Object placementを確認する',
           '問題がなければ再生成せずreference registration候補へ進める',
           'reference approvalをruntime/final approvalと混同しない',
@@ -79,8 +111,10 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   defaultPriority: 'P0',
   expectedP0Ids: ['hana', 'kage1'],
   referenceFirst: true,
+  livingVisualMasterRequired: true,
+  unknownLifePreferenceMayBeInventedByImageModel: false,
   generatedArtStartsAs: 'candidate review required',
   noAutomaticRuntimePromotion: true,
   noAutomaticFinalApproval: true,
-  rule: 'Export prompts from Current production data immediately before generation; do not hand-copy stale prompts into an external image session.',
+  rule: 'Export prompts from Current production data immediately before generation; load the Living Visual Master and per-character Living Visual Profile before the prompt is used; do not hand-copy stale prompts into an external image session.',
 } as const;
