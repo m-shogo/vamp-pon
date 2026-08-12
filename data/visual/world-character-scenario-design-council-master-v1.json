@@ -3,7 +3,12 @@
   "date": "2026-08-12",
   "status": "CURRENT_CROSS_DISCIPLINE_AUTHORITY",
   "authorityDocument": "docs/visual/world-character-scenario-design-council-master-v1.md",
-  "purpose": "Keep world design, character design, relationship acting, and scenario design causally connected so generation and authoring do not fall back to generic fantasy, generic gacha, generic historical shorthand, generic relationship shorthand, or generic anime drama.",
+  "professionalGovernance": {
+    "document": "docs/visual/master-authoring-professional-standard-v1.md",
+    "data": "data/visual/master-authoring-professional-standard-v1.json",
+    "required": true
+  },
+  "purpose": "Keep world design, character design, relationship acting, and scenario design causally connected under explicit professional authoring governance so generation and authoring do not fall back to generic fantasy, generic gacha, generic historical shorthand, generic relationship shorthand, or generic anime drama.",
   "causalLoop": [
     "world_rules",
     "era_place_ordinary_life",
@@ -15,8 +20,10 @@
     "growth",
     "changed_ordinary_life"
   ],
-  "finalQuestion": "Is this element required by at least two of world, character, relationship, and scenario? If not, consider removing, simplifying, or keeping it candidate-only.",
+  "finalQuestion": "Is this element properly classified by authority and required by at least two of world, character, relationship, and scenario? If not, keep it candidate/open, simplify it, or remove it.",
   "authorityOrder": [
+    "docs/visual/master-authoring-professional-standard-v1.md",
+    "data/visual/master-authoring-professional-standard-v1.json",
     "docs/00-current-story-world-master.md",
     "character_relation_era_current_authorities",
     "docs/visual/core5-era-life-design-master-v1.md_when_core5",
@@ -34,6 +41,11 @@
     "human_review_feedback"
   ],
   "productionContracts": {
+    "professionalMasterAuthoring": {
+      "document": "docs/visual/master-authoring-professional-standard-v1.md",
+      "data": "data/visual/master-authoring-professional-standard-v1.json",
+      "useWhen": "creating, editing, promoting, reviewing, or interpreting any character/world/scenario/relationship/visual/generation master"
+    },
     "core5EraLife": {
       "document": "docs/visual/core5-era-life-design-master-v1.md",
       "data": "data/visual/core5-era-life-design-master-v1.json",
@@ -71,6 +83,9 @@
     }
   },
   "sharedBeliefs": [
+    "certainty_must_remain_visible",
+    "open_is_not_model_freedom",
+    "generated_image_is_not_canon_authority",
     "worldbuilding_starts_with_ordinary_life_before_lore",
     "character_design_is_accumulated_choices",
     "scenario_applies_pressure_to_an_existing_person",
@@ -171,12 +186,13 @@
     "growth_equals_conventional_attractiveness",
     "place_equals_pretty_background_without_ordinary_use",
     "era_equals_costume_filter",
-    "high_bond_equals_more_touch_or_matching_accessories_or_skin_exposure"
+    "high_bond_equals_more_touch_or_matching_accessories_or_skin_exposure",
+    "ai_hypothesis_silently_becomes_user_preference_or_canon"
   ],
   "productionGates": {
-    "characterAsset": ["world_master_resolved","era_life_resolved_when_core5","living_visual_profile_resolved","appearance_authority_resolved","designer_philosophy_resolved","council_master_loaded","relationship_contract_loaded_when_interaction_context","asset_or_scene_context_defined"],
-    "importantScene": ["scenario_scene_contract_loaded","relationship_contract_loaded_when_relationship_scene","world_location_or_era_reason","ordinary_task","immediate_want","hidden_pressure","era_assumption","body_acting","relationship_movement","after_state","no_lore_dump_dependency"],
-    "worldLocation": ["world_place_contract_loaded","function","users","entry_exit","movement_routes","waiting_rest","storage_waste","materials","maintenance","aging_or_failure","era_or_dream_logic","ordinary_life_scene_hook"]
+    "characterAsset": ["professional_authoring_standard_loaded","authority_certainty_resolved","world_master_resolved","era_life_resolved_when_core5","living_visual_profile_resolved","appearance_authority_resolved","designer_philosophy_resolved","council_master_loaded","relationship_master_loaded","asset_or_scene_context_defined","required_open_fields_zero_or_exploratory_only"],
+    "importantScene": ["professional_authoring_standard_loaded","scenario_scene_contract_loaded","relationship_master_loaded_when_relationship_scene","world_location_or_era_reason","ordinary_task","immediate_want","hidden_pressure","era_assumption","body_acting","relationship_movement","after_state","no_lore_dump_dependency"],
+    "worldLocation": ["professional_authoring_standard_loaded","world_place_contract_loaded","function","users","entry_exit","movement_routes","waiting_rest","storage_waste","materials","maintenance","aging_or_failure","era_or_dream_logic","ordinary_life_scene_hook"]
   },
-  "positiveTarget": "People with different bodies, values, eras, names, loves, and ways of living meet in a strange night of memory, records and routes home; their relationships become visible through distance, waiting, non-touch, lending, food, pace, silence, repair, and changed ordinary behavior—not through generic intimacy shorthand."
+  "positiveTarget": "A professionally governed production system where different models and contributors preserve certainty, character life, world function, relationship boundaries, and scenario causality without turning guesses or generated images into canon."
 }
