@@ -3,6 +3,7 @@
   "date": "2026-08-12",
   "status": "CURRENT_MASTER_AUTHORITY_EXTENDS_EXISTING_RELATIONSHIP_CANON",
   "authorityDocument": "docs/visual/relationship-embodied-daily-life-contract-v1.md",
+  "displayName": "Relationship Embodied Daily-Life Master v1",
   "requiredBeforeRelationshipAffectedImageGeneration": true,
   "doesNotCreateNewRelationshipEdges": true,
   "authorityOrder": [
