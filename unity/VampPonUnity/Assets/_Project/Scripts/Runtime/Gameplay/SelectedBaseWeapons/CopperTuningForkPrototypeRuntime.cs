@@ -154,8 +154,8 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.SelectedBaseWeapons
                 return 0;
             }
 
-            var shockRequest = CreateStatusRequest(EnemyStatusRuntimeKind.Shock, shockPolicy, telemetry?.RecordShock);
-            var conductiveRequest = CreateStatusRequest(EnemyStatusRuntimeKind.Conductive, conductivePolicy, telemetry?.RecordConductive);
+            var shockRequest = CreateStatusRequest(EnemyStatusRuntimeKind.Shock, shockPolicy, telemetry, true);
+            var conductiveRequest = CreateStatusRequest(EnemyStatusRuntimeKind.Conductive, conductivePolicy, telemetry, false);
             var damagedCount = 0;
             for (var i = 0; i < chainScratch.Count; i++)
             {
@@ -180,8 +180,16 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.SelectedBaseWeapons
         private static EnemyStatusApplicationRequest CreateStatusRequest(
             EnemyStatusRuntimeKind kind,
             EnemyStatusApplicationPolicy policy,
-            Action<EnemyStatusApplyResult> observer)
-            => new(kind, policy, observer);
+            CopperTuningForkPrototypeTelemetry telemetry,
+            bool shockObserver)
+        {
+            Action<EnemyStatusApplyResult> observer = null;
+            if (telemetry != null)
+            {
+                observer = shockObserver ? telemetry.RecordShock : telemetry.RecordConductive;
+            }
+            return new EnemyStatusApplicationRequest(kind, policy, observer);
+        }
 
         private void ClearScratch()
         {
