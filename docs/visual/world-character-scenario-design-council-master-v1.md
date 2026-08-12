@@ -7,6 +7,21 @@ Status: **CROSS-DISCIPLINE DESIGN AUTHORITY / CURRENT AUTHORING SYSTEM**
 
 ヨルノシルベを「設定資料が多いのに、画面にするとgeneric fantasy / generic gacha / generic anime dramaへ戻る作品」にしないための、世界観デザイナー・キャラクターデザイナー・シナリオデザイナーの共通判断Master。
 
+このCouncilは `docs/visual/master-authoring-professional-standard-v1.md` の下で運用する。
+
+つまり、Council内のルールも含めて:
+
+- USER_DECIDED
+- EXISTING_CANON
+- RESEARCH_BACKED_CURRENT
+- AUTHOR_CANDIDATE
+- OPEN
+
+を混同しない。
+
+AIの推測や生成画像の偶然を、無印のCanonへ昇格しない。
+OPENをmodel freedomとして扱わない。
+
 三職種は独立して最適化しない。
 
 ```txt
@@ -17,6 +32,8 @@ Status: **CROSS-DISCIPLINE DESIGN AUTHORITY / CURRENT AUTHORING SYSTEM**
 人物の価値観 / 習慣 / 関係
 ↓
 身体 / 服 / 持ち物 / 姿勢
+↓
+関係ごとの距離 / 触れ方 / 貸し借り / 沈黙
 ↓
 日常会話 / 小さな行動
 ↓
@@ -29,27 +46,34 @@ Status: **CROSS-DISCIPLINE DESIGN AUTHORITY / CURRENT AUTHORING SYSTEM**
 
 最終QAは常に:
 
-> この要素は、世界・人物・物語の少なくとも二つから必要とされているか？
+> この要素は、Authorityの確度が明示され、世界・人物・関係・物語の少なくとも二つから必要とされているか？
 
-一つからしか必要とされない場合は、削除・簡略化・Candidate化を検討する。
+一つからしか必要とされない、または確度が不明な場合は、削除・簡略化・Candidate化・OPEN維持を検討する。
 
 ---
 
 # 1. Authority order
 
+0. `docs/visual/master-authoring-professional-standard-v1.md`
 1. `docs/00-current-story-world-master.md`
 2. Character / relation / era canon and current source books
-3. `docs/visual/character-living-visual-master-v1.md`
-4. per-character Living Visual Profile
-5. `docs/character-appearance-source-book-v1.md`
-6. `docs/character-appearance-distinction-generation-contract-v1.md`
-7. `docs/visual/character-designer-philosophy-master-v1.md`
-8. 本Council Master
-9. generation brief / scene brief / asset prompt
-10. candidate output
-11. human review / feedback ledger
+3. `docs/visual/core5-era-life-design-master-v1.md` when Core5
+4. `docs/visual/character-living-visual-master-v1.md`
+5. per-character Living Visual Profile
+6. `docs/character-appearance-source-book-v1.md`
+7. `docs/character-appearance-distinction-generation-contract-v1.md`
+8. `docs/visual/character-designer-philosophy-master-v1.md`
+9. `docs/visual/character-designer-craft-master-v1.md`
+10. `docs/visual/character-designer-precedent-master-v1.md`
+11. 本Council Master
+12. `docs/visual/relationship-embodied-daily-life-contract-v1.md` when relationship context exists
+13. generation brief / scene brief / asset prompt
+14. candidate output
+15. human review / feedback ledger
 
 下位資料が上位Authorityの空白を勝手に埋めない。
+
+生成画像は上位Authorityではない。
 
 ---
 
@@ -147,7 +171,27 @@ body + era + work + climate + money + habit + taste + relationship + history
 → 黒耀化 / wrong arrival
 ```
 
-## 3.4 Return to ordinary life is proof of growth
+## 3.4 Relationship depth is multi-axis
+
+関係の深さを一つの親密度へ圧縮しない。
+
+- speech distance
+- physical distance
+- touch permission
+- object trust
+- care permission
+- refusal safety
+- silence comfort
+- joke range
+- anger shape
+- repair behavior
+- appearance intervention
+
+を別々に扱う。
+
+高Bond = 呼び捨て / 密着 / お揃いアクセ / 露出増加、ではない。
+
+## 3.5 Return to ordinary life is proof of growth
 
 成長は最終決戦の台詞だけで証明しない。
 
@@ -229,7 +273,7 @@ Rare / climax:
 
 ---
 
-# 5. Character Design Master — deeper operating rules
+# 5. Character Design Master — operating rules
 
 ## 5.1 Design from refusal as well as preference
 
@@ -258,255 +302,127 @@ Character Masterは以下を想定する。
 - 座る
 - しゃがむ
 - 食べる
-- 雨に濡れる
-- 荷物を持つ
-- 寝落ちする
-- 怒って袖をまくる
-- 誰かに服を貸す / 借りる
-- 修理する
+- 運ぶ
+- 探す
+- 待つ
+- 暑い / 寒い
+- 疲れる
+- 笑う
+- 呆れる
 
-これらで破綻する服は、特別な理由がない限り日常服として弱い。
+武器・hero pose・発光を外しても人物が成立すること。
 
-## 5.4 Ensemble differentiation
+## 5.4 Relationship styling never overrides personal choice
 
-キャラ差を髪色で作らない。
+関係が深いことを理由に:
+- pierce
+- tattoo
+- matching accessory
+- skin exposure
+- body change
+- pair outfit
 
-優先:
-1. body proportion
-2. center of gravity
-3. posture
-4. head / hair mass
-5. clothing mass
-6. carried-object relation
-7. movement rhythm
-8. color hierarchy
-9. micro details
+を自動追加しない。
 
-## 5.5 Relationship leaks into design
-
-関係はmatching accessoryだけで表現しない。
-
-- 借りた物を使い続ける
-- 他人が直した縫い目
-- 同じ店で買ったが着方が違う
-- 家族由来だが片方だけ残した物
-- 相手の影響で新しく持つようになった物
-
-など、生活履歴として入れる。
+関係由来のvisual traceは既存Relationship Authorityのsourceが必要。
 
 ---
 
-# 6. Scenario Design Master
+# 6. Scenario Design Master — operating rules
 
-## 6.1 Every important scene needs five layers
+重要sceneは最低:
 
-重要sceneは最低限:
+1. ordinary task
+2. immediate want
+3. hidden pressure
+4. era assumption
+5. world evidence
+6. carried object use
+7. body acting
+8. relationship movement
+9. choice
+10. after-state
 
-1. surface action — 何をしているか
-2. immediate want — 今ほしいもの
-3. hidden pressure — 言っていない圧力
-4. relationship movement — 誰との距離がどう動くか
-5. world evidence — この世界 / Eraでしか起きない何か
+を持つ。
 
-五つ全部を台詞で説明しない。
-
-## 6.2 Ordinary scene ratio
-
-Main castは大事件のためだけに存在させない。
-
-各主要人物には:
-- food scene
-- travel / waiting scene
-- small annoyance
-- stupid joke
-- quiet shared task
-- disagreement without villain
-- repair / cleaning / preparation
-
-のreservoirを持つ。
-
-日常会はfillerではなく、**人物の基準値**。
-基準値があるから危機でのズレが効く。
-
-## 6.3 Dialogue rule
-
-禁止:
-- 「私はこういう性格だから」説明
-- 世界設定の交互朗読
-- Themeをそのまま台詞にする
-- 全員が同じ賢い説明口調
-
-推奨:
-- 相手によって語彙量が変わる
-- 知らないことは知らない
-- 会話が途中で別の話へ逸れる
-- 冗談が滑る
-- 聞き間違える
-- 一度で理解しない
-- 大事な話の前後に生活行動がある
-
-## 6.4 Era specificity
-
-各Era incidentは別Eraへ移植できないこと。
-
-Scenario designerは事件案ごとに:
-
-> 2026へ移したら同じ話になるか？
-> 戦後へ移したら同じ話になるか？
-
-を試す。
-
-成立するなら制度 / 技術 / 生活圧の設計がまだ浅い。
-
-## 6.5 Black Youka
-
-黒耀化はevil costume changeではない。
-
-```txt
-普段の強み
-→ fearにより極端化
-→ 本人には合理的
-→ 周囲には危険
-```
-
-Visual:
-- body normalization禁止
-- sexualization escalation禁止
-- random horns / tattoo / chains / black armor禁止
-- existing object / pose / light / shadow / clothing behaviorを歪める
-
-Scenario:
-- 黒耀化前の普通のsceneに種を置く
-- 黒耀化後も本人の論理が分かる
-- defeat =人格否定にしない
-- integration / different choiceへ繋ぐ
+Serious sceneでも全員を同じ詩的説明口調へしない。
+Comedyでも人物の知能・尊厳・身体設定を壊さない。
 
 ---
 
-# 7. Cross-discipline scene pipeline
+# 7. Kokuyou
 
-新しい重要sceneを作る時:
-
-## Step 1 — Scenario
+黒耀化はgeneric evil costume changeではない。
 
 ```txt
-Who wants what right now?
-What ordinary action is happening?
-What pressure is underneath it?
+既存の長所
++
+既存の怖さ
++
+時代 / 関係 / 事件pressure
+→ その人なりの「正しすぎる答え」
 ```
 
-## Step 2 — World
+禁止shortcut:
+- random horns
+- random tattoo
+- random chains
+- generic black armor
+- sexualization escalation
+- body normalization
 
-```txt
-Where exactly?
-Why does this place exist?
-What objects / systems are present?
-What would be different in another Era?
-```
-
-## Step 3 — Character
-
-```txt
-What are they wearing here and why?
-What do they carry?
-How do they sit / stand / handle objects?
-What would they refuse to wear/do?
-```
-
-## Step 4 — Dialogue / acting
-
-```txt
-Who talks first?
-Who avoids answering?
-What irrelevant thing interrupts?
-What physical action replaces exposition?
-```
-
-## Step 5 — Visual composition
-
-Only after 1-4:
-- camera
+変化は既存の:
+- posture
+- object relation
+- clothing use
 - light
-- color
-- motif density
-- dramatic pose
+- shadow
+- behavior
 
-を決める。
+を極端化して作る。
 
 ---
 
-# 8. Design Council review
+# 8. Professional production gate
 
-重要なCharacter Master / location / key scene / climaxは三者レビューする。
+Character / World / Scenario / RelationshipのMaster更新・画像生成・scene authoring前に:
 
-## World Designer asks Character Designer
-- その服はこのEra / 場所 / climate / workで成立する？
-- その素材はどこから来る？
-- その小物はどう持ち歩く？
-
-## Character Designer asks Scenario Designer
-- このsceneで本人が本当にその格好を選ぶ？
-- 身体・服・持ち物を使ったactingがある？
-- 成長前後で小さな生活差を見せられる？
-
-## Scenario Designer asks World Designer
-- この事件はこのEraでしか起きない？
-- 世界設定が人物を追い越してない？
-- sceneへ具体的な生活物として出せる？
-
-## All ask
-> 無くしても同じなら、その設定 / 装飾 / 台詞は本当に必要？
+1. Professional Standardを読む
+2. certainty classを確認する
+3. USER_DECIDEDとAUTHOR_CANDIDATEを混ぜない
+4. OPENをAI自由にしない
+5. relevant Masterを解決する
+6. world / character / relationship / scenarioの接続を確認する
+7. exceptionを確認する
+8. review evidenceを決める
+9. candidate outputを上位Authorityへ逆輸入しない
+10. human reviewなしでgenerated detailをCanon化しない
 
 ---
 
 # 9. Anti-generic drift checklist
 
-Reject or rewrite when:
-- high quality = ornament densityになっている
-- fantasy = leather belts / gems / gold / tattooになっている
-- future = neon / bodysuit / cyber tattooだけになっている
-- historical = costume museum shorthandだけになっている
-- Japanese = 和柄 / 鳥居 / 刀を貼るだけになっている
-- dream = floating fragments everywhereになっている
-- serious scene = 全員暗い顔でThemeを説明するだけ
-- comedy = chibi顔にして人格を単純化するだけ
-- villain = 黒服 / red eye / spikesだけ
-- growth = conventional attractivenessへ近づく
+禁止発想:
+- quality = ornament density
+- fantasy = belts / gems / gold / tattoo
+- future = neon / bodysuit / hologram
+- historical = costume filter
+- Japan = wagara / torii / katana
+- Dream = floating paper fragments everywhere
+- villain = black/red/spikes
+- serious = lore dump
+- comedy = personality simplification
+- high bond = more touch / matching accessories / exposure
+- growth = conventional attractiveness
+- AI hypothesis = user preference
+- generated image = canon source
 
 ---
 
-# 10. Positive Yoru-no-Shirube target
+# 10. Positive target
 
-目標は「他作品に似ていない奇抜な世界」ではない。
+ヨルノシルベは、別々の身体・時代・価値観・関係・生き方を持つ人物が、記憶・記録・帰る道を巡る奇妙な夜で出会う作品。
 
-> **現実の生活史を持つ、身体も価値観も違う人たちが、夜・記憶・名前・記録・帰り道の不思議な世界で出会い、くだらない会話もしながら、それぞれの時代で生まれた“正しいけれど極端な答え”と向き合う。**
+世界・人物・関係・物語が同じ原因から生まれ、日常のくだらない会話から重大な選択まで同じ人物として繋がること。
 
-Visualはその生活を支え、Scenarioはその生活を壊して試し、Worldは壊れる前の普通を成立させる。
-
----
-
-# 11. Production gates
-
-Character asset generation-ready:
-- Living Visual Profile resolved
-- Appearance authority resolved
-- Designer Philosophy resolved
-- Council Master loaded
-- scene / asset context defined
-
-Important scene-ready:
-- world location / Era reason defined
-- ordinary action defined
-- immediate want defined
-- relationship movement defined
-- no lore-dump dependency
-
-World location-ready:
-- function
-- users
-- materials
-- aging / repair
-- Era / Dream logic
-- at least one ordinary-life scene hook
-
-未達なら「綺麗に作る」工程へ進まない。
+そして別のAI・別session・別担当者でも、**certaintyを偽らず同じ判断順序で制作できること**をMaster品質とする。
