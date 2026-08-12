@@ -6,6 +6,7 @@ on:
       - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
       - 'src/game/data/characterEraFingerprintRegistry.ts'
       - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'src/game/data/eraDialogueAtlasProjection.ts'
       - 'scripts/lorebook/generate-era-dialogue-atlas.ts'
       - 'scripts/quality/check-lorebook-era-dialogue-atlas.ts'
       - 'public/lorebook/era-dialogue-atlas-enhancement.js'
@@ -21,6 +22,7 @@ on:
       - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
       - 'src/game/data/characterEraFingerprintRegistry.ts'
       - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'src/game/data/eraDialogueAtlasProjection.ts'
       - 'scripts/lorebook/generate-era-dialogue-atlas.ts'
       - 'scripts/quality/check-lorebook-era-dialogue-atlas.ts'
       - 'public/lorebook/era-dialogue-atlas-enhancement.js'
@@ -49,7 +51,7 @@ jobs:
         run: node --check public/lorebook/era-dialogue-atlas-enhancement.js
       - name: Validate generated 36-character projection and boundaries
         run: node --experimental-strip-types scripts/quality/check-lorebook-era-dialogue-atlas.ts
-      - name: Confirm projection stays generated-only
+      - name: Confirm checker projection stays generated-only
         run: |
           test -f public/lorebook/data/era-dialogue-atlas.v1.json
           git check-ignore -q public/lorebook/data/era-dialogue-atlas.v1.json
