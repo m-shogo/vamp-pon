@@ -10,6 +10,8 @@ const CORE5_IDS = new Set(['yui', 'asa', 'nagi', 'michiru', 'tomori']);
 const CURRENT21_EXTENDED_IDS = new Set([
   'sen','ritsu','koyori','gen','hana','yubi','madoka','shiro','tobari','nemu','kuroori','kage1','kage2','kage3','kage4','ren',
 ]);
+const PROFESSIONAL_MASTER_DOC = 'docs/visual/master-authoring-professional-standard-v1.md';
+const PROFESSIONAL_MASTER_DATA = 'data/visual/master-authoring-professional-standard-v1.json';
 const CORE5_ERA_LIFE_MASTER_PATH = 'data/visual/core5-era-life-design-master-v1.json';
 const RELATIONSHIP_EMBODIMENT_DOC = 'docs/visual/relationship-embodied-daily-life-contract-v1.md';
 const RELATIONSHIP_EMBODIMENT_DATA = 'data/visual/relationship-embodied-daily-life-contract-v1.json';
@@ -40,6 +42,7 @@ export type CharacterReferenceGenerationHandoffItem = {
   livingVisualProfileRequired: true;
   eraLifeMasterPath: string | null;
   eraLifeMasterRequired: boolean;
+  professionalMasterRequired: true;
   designerPhilosophyRequired: true;
   designerCraftRequired: true;
   designerPrecedentRequired: true;
@@ -54,22 +57,17 @@ export type CharacterReferenceGenerationHandoffItem = {
 function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferenceGenerationHandoffItem {
   const pack = characterAssetPromptPackById.get(entry.characterId);
   const referencePrompt = pack?.prompts.find((prompt) => prompt.kind === 'character_reference');
-
   if (entry.action === 'generate_reference_then_review' && !referencePrompt) {
     throw new Error(`Missing Asset Factory character_reference prompt: ${entry.characterId}`);
   }
-
   const mode: CharacterReferenceHandoffMode = entry.action === 'generate_reference_then_review'
     ? 'generate'
     : entry.action === 'review_existing_master_then_register_or_regenerate'
       ? 'review_existing'
       : 'revalidate';
-
   const livingVisualProfilePath = resolveLivingVisualProfilePath(entry.characterId);
   const eraLifeMasterPath = resolveEraLifeMasterPath(entry.characterId);
-  const eraAuthorityPaths = eraLifeMasterPath
-    ? ['docs/visual/core5-era-life-design-master-v1.md', eraLifeMasterPath]
-    : [];
+  const eraAuthorityPaths = eraLifeMasterPath ? ['docs/visual/core5-era-life-design-master-v1.md', eraLifeMasterPath] : [];
 
   return {
     characterId: entry.characterId,
@@ -83,6 +81,8 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     prompt: mode === 'generate' ? referencePrompt?.prompt ?? null : null,
     negativePrompt: mode === 'generate' ? referencePrompt?.negativePrompt ?? null : null,
     visualAuthorityPaths: [
+      PROFESSIONAL_MASTER_DOC,
+      PROFESSIONAL_MASTER_DATA,
       'docs/00-current-story-world-master.md',
       ...eraAuthorityPaths,
       'docs/visual/character-living-visual-master-v1.md',
@@ -105,6 +105,7 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     livingVisualProfileRequired: true,
     eraLifeMasterPath,
     eraLifeMasterRequired: eraLifeMasterPath !== null,
+    professionalMasterRequired: true,
     designerPhilosophyRequired: true,
     designerCraftRequired: true,
     designerPrecedentRequired: true,
@@ -113,10 +114,10 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     unknownLifePreferenceMayBeInventedByImageModel: false,
     reviewChecklist: mode === 'generate'
       ? [
-          'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Precedent Master / Design Council / Relationship Embodiment Masterを先に読む',
-          ...(eraLifeMasterPath
-            ? ['Core5 Era差を服だけで表現せず、communication / transport / repair / food / privacy / carried object / conversational assumptionsを確認する']
-            : []),
+          'Professional Master Standardを最初に読み、USER_DECIDED / EXISTING_CANON / RESEARCH_BACKED_CURRENT / AUTHOR_CANDIDATE / OPENを混同しない',
+          'OPENをimage-model freedomとして扱わず、必要項目が未解決ならauthoringへ戻す',
+          'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Precedent Master / Design Council / Relationship Embodiment Masterを読む',
+          ...(eraLifeMasterPath ? ['Core5 Era差を服だけで表現せず、communication / transport / repair / food / privacy / carried object / conversational assumptionsを確認する'] : []),
           'Living Visual Profileの露出 / piercing / tattoo / clothing / absoluteNever / positivePreferenceを確認する',
           'Designer Philosophy MasterのDecision Ladderに従い、設定忠実度と本人の選択理由を美観より先に評価する',
           'Craft Masterに従い、face / body / posture / silhouette / clothing construction / material / color / actingを別々に点検する',
@@ -126,20 +127,17 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
           'Council rule: world / character / relationship / scenarioの最低2層から必要性を説明できないdetailは削除またはCandidate化する',
           'そのEra / 場所 / 日常動作で服・小物が実際に使えるか確認する',
           '未設定項目をgeneric fantasy / gacha conventionで補完しない',
-          'detailを足す前にidentity reason / body-posture / silhouette / clothing construction / color hierarchy / material logicを診断する',
+          '生成画像に偶然出たdetailをCanonへ逆輸入しない',
           ...(referencePrompt?.reviewChecklist ?? []),
         ]
       : [
+          'Professional Master Standardに従い、既存master内の各detailのcertaintyとsourceを確認する',
           '既存masterをCurrent21 silhouette matrixと比較する',
           'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Precedent Master / Design Council / Relationship Embodiment Masterと照合する',
-          ...(eraLifeMasterPath
-            ? ['Core5の年代差が衣装記号だけになっていないか、生活物・収納・修繕・所作まで再評価する']
-            : []),
+          ...(eraLifeMasterPath ? ['Core5の年代差が衣装記号だけになっていないか、生活物・収納・修繕・所作まで再評価する'] : []),
           '本人が選ばない装飾・露出・body modificationが混入していないか確認する',
           '関係由来に見えるアクセ・修繕・借り物・服装変化は既存Relationship Authorityで根拠を確認する',
-          'Designer Philosophy Masterの「似合う」と「本人が選ぶ」の分離で既存masterを再評価する',
-          'Craft Masterのblack-fill silhouette / neutral posture / clothing feasibility / material logicを確認する',
-          'Precedent MasterのP05/P13/P14等を使い、綺麗さや既視感だけで過剰修正していないか確認する',
+          'generated image由来のdetailをsource-backed Canonと誤認しない',
           'world / character / relationship / scenarioの二層以上から理由を説明できないdetailをauthority扱いしない',
           'body / age / posture / clothing mass / Named Object placementを確認する',
           '問題がなければ再生成せずreference registration候補へ進める',
@@ -150,25 +148,16 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
   };
 }
 
-export const characterReferenceGenerationHandoff: CharacterReferenceGenerationHandoffItem[] =
-  characterReferenceProductionQueue.map(buildHandoffItem);
-
-export const p0CharacterReferenceGenerationHandoff = characterReferenceGenerationHandoff.filter(
-  (entry) => entry.priority === 'P0',
-);
-
-export const p1CharacterReferenceHandoff = characterReferenceGenerationHandoff.filter(
-  (entry) => entry.priority === 'P1',
-);
-
-export const p2CharacterReferenceGenerationHandoff = characterReferenceGenerationHandoff.filter(
-  (entry) => entry.priority === 'P2',
-);
+export const characterReferenceGenerationHandoff: CharacterReferenceGenerationHandoffItem[] = characterReferenceProductionQueue.map(buildHandoffItem);
+export const p0CharacterReferenceGenerationHandoff = characterReferenceGenerationHandoff.filter((entry) => entry.priority === 'P0');
+export const p1CharacterReferenceHandoff = characterReferenceGenerationHandoff.filter((entry) => entry.priority === 'P1');
+export const p2CharacterReferenceGenerationHandoff = characterReferenceGenerationHandoff.filter((entry) => entry.priority === 'P2');
 
 export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   defaultPriority: 'P0',
   expectedP0Ids: ['hana', 'kage1'],
   referenceFirst: true,
+  professionalMasterRequired: true,
   livingVisualMasterRequired: true,
   core5EraLifeMasterRequired: true,
   designerPhilosophyRequired: true,
@@ -177,9 +166,11 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   designCouncilRequired: true,
   relationshipEmbodimentRequired: true,
   worldMasterRequired: true,
+  openMeansImageModelFreedom: false,
+  generatedImageCreatesCanon: false,
   unknownLifePreferenceMayBeInventedByImageModel: false,
   generatedArtStartsAs: 'candidate review required',
   noAutomaticRuntimePromotion: true,
   noAutomaticFinalApproval: true,
-  rule: 'Export prompts from Current production data immediately before generation; load World Master, Core5 Era Life Master when applicable, Living Visual Master, per-character Living Visual Profile, Character Designer Philosophy Master, Character Designer Craft Master, Character Designer Precedent Master, World/Character/Scenario Design Council, and Relationship Embodied Daily-Life Master before the prompt is used; do not hand-copy stale prompts into an external image session.',
+  rule: 'Load the Professional Master Authoring Standard first, then Current World/Character/Relationship authorities, Era Life when applicable, Living Visual, Appearance, Designer Philosophy/Craft/Precedent, Design Council, and Relationship Embodiment Master. OPEN is never model freedom and generated images never create canon without human promotion.',
 } as const;
