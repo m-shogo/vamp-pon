@@ -1,0 +1,114 @@
+{
+  "id": "yoru-no-shirube-character-living-visual-master-policy-v1",
+  "status": "all-character-authority-extension",
+  "authorityDocument": "docs/visual/character-living-visual-master-v1.md",
+  "appliesTo": {
+    "current21Required": 21,
+    "future15Required": 15,
+    "totalRequired": 36,
+    "newCharactersMustAddProfileWithRoster": true
+  },
+  "unknownPolicy": {
+    "unknownValue": "UNKNOWN_AUTHORING_REQUIRED",
+    "aiGuessAllowedAsMasterValue": false,
+    "aiMayFillUnknownDuringGeneration": false,
+    "highResolutionGenerationBlockedByUnknown": true
+  },
+  "requiredBeforeHighResolutionGeneration": [
+    "bodyComfort",
+    "exposurePreference.shoulders",
+    "exposurePreference.upperArms",
+    "exposurePreference.chestNeckline",
+    "exposurePreference.midriff",
+    "exposurePreference.back",
+    "exposurePreference.thighs",
+    "exposurePreference.legs",
+    "temperatureAndComfort",
+    "movementNeeds",
+    "piercingPolicy",
+    "tattooPolicy",
+    "jewelryPolicy",
+    "makeupPolicy",
+    "nailPolicy",
+    "silhouettePreference",
+    "fitPreference",
+    "materialPreference",
+    "colorRelationship",
+    "patternPreference",
+    "footwearPreference",
+    "bagPocketBehavior",
+    "clothingWearHabits",
+    "acquisitionPreference",
+    "maintenanceBehavior",
+    "wardrobeBreadth",
+    "socialPresentation",
+    "privatePublicCeremonialDifference",
+    "hairGroomingBehavior",
+    "skinFaceCarePhysicalHistory",
+    "absoluteNever",
+    "positivePreference",
+    "contextExceptions",
+    "sourceEvidence"
+  ],
+  "minimumCounts": {
+    "absoluteNever": 5,
+    "positivePreference": 5
+  },
+  "sourceEvidenceAllowed": [
+    "USER_CONFIRMED",
+    "CURRENT_CANON",
+    "APPEARANCE_SOURCE",
+    "HUMAN_APPROVED_VISUAL",
+    "AUTHOR_CANDIDATE",
+    "UNKNOWN_AUTHORING_REQUIRED"
+  ],
+  "sourceEvidenceForbiddenAsMaster": [
+    "AI_GUESS",
+    "MODEL_DEFAULT",
+    "GENERIC_GACHA_CONVENTION",
+    "NAMED_IP_STYLE_INFERENCE",
+    "NAMED_ARTIST_STYLE_INFERENCE"
+  ],
+  "bodyModificationPolicy": {
+    "piercingValues": [
+      "NEVER",
+      "NO_CURRENT_INTEREST",
+      "WOULD_CONSIDER",
+      "HAS_PIERCING",
+      "REMOVED_HISTORY",
+      "OPEN_AUTHOR_DECISION"
+    ],
+    "tattooValues": [
+      "NEVER",
+      "NO_CURRENT_INTEREST",
+      "WOULD_CONSIDER",
+      "HAS_TATTOO",
+      "CULTURAL_OR_PERSONAL_HISTORY_REQUIRED",
+      "OPEN_AUTHOR_DECISION"
+    ],
+    "personalityShortcutAllowed": false
+  },
+  "exposureValues": [
+    "AVOID",
+    "LOW",
+    "NEUTRAL",
+    "LIKES",
+    "CONTEXT_ONLY"
+  ],
+  "genericDriftForbiddenDefaults": [
+    "premium fantasy outfit",
+    "ornate costume",
+    "elegant gold trim",
+    "luxury jewelry",
+    "complex belts",
+    "thigh straps",
+    "decorative buckles",
+    "sexy but tasteful exposure",
+    "asymmetrical fantasy costume",
+    "heroine cleavage",
+    "mysterious tattoo",
+    "cool piercing"
+  ],
+  "qualityRule": "Rendering quality may improve; costume vocabulary and body presentation may not be invented to signal quality.",
+  "coreQuestion": "Would this person choose, tolerate, keep, repair, reveal, hide, or wear this element for a character-specific reason? If not, remove it or mark UNKNOWN_AUTHORING_REQUIRED."
+}

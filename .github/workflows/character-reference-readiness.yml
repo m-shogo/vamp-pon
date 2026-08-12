@@ -6,6 +6,11 @@ on:
       - 'assets/reference/character-master/**'
       - 'public/assets/prototypes/characters/**'
       - 'data/asset-factory/character-reference-candidates/**'
+      - 'data/visual/character-living-visual-roster-v1.json'
+      - 'data/visual/character-living-visual-master-policy.json'
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/character-designer-ai-brain.json'
+      - 'docs/visual/character-living-visual-master-v1.md'
       - 'src/game/data/goldenReferenceRegistry.ts'
       - 'src/game/data/characterReferenceProductionQueue.ts'
       - 'src/game/data/characterReferenceGenerationHandoff.ts'
@@ -13,9 +18,11 @@ on:
       - 'src/game/data/characterVisualGenerationBriefs.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/characterDatabase.ts'
+      - 'src/game/data/characterOrdinaryLifeReservoir.ts'
       - 'scripts/quality/check-character-reference-readiness.ts'
       - 'scripts/quality/check-character-reference-handoff.ts'
       - 'scripts/quality/check-character-reference-candidates.ts'
+      - 'scripts/quality/check-character-living-visual-master.ts'
       - 'tools/asset-factory/scripts/export-character-reference-handoff.ts'
       - 'tools/asset-factory/scripts/register-character-reference-candidate.ts'
       - 'tools/asset-factory/scripts/review-character-reference-candidate.ts'
@@ -29,6 +36,11 @@ on:
       - 'assets/reference/character-master/**'
       - 'public/assets/prototypes/characters/**'
       - 'data/asset-factory/character-reference-candidates/**'
+      - 'data/visual/character-living-visual-roster-v1.json'
+      - 'data/visual/character-living-visual-master-policy.json'
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/character-designer-ai-brain.json'
+      - 'docs/visual/character-living-visual-master-v1.md'
       - 'src/game/data/goldenReferenceRegistry.ts'
       - 'src/game/data/characterReferenceProductionQueue.ts'
       - 'src/game/data/characterReferenceGenerationHandoff.ts'
@@ -36,9 +48,11 @@ on:
       - 'src/game/data/characterVisualGenerationBriefs.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/characterDatabase.ts'
+      - 'src/game/data/characterOrdinaryLifeReservoir.ts'
       - 'scripts/quality/check-character-reference-readiness.ts'
       - 'scripts/quality/check-character-reference-handoff.ts'
       - 'scripts/quality/check-character-reference-candidates.ts'
+      - 'scripts/quality/check-character-living-visual-master.ts'
       - 'tools/asset-factory/scripts/export-character-reference-handoff.ts'
       - 'tools/asset-factory/scripts/register-character-reference-candidate.ts'
       - 'tools/asset-factory/scripts/review-character-reference-candidate.ts'
@@ -56,6 +70,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+
+      - name: Validate all-character living visual master guard
+        run: node --experimental-strip-types scripts/quality/check-character-living-visual-master.ts
 
       - name: Audit Current20 reference readiness
         run: node --experimental-strip-types scripts/quality/check-character-reference-readiness.ts

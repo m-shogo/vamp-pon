@@ -1,0 +1,283 @@
+{
+  "id": "yoru-no-shirube-visual-design-production-master-v1",
+  "date": "2026-08-12",
+  "status": "CURRENT_VISUAL_PRODUCTION_AUTHORITY",
+  "authorityDocument": "docs/visual/visual-design-production-master-v1.md",
+  "scope": [
+    "character_master",
+    "full_body_illustration",
+    "face",
+    "body",
+    "hair",
+    "clothing",
+    "accessory",
+    "prop",
+    "material",
+    "color",
+    "lighting",
+    "world_visual_grammar",
+    "era_visual_translation",
+    "chibi_translation",
+    "pixel_translation",
+    "commercial_originality"
+  ],
+  "excludedScope": [
+    "scene_plot",
+    "dialogue_writing",
+    "relationship_arc_progression",
+    "gameplay_balance",
+    "runtime_logic"
+  ],
+  "designOrder": [
+    "identity_age_body",
+    "posture_center_of_gravity",
+    "face_structure",
+    "hair_mass",
+    "silhouette",
+    "clothing_construction",
+    "exposure_body_modification_boundary",
+    "material_wear_repair",
+    "color_hierarchy",
+    "prop_relationship",
+    "world_era_visual_translation",
+    "rendering_light",
+    "micro_detail"
+  ],
+  "identityLock": [
+    "age_impression",
+    "body_proportion",
+    "shoulder_torso_hip_relation",
+    "limb_proportion",
+    "center_of_gravity",
+    "habitual_posture",
+    "face_structure",
+    "hair_mass",
+    "clothing_mass",
+    "signature_object_relation"
+  ],
+  "faceLayers": [
+    "face_length_width",
+    "cheek_volume_cheekbone",
+    "jaw_chin",
+    "eye_aperture_tilt_spacing",
+    "eyelid",
+    "brow",
+    "nose",
+    "mouth_lips",
+    "forehead_hairline",
+    "age_surface_history"
+  ],
+  "bodyFields": [
+    "height_impression",
+    "shoulder_width",
+    "ribcage_torso_volume",
+    "waist_hip_relation",
+    "arm_leg_ratio",
+    "neck_length",
+    "hand_foot_impression",
+    "body_fat_muscle_distribution_when_relevant",
+    "seated_shape_when_relevant",
+    "habitual_weight_placement"
+  ],
+  "silhouetteFields": [
+    "head_mass",
+    "shoulder_line",
+    "torso_mass",
+    "outer_garment_mass",
+    "leg_spacing",
+    "prop_placement"
+  ],
+  "clothingConstructionFields": [
+    "put_on_remove",
+    "fastening",
+    "layer_count",
+    "pocket_storage",
+    "footwear",
+    "bag_prop_interference",
+    "sitting",
+    "crouching",
+    "arm_raise",
+    "weather_response",
+    "work_travel_response"
+  ],
+  "ornamentRequiresReason": [
+    "belt",
+    "buckle",
+    "strap",
+    "harness",
+    "gem",
+    "metal_plate",
+    "ribbon",
+    "cutout",
+    "asymmetrical_flap",
+    "decorative_chain"
+  ],
+  "allowedOrnamentReasons": [
+    "fastening",
+    "carrying",
+    "reinforcement",
+    "repair",
+    "identification",
+    "ceremony",
+    "personal_memory",
+    "culture"
+  ],
+  "exposureRegions": [
+    "shoulder",
+    "upper_arm",
+    "chest",
+    "abdomen",
+    "back",
+    "thigh",
+    "lower_leg"
+  ],
+  "unknownVisualDefaults": {
+    "piercing": "DO_NOT_ADD",
+    "tattoo": "DO_NOT_ADD",
+    "scar": "DO_NOT_ADD",
+    "mole": "DO_NOT_ADD",
+    "jewelry": "DO_NOT_ADD",
+    "makeup": "DO_NOT_ADD",
+    "nail": "DO_NOT_ADD",
+    "skinExposure": "DO_NOT_INCREASE",
+    "decorativeAsymmetry": "DO_NOT_ADD"
+  },
+  "materialFields": [
+    "weight",
+    "stiffness",
+    "fold_behavior",
+    "surface_reflection",
+    "sound_impression",
+    "temperature",
+    "wear_pattern",
+    "repairability"
+  ],
+  "colorHierarchy": [
+    "dominant",
+    "support",
+    "accent",
+    "light_emission"
+  ],
+  "worldVisualGrammar": [
+    "night",
+    "route_way_home",
+    "paper_record_ledger_label",
+    "black_ink",
+    "lantern_small_practical_light",
+    "old_changing_star_charts",
+    "memory_missing_record",
+    "repair_binding_folding"
+  ],
+  "worldMotifPreferredTranslation": [
+    "seam",
+    "fold",
+    "fastening",
+    "panel_division",
+    "material_aging",
+    "translucency",
+    "object_construction",
+    "edge_treatment"
+  ],
+  "eraVisualFields": [
+    "available_textile_or_synthetic_material",
+    "fastening_technology",
+    "footwear_expectation",
+    "bag_storage_norm",
+    "repair_vs_replace_culture",
+    "carried_communication_object",
+    "weather_adaptation",
+    "grooming_norm",
+    "manufacturing_finish",
+    "personal_privacy_object_handling"
+  ],
+  "renderingMayChange": [
+    "line_softness",
+    "paint_density",
+    "material_edge",
+    "light_softness",
+    "atmospheric_depth"
+  ],
+  "renderingMayNotChange": [
+    "face_anatomy",
+    "body_ratio",
+    "exposure_boundary",
+    "clothing_construction",
+    "piercing_tattoo",
+    "signature_shape"
+  ],
+  "detailPriority": [
+    "face_readability",
+    "silhouette_anchor",
+    "clothing_construction",
+    "prop_function",
+    "material_break",
+    "small_decorative_detail"
+  ],
+  "chibiPreservePriority": [
+    "head_hair_mass",
+    "body_proportion_tendency",
+    "posture_rhythm",
+    "strongest_clothing_mass",
+    "signature_prop_shape",
+    "brow_eye_rhythm",
+    "dominant_support_color_relation"
+  ],
+  "pixelPreservePriority": [
+    "head_silhouette",
+    "torso_leg_ratio",
+    "strongest_color_block",
+    "prop_location",
+    "posture_direction"
+  ],
+  "antiGenericGachaFiller": [
+    "gold_trim",
+    "gems",
+    "belt_harness",
+    "floating_cloth",
+    "decorative_asymmetry",
+    "thigh_cutout",
+    "glowing_ornament",
+    "metallic_edge",
+    "random_star_accessory",
+    "fantasy_boot_complexity"
+  ],
+  "imageGenerationReadinessDesignOnly": [
+    "identity_resolved",
+    "face_structure_resolved",
+    "body_proportion_resolved",
+    "neutral_posture_resolved",
+    "silhouette_anchors_resolved",
+    "clothing_construction_resolved",
+    "exposure_resolved",
+    "piercing_tattoo_body_modification_resolved",
+    "material_hierarchy_resolved",
+    "color_hierarchy_resolved",
+    "signature_prop_relation_resolved",
+    "era_translation_resolved_when_applicable",
+    "unresolved_required_visual_fields_zero"
+  ],
+  "productionRule": {
+    "openRequiredVisualFieldBlocksCharacterMasterGeneration": true,
+    "exploratoryImageRequiresExplicitExploratoryOnly": true,
+    "microDetailCannotCompensateForWeakIdentity": true,
+    "genericGachaFillerCannotFillMissingDesign": true
+  },
+  "finalDesignQA": [
+    "neutral_pose_identity",
+    "face_closeup_distinction",
+    "black_fill_silhouette_distinction",
+    "body_exists_under_clothes",
+    "wearable_clothing",
+    "exposure_body_modification_fidelity",
+    "material_physics_and_life_reason",
+    "color_hierarchy",
+    "prop_body_connection",
+    "world_motif_not_pasted",
+    "era_not_costume_shorthand",
+    "high_res_detail_does_not_hide_identity",
+    "chibi_pixel_compressible",
+    "no_generic_gacha_filler",
+    "no_multi_layer_third_party_convergence"
+  ],
+  "positiveTarget": "A character should read as a specific person shaped by body, era, life, taste, clothing construction, material use and world visual grammar—even in a quiet neutral pose, without relying on genre ornament, rendering spectacle or generic gacha detail."
+}

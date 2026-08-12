@@ -1,0 +1,236 @@
+{
+  "id": "yoru-no-shirube-core5-era-life-design-master-v1",
+  "date": "2026-08-12",
+  "status": "CROSS_DISCIPLINE_CURRENT_AUTHORING_MASTER",
+  "authoritySources": [
+    "docs/00-current-story-world-master.md",
+    "docs/research/era-society-food-future-sourcebook-v1.md",
+    "docs/visual/world-character-scenario-design-council-master-v1.md"
+  ],
+  "purpose": "Prevent Core5 era distinction from collapsing into costume styling by preserving ordinary systems, life friction, habits, visual choices, dialogue assumptions, incident logic, kokuyou distortion, and changed daily life.",
+  "requiredEraAxes": [
+    "communication",
+    "paymentMoney",
+    "transportNavigation",
+    "shoppingAvailability",
+    "repairReplacement",
+    "foodPackaging",
+    "waitingBoredom",
+    "privacyRecords",
+    "workInstitution",
+    "weatherHouseholdComfort",
+    "carriedObjects",
+    "conversationalAssumptions"
+  ],
+  "minimumDistinctAxesPerEra": 5,
+  "globalAntiShortcuts": [
+    "postwar_is_not_constant_starvation_or_rags",
+    "1970s_is_not_retro_costume_or_activist_uniform",
+    "early_mobile_internet_is_not_phone_as_accessory",
+    "present_is_not_defined_only_by_smartphone",
+    "future_is_not_neon_hologram_bodysuit_chrome",
+    "era_difference_must_not_be_clothing_only",
+    "dream_must_not_erase_all_reality_life_habits",
+    "historical_character_is_not_archaic_speech_only",
+    "future_character_is_not_tech_jargon_only"
+  ],
+  "characters": [
+    {
+      "id": "tomori",
+      "name": "トモリ",
+      "eraBand": "postwar_reconstruction_scarcity",
+      "coreQuestion": "足りない時、何を直し、何を分け、誰が配るか",
+      "ordinarySystems": {
+        "communication": ["paper_records", "handwritten_notes", "in_person_coordination"],
+        "paymentMoney": ["ration_coupon_logic", "scarcity_changes_value", "barter_can_exist"],
+        "transportNavigation": ["shopping_trip_has_time_cost", "damaged_or_incomplete_infrastructure"],
+        "shoppingAvailability": ["delayed_or_missing_distribution", "new_items_not_assumed_available"],
+        "repairReplacement": ["repair", "reuse", "parts_salvage", "container_and_string_reuse"],
+        "foodPackaging": ["food_not_reduced_to_starvation", "containers_and_wrapping_may_be_reused"],
+        "waitingBoredom": ["waiting_for_supply_and_people_is_part_of_planning"],
+        "privacyRecords": ["ledger_and_paper_record_can_decide_access"],
+        "workInstitution": ["distribution", "informal_mutual_aid", "repair_work"],
+        "weatherHouseholdComfort": ["housing_and_infrastructure_are_not_always_complete"],
+        "carriedObjects": ["repair_tool", "paper_record", "reusable_wrapping"],
+        "conversationalAssumptions": ["still_usable_matters", "repair_before_replace"]
+      },
+      "visualTranslation": {
+        "priorities": ["repairability", "functional_hardware", "meaningful_seams", "tool_access", "wear_as_consequence"],
+        "forbidden": ["poverty_cosplay", "random_military_surplus", "decorative_patch_overload", "toolbelt_overload"],
+        "designQuestion": "Does each retained material or hardware piece have a reason Tomori would repair, keep, or use it?"
+      },
+      "scenarioTranslation": {
+        "dailyActions": ["fold_and_keep_reusable_wrapping", "repair_while_talking", "notice_careless_tool_use", "evaluate_repairability_of_new_items"],
+        "dialogueRhythm": ["short_action_connected_lines", "talk_while_hands_are_busy"],
+        "incidentPressure": "scarcity + wish_for_fairness + fear_of_disorder -> one_ledger_as_only_truth",
+        "kokuyou": "want_to_repair_and_preserve -> force_broken_relationships_and_systems_back_into_old_shape",
+        "growthProof": ["respect_not_repairing", "respect_other_people_repair_methods", "allow_letting_go"]
+      }
+    },
+    {
+      "id": "michiru",
+      "name": "ミチル",
+      "eraBand": "late_high_growth_pollution_oil_shock",
+      "coreQuestion": "発展の正しい道は誰が決めるか",
+      "ordinarySystems": {
+        "communication": ["printed_information", "public_signage", "in_person_coordination"],
+        "paymentMoney": ["price_rise_pressure", "household_prosperity_and_shortage_can_coexist"],
+        "transportNavigation": ["expanding_roads", "rail", "new_towns", "old_paths", "printed_maps", "timetables"],
+        "shoppingAvailability": ["new_products_and_processed_foods_expand", "energy_pressure_affects_supply"],
+        "repairReplacement": ["new_convenience_competes_with_keep_using_old_routes_and_objects"],
+        "foodPackaging": ["diet_diversifies", "instant_and_processed_foods_expand"],
+        "waitingBoredom": ["transfers_and_travel_time_are_visible"],
+        "privacyRecords": ["public_plans_and_monitoring_change_neighborhood_life"],
+        "workInstitution": ["factory", "urban_planning", "resident_complaints", "development"],
+        "weatherHouseholdComfort": ["pollution_and_energy_use_affect_daily_comfort"],
+        "carriedObjects": ["map", "compass", "ticket", "small_notebook"],
+        "conversationalAssumptions": ["route_is_discussable", "faster_is_not_always_better"]
+      },
+      "visualTranslation": {
+        "priorities": ["walkability", "joint_mobility", "weather_response", "map_access", "kinetic_cloth"],
+        "forbidden": ["generic_adventurer_shorts", "thigh_straps", "1970s_catalog_cosplay", "activity_equals_exposure"],
+        "designQuestion": "Can Michiru walk all day, transfer, unfold a map, crouch, and sit naturally in this clothing?"
+      },
+      "scenarioTranslation": {
+        "dailyActions": ["compare_routes", "try_new_path", "sometimes_hold_map_wrong", "learn_to_ask_destination_first"],
+        "dialogueRhythm": ["conversation_starts_from_route", "thinking_while_walking"],
+        "incidentPressure": "development + fear_of_delay -> one_growth_route_as_only_answer",
+        "kokuyou": "does_not_want_others_to_get_lost -> decides_everyones_destination_and_shortest_route",
+        "growthProof": ["ask_where_do_you_want_to_go_first", "accept_detours"]
+      }
+    },
+    {
+      "id": "nagi",
+      "name": "ナギ",
+      "eraBand": "post_bubble_early_mobile_internet",
+      "coreQuestion": "繋がることと晒されることの境界は誰が決めるか",
+      "ordinarySystems": {
+        "communication": ["feature_phone", "PHS", "mobile_mail", "PC_mail", "BBS", "personal_site"],
+        "paymentMoney": ["cash_and_physical_transaction_remain_normal"],
+        "transportNavigation": ["printed_map_and_digital_info_coexist"],
+        "shoppingAvailability": ["convenience_and_abundance_are_normalizing"],
+        "repairReplacement": ["device_generation_changes_without_total_always_online_dependency"],
+        "foodPackaging": ["convenience_store_food", "prepared_food", "family_restaurant", "takeout"],
+        "waitingBoredom": ["not_always_connected", "reply_delay_is_normal"],
+        "privacyRecords": ["handle_name", "forward_copy_print", "shared_family_PC", "privacy_norms_forming"],
+        "workInstitution": ["application_pressure", "unstable_employment", "reputation_and_records"],
+        "weatherHouseholdComfort": ["home_device_access_depends_on_shared_space"],
+        "carriedObjects": ["small_phone", "key", "printed_direction", "charger_or_cable_when_needed"],
+        "conversationalAssumptions": ["do_not_peek_at_screen", "ask_before_sharing", "silence_is_not_failure"]
+      },
+      "visualTranslation": {
+        "priorities": ["controlled_coverage", "secure_pockets", "dedicated_object_locations", "quiet_self_presentation"],
+        "forbidden": ["mysterious_tattoo", "permanent_shadow_hood", "cyberpunk_accessory", "modern_smartphone"],
+        "designQuestion": "Does the clothing let Nagi decide what is private, exposed, carried, and opened?"
+      },
+      "scenarioTranslation": {
+        "dailyActions": ["draft_before_reply", "avoid_screen_peeking", "ask_before_sharing_name_or_photo", "respect_personal_objects"],
+        "dialogueRhythm": ["pauses_to_choose_words", "no_instant_reply_assumption", "silence_can_be_comfortable"],
+        "incidentPressure": "protect_people + fear_of_anonymous_network -> close_information_and_blacklist_as_answer",
+        "kokuyou": "want_to_protect -> allow_no_one_to_show_or_open_any_information",
+        "growthProof": ["decide_opening_with_the_person", "protection_does_not_override_choice"]
+      }
+    },
+    {
+      "id": "yui",
+      "name": "ユイ",
+      "eraBand": "1990s_born_2026_tokyo_arakawa",
+      "coreQuestion": "記録・情報が多すぎる時、何を信じ、何を残すか",
+      "ordinarySystems": {
+        "communication": ["paper_memory", "fixed_phone_memory", "household_PC", "feature_phone_mail", "SNS", "smartphone", "group_chat"],
+        "paymentMoney": ["cash", "IC_payment", "QR_or_app_payment_where_normal"],
+        "transportNavigation": ["Tokyo_rail", "smartphone_navigation", "local_landmarks"],
+        "shoppingAvailability": ["convenience_store", "delivery", "online_and_local_shopping_coexist"],
+        "repairReplacement": ["replacement_is_easy_but_personal_old_objects_can_persist"],
+        "foodPackaging": ["modern_convenience_and_takeout", "local_food_memory_can_coexist"],
+        "waitingBoredom": ["always_online_option_exists", "queue_time_can_be_phone_time"],
+        "privacyRecords": ["cloud_photo", "group_log", "recommendation", "fake_image", "deepfake", "generative_AI"],
+        "workInstitution": ["digital_accounts_and_online_services_are_ordinary"],
+        "weatherHouseholdComfort": ["modern_urban_comfort_with_old_neighborhood_trace"],
+        "carriedObjects": ["phone", "small_bag_or_pocket_storage", "one_long_used_personal_item_candidate"],
+        "conversationalAssumptions": ["online_offline_blend", "knowing_information_is_not_same_as_believing_it"]
+      },
+      "visualTranslation": {
+        "priorities": ["modern_adult_clothing", "repeatable_washable_comfort", "realistic_phone_storage", "small_personal_history"],
+        "forbidden": ["retro_girl_because_Arakawa", "generic_hoodie_heroine", "phone_as_permanent_symbol", "protagonist_gold_trim"],
+        "designQuestion": "Could Yui choose this in 2026 Tokyo, and does it still preserve something specific about her own life?"
+      },
+      "scenarioTranslation": {
+        "dailyActions": ["decide_whether_to_delete_or_keep_photo", "search_old_group_log", "sometimes_use_paper_note", "question_recommendation", "verify_edited_image"],
+        "dialogueRhythm": ["do_not_overuse_internet_slang", "move_between_online_and_offline_naturally"],
+        "incidentPressure": "want_to_forget_no_one + fear_of_missing_information -> preservation_and_recommendation_as_only_answer",
+        "kokuyou": "does_not_want_to_forget -> preserves_records_people_want_to_release",
+        "growthProof": ["ask_before_saving", "deletion_is_not_only_loss"]
+      }
+    },
+    {
+      "id": "asa",
+      "name": "アサ",
+      "eraBand": "far_future_human_android_robot_avatar_coexistence",
+      "coreQuestion": "名前・身体・copy・Digital Identityのどこに本人があるか",
+      "ordinarySystems": {
+        "communication": ["identity_aware_networks", "multiple_embodiment_channels", "offline_case_must_exist"],
+        "paymentMoney": ["access_and_ownership_rules_matter_more_than_visual_future_currency"],
+        "transportNavigation": ["mobility_system_must_handle_multiple_body_types_and_devices"],
+        "shoppingAvailability": ["ownership_and_access_can_differ_between_body_account_and_person"],
+        "repairReplacement": ["maintenance", "hardware_generation", "old_body_or_device_choice", "replacement_not_personality_growth"],
+        "foodPackaging": ["human_and_nonhuman_daily_needs_may_differ_without_hierarchy"],
+        "waitingBoredom": ["network_or_identity_verification_can_create_friction"],
+        "privacyRecords": ["copy", "backup", "identity_disagreement", "account_body_history_separation"],
+        "workInstitution": ["repair_ownership_authentication_and_personhood_rules_are_daily_infrastructure"],
+        "weatherHouseholdComfort": ["different_bodies_have_different_environmental_needs"],
+        "carriedObjects": ["functional_access_device_candidate", "repairable_personal_hardware_candidate"],
+        "conversationalAssumptions": ["same_history_does_not_guarantee_same_person", "system_identity_is_not_only_identity"]
+      },
+      "visualTranslation": {
+        "priorities": ["fast_response", "personal_body_expression", "functional_attachment_points", "repairable_future_materials", "asymmetry_from_use_or_history"],
+        "forbidden": ["random_glowing_circuit", "cyberpunk_tattoo", "chrome_overload", "future_equals_skin_exposure", "everyone_bodysuit"],
+        "designQuestion": "Who repairs this component, what happens when it fails, and why does Asa personally choose to wear it?"
+      },
+      "scenarioTranslation": {
+        "dailyActions": ["identity_check_means_different_things_to_different_people", "treat_backup_as_practical_issue", "do_not_equate_upgrade_with_growth", "allow_old_body_or_device_attachment"],
+        "dialogueRhythm": ["avoid_tech_jargon_for_future_flavor", "show_rules_through_disagreement_not_exposition"],
+        "incidentPressure": "protect_continuity + fear_of_identity_loss -> one_official_identity_as_only_person",
+        "kokuyou": "does_not_want_to_misidentify -> forces_copy_body_and_history_differences_into_one_identity",
+        "growthProof": ["same_past_can_belong_to_distinct_people", "current_choice_over_system_match"]
+      }
+    }
+  ],
+  "crossEraPartyRule": {
+    "target": "Show era difference through small assumptions during shared ordinary tasks, not exposition.",
+    "forbidden": [
+      "tomori_as_technology_illiterate_gag_only",
+      "historical_characters_need_every_modern_object_explained",
+      "asa_as_future_exposition_machine",
+      "yui_as_only_normal_person"
+    ],
+    "ordinaryTaskExample": {
+      "task": "find_a_lost_object",
+      "tomori": "check_if_it_is_damaged_and_returnable",
+      "michiru": "infer_route_and_origin",
+      "nagi": "do_not_open_contents_without_permission",
+      "yui": "consider_contact_lost_and_found_and_record_options",
+      "asa": "question_whether_object_identity_and_owner_identity_are_simple_one_to_one"
+    }
+  },
+  "visualQa": [
+    "era_not_explained_by_clothing_only",
+    "carried_objects_have_life_reason",
+    "storage_behavior_matches_person_and_era",
+    "repair_and_wear_have_reason",
+    "materials_match_world_and_era",
+    "posture_and_gesture_show_life_history",
+    "background_infrastructure_matches_character_era",
+    "no_generic_period_costume_or_generic_future_fashion",
+    "dream_translation_preserves_some_reality_life_habits"
+  ],
+  "scenarioQa": [
+    "dialogue_not_interchangeable_between_characters",
+    "era_difference_appears_in_action_or_assumption",
+    "ordinary_object_food_route_waiting_or_record_exists_naturally",
+    "conflict_connects_to_era_specific_pressure",
+    "growth_changes_small_daily_action",
+    "historical_era_not_only_misery",
+    "future_not_only_technology_exposition"
+  ]
+}

@@ -1,0 +1,43 @@
+name: Core5 Era Life Design
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/core5-era-life-design-master-v1.md'
+      - 'data/visual/core5-era-life-design-master-v1.json'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'tools/asset-factory/scripts/export-character-asset-prompt.ts'
+      - 'scripts/quality/check-core5-era-life-design-master.ts'
+      - '.github/workflows/core5-era-life-design.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/core5-era-life-design-master-v1.md'
+      - 'data/visual/core5-era-life-design-master-v1.json'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'tools/asset-factory/scripts/export-character-asset-prompt.ts'
+      - 'scripts/quality/check-core5-era-life-design-master.ts'
+      - '.github/workflows/core5-era-life-design.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Core5 era-life cross-discipline design master
+        run: node --experimental-strip-types scripts/quality/check-core5-era-life-design-master.ts
+      - name: Smoke-test resolved Yui prompt includes era-life profile
+        run: |
+          node --experimental-strip-types tools/asset-factory/scripts/export-character-asset-prompt.ts \
+            --character yui --kind character_reference --format json --output /tmp/yui-era-life.json
+          node - <<'NODE'
+          const fs = require('fs');
+          const x = JSON.parse(fs.readFileSync('/tmp/yui-era-life.json', 'utf8'));
+          if (!x.eraLifeProfile || x.eraLifeProfile.id !== 'yui') process.exit(1);
+          if (!String(x.prompt).includes('CORE5 ERA LIFE PROFILE — REQUIRED ERA/LIFE AUTHORITY.')) process.exit(1);
+          if (!String(x.prompt).includes('Do not express era only through costume styling')) process.exit(1);
+          NODE

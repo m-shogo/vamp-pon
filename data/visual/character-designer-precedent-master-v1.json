@@ -1,0 +1,28 @@
+{
+  "id": "yoru-no-shirube-character-designer-precedent-master-v1",
+  "date": "2026-08-12",
+  "status": "DESIGN_DECISION_PRECEDENT_NON_CANON",
+  "rule": "Use precedents to resolve design conflicts without inventing new canon. Stronger character/world/living-visual authorities always win.",
+  "precedents": [
+    {"id":"P01","conflict":"canon-faithful-but-visually-plain","ruling":"diagnose body posture silhouette prop construction value and material before adding detail","forbidden":["jewelry-fix","gold-trim-fix","random-asymmetry","exposure-fix"]},
+    {"id":"P02","conflict":"exposure-preference-vs-climate-or-work","ruling":"preserve body comfort through contextual variants removable layers and practical construction","principle":"resolve as situation difference, not personality deletion"},
+    {"id":"P03","conflict":"theme-color-vs-personal-taste","ruling":"move theme color into reflection emblem lining thread prop or environment","principle":"theme-color-is-not-uniform"},
+    {"id":"P04","conflict":"world-motif-feels-like-cosplay","ruling":"translate icon into seam fold binding repair material edge transparency or light behavior","principle":"structure-before-symbol"},
+    {"id":"P05","conflict":"liked-current-master-has-generic-layer","ruling":"separate identity costume rendering composition and fix only affected layer","principle":"do-not-redesign-liked-person-for-rendering-only-problem"},
+    {"id":"P06","conflict":"two-cast-silhouettes-collide","ruling":"differentiate plausible posture shoulder-torso ratio hair mass garment length leg spacing or prop position before color","principle":"ensemble-collision-is-not-a-color-problem"},
+    {"id":"P07","conflict":"want-to-visualize-personality-adjective","ruling":"use posture maintenance fastening object handling grooming and fit before visual tropes","forbidden":["strong-equals-piercing","shy-equals-long-sleeves","mechanic-equals-tattoo"]},
+    {"id":"P08","conflict":"make-growth-look-better","ruling":"use posture gaze styling confidence repaired objects and light relationship","forbidden":["slimming","rejuvenation","skin-lightening","disability-removal","presentation-normalization"]},
+    {"id":"P09","conflict":"premium-key-art-needs-luxury","ruling":"increase composition lighting environment effects and rendering precision, not character ornament density","principle":"asset-importance-is-not-costume-density"},
+    {"id":"P10","conflict":"chibi-loses-identity","ruling":"strengthen master hair mass body proportion posture brow-eye rhythm and signature shape","principle":"do-not-invent-derivative-gimmick-to-rescue-weak-master"},
+    {"id":"P11","conflict":"looks-good-but-character-would-not-choose-it","ruling":"reject for ordinary wear; only use as justified borrowed ceremonial gift disguise or scenario exception","principle":"designer-taste-does-not-overwrite-character-agency"},
+    {"id":"P12","conflict":"historical-era-plausibility-vs-character-readability","ruling":"check project historicity, world technology, then preserve identity through silhouette and wearing behavior without casual anachronism","principle":"respect-history-without-making-reconstruction-the-only-goal"},
+    {"id":"P13","conflict":"beautiful-candidate-hides-setting-violation","ruling":"score identity living-visual body posture clothing world and acting before beauty","principle":"polish-is-not-authority"},
+    {"id":"P14","conflict":"originality-audit-created-random-weirdness","ruling":"remove arbitrary novelty and derive specificity from life body era object use and relationship history","principle":"originality-is-specific-causality-not-randomness"},
+    {"id":"P15","conflict":"setting-is-undecided","ruling":"mark UNKNOWN_AUTHORING_REQUIRED or explicit AUTHOR_CANDIDATE; never model-default","principle":"unknown-is-decision-queue-not-model-freedom"},
+    {"id":"P16","conflict":"multiple-valid-candidates","ruling":"compare same rendering/composition while varying one primary design axis","principle":"candidate-comparison-needs-controlled-variables"},
+    {"id":"P17","conflict":"short-user-feedback","ruling":"store literal verdict as USER_CONFIRMED and cause analysis separately as DESIGN_HYPOTHESIS","principle":"designer-diagnosis-is-not-user-preference"},
+    {"id":"P18","conflict":"scenario-clothing-exception","ruling":"use discomfort and clothing handling as acting rather than erasing personality","principle":"exception-should-reveal-character"},
+    {"id":"P19","conflict":"world-cohesion-is-weak","ruling":"share materials repair logic light behavior fastening culture and infrastructure rather than identical symbols","principle":"world-unity-is-shared-causality"},
+    {"id":"P20","conflict":"final-tie-break","rulingOrder":["canon","personal-choice","physical-daily-feasibility","cast-distinction","world-causality","ordinary-acting","generic-drift","attractiveness"],"principle":"choose-the-most-character-specific-valid-option-then-polish-it"}
+  ]
+}

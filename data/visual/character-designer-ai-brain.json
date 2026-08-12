@@ -1,0 +1,139 @@
+{
+  "id": "yoru-no-shirube-character-designer-ai-brain-v1",
+  "date": "2026-08-12",
+  "status": "AUTHORING_SUPPORT_DESIGNER_MEMORY_NON_CANON",
+  "purpose": [
+    "preserve-explicit-user-taste-without-inventing-reasons",
+    "accumulate-general-character-design-knowledge",
+    "separate-character-identity-from-rendering-and-composition",
+    "reduce-accidental-third-party-association-in-high-resolution-commercial-art",
+    "learn-from-user-review-history-before-final-character-master-generation",
+    "force-character-life-and-body-preferences-to-drive-costume-and-body-presentation-before-generation",
+    "persist-one-stable-designer-philosophy-and-craft-standard-across-model-sessions"
+  ],
+  "memoryClasses": {
+    "USER_CONFIRMED": "Explicit user preference, concern, goal, or verdict. Do not expand its meaning automatically.",
+    "DESIGN_HYPOTHESIS": "Assistant interpretation awaiting validation. Never store as user fact.",
+    "RESEARCHED_PRINCIPLE": "General design principle derived from research with provenance; not automatically a user preference.",
+    "PROJECT_RULE": "Current Yoru no Shirube canon/appearance/art-direction rule.",
+    "CANDIDATE_LEARNING": "Learning from a generated candidate; non-canon until repeated/approved.",
+    "HUMAN_APPROVED_DESIGN_RULE": "Rule explicitly approved through human review; may guide later generation but does not override canon."
+  },
+  "explicitUserMemory": [
+    {"id":"current-design-like","class":"USER_CONFIRMED","statement":"今のキャラデザが好き","scope":"character-identity","effect":"preservation-bias"},
+    {"id":"taste-enami","class":"USER_CONFIRMED","statement":"エナミカツミが好き","scope":"taste-reference","useAsPromptStyleTarget":false},
+    {"id":"taste-persona","class":"USER_CONFIRMED","statement":"ペルソナが好き","scope":"taste-reference","useAsPromptStyleTarget":false},
+    {"id":"taste-granblue","class":"USER_CONFIRMED","statement":"グランブルーファンタジーが好き","scope":"taste-reference","useAsPromptStyleTarget":false},
+    {"id":"taste-tales","class":"USER_CONFIRMED","statement":"テイルズ オブ シリーズが好き","scope":"taste-reference","useAsPromptStyleTarget":false},
+    {"id":"taste-kingdom-hearts","class":"USER_CONFIRMED","statement":"キングダム ハーツが好き","scope":"taste-reference","useAsPromptStyleTarget":false},
+    {"id":"conversation-four-panel","class":"USER_CONFIRMED","statement":"会話用デフォルトは四コマ漫画を参考にする","scope":"conversation-default","effect":"format-and-readability-reference"},
+    {"id":"ordinary-comedy-like","class":"USER_CONFIRMED","statement":"日常会、ボケ、くだらない話が好き","scope":"character-acting-and-story-preference","effect":"use-as-review-scenario-not-automatic-costume-rule"},
+    {"id":"accidental-association-concern","class":"USER_CONFIRMED","statement":"AIがたまたまグランブルーファンタジーっぽい高精細表現へ寄ることを懸念している","scope":"commercial-high-resolution-art","effect":"association-audit-required"},
+    {"id":"designer-ai-phase","class":"USER_CONFIRMED","statement":"今はキャラクターデザイナーAIを育てる段階","scope":"workflow","effect":"knowledge-and-feedback-before-rushing-final-master"},
+    {"id":"eventual-image-goal","class":"USER_CONFIRMED","statement":"最終的には画像を作ってCharacter Masterを確定したい","scope":"workflow","effect":"research-must-converge-to-generation"},
+    {"id":"life-driven-visual-settings","class":"USER_CONFIRMED","statement":"キャラは生きている人として、ピアスをする/しない、刺青をする/しない、服の趣味、肌を出したい/出したくない等の細かい設定まで持ち、それを画像生成前のMasterへ入れてブレを防ぐ","scope":"all-character-visual-authority","effect":"living-visual-master-required-before-high-resolution-generation"},
+    {"id":"stable-designer-core","class":"USER_CONFIRMED","statement":"デザイナーの思想やこだわりを多方面からMasterへ入れ、ブレない芯のある一人のデザイナーとして育てる","scope":"designer-personality-and-craft","effect":"philosophy-and-craft-masters-are-durable-authorities"}
+  ],
+  "epistemicGuards": {
+    "inferWhyUserLikesNamedWorkFromNameAlone": false,
+    "promoteAssistantHypothesisToUserPreferenceWithoutEvidence": false,
+    "treatCommercialCandidateAsLegalGuarantee": false,
+    "treatAppStoreRejectionAsEstablishedFact": false,
+    "useNamedArtistOrCommercialIpAsProductionStyleTarget": false,
+    "fillUnknownLifePreferenceWithModelDefault": false,
+    "inventPiercingTattooExposureOrJewelryForVisualInterest": false
+  },
+  "authorityReadOrder": [
+    "character-story-and-current-canon",
+    "docs/00-current-story-world-master.md",
+    "era-and-ordinary-life-authorities-when-applicable",
+    "docs/visual/character-living-visual-master-v1.md",
+    "data/visual/character-living-visual-master-policy.json",
+    "per-character-living-visual-profile",
+    "docs/character-appearance-source-book-v1.md",
+    "docs/character-appearance-distinction-generation-contract-v1.md",
+    "approved-identity-references-and-hard-landmarks",
+    "docs/visual/character-designer-philosophy-master-v1.md",
+    "data/visual/character-designer-philosophy-master-v1.json",
+    "docs/visual/character-designer-craft-master-v1.md",
+    "data/visual/character-designer-craft-master-v1.json",
+    "docs/visual/world-character-scenario-design-council-master-v1.md",
+    "data/visual/world-character-scenario-design-council-master-v1.json",
+    "docs/visual/character-designer-ai-brain.md",
+    "data/visual/character-design-feedback-ledger.json",
+    "generation-brief",
+    "candidate-image",
+    "human-review"
+  ],
+  "livingVisualMaster": {
+    "requiredCoverage": 36,
+    "current21Required": 21,
+    "future15Required": 15,
+    "unknownValue": "UNKNOWN_AUTHORING_REQUIRED",
+    "unknownBlocksHighResolutionGeneration": true,
+    "aiMayInferUnknownIntoMaster": false,
+    "mustCover": [
+      "bodyComfort","exposurePreference","temperatureAndComfort","movementNeeds","piercingPolicy","tattooPolicy","jewelryPolicy","makeupPolicy","nailPolicy","silhouettePreference","fitPreference","materialPreference","colorRelationship","patternPreference","footwearPreference","bagPocketBehavior","clothingWearHabits","acquisitionPreference","maintenanceBehavior","wardrobeBreadth","socialPresentation","privatePublicCeremonialDifference","hairGroomingBehavior","skinFaceCarePhysicalHistory","absoluteNever","positivePreference","contextExceptions","sourceEvidence"
+    ],
+    "rule": "Appearance is the consequence of character life. Do not use visual attractiveness, fantasy convention, gacha convention, or model habit to fill a missing personal preference."
+  },
+  "designerAuthorities": {
+    "philosophy": "data/visual/character-designer-philosophy-master-v1.json",
+    "craft": "data/visual/character-designer-craft-master-v1.json",
+    "council": "data/visual/world-character-scenario-design-council-master-v1.json",
+    "rule": "Philosophy defines values; Craft defines technical execution; Council checks world/character/scenario necessity. None may override stronger canon or living-visual facts."
+  },
+  "referenceRoles": ["identity-evidence","rendering-evidence","composition-evidence"],
+  "referencePolicy": {
+    "existingCharacterMasterCanBeIdentityEvidence": true,
+    "existingCharacterMasterAutomaticallyRenderingAuthority": false,
+    "currentCore5PreservationBias": true,
+    "reason": "User likes current character designs; preserve identity unless a specific problem is identified."
+  },
+  "associationDimensions": ["identity-design-association","rendering-association","costume-vocabulary-association","composition-association","overall-association"],
+  "associationRepairOrder": {
+    "rendering-only": "rerender-before-redesign",
+    "costume-only": "rework-affected-costume-structure",
+    "identity-design": "rework-only-associated-identity-combination",
+    "composition-only": "change-composition",
+    "generic-fantasy-shared-vocabulary": "do-not-auto-reject"
+  },
+  "researchDomains": [
+    "face-design","same-face-prevention","anatomy-and-body-proportion-diversity","age-coding","posture-and-gesture","silhouette-design","costume-construction","garment-mobility","material-logic","body-comfort-and-exposure-preference","piercing-and-body-modification-as-personal-history-not-decoration","clothing-acquisition-and-maintenance-behavior","personal-grooming-and-wearing-habits","hair-mass-and-profile","color-hierarchy","prop-design","ensemble-design","family-resemblance","everyday-acting","comedy-acting","dramatic-acting","four-panel-visual-economy","pixel-and-chibi-derivation","model-sheet-practice","visual-development-workflow","key-art-vs-character-design-authority","commercial-association-review"
+  ],
+  "designerLoop": [
+    "load-character-life-and-current-canon",
+    "load-world-era-and-ordinary-life-authorities",
+    "load-living-visual-master-and-block-on-unknowns",
+    "load-appearance-authorities",
+    "load-designer-philosophy",
+    "load-designer-craft",
+    "load-design-council",
+    "load-feedback-history",
+    "diagnose-identity-rendering-open-decisions-and-risks",
+    "form-multiple-design-hypotheses-only-for-open-non-master-decisions",
+    "compose-nameless-production-brief",
+    "generate-comparable-candidates",
+    "review-by-independent-dimensions",
+    "capture-user-feedback-separately-from-assistant-diagnosis",
+    "promote-repeated-approved-learning-only"
+  ],
+  "reviewDimensions": ["identity-fidelity","living-visual-fidelity","character-distinction","world-fit","attractiveness-and-charm","rendering-originality","costume-logic","association-risk","everyday-acting-range","chibi-pixel-derivability"],
+  "reviewStates": ["KEEP","OPEN","REWORK","REJECT"],
+  "conversationDefault": {
+    "fourPanelReferenceConfirmed": true,
+    "fixedHeadRatio": false,
+    "headRatioStatus": "DESIGN_HYPOTHESIS",
+    "preserveHardLandmarks": true,
+    "preserveBodyDifferences": true,
+    "preserveLivingVisualPolicies": true,
+    "purpose": "dialogue-readability-and-acting, not imitation of a specific manga style"
+  },
+  "assetRiskLevels": {
+    "strict": ["character-master","high-resolution-standing-art","top-key-art","loading-key-art","store-art","trailer-art","advertisement-art","lorebook-hero-art","merchandise-master"],
+    "medium": ["conversation-default","four-panel-derivative","expression-set","small-standing-art"],
+    "basic": ["gameplay-pixel-sprite","tiny-icon","mini-marker"]
+  },
+  "currentPhase": "BUILD_STABLE_DESIGNER_PHILOSOPHY_CRAFT_AND_ALL_CHARACTER_LIVING_VISUAL_AUTHORITY_BEFORE_FINAL_MASTER_GENERATION",
+  "finalGoal": "Human-approved commercial Character Masters produced by a stable Yoru no Shirube designer who preserves character identity, obeys lived clothing/body preferences, reasons from world and daily life, applies consistent professional craft, and avoids strong accidental third-party association."
+}

@@ -1,0 +1,28 @@
+name: Character Designer Research Boundary
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/character-designer-research-principles-v1.json'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'scripts/quality/check-character-designer-research-boundary.ts'
+      - '.github/workflows/character-designer-research-boundary.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/character-designer-research-principles-v1.json'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'scripts/quality/check-character-designer-research-boundary.ts'
+      - '.github/workflows/character-designer-research-boundary.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate research-to-production boundary
+        run: node --experimental-strip-types scripts/quality/check-character-designer-research-boundary.ts
