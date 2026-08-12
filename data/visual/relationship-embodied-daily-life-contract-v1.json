@@ -1,8 +1,9 @@
 {
-  "id": "yoru-no-shirube-relationship-embodied-daily-life-contract-v1",
+  "id": "yoru-no-shirube-relationship-embodied-daily-life-master-v1",
   "date": "2026-08-12",
-  "status": "CURRENT_AUTHORING_CONTRACT_EXTENDS_EXISTING_RELATIONSHIP_AUTHORITIES",
+  "status": "CURRENT_MASTER_AUTHORITY_EXTENDS_EXISTING_RELATIONSHIP_CANON",
   "authorityDocument": "docs/visual/relationship-embodied-daily-life-contract-v1.md",
+  "requiredBeforeRelationshipAffectedImageGeneration": true,
   "doesNotCreateNewRelationshipEdges": true,
   "authorityOrder": [
     "docs/00-current-story-world-master.md",
@@ -110,6 +111,20 @@
     "ordinary_conflict_crisis_dawn_body_acting_differs",
     "growth_proved_in_small_ordinary_behavior"
   ],
+  "imageGenerationGate": {
+    "singleCharacterMaster": [
+      "do_not_invent_relationship_gift",
+      "do_not_invent_matching_accessory",
+      "do_not_invent_borrowed_item",
+      "do_not_invent_relationship_touch_history_trace"
+    ],
+    "relationshipAffectedAsset": [
+      "resolve_existing_relationship_source",
+      "resolve_only_needed_relationship_axes",
+      "do_not_fill_unresolved_axes_with_model_defaults",
+      "living_visual_boundaries_remain_stronger_than_relationship_styling"
+    ]
+  },
   "unknownPairPolicy": {
     "inventRelationshipValues": false,
     "inventRomance": false,
