@@ -10,7 +10,7 @@ const fail = (message: string): never => {
   throw new Error(`[cross-character-era-echo] ${message}`);
 };
 
-if (CHARACTER_CROSS_ERA_ECHO_CHAINS.length !== 15) fail(`expected 15 chains, got ${CHARACTER_CROSS_ERA_ECHO_CHAINS.length}`);
+if (CHARACTER_CROSS_ERA_ECHO_CHAINS.length !== 16) fail(`expected 16 chains, got ${CHARACTER_CROSS_ERA_ECHO_CHAINS.length}`);
 if (new Set(CHARACTER_CROSS_ERA_ECHO_CHAINS.map((chain) => chain.id)).size !== CHARACTER_CROSS_ERA_ECHO_CHAINS.length) fail('duplicate chain ids');
 
 const characterIds = new Set(CHARACTER_ERA_SCENE_SEEDS.map((entry) => entry.id));
@@ -55,6 +55,7 @@ for (const requiredId of [
   'name-context-kasumi-amane-asa',
   'record-silence-hiyori-kuroori-ren',
   'meeting-place-touma-kuu-yuubi',
+  'signal-meaning-suzu-maki',
 ]) if (!CHARACTER_CROSS_ERA_ECHO_CHAINS.some((chain) => chain.id === requiredId)) fail(`required chain missing: ${requiredId}`);
 
 const quadrantid = CHARACTER_CROSS_ERA_ECHO_CHAINS.find((chain) => chain.id === 'quadrantid-name-fossil-shiro-tomori');
@@ -78,4 +79,4 @@ if (CROSS_ERA_ECHO_RULES.oneClueMayProveEra !== false) fail('one clue may not pr
 if (CROSS_ERA_ECHO_RULES.oneObjectMayProveIdentity !== false) fail('one object may not prove identity');
 if (CROSS_ERA_ECHO_RULES.runtimeAutoPromotionAllowed !== false) fail('runtime auto-promotion must remain false');
 
-console.log('[cross-character-era-echo] OK 15 candidate chains / all 36 characters covered / setup-counterevidence-payoff');
+console.log('[cross-character-era-echo] OK 16 candidate chains / all 36 characters covered / setup-counterevidence-payoff');
