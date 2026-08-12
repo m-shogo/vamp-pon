@@ -1,0 +1,30 @@
+name: Character Designer Precedent
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/character-designer-precedent-master-v1.md'
+      - 'data/visual/character-designer-precedent-master-v1.json'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'scripts/quality/check-character-designer-precedent-master.ts'
+      - '.github/workflows/character-designer-precedent.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/character-designer-precedent-master-v1.md'
+      - 'data/visual/character-designer-precedent-master-v1.json'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'scripts/quality/check-character-designer-precedent-master.ts'
+      - '.github/workflows/character-designer-precedent.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate designer precedent master
+        run: node --experimental-strip-types scripts/quality/check-character-designer-precedent-master.ts
