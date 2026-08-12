@@ -39,6 +39,7 @@ export type CharacterReferenceGenerationHandoffItem = {
   eraLifeMasterPath: string | null;
   eraLifeMasterRequired: boolean;
   designerPhilosophyRequired: true;
+  designerCraftRequired: true;
   designCouncilRequired: true;
   unknownLifePreferenceMayBeInventedByImageModel: false;
   reviewChecklist: string[];
@@ -85,9 +86,11 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
       'docs/character-appearance-source-book-v1.md',
       'docs/character-appearance-distinction-generation-contract-v1.md',
       'docs/visual/character-designer-philosophy-master-v1.md',
+      'data/visual/character-designer-philosophy-master-v1.json',
+      'docs/visual/character-designer-craft-master-v1.md',
+      'data/visual/character-designer-craft-master-v1.json',
       'docs/visual/world-character-scenario-design-council-master-v1.md',
       'data/visual/world-character-scenario-design-council-master-v1.json',
-      'data/visual/character-designer-philosophy-master-v1.json',
       'data/visual/character-designer-ai-brain.json',
     ],
     livingVisualProfilePath,
@@ -95,30 +98,33 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     eraLifeMasterPath,
     eraLifeMasterRequired: eraLifeMasterPath !== null,
     designerPhilosophyRequired: true,
+    designerCraftRequired: true,
     designCouncilRequired: true,
     unknownLifePreferenceMayBeInventedByImageModel: false,
     reviewChecklist: mode === 'generate'
       ? [
-          'World Master / Era Life Master（該当時）/ Living Visual Profile / Design Councilを先に読む',
+          'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Design Councilを先に読む',
           ...(eraLifeMasterPath
             ? ['Core5 Era差を服だけで表現せず、communication / transport / repair / food / privacy / carried object / conversational assumptionsを確認する']
             : []),
           'Living Visual Profileの露出 / piercing / tattoo / clothing / absoluteNever / positivePreferenceを確認する',
           'Designer Philosophy MasterのDecision Ladderに従い、設定忠実度と本人の選択理由を美観より先に評価する',
+          'Craft Masterに従い、face / body / posture / silhouette / clothing construction / material / color / actingを別々に点検する',
           'Council rule: world / character / scenarioの最低2層から必要性を説明できないdetailは削除またはCandidate化する',
           'そのEra / 場所 / 日常動作で服・小物が実際に使えるか確認する',
           '未設定項目をgeneric fantasy / gacha conventionで補完しない',
-          'detailを足す前にsilhouette / body-posture / clothing construction / signature object / color hierarchyを確認する',
+          'detailを足す前にidentity reason / body-posture / silhouette / clothing construction / color hierarchy / material logicを診断する',
           ...(referencePrompt?.reviewChecklist ?? []),
         ]
       : [
           '既存masterをCurrent21 silhouette matrixと比較する',
-          'World Master / Era Life Master（該当時）/ Living Visual Profile / Design Councilと照合する',
+          'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Design Councilと照合する',
           ...(eraLifeMasterPath
             ? ['Core5の年代差が衣装記号だけになっていないか、生活物・収納・修繕・所作まで再評価する']
             : []),
           '本人が選ばない装飾・露出・body modificationが混入していないか確認する',
           'Designer Philosophy Masterの「似合う」と「本人が選ぶ」の分離で既存masterを再評価する',
+          'Craft Masterのblack-fill silhouette / neutral posture / clothing feasibility / material logicを確認する',
           'world / character / scenarioの二層以上から理由を説明できないdetailをauthority扱いしない',
           'body / age / posture / clothing mass / Named Object placementを確認する',
           '問題がなければ再生成せずreference registration候補へ進める',
@@ -151,11 +157,12 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   livingVisualMasterRequired: true,
   core5EraLifeMasterRequired: true,
   designerPhilosophyRequired: true,
+  designerCraftRequired: true,
   designCouncilRequired: true,
   worldMasterRequired: true,
   unknownLifePreferenceMayBeInventedByImageModel: false,
   generatedArtStartsAs: 'candidate review required',
   noAutomaticRuntimePromotion: true,
   noAutomaticFinalApproval: true,
-  rule: 'Export prompts from Current production data immediately before generation; load World Master, Core5 Era Life Master when applicable, Living Visual Master, per-character Living Visual Profile, Character Designer Philosophy Master, and World/Character/Scenario Design Council before the prompt is used; do not hand-copy stale prompts into an external image session.',
+  rule: 'Export prompts from Current production data immediately before generation; load World Master, Core5 Era Life Master when applicable, Living Visual Master, per-character Living Visual Profile, Character Designer Philosophy Master, Character Designer Craft Master, and World/Character/Scenario Design Council before the prompt is used; do not hand-copy stale prompts into an external image session.',
 } as const;
