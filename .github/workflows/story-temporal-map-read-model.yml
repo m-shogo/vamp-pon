@@ -1,0 +1,35 @@
+name: Story Temporal Map Read Model
+
+on:
+  pull_request:
+    paths:
+      - 'docs/story-temporal-map-read-model-v1.md'
+      - 'src/game/data/storyTemporalMapReadModel.ts'
+      - 'src/game/data/core5EraCanon.ts'
+      - 'src/game/data/storyWorldMasterSource.ts'
+      - 'scripts/quality/check-story-temporal-map-read-model.ts'
+      - '.github/workflows/story-temporal-map-read-model.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/story-temporal-map-read-model-v1.md'
+      - 'src/game/data/storyTemporalMapReadModel.ts'
+      - 'src/game/data/core5EraCanon.ts'
+      - 'src/game/data/storyWorldMasterSource.ts'
+      - 'scripts/quality/check-story-temporal-map-read-model.ts'
+      - '.github/workflows/story-temporal-map-read-model.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate five-lane temporal map and dream/sky overlays
+        run: node --experimental-strip-types scripts/quality/check-story-temporal-map-read-model.ts
