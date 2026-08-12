@@ -10,11 +10,16 @@ const CORE5_IDS = new Set(['yui', 'asa', 'nagi', 'michiru', 'tomori']);
 const CURRENT21_EXTENDED_IDS = new Set([
   'sen','ritsu','koyori','gen','hana','yubi','madoka','shiro','tobari','nemu','kuroori','kage1','kage2','kage3','kage4','ren',
 ]);
+const CORE5_ERA_LIFE_MASTER_PATH = 'data/visual/core5-era-life-design-master-v1.json';
 
 function resolveLivingVisualProfilePath(characterId: string): string {
   if (CORE5_IDS.has(characterId)) return 'data/visual/core5-living-visual-profiles-v1.json';
   if (CURRENT21_EXTENDED_IDS.has(characterId)) return 'data/visual/current21-extended-living-visual-profiles-v1.json';
   return 'data/visual/future15-living-visual-profiles-v1.json';
+}
+
+function resolveEraLifeMasterPath(characterId: string): string | null {
+  return CORE5_IDS.has(characterId) ? CORE5_ERA_LIFE_MASTER_PATH : null;
 }
 
 export type CharacterReferenceGenerationHandoffItem = {
@@ -31,6 +36,8 @@ export type CharacterReferenceGenerationHandoffItem = {
   visualAuthorityPaths: string[];
   livingVisualProfilePath: string;
   livingVisualProfileRequired: true;
+  eraLifeMasterPath: string | null;
+  eraLifeMasterRequired: boolean;
   designerPhilosophyRequired: true;
   designCouncilRequired: true;
   unknownLifePreferenceMayBeInventedByImageModel: false;
@@ -54,6 +61,10 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
       : 'revalidate';
 
   const livingVisualProfilePath = resolveLivingVisualProfilePath(entry.characterId);
+  const eraLifeMasterPath = resolveEraLifeMasterPath(entry.characterId);
+  const eraAuthorityPaths = eraLifeMasterPath
+    ? ['docs/visual/core5-era-life-design-master-v1.md', eraLifeMasterPath]
+    : [];
 
   return {
     characterId: entry.characterId,
@@ -68,6 +79,7 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     negativePrompt: mode === 'generate' ? referencePrompt?.negativePrompt ?? null : null,
     visualAuthorityPaths: [
       'docs/00-current-story-world-master.md',
+      ...eraAuthorityPaths,
       'docs/visual/character-living-visual-master-v1.md',
       livingVisualProfilePath,
       'docs/character-appearance-source-book-v1.md',
@@ -80,12 +92,17 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     ],
     livingVisualProfilePath,
     livingVisualProfileRequired: true,
+    eraLifeMasterPath,
+    eraLifeMasterRequired: eraLifeMasterPath !== null,
     designerPhilosophyRequired: true,
     designCouncilRequired: true,
     unknownLifePreferenceMayBeInventedByImageModel: false,
     reviewChecklist: mode === 'generate'
       ? [
-          'World Master / Living Visual Profile / Design Councilを先に読む',
+          'World Master / Era Life Master（該当時）/ Living Visual Profile / Design Councilを先に読む',
+          ...(eraLifeMasterPath
+            ? ['Core5 Era差を服だけで表現せず、communication / transport / repair / food / privacy / carried object / conversational assumptionsを確認する']
+            : []),
           'Living Visual Profileの露出 / piercing / tattoo / clothing / absoluteNever / positivePreferenceを確認する',
           'Designer Philosophy MasterのDecision Ladderに従い、設定忠実度と本人の選択理由を美観より先に評価する',
           'Council rule: world / character / scenarioの最低2層から必要性を説明できないdetailは削除またはCandidate化する',
@@ -96,7 +113,10 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
         ]
       : [
           '既存masterをCurrent21 silhouette matrixと比較する',
-          'World Master / Living Visual Profile / Design Councilと照合する',
+          'World Master / Era Life Master（該当時）/ Living Visual Profile / Design Councilと照合する',
+          ...(eraLifeMasterPath
+            ? ['Core5の年代差が衣装記号だけになっていないか、生活物・収納・修繕・所作まで再評価する']
+            : []),
           '本人が選ばない装飾・露出・body modificationが混入していないか確認する',
           'Designer Philosophy Masterの「似合う」と「本人が選ぶ」の分離で既存masterを再評価する',
           'world / character / scenarioの二層以上から理由を説明できないdetailをauthority扱いしない',
@@ -129,6 +149,7 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   expectedP0Ids: ['hana', 'kage1'],
   referenceFirst: true,
   livingVisualMasterRequired: true,
+  core5EraLifeMasterRequired: true,
   designerPhilosophyRequired: true,
   designCouncilRequired: true,
   worldMasterRequired: true,
@@ -136,5 +157,5 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   generatedArtStartsAs: 'candidate review required',
   noAutomaticRuntimePromotion: true,
   noAutomaticFinalApproval: true,
-  rule: 'Export prompts from Current production data immediately before generation; load World Master, Living Visual Master, per-character Living Visual Profile, Character Designer Philosophy Master, and World/Character/Scenario Design Council before the prompt is used; do not hand-copy stale prompts into an external image session.',
+  rule: 'Export prompts from Current production data immediately before generation; load World Master, Core5 Era Life Master when applicable, Living Visual Master, per-character Living Visual Profile, Character Designer Philosophy Master, and World/Character/Scenario Design Council before the prompt is used; do not hand-copy stale prompts into an external image session.',
 } as const;
