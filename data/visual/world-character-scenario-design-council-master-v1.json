@@ -1,0 +1,137 @@
+{
+  "id": "yoru-no-shirube-world-character-scenario-design-council-master-v1",
+  "date": "2026-08-12",
+  "status": "CURRENT_CROSS_DISCIPLINE_AUTHORITY",
+  "authorityDocument": "docs/visual/world-character-scenario-design-council-master-v1.md",
+  "purpose": "Keep world design, character design, and scenario design causally connected so generation and authoring do not fall back to generic fantasy, generic gacha, generic historical shorthand, or generic anime drama.",
+  "causalLoop": [
+    "world_rules",
+    "era_place_ordinary_life",
+    "character_values_habits_relationships",
+    "body_clothing_objects_posture",
+    "ordinary_dialogue_and_action",
+    "incident_choice_combat_kokuyou",
+    "growth",
+    "changed_ordinary_life"
+  ],
+  "finalQuestion": "Is this element required by at least two of world, character, and scenario? If not, consider removing, simplifying, or keeping it candidate-only.",
+  "authorityOrder": [
+    "docs/00-current-story-world-master.md",
+    "character_relation_era_current_authorities",
+    "docs/visual/character-living-visual-master-v1.md",
+    "per_character_living_visual_profile",
+    "docs/character-appearance-source-book-v1.md",
+    "docs/character-appearance-distinction-generation-contract-v1.md",
+    "docs/visual/character-designer-philosophy-master-v1.md",
+    "docs/visual/world-character-scenario-design-council-master-v1.md",
+    "generation_or_scene_brief",
+    "candidate_output",
+    "human_review_feedback"
+  ],
+  "roles": {
+    "worldDesigner": {
+      "owns": ["world_rules","era_society_technology","ordinary_infrastructure","location_function","materials","lighting_weather_sound","institutions_work_logistics","world_normality"],
+      "not": "a lore-name generator",
+      "core": "make an environment in which people can plausibly live ordinary lives"
+    },
+    "characterDesigner": {
+      "owns": ["body","age","posture","gait","face","hair","grooming","clothing_choice","wear_habits","exposure","body_modification_policy","carried_objects","silhouette","ensemble_distinction","ordinary_acting_range"],
+      "not": "a stylish-costume generator",
+      "core": "visualize what this person would choose in this world"
+    },
+    "scenarioDesigner": {
+      "owns": ["scene_purpose","immediate_want","hidden_pressure","relationship_movement","ordinary_scenes","conflict_choice_consequence","era_specific_incident","kokuyou_distortion","growth","return_to_daily_life","information_disclosure"],
+      "not": "a lore exposition generator",
+      "core": "create situations where setting becomes visible through character choices"
+    }
+  },
+  "sharedBeliefs": [
+    "worldbuilding_starts_with_ordinary_life_before_lore",
+    "character_design_is_accumulated_choices",
+    "scenario_applies_pressure_to_an_existing_person",
+    "return_to_ordinary_life_proves_growth",
+    "quiet_normal_loud_rare",
+    "world_motifs_should_become_structure_not_pasted_symbols",
+    "body_is_not_a_problem_growth_has_to_fix",
+    "clothes_must_survive_ordinary_actions",
+    "relationships_should_leave_lived_history_not_only_matching_accessories",
+    "black_youka_is_extreme_logic_not_evil_costume_change"
+  ],
+  "worldSpecificityTest": [
+    "reality_or_dream",
+    "era",
+    "who_uses_it",
+    "function",
+    "material",
+    "repair_or_maintenance",
+    "aging_behavior",
+    "yoru_theme_reason"
+  ],
+  "ensembleDifferencePriority": [
+    "body_proportion",
+    "center_of_gravity",
+    "posture",
+    "head_hair_mass",
+    "clothing_mass",
+    "carried_object_relation",
+    "movement_rhythm",
+    "color_hierarchy",
+    "micro_details"
+  ],
+  "importantSceneRequiredLayers": [
+    "surface_action",
+    "immediate_want",
+    "hidden_pressure",
+    "relationship_movement",
+    "world_evidence"
+  ],
+  "ordinarySceneReservoir": [
+    "food",
+    "travel_or_waiting",
+    "small_annoyance",
+    "stupid_joke",
+    "quiet_shared_task",
+    "disagreement_without_villain",
+    "repair_cleaning_preparation"
+  ],
+  "dialogueForbidden": [
+    "character_explains_own_personality",
+    "alternating_worldbuilding_lecture",
+    "theme_spoken_verbatim",
+    "everyone_uses_same_intelligent_exposition_voice"
+  ],
+  "dialogueEncouraged": [
+    "vocabulary_changes_by_relationship",
+    "characters_can_not_know",
+    "conversation_can_drift",
+    "jokes_can_fail",
+    "mishearing_and_partial_understanding",
+    "important_talk_surrounded_by_daily_actions"
+  ],
+  "kokuyouVisualForbidden": [
+    "body_normalization",
+    "sexualization_escalation",
+    "random_horns",
+    "random_tattoo",
+    "random_chains",
+    "generic_black_armor"
+  ],
+  "antiGenericDrift": [
+    "quality_equals_ornament_density",
+    "fantasy_equals_belts_gems_gold_tattoo",
+    "future_equals_neon_bodysuit_cyber_tattoo",
+    "historical_equals_costume_museum_shorthand",
+    "japanese_equals_wagara_torii_katana",
+    "dream_equals_floating_fragments_everywhere",
+    "serious_scene_equals_theme_exposition_with_dark_faces",
+    "comedy_equals_chibi_personality_simplification",
+    "villain_equals_black_red_eye_spikes",
+    "growth_equals_conventional_attractiveness"
+  ],
+  "productionGates": {
+    "characterAsset": ["living_visual_profile_resolved","appearance_authority_resolved","designer_philosophy_resolved","council_master_loaded","asset_or_scene_context_defined"],
+    "importantScene": ["world_location_or_era_reason","ordinary_action","immediate_want","relationship_movement","no_lore_dump_dependency"],
+    "worldLocation": ["function","users","materials","aging_or_repair","era_or_dream_logic","ordinary_life_scene_hook"]
+  },
+  "positiveTarget": "People with different bodies, values, eras, names, loves, and ways of living meet in a strange night of memory, records and routes home; they can have trivial conversations and jokes, and each faces an era-born answer that was reasonable before it became absolute."
+}
