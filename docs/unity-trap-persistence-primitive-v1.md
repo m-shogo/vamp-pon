@@ -1,10 +1,10 @@
 # Unity Trap Persistence Primitive v1
 
-Status: `IMPLEMENTED_SHARED_STATE_FOUNDATION / NOT_LIVE / NOT_CANON_TUNING`
+Status: `IMPLEMENTED_SHARED_STATE_FOUNDATION / CAPABILITY_IMPLEMENTED / NOT_LIVE / NOT_CANON_TUNING`
 
 ## Purpose
 
-`TRAP_FIELD` / movement breadcrumbのようなcaller-owned trap entityへ、arming・armed lifetime・trigger budget・expiryを共通stateとして提供する。
+`TRAP_FIELD` / movement breadcrumb系callerへ、arming・armed lifetime・trigger budget・expiryを共通stateとして提供する。
 
 `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
 
@@ -12,119 +12,98 @@ Status: `IMPLEMENTED_SHARED_STATE_FOUNDATION / NOT_LIVE / NOT_CANON_TUNING`
 
 `U2PersistentTrapState`
 
-Phases:
+Phases: `Inactive / Arming / Armed / Exhausted / Expired`。
 
-1. `Inactive`
-2. `Arming`
-3. `Armed`
-4. `Exhausted`
-5. `Expired`
-
-## Begin contract
-
-Caller supplies:
-
-- placement position
-- arming delay
-- active duration
-- trigger budget
-
-Rules:
-
-- negative/non-finite arming delay rejected
-- active duration must be finite positive
-- trigger budget must be > 0
-- active trap rejects replacement begin
-- zero arming delay starts immediately `Armed`
-
-Position including Z is preserved as caller-owned placement data.
+Caller supplies placement position / arming delay / active duration / trigger budget。
 
 ## Time semantics
 
-`TryTick(deltaSeconds)` uses one caller delta budget.
+One caller delta budgetを使用する。
 
-If one large tick crosses arming completion:
+Large tickがarming完了を跨ぐ場合:
 
-1. consume remaining arming time
-2. enter `Armed`
-3. apply leftover delta to active lifetime
+1. remaining arming time消費
+2. `Armed`
+3. leftover deltaをactive lifetimeへ適用
 
-Therefore low FPS / large delta does not extend trap lifetime.
-
-A sufficiently large single tick may report both:
-
-- `ArmedThisTick = true`
-- `ExpiredThisTick = true`
+低FPSでtrap lifetimeを延長しない。十分大きな1tickは `ArmedThisTick=true` と `ExpiredThisTick=true` を同時に返せる。
 
 ## Trigger budget
 
-`TryConsumeTrigger` succeeds only while `Armed`.
-
-Each successful call decrements caller-supplied budget.
-
-When budget reaches zero:
-
-`Phase = Exhausted`
-
-Time expiry is separate:
-
-`Phase = Expired`
-
-No trigger is fabricated on time expiry.
+`TryConsumeTrigger` はArmed中のみ成功。成功ごとにbudgetを1減らし、0で `Exhausted`。Time expiryは `Expired` で、triggerを捏造しない。
 
 ## Non-ownership
 
-The shared state does not own:
+Shared stateは以下を持たない:
 
 - Weapon ID
 - enemy query / overlap shape
-- root / SOAK / damage / Status
+- ROOTED / SOAK / damage / Status
 - boss conversion
-- placement cadence
-- movement breadcrumb generation
-- VFX / SFX
-- pooling implementation
-- Canon arming/lifetime/trigger values
-- live registry admission
+- placement cadence / breadcrumb generation
+- VFX / SFX / pooling
+- Canon timing/budget values
 
-## Executable proof
+## Executable foundation proof
 
 - `scripts/quality/unity-trap-persistence/UnityTrapPersistence.Contract.csproj`
 - `scripts/quality/unity-trap-persistence/Program.cs`
 
-TEST_ONLY contract verifies:
+Delayed arming、lifetime carryover、trigger exhaustion、time expiry、position/Z、reset/reuse、fail-closedを実証済み。All fixtures NOT_CANON。
 
-- delayed arming
-- active lifetime does not decay before arming
-- leftover delta after arming reduces active lifetime
-- trigger budget consumption
-- final trigger -> Exhausted
-- exact time expiry
-- one large tick arming + expiry
-- time expiry does not consume trigger budget
-- immediate-arm trap
-- position/Z preservation
-- reset/reuse
-- active replacement begin rejection
-- invalid position/timing/budget/delta fail closed without state mutation
+## Selected16 consumer proof
 
-All fixture values are `NOT_CANON`.
+`pressed_flower_cards` / 押花札 が executable Selected16 callerとしてgreen。
+
+Caller:
+
+`PressedFlowerCardsPrototypeState`
+
+Application order:
+
+`PLACE_ARM_WAIT_TARGET_ENTER_CONSUME_TRIGGER_THEN_TYPED_ROOTED`
+
+Consumer proves:
+
+- one placed card composes one shared trap state
+- caller-owned trigger radius
+- out-of-range / untargetable / duplicate target does not consume budget
+- same targetは同placementを1回だけtrigger
+- eligible physical trigger consumes shared budget before typed ROOTED attempt
+- ROOTED cooldownはStatusだけblockしtriggerをrefundしない
+- exhausted / expired reject further triggers
+- caller telemetry/reset
+- all tuning caller supplied
+
+Generic trapは`pressed_flower_cards` / ROOTEDを知らない。
 
 ## Admission boundary
 
-This foundation intentionally does **not** promote `TRAP_PERSISTENCE` yet.
+Shared foundation + Pressed Flower executable caller proofがgreenのため:
 
-Before capability admission, at least one real consumer path must prove:
+`TRAP_PERSISTENCE = IMPLEMENTED`
 
-- trap entity ownership/reuse
-- target overlap semantics
-- trigger consumption order
-- caller Status/damage policy
-- cleanup/reset behavior
+`pressed_flower_cards`:
 
-Shared state existence alone is not Selected16 caller proof.
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
-## Original / Canon boundary
+Still:
+
+`runtimeStatus = NOT_IMPLEMENTED`
+
+## Boss boundary
+
+Content noteのboss root conversionはこのAdmissionで捏造しない。
+
+- normal typed ROOTED + trap lifecycleはimplementation-review proof済み
+- boss conversionはshared boss-Status policy / runtime evidenceが整った後の別gate
+- exact slow/action-delay/immunity値はCanon化しない
+
+この未完了はlive admission blockerであり、shared trap capability自体をfake generic behaviorへ落とす理由にはしない。
+
+## Live / Original / Canon boundary
+
+No automatic Web catalog / LevelUp / Stage1GameplayRuntimeCoordinator / U47 executor / save migration / final VFX / production balance。
 
 No Story / Character / Content selection / Canon numeric values are modified.
 
