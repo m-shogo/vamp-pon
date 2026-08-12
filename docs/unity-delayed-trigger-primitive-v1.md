@@ -1,135 +1,87 @@
 # Unity Delayed Trigger Primitive v1
 
-Status: `IMPLEMENTED_SHARED_DELAY_FOUNDATION / CAPABILITY_NOT_YET_PROMOTED / NOT_LIVE / NOT_CANON_TUNING`
+Status: `IMPLEMENTED_SHARED_DELAY_FOUNDATION / CAPABILITY_IMPLEMENTED / NOT_LIVE / NOT_CANON_TUNING`
 
 ## Purpose
 
-設置後に一定時間待ち、effectを一度だけ発火可能にするための reusable one-shot delay gate。
+設置後に一定時間待ち、effectを一度だけ発火可能にするreusable one-shot delay gate。
 
-Source:
-
-`unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2DelayedTriggerRuntime.cs`
+Source: `U2DelayedTriggerState`。
 
 `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
 
 ## State machine
 
-- `Inactive`
-- `Waiting`
-- `Ready`
-- `Fired`
-- `Cancelled`
+`Inactive / Waiting / Ready / Fired / Cancelled`。
 
-`TryBegin(delaySeconds)`:
-
-- finite / non-negative delayのみ受理
-- delay > 0 -> `Waiting`
-- delay == 0 -> `Ready`
-- active stateのreplacement beginは禁止
-
-`TryTick(deltaSeconds, out result)`:
-
-- positive finite deltaのみ
-- Waiting中はremaining delayを減算
-- overshootでもremainingを0へclampし、`BecameReadyThisTick=true` は遷移tickで一度だけ
-- Readyは明示consumeまでReadyを維持
-
-`TryConsume()`:
-
-- Readyのみ成功
-- `Ready -> Fired`
-- effect実行そのものはcaller責任
-
-`TryCancel()`:
-
-- Waiting / Readyのみ成功
-- `Cancelled` terminalへ
-
-`Reset()`で再利用可能。
+- `TryBegin(delay)` — finite non-negative only; zero delay -> Ready
+- `TryTick(delta)` — Waitingを進め、overshootでもReady transitionを一度だけ通知
+- Readyは明示consumeまで維持
+- `TryConsume()` — Ready only -> Fired
+- `TryCancel()` — Waiting/Ready -> Cancelled
+- `Reset()` — reusable
 
 ## Why explicit consume
 
-Ready到達とdamage / area query / Status / VFXの発火をshared stateが一体化すると、武器固有のeffect orderingがgeneric layerへ漏れる。
-
-そのため shared layer は **ready signalまで** を所有し、callerが必要なeffect処理を行う直前に1回だけ `TryConsume()` する。
-
-これにより:
-
-- target query -> damage -> surviving Status
-- area pulse -> telemetry
-- visual cue -> effect
-
-などcaller固有の順序を別gateで証明できる。
+Ready到達とdamage/query/Status/VFX発火をshared stateが一体化すると武器固有orderingがgeneric layerへ漏れる。Shared layerはready signalまで、effectはcaller責任。
 
 ## Non-ownership
 
-このprimitiveは持たない:
+Shared delayはWeapon ID / damage / Status / target query / radius / placement / trap persistence / cadence / VFX / pooling / Canon delayを持たない。
 
-- Weapon ID
-- damage
-- Status
-- target / overlap query
-- radius
-- placement position
-- trap persistence
-- repeating cadence
-- VFX / SFX
-- pooling
-- Canon delay value
-
-## Executable proof
+## Executable foundation proof
 
 - `scripts/quality/unity-delayed-trigger/UnityDelayedTrigger.Contract.csproj`
 - `scripts/quality/unity-delayed-trigger/Program.cs`
 
-TEST_ONLY:
+Waiting / overshoot / Ready once / explicit consume / zero-delay / cancellation / reset / fail-closedを実証済み。All fixtures NOT_CANON。
 
-- partial waiting tick
-- delay overshoot -> one Ready transition
-- Ready tick does not re-emit transition
-- explicit single consume
-- Fired terminal behavior
-- zero-delay immediate Ready but still explicit consume
-- cancellation from Waiting and Ready
-- reset/reuse
-- negative / non-finite delay fail closed
-- zero / non-finite delta fail closed
-- active replacement begin rejection
-- invalid operations do not mutate valid state
+## Selected16 consumer proof
 
-All fixture values are `NOT_CANON`.
+`dream_alarm` / 夢の目覚まし が executable Selected16 callerとしてgreen。
+
+Caller:
+
+`DreamAlarmPrototypeState`
+
+Application order:
+
+`PLACE_WAIT_READY_EXPLICIT_CONSUME_AREA_DROWSY`
+
+Consumer proves:
+
+- caller placement + delay
+- Tick does not auto-fire
+- explicit Ready consume
+- caller-owned XY radius query
+- typed DROWSY to targetable in-range candidates
+- empty area still consumes physical one-shot pulse
+- DROWSY cooldown does not refund pulse
+- Waiting/Ready cancellation
+- invalid fire input does not consume valid Ready
+- telemetry/reset
+- all tuning caller supplied
+
+Generic delayは`dream_alarm` / DROWSYを知らない。
 
 ## Admission boundary
 
-Foundation完成だけでは:
+Shared foundation + Dream Alarm executable caller proofがgreenのため:
 
-`DELAYED_TRIGGER = MISSING`
+`DELAYED_TRIGGER = IMPLEMENTED`
 
-を維持する。
+`dream_alarm`:
 
-Selected16 consumerが別途、少なくとも:
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
-- authored delayed-pulse identity
-- placement / trigger point
-- effect query
-- damage / Status ordering
-- one-shot cleanup
-- telemetry
-- executable caller proof
+Still:
 
-を示した後にだけ capability admissionを検討する。
+`runtimeStatus = NOT_IMPLEMENTED`
+
+## Live / Original / Canon boundary
+
+No automatic Web catalog / LevelUp / Stage1GameplayRuntimeCoordinator / U47 executor / save migration / final VFX / production balance。
+
+No Story / Character / Content selection / Canon numeric values are modified.
 
 `runtimeAutoPromotionAllowed = false`
-
-## Live boundary
-
-このfoundationから自動で行わない:
-
-- Web live catalog追加
-- LevelUp追加
-- Stage1GameplayRuntimeCoordinator接続
-- U47 executor追加
-- save migration
-- Content selection変更
-- Canon tuning
-- final VFX/readability承認

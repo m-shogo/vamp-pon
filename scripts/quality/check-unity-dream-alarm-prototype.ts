@@ -14,13 +14,11 @@ function assert(condition: unknown, message: string): asserts condition {
 const callerPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/DreamAlarmPrototypeRuntime.cs';
 const metaPath = `${callerPath}.meta`;
 const delayPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2DelayedTriggerRuntime.cs';
-const statusPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs';
-const requestPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs';
 const projectPath = 'scripts/quality/unity-dream-alarm/UnityDreamAlarm.Contract.csproj';
 const contractPath = 'scripts/quality/unity-dream-alarm/Program.cs';
 const docPath = 'docs/unity-dream-alarm-prototype-v1.md';
 const coordinatorPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs';
-for (const path of [callerPath,metaPath,delayPath,statusPath,requestPath,projectPath,contractPath,docPath,coordinatorPath]) {
+for (const path of [callerPath,metaPath,delayPath,projectPath,contractPath,docPath,coordinatorPath]) {
   assert(existsSync(path), `Dream Alarm caller file missing: ${path}`);
 }
 
@@ -41,10 +39,7 @@ for (const token of [
 ]) {
   assert(caller.includes(token), `Dream Alarm caller missing contract: ${token}`);
 }
-for (const forbidden of [
-  'const float PulseRadius','const float Delay','DefaultDrowsy','DefaultRange','TakeDamage(','ParticleSystem','AudioSource','Camera.',
-  'Stage1GameplayRuntimeCoordinator','WeaponEffectType','LevelUp',
-]) {
+for (const forbidden of ['const float PulseRadius','const float Delay','DefaultDrowsy','DefaultRange','TakeDamage(','ParticleSystem','AudioSource','Camera.','Stage1GameplayRuntimeCoordinator','WeaponEffectType','LevelUp']) {
   assert(!caller.includes(forbidden), `Dream Alarm caller must not own live/default behavior: ${forbidden}`);
 }
 
@@ -60,12 +55,13 @@ assert(selection.appliesStatuses.join(',') === 'DROWSY', 'Dream Alarm Status ide
 
 const admission = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'dream_alarm');
 assert(admission, 'Dream Alarm admission row missing');
-assert(currentUnityWeaponRuntimeCapabilities.DELAYED_TRIGGER === 'MISSING', 'caller-only PR must not pre-promote DELAYED_TRIGGER');
-assert(admission.missingUnityCapabilities.includes('DELAYED_TRIGGER'), 'Dream Alarm must remain primitive-blocked in staged caller PR');
-assert(!unityPrototypeCallerImplementedWeaponIds.includes('dream_alarm'), 'Dream Alarm staged caller must not be registered early');
-assert(!admission.prototypeCallerImplemented, 'Dream Alarm staged caller proof must remain outside registry');
-assert(admission.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES', 'Dream Alarm staged caller must remain primitive-blocked');
-assert(!admission.mayEnterUnityRuntimeRegistry && admission.runtimeStatus === 'NOT_IMPLEMENTED', 'Dream Alarm staged caller must not claim implementation-review/live admission');
+assert(currentUnityWeaponRuntimeCapabilities.DELAYED_TRIGGER === 'IMPLEMENTED', 'verified Dream Alarm caller must back DELAYED_TRIGGER');
+assert(admission.implementedUnityCapabilities.join(',') === 'DELAYED_TRIGGER,STATUS_APPLICATION', `Dream Alarm implemented capabilities drift: ${admission.implementedUnityCapabilities.join(',')}`);
+assert(admission.missingUnityCapabilities.length === 0, 'Dream Alarm must have no primitive blockers after delayed admission');
+assert(unityPrototypeCallerImplementedWeaponIds.includes('dream_alarm'), 'Dream Alarm verified caller must be registered');
+assert(admission.prototypeCallerImplemented, 'Dream Alarm caller proof must be explicit');
+assert(admission.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && admission.mayEnterUnityRuntimeRegistry, 'Dream Alarm implementation-review admission drift');
+assert(admission.runtimeStatus === 'NOT_IMPLEMENTED', 'Dream Alarm implementation review must not claim live runtime');
 
 for (const token of [
   'Dream Alarm must not fire before Ready','delay overshoot must transition to Ready exactly once','Ready tick must not auto-fire or re-emit readiness',
@@ -79,25 +75,11 @@ for (const linkedSource of ['DreamAlarmPrototypeRuntime.cs','U2DelayedTriggerRun
   assert(project.includes(linkedSource), `Dream Alarm contract project must compile real source: ${linkedSource}`);
 }
 
-for (const token of [
-  'TITLE1_SELECTED','DELAYED_TRIGGER_CAPABILITY_NOT_YET_PROMOTED','PLACE_WAIT_READY_EXPLICIT_CONSUME_AREA_DROWSY',
-  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','DELAYED_TRIGGER = MISSING','BLOCKED_MISSING_UNITY_PRIMITIVES',
-  'runtimeStatus = NOT_IMPLEMENTED','runtimeAutoPromotionAllowed = false',
-]) {
+for (const token of ['TITLE1_SELECTED','DELAYED_TRIGGER = IMPLEMENTED','ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW','PLACE_WAIT_READY_EXPLICIT_CONSUME_AREA_DROWSY','CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','runtimeStatus = NOT_IMPLEMENTED','runtimeAutoPromotionAllowed = false']) {
   assert(doc.includes(token), `Dream Alarm doc missing token: ${token}`);
 }
 for (const token of ['DreamAlarmPrototypeState','dream_alarm','U2DelayedTriggerState']) {
   assert(!coordinator.includes(token), `Dream Alarm prototype leaked into live Stage1 coordinator: ${token}`);
 }
 
-console.log(JSON.stringify({
-  status: 'PASS',
-  caller: 'DreamAlarmPrototypeState',
-  selectionDecision: selection.decision,
-  delayedTriggerCapability: currentUnityWeaponRuntimeCapabilities.DELAYED_TRIGGER,
-  admission: admission.unityDecision,
-  callerRegistryPromoted: admission.prototypeCallerImplemented,
-  liveRuntimeStatus: admission.runtimeStatus,
-  liveStage1Changed: false,
-  canonTuningChanged: false,
-}, null, 2));
+console.log(JSON.stringify({ status: 'PASS', caller: 'DreamAlarmPrototypeState', selectionDecision: selection.decision, delayedTriggerCapability: currentUnityWeaponRuntimeCapabilities.DELAYED_TRIGGER, admission: admission.unityDecision, callerRegistryPromoted: admission.prototypeCallerImplemented, liveRuntimeStatus: admission.runtimeStatus, liveStage1Changed: false, canonTuningChanged: false }, null, 2));
