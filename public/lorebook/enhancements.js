@@ -3,6 +3,7 @@ const modules = [
   './relationship-enhancement.js',
   './combat-enhancement.js',
   './history-enhancement.js',
+  './era-dialogue-atlas-enhancement.js',
   './geography-enhancement.js',
   './cross-era-echo-enhancement.js',
   './decision-lab.js',
