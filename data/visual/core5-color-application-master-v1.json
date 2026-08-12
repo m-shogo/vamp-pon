@@ -1,0 +1,163 @@
+{
+  "id": "yoru-no-shirube-core5-color-application-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION",
+  "authorityDocument": "docs/visual/core5-color-application-master-v1.md",
+  "doesNotReplaceThemeColorCanon": true,
+  "canonicalSources": [
+    "src/game/data/characterThemeColors.ts",
+    "src/game/data/characterThemeColorReservoir.ts",
+    "docs/183-character-theme-colors.md"
+  ],
+  "sharedRules": {
+    "roles": ["identity","supportNeutral","accent","emittedOrReflectedLight"],
+    "defaultAreaDiscipline": {
+      "identity": "25-50%",
+      "supportNeutral": "35-60%",
+      "accent": "3-10%",
+      "emittedOrReflectedLight": "light-source-and-reflection-only"
+    },
+    "starBeastColorIsDefaultGarmentColor": false,
+    "hairEyeSkinUnknownMayBeInvented": false,
+    "forbiddenShortcuts": [
+      "theme_color_everywhere",
+      "accent_as_full_edge_trim",
+      "metal_equals_gold",
+      "protagonist_equals_extra_gold_white",
+      "rarity_equals_more_saturation_glow",
+      "star_beast_color_as_third_signature_color",
+      "kokuyou_or_dawn_replaces_identity_palette",
+      "skin_tone_changed_for_palette_harmony"
+    ]
+  },
+  "characters": [
+    {
+      "id": "yui",
+      "name": "ユイ",
+      "canonical": {
+        "themeHex": "#264A86",
+        "themeName": "瑠璃色",
+        "accentHex": "#F6B44B",
+        "accentName": "山吹色",
+        "starBeastHex": "#D6A541"
+      },
+      "application": {
+        "identityUse": ["outer-layer-or-medium-cloth-mass"],
+        "supportUse": ["old-paper-neutral","soft-grey","soft-dark-neutral"],
+        "accentUse": ["small-lantern-core","memory-light-reflection"],
+        "starBeastRole": "leo-lineage-only-not-garment-default",
+        "lightRole": "warm-local-light-not-permanent-garment-color",
+        "forbidden": ["gold-blue-protagonist-armor","accent-scattered-across-ribbons-shoes-gems-hair-accessories"]
+      },
+      "readTarget": "quiet blue person carrying one warm practical light"
+    },
+    {
+      "id": "asa",
+      "name": "アサ",
+      "canonical": {
+        "themeHex": "#F4A7B9",
+        "themeName": "薄紅",
+        "accentHex": "#F7D94C",
+        "accentName": "菜の花色",
+        "starBeastHex": "#E0B75D"
+      },
+      "application": {
+        "identityUse": ["clean-panel","inner-layer","controlled-compact-block"],
+        "supportUse": ["dark-neutral","cool-neutral"],
+        "accentUse": ["label-highlight","paper-highlight","small-closure-cue"],
+        "starBeastRole": "separate-from-daily-garment-palette",
+        "lightRole": "scene-light-only-unless-authority-says-otherwise",
+        "forbidden": ["pastel-full-body-wash","soft-romantic-color-shorthand","yellow-gold-metal-ornament-conversion"]
+      },
+      "readTarget": "sharp construction carrying a restrained pale-red identity"
+    },
+    {
+      "id": "nagi",
+      "name": "ナギ",
+      "canonical": {
+        "themeHex": "#7B90D2",
+        "themeName": "藤紫",
+        "accentHex": "#C7B78B",
+        "accentName": "白橡",
+        "starBeastHex": "#D98B77"
+      },
+      "application": {
+        "identityUse": ["long-vertical-closed-cloth-mass"],
+        "supportUse": ["cool-dark-neutral","greyed-material"],
+        "accentUse": ["key","old-box-edge","restrained-fastening","aged-hard-material"],
+        "starBeastRole": "not-makeup-eye-glow-or-jewelry-default",
+        "lightRole": "subtle-reflection-not-moon-glow-costume",
+        "forbidden": ["purple-silver-crystal-moon-template","sparkle-replacement-for-material"]
+      },
+      "readTarget": "closed vertical quietness with a small old-object edge"
+    },
+    {
+      "id": "michiru",
+      "name": "ミチル",
+      "canonical": {
+        "themeHex": "#2E5C6E",
+        "themeName": "御召御納戸",
+        "accentHex": "#D7C447",
+        "accentName": "刈安色",
+        "starBeastHex": "#9CC8E8"
+      },
+      "application": {
+        "identityUse": ["travel-cloth-mass","route-map-associated-cloth"],
+        "supportUse": ["dust-neutral","soil-neutral","canvas-neutral","functional-leather-neutral"],
+        "accentUse": ["compass-needle","route-thread","small-navigation-cue"],
+        "starBeastRole": "not-constant-glowing-outline",
+        "lightRole": "environmental-or-navigation-cue-only",
+        "forbidden": ["blue-yellow-adventurer-template","leather-belt-multiplication","large-yellow-garment-block"]
+      },
+      "readTarget": "weathered blue-green traveler with one readable navigation cue"
+    },
+    {
+      "id": "tomori",
+      "name": "トモリ",
+      "canonical": {
+        "themeHex": "#8F2E14",
+        "themeName": "弁柄色",
+        "accentHex": "#FAD689",
+        "accentName": "淡香",
+        "starBeastHex": "#D6A541"
+      },
+      "application": {
+        "identityUse": ["repair-cloth","soot-adjacent-cloth","lamp-workwear-history-panel"],
+        "supportUse": ["work-dark-neutral","worn-material","old-hardware"],
+        "accentUse": ["repaired-lamp","warm-reflected-work-light","small-repair-marking"],
+        "starBeastRole": "leo-lineage-only-not-brass-overload",
+        "lightRole": "local-repaired-warm-light",
+        "forbidden": ["steampunk-brass-overload","gear-goggle-gold-trim-multiplication","patches-added-only-to-increase-color-count"]
+      },
+      "readTarget": "red-brown work history with a small repaired warm light"
+    }
+  ],
+  "ensembleQA": [
+    "grayscale_identity_survives",
+    "theme_color_supports_not_replaces_identity",
+    "yui_blue_and_michiru_bluegreen_separate",
+    "asa_pale_red_not_soft_romantic",
+    "nagi_purple_not_generic_moon_magic",
+    "tomori_redbrown_not_generic_steampunk",
+    "identity_survives_without_accent",
+    "identity_survives_without_star_beast_color",
+    "clothing_structure_survives_without_emitted_light",
+    "commercial_quality_without_universal_gold_white_highlight"
+  ],
+  "assetTranslation": {
+    "characterMaster": ["preserve_material_local_color","accent_small_area","separate_light_from_local_color","no-new-palette-role-for-high-res"],
+    "conversation": ["identity_support_accent-three-level-sufficient","micro-color-accents-may-be-omitted"],
+    "chibi": ["one-identity-block","one-or-two-support-blocks","one-accent-point","star-beast-color-only-when-scene-needs"],
+    "pixel": ["strongest-identity-block","strongest-support-block","prop-accent"]
+  },
+  "imageGenerationGate": [
+    "canonical_theme_accent_hex_loaded",
+    "per_character_color_application_loaded",
+    "accent_placement_known",
+    "star_beast_color_role_separated",
+    "emitted_light_role_separated",
+    "no_unspecified_third_signature_color",
+    "no_theme_color_full_body_wash",
+    "no_generic_gold_premiumization"
+  ]
+}
