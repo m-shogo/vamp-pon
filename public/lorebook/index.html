@@ -66,6 +66,7 @@
         <a href="#characters">人物図鑑</a>
         <a href="#relationships">人間関係</a>
         <a href="#history">時間と歴史</a>
+        <a href="#constellations">星座史</a>
         <a href="#story">物語と謎</a>
         <a href="#glossary">用語帳</a>
         <a href="#authors-desk" class="author-only">作者の机</a>
@@ -155,9 +156,28 @@
         <div class="callout author-only"><b>作者向け:</b> Exact yearを先に埋めるのではなく、言葉・道具・技術・生活習慣から相対Eraを決めると、矛盾を増やさず歴史を厚くできます。</div>
       </section>
 
+      <section class="chapter author-only" id="constellations" aria-labelledby="constellationTitle">
+        <header class="chapter-heading">
+          <span>CHAPTER 04 · AUTHOR</span>
+          <div><h2 id="constellationTitle">星座史 Archive</h2><p>現代88・旧星座・名称化石を比較し、史実とStory Canonを混ぜずに伏線へ接続する。</p></div>
+        </header>
+        <div id="constellationArchive"></div>
+        <div class="callout"><b>境界:</b> 「星図から外れた」ことと「敵になった」ことは別。トモリのCurrent年代とユイの現代で公式88星座一覧が違う、という仕掛けは使わない。</div>
+        <header class="chapter-heading compact-heading">
+          <span>CLUE RESERVOIR</span>
+          <div><h2>Story Clue</h2><p>S/A/Bは品質点数ではなく、現時点のStory usefulness。すべて非Canonで、次に確認すべきSourceを持つ。</p></div>
+        </header>
+        <div id="constellationStoryClues" class="question-board"></div>
+        <header class="chapter-heading compact-heading">
+          <span>GROUP GLOSSARY</span>
+          <div><h2>混同しやすい名称</h2><p>朔夜座・群青残響録・星獣・黒耀化・旧星座・外典星座CandidateをAuthority付きで分ける。</p></div>
+        </header>
+        <div id="groupGlossary" class="constellation-entry-grid"></div>
+      </section>
+
       <section class="chapter story-chapter" id="story" aria-labelledby="storyTitle">
         <header class="chapter-heading">
-          <span>CHAPTER 04</span>
+          <span>CHAPTER 05</span>
           <div><h2 id="storyTitle">物語と謎</h2><p>Character Mystery / Main Mystery / Series Mysteryを別レーンで管理する。</p></div>
         </header>
         <div id="storyIdentity" class="story-intro"></div>
@@ -167,7 +187,7 @@
 
       <section class="chapter" id="glossary" aria-labelledby="glossaryTitle">
         <header class="chapter-heading">
-          <span>CHAPTER 05</span>
+          <span>CHAPTER 06</span>
           <div><h2 id="glossaryTitle">用語帳</h2><p>言葉を思い出せない時のための、最短の索引。</p></div>
         </header>
         <label class="search-box glossary-search"><span>⌕</span><input id="glossarySearch" type="search" placeholder="黒耀化 / 灯具 / 星獣…" /></label>
@@ -201,5 +221,6 @@
 
   <script type="module" src="./app.js"></script>
   <script type="module" src="./enhancements.js"></script>
+  <script type="module" src="./constellation-archive-enhancement.js"></script>
 </body>
 </html>
