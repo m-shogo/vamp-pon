@@ -16,6 +16,8 @@ const COUNCIL_JSON = 'data/visual/world-character-scenario-design-council-master
 const WORLD_MASTER = 'docs/00-current-story-world-master.md';
 const ERA_LIFE_DOC = 'docs/visual/core5-era-life-design-master-v1.md';
 const ERA_LIFE_JSON = 'data/visual/core5-era-life-design-master-v1.json';
+const RELATIONSHIP_DOC = 'docs/visual/relationship-embodied-daily-life-contract-v1.md';
+const RELATIONSHIP_JSON = 'data/visual/relationship-embodied-daily-life-contract-v1.json';
 
 type CliOptions = {
   characterId: string;
@@ -97,11 +99,23 @@ function loadCouncil() {
   return council;
 }
 
+function loadRelationshipContract() {
+  const contract = JSON.parse(readFileSync(resolve(process.cwd(), RELATIONSHIP_JSON), 'utf8'));
+  if (contract.status !== 'CURRENT_AUTHORING_CONTRACT_EXTENDS_EXISTING_RELATIONSHIP_AUTHORITIES') {
+    throw new Error(`Relationship embodiment contract is not current: ${RELATIONSHIP_JSON}`);
+  }
+  if (contract.doesNotCreateNewRelationshipEdges !== true) {
+    throw new Error(`Relationship embodiment contract must not create new edges: ${RELATIONSHIP_JSON}`);
+  }
+  return contract;
+}
+
 function resolvedPromptBlock(
   profilePath: string,
   profile: LivingVisualProfile,
   council: any,
   eraLife: EraLifeProfile | null,
+  relationship: any,
 ): string {
   return [
     'WORLD / CHARACTER / SCENARIO DESIGN COUNCIL — REQUIRED CROSS-DISCIPLINE AUTHORITY.',
@@ -110,7 +124,7 @@ function resolvedPromptBlock(
     `Council machine rules: ${COUNCIL_JSON}.`,
     `Council final question: ${council.finalQuestion}`,
     'Before decoration, ask what world/era/life function requires the element and what this person would choose or tolerate.',
-    'For character assets, world context, ordinary physical use, and scenario role must not be overridden by beauty/coolness/premium rendering.',
+    'For character assets, world context, ordinary physical use, relationship history, and scenario role must not be overridden by beauty/coolness/premium rendering.',
     ...(eraLife
       ? [
           'CORE5 ERA LIFE PROFILE — REQUIRED ERA/LIFE AUTHORITY.',
@@ -121,6 +135,19 @@ function resolvedPromptBlock(
           JSON.stringify(eraLife, null, 2),
         ]
       : []),
+    'RELATIONSHIP EMBODIMENT MASTER — REQUIRED BOUNDARY AUTHORITY.',
+    `Relationship authority: ${RELATIONSHIP_DOC}.`,
+    `Relationship machine rules: ${RELATIONSHIP_JSON}.`,
+    'Do not invent relationship history, romance, gifts, matching accessories, touch permission, borrowed objects, or appearance intervention that are not backed by existing relationship authorities.',
+    'Relationship depth is multi-axis. High trust does not automatically mean closer body distance, more touch, casual speech, matching accessories, or more skin exposure.',
+    'If a relationship trace affects clothing, repair, object placement, grooming, or pose, it must have an existing relationship source. Otherwise omit it.',
+    JSON.stringify({
+      antiShortcut: relationship.antiShortcut,
+      appearanceInterventionNeverAutomatic: relationship.appearanceInterventionNeverAutomatic,
+      bodyActingFields: relationship.bodyActingFields,
+      unknownPairPolicy: relationship.unknownPairPolicy,
+      positiveTarget: relationship.positiveTarget,
+    }, null, 2),
     'LIVING VISUAL PROFILE — REQUIRED CHARACTER AUTHORITY.',
     `Source: ${profilePath}.`,
     'The person is already designed. Do not redesign them from genre defaults.',
@@ -143,8 +170,15 @@ function authorityOrder(characterId: string, profilePath: string): string[] {
     'docs/character-appearance-source-book-v1.md',
     'docs/character-appearance-distinction-generation-contract-v1.md',
     'docs/visual/character-designer-philosophy-master-v1.md',
+    'data/visual/character-designer-philosophy-master-v1.json',
+    'docs/visual/character-designer-craft-master-v1.md',
+    'data/visual/character-designer-craft-master-v1.json',
+    'docs/visual/character-designer-precedent-master-v1.md',
+    'data/visual/character-designer-precedent-master-v1.json',
     COUNCIL_DOC,
     COUNCIL_JSON,
+    RELATIONSHIP_DOC,
+    RELATIONSHIP_JSON,
     'data/visual/character-designer-ai-brain.json',
   ];
 }
@@ -155,7 +189,8 @@ function renderMarkdown(options: CliOptions) {
   const living = loadProfile(options.characterId);
   const eraLife = loadEraLifeProfile(options.characterId);
   const council = loadCouncil();
-  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile, council, eraLife)].join('\n');
+  const relationship = loadRelationshipContract();
+  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile, council, eraLife, relationship)].join('\n');
   return [
     '# Yoru no Shirube — Resolved Character Asset Prompt',
     '',
@@ -166,6 +201,7 @@ function renderMarkdown(options: CliOptions) {
     `Living Visual Profile: ${living.path}`,
     `Living Visual Source Status: ${living.status ?? 'unknown'}`,
     `Design Council: ${COUNCIL_DOC}`,
+    `Relationship Embodiment Master: ${RELATIONSHIP_DOC}`,
     ...(eraLife ? [`Core5 Era Life Profile: ${ERA_LIFE_JSON}#${options.characterId}`] : []),
     '',
     '## Mandatory authority order',
@@ -186,7 +222,8 @@ function renderMarkdown(options: CliOptions) {
     '',
     '## Review Checklist',
     '',
-    '- World / Character / Scenario Councilの二層必要性テストに通る',
+    '- World / Character / Relationship / Scenario Councilの必要性テストに通る',
+    '- Relationship Authorityにないgift / matching accessory / touch / exposure changeを発明していない',
     ...(eraLife
       ? [
           '- Core5のEra差が衣装だけでなく、収納・修繕・持ち物・移動・所作へ反映されている',
@@ -209,8 +246,9 @@ function renderJson(options: CliOptions) {
   const living = loadProfile(options.characterId);
   const eraLife = loadEraLifeProfile(options.characterId);
   const council = loadCouncil();
+  const relationship = loadRelationshipContract();
   return `${JSON.stringify({
-    schemaVersion: 3,
+    schemaVersion: 4,
     generatedBy: 'tools/asset-factory/scripts/export-character-asset-prompt.ts',
     characterId: options.characterId,
     kind: options.kind,
@@ -219,17 +257,22 @@ function renderJson(options: CliOptions) {
     designCouncilDataPath: COUNCIL_JSON,
     designCouncilFinalQuestion: council.finalQuestion,
     designCouncilCharacterAssetGates: council.productionGates.characterAsset,
+    relationshipEmbodimentPath: RELATIONSHIP_DOC,
+    relationshipEmbodimentDataPath: RELATIONSHIP_JSON,
+    relationshipUnknownPairPolicy: relationship.unknownPairPolicy,
     eraLifeMasterPath: eraLife ? ERA_LIFE_JSON : null,
     eraLifeProfile: eraLife,
     livingVisualProfilePath: living.path,
     livingVisualProfileSourceStatus: living.status,
     livingVisualProfile: living.profile,
     unknownLifePreferenceMayBeInventedByImageModel: false,
+    unknownRelationshipPreferenceMayBeInventedByImageModel: false,
     authorityOrder: authorityOrder(options.characterId, living.path),
-    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile, council, eraLife)}`,
+    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile, council, eraLife, relationship)}`,
     negativePrompt: prompt.negativePrompt,
     reviewChecklist: [
-      'World / Character / Scenario Councilの二層必要性テストに通る',
+      'World / Character / Relationship / Scenario Councilの必要性テストに通る',
+      'Relationship Authorityにないgift / matching accessory / touch / exposure changeを発明していない',
       ...(eraLife
         ? [
             'Core5のEra差が衣装だけでなく収納・修繕・持ち物・移動・所作へ反映されている',
