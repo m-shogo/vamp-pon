@@ -8,7 +8,13 @@
     "data": "data/visual/master-authoring-professional-standard-v1.json",
     "required": true
   },
-  "purpose": "Keep world design, character design, relationship acting, and scenario design causally connected under explicit professional authoring governance so generation and authoring do not fall back to generic fantasy, generic gacha, generic historical shorthand, generic relationship shorthand, or generic anime drama.",
+  "visualProductionAuthority": {
+    "document": "docs/visual/visual-design-production-master-v1.md",
+    "data": "data/visual/visual-design-production-master-v1.json",
+    "requiredForCharacterImageGeneration": true,
+    "scope": "design only: face, body, posture, hair, silhouette, clothing, exposure, body modification, materials, color, props, era/world visual translation, rendering boundaries, chibi/pixel compression, originality"
+  },
+  "purpose": "Keep world design, character design, relationship acting, and scenario design causally connected under explicit professional authoring governance. For image generation, Visual Design Production Master is the primary production lens and scenario/dialogue rules are not used as substitutes for unresolved visual design.",
   "causalLoop": [
     "world_rules",
     "era_place_ordinary_life",
@@ -20,10 +26,12 @@
     "growth",
     "changed_ordinary_life"
   ],
-  "finalQuestion": "Is this element properly classified by authority and required by at least two of world, character, relationship, and scenario? If not, keep it candidate/open, simplify it, or remove it.",
+  "finalQuestion": "Is this element properly classified by authority and, for visual work, justified by character life, body, clothing construction, material/world logic, or era rather than genre decoration?",
   "authorityOrder": [
     "docs/visual/master-authoring-professional-standard-v1.md",
     "data/visual/master-authoring-professional-standard-v1.json",
+    "docs/visual/visual-design-production-master-v1.md_when_visual_work",
+    "data/visual/visual-design-production-master-v1.json_when_visual_work",
     "docs/00-current-story-world-master.md",
     "character_relation_era_current_authorities",
     "docs/visual/core5-era-life-design-master-v1.md_when_core5",
@@ -33,8 +41,6 @@
     "docs/character-appearance-distinction-generation-contract-v1.md",
     "docs/visual/character-designer-philosophy-master-v1.md",
     "docs/visual/world-character-scenario-design-council-master-v1.md",
-    "docs/visual/relationship-embodied-daily-life-contract-v1.md_when_relationship_context",
-    "data/visual/relationship-embodied-daily-life-contract-v1.json_when_relationship_context",
     "production_contract_for_task",
     "generation_or_scene_brief",
     "candidate_output",
@@ -45,6 +51,11 @@
       "document": "docs/visual/master-authoring-professional-standard-v1.md",
       "data": "data/visual/master-authoring-professional-standard-v1.json",
       "useWhen": "creating, editing, promoting, reviewing, or interpreting any character/world/scenario/relationship/visual/generation master"
+    },
+    "visualDesignProduction": {
+      "document": "docs/visual/visual-design-production-master-v1.md",
+      "data": "data/visual/visual-design-production-master-v1.json",
+      "useWhen": "creating or reviewing character masters, character illustrations, costumes, bodies, faces, hair, props, visual world grammar, era visual translation, chibi, pixel, rendering, or commercial originality"
     },
     "core5EraLife": {
       "document": "docs/visual/core5-era-life-design-master-v1.md",
@@ -62,7 +73,7 @@
     "relationshipEmbodiment": {
       "document": "docs/visual/relationship-embodied-daily-life-contract-v1.md",
       "data": "data/visual/relationship-embodied-daily-life-contract-v1.json",
-      "useWhen": "a character image, pair image, conversation image, chibi panel, event CG, cutin, or scene includes interaction, proximity, touch, shared objects, care, conflict, repair, or relationship growth"
+      "useWhen": "visual or scene context actually includes relationship-dependent distance, touch, shared objects, care, conflict, repair, or appearance history"
     }
   },
   "roles": {
@@ -78,7 +89,7 @@
     },
     "scenarioDesigner": {
       "owns": ["scene_purpose","immediate_want","hidden_pressure","era_assumption","body_acting","relationship_movement","ordinary_scenes","conflict_choice_consequence","era_specific_incident","kokuyou_distortion","growth","return_to_daily_life","information_disclosure"],
-      "not": "a lore exposition generator",
+      "not": "a visual-design substitute",
       "core": "create situations where setting becomes visible through character choices"
     }
   },
@@ -86,21 +97,13 @@
     "certainty_must_remain_visible",
     "open_is_not_model_freedom",
     "generated_image_is_not_canon_authority",
-    "worldbuilding_starts_with_ordinary_life_before_lore",
-    "character_design_is_accumulated_choices",
-    "scenario_applies_pressure_to_an_existing_person",
-    "return_to_ordinary_life_proves_growth",
-    "quiet_normal_loud_rare",
+    "visual_design_resolves_person_before_rendering",
+    "micro_detail_cannot_compensate_for_weak_identity",
     "world_motifs_should_become_structure_not_pasted_symbols",
     "body_is_not_a_problem_growth_has_to_fix",
     "clothes_must_survive_ordinary_actions",
-    "relationships_should_leave_lived_history_not_only_matching_accessories",
-    "relationship_depth_is_multiaxial_not_one_intimacy_meter",
-    "relationship_growth_must_not_override_personal_body_or_clothing_boundaries",
-    "black_youka_is_extreme_logic_not_evil_costume_change",
     "era_difference_must_survive_beyond_costume",
-    "places_are_used_and_maintained_not_only_seen",
-    "dialogue_is_action_relationship_and_assumption_not_only_information"
+    "rendering_must_not_redesign_character_identity"
   ],
   "worldSpecificityTest": [
     "reality_or_dream",
@@ -135,44 +138,10 @@
     "choice",
     "after_state"
   ],
-  "ordinarySceneReservoir": [
-    "food",
-    "travel_or_waiting",
-    "small_annoyance",
-    "stupid_joke",
-    "quiet_shared_task",
-    "disagreement_without_villain",
-    "repair_cleaning_preparation",
-    "shopping_borrowing_sharing",
-    "lost_and_found",
-    "sleepy_hot_cold_tired"
-  ],
-  "dialogueForbidden": [
-    "character_explains_own_personality",
-    "alternating_worldbuilding_lecture",
-    "theme_spoken_verbatim",
-    "everyone_uses_same_intelligent_exposition_voice",
-    "serious_scene_makes_everyone_poetic",
-    "comedy_requires_character_intelligence_collapse"
-  ],
-  "dialogueEncouraged": [
-    "vocabulary_changes_by_relationship",
-    "characters_can_not_know",
-    "conversation_can_drift",
-    "jokes_can_fail",
-    "mishearing_and_partial_understanding",
-    "important_talk_surrounded_by_daily_actions",
-    "silence_and_interruption_are_valid_beats",
-    "era_assumptions_appear_as_first_actions"
-  ],
-  "kokuyouVisualForbidden": [
-    "body_normalization",
-    "sexualization_escalation",
-    "random_horns",
-    "random_tattoo",
-    "random_chains",
-    "generic_black_armor"
-  ],
+  "ordinarySceneReservoir": ["food","travel_or_waiting","small_annoyance","stupid_joke","quiet_shared_task","disagreement_without_villain","repair_cleaning_preparation","shopping_borrowing_sharing","lost_and_found","sleepy_hot_cold_tired"],
+  "dialogueForbidden": ["character_explains_own_personality","alternating_worldbuilding_lecture","theme_spoken_verbatim","everyone_uses_same_intelligent_exposition_voice","serious_scene_makes_everyone_poetic","comedy_requires_character_intelligence_collapse"],
+  "dialogueEncouraged": ["vocabulary_changes_by_relationship","characters_can_not_know","conversation_can_drift","jokes_can_fail","mishearing_and_partial_understanding","important_talk_surrounded_by_daily_actions","silence_and_interruption_are_valid_beats","era_assumptions_appear_as_first_actions"],
+  "kokuyouVisualForbidden": ["body_normalization","sexualization_escalation","random_horns","random_tattoo","random_chains","generic_black_armor"],
   "antiGenericDrift": [
     "quality_equals_ornament_density",
     "fantasy_equals_belts_gems_gold_tattoo",
@@ -180,19 +149,26 @@
     "historical_equals_costume_museum_shorthand",
     "japanese_equals_wagara_torii_katana",
     "dream_equals_floating_fragments_everywhere",
-    "serious_scene_equals_theme_exposition_with_dark_faces",
-    "comedy_equals_chibi_personality_simplification",
     "villain_equals_black_red_eye_spikes",
     "growth_equals_conventional_attractiveness",
     "place_equals_pretty_background_without_ordinary_use",
     "era_equals_costume_filter",
-    "high_bond_equals_more_touch_or_matching_accessories_or_skin_exposure",
-    "ai_hypothesis_silently_becomes_user_preference_or_canon"
+    "ai_hypothesis_silently_becomes_user_preference_or_canon",
+    "rendering_spectacle_silently_changes_character_design"
   ],
   "productionGates": {
-    "characterAsset": ["professional_authoring_standard_loaded","authority_certainty_resolved","world_master_resolved","era_life_resolved_when_core5","living_visual_profile_resolved","appearance_authority_resolved","designer_philosophy_resolved","council_master_loaded","relationship_master_loaded","asset_or_scene_context_defined","required_open_fields_zero_or_exploratory_only"],
-    "importantScene": ["professional_authoring_standard_loaded","scenario_scene_contract_loaded","relationship_master_loaded_when_relationship_scene","world_location_or_era_reason","ordinary_task","immediate_want","hidden_pressure","era_assumption","body_acting","relationship_movement","after_state","no_lore_dump_dependency"],
+    "characterAsset": [
+      "professional_authoring_standard_loaded",
+      "visual_design_production_master_loaded",
+      "identity_face_body_posture_resolved",
+      "silhouette_clothing_construction_resolved",
+      "exposure_body_modification_resolved",
+      "material_color_prop_resolved",
+      "era_visual_translation_resolved_when_applicable",
+      "required_visual_open_fields_zero_or_exploratory_only"
+    ],
+    "importantScene": ["professional_authoring_standard_loaded","scenario_scene_contract_loaded","world_location_or_era_reason","ordinary_task","immediate_want","hidden_pressure","era_assumption","body_acting","relationship_movement","after_state","no_lore_dump_dependency"],
     "worldLocation": ["professional_authoring_standard_loaded","world_place_contract_loaded","function","users","entry_exit","movement_routes","waiting_rest","storage_waste","materials","maintenance","aging_or_failure","era_or_dream_logic","ordinary_life_scene_hook"]
   },
-  "positiveTarget": "A professionally governed production system where different models and contributors preserve certainty, character life, world function, relationship boundaries, and scenario causality without turning guesses or generated images into canon."
+  "positiveTarget": "For image work, design is resolved through person, body, clothing construction, material, color, prop and world/era visual logic before rendering; no scenario prose or genre ornament is allowed to substitute for missing visual decisions."
 }
