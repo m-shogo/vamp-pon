@@ -3,7 +3,7 @@ const AUTHOR_DASHBOARD_SOURCES = {
   world: './data/world-bible.v1.json',
   relationships: './data/relationship-arcs.v1.json',
   eras: './data/core5-era-canon.v1.json',
-  roots: './data/reality-root-candidates.v1.json',
+  roots: './data/reality-root-map.v1.json',
 };
 
 const dashboardStyles = document.createElement('link');
@@ -49,8 +49,9 @@ function renderAuthorDashboard({ profile, world, relationships, eras, roots }) {
   const eraAssignments = eras.assignments ?? [];
   const exactYearOpenCount = eraAssignments.filter((entry) => entry.exactYear == null).length;
   const rootEntries = roots.entries ?? [];
-  const futureRootCount = rootEntries.filter((entry) => entry.root.includes('Far Future')).length;
-  const openRootCount = rootEntries.filter((entry) => entry.root.includes('Open')).length;
+  const futureRootCount = roots.futureAbstractCount ?? rootEntries.filter((entry) => entry.placementKind === 'FUTURE_ABSTRACT').length;
+  const openRootCount = roots.openUnmappedCount ?? rootEntries.filter((entry) => entry.placementKind === 'OPEN_UNMAPPED').length;
+  const exactCoordinateCount = roots.exactCoordinateCount ?? rootEntries.filter((entry) => entry.exactCoordinates != null).length;
   const currentCount = profile.current21Count ?? 0;
   const future15Count = profile.future15Count ?? 0;
 
@@ -71,9 +72,9 @@ function renderAuthorDashboard({ profile, world, relationships, eras, roots }) {
       meta:`Exact year OPEN ${exactYearOpenCount}/${eraAssignments.length}`,
     },
     {
-      href:'#world', eyebrow:'REALITY ROOT ATLAS', value:rootEntries.length, unit:'ROOTS', title:'出身と事件地域を分けて見る',
+      href:'#world', eyebrow:'REALITY ROOT ATLAS', value:rootEntries.length, unit:'ROOTS', title:'Reality Rootと事件地域を分けて見る',
       copy:'root / incident area / mobilityを分離。Future/Openをfake座標へ置かない。',
-      meta:`Future abstract ${futureRootCount} / Open ${openRootCount}`,
+      meta:`Future abstract ${futureRootCount} / Open ${openRootCount} / Coord ${exactCoordinateCount}`,
     },
   ].map(dashboardCardMarkup).join('');
 
@@ -94,7 +95,7 @@ function renderAuthorDashboard({ profile, world, relationships, eras, roots }) {
       label:'REALITY ROOT',
       value:`${openRootCount} OPEN`,
       href:'#world',
-      detail:'Open locationをfalseや推測住所で埋めない。',
+      detail:'Open locationをfalseや推測住所で埋めない。Future abstractの文字列にOpenが含まれてもOpen/unmappedへ二重計上しない。',
     },
     {
       label:'FUTURE15',
