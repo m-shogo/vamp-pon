@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "registryId": "yoruno-shirube-visual-asset-coverage-v1",
+  "measurementPolicy": {"coverageIsNotQuality": true, "percentageForbidden": true, "qualityScoreForbidden": true},
+  "allowedSlotStates": ["missing", "candidate", "current", "superseded"],
+  "requirements": {
+    "characterMaster": ["face", "bust", "fullBody", "expression", "costume", "props", "silhouette", "themeColor"],
+    "groupMaster": ["groupMasterAsset"],
+    "starBeastMaster": ["starBeastMasterAsset", "starBeastSilhouette", "starBeastIconReady", "starBeastLorebookReady"],
+    "objectMaster": ["objectLantern", "objectRepairMark", "objectLetter", "objectDiary", "objectOldStarAtlas", "objectPlanisphere", "objectMechanical", "objectSchoolOrWork", "objectRecordingOrArchive"],
+    "lorebook": ["lorebookProfile", "lorebookRelationship", "lorebookEra", "lorebookRealityRoot", "lorebookForeshadow", "lorebookConstellation", "lorebookGlossary", "lorebookGroup", "lorebookStarBeast", "lorebookArtifact"],
+    "gameplay": ["gameplayIcon", "gameplayPortrait", "gameplayEnemy", "gameplayWeapon", "gameplaySkill", "gameplayItem", "gameplayCardArt", "gameplayUi", "gameplayKeyArt"]
+  },
+  "characters": []
+}

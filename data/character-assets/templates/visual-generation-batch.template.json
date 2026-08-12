@@ -1,0 +1,12 @@
+{
+  "batchId": "batch-NN-purpose-v1",
+  "status": "planned-not-started",
+  "authoritySnapshot": [],
+  "assetIds": [],
+  "promptPacketPaths": [],
+  "referencePaths": [],
+  "outputRoot": "assets/import-staging/<batch-id>/",
+  "candidateIds": ["candidate-a", "candidate-b", "candidate-c", "candidate-d"],
+  "qaRecordPath": "data/character-assets/reviews/<batch-id>.qa.json",
+  "rejectLedgerPath": "data/character-assets/reviews/<batch-id>.rejects.json"
+}
