@@ -7,6 +7,8 @@ on:
       - 'public/lorebook/constellation-archive-enhancement.js'
       - 'public/lorebook/constellation-archive.css'
       - 'public/lorebook/index.html'
+      - 'src/game/data/constellationTomoriAtlasEvidenceRegistry.ts'
+      - 'docs/research/tomori-old-atlas-evidence-v1.md'
       - 'scripts/quality/check-lorebook-constellation-archive.ts'
       - '.github/workflows/lorebook-constellation-archive.yml'
   push:
@@ -16,6 +18,8 @@ on:
       - 'public/lorebook/constellation-archive-enhancement.js'
       - 'public/lorebook/constellation-archive.css'
       - 'public/lorebook/index.html'
+      - 'src/game/data/constellationTomoriAtlasEvidenceRegistry.ts'
+      - 'docs/research/tomori-old-atlas-evidence-v1.md'
       - 'scripts/quality/check-lorebook-constellation-archive.ts'
       - '.github/workflows/lorebook-constellation-archive.yml'
 
