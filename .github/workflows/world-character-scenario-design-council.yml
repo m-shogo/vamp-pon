@@ -1,0 +1,45 @@
+name: World Character Scenario Design Council
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/visual/world-character-scenario-design-council-master-v1.md'
+      - 'data/visual/world-character-scenario-design-council-master-v1.json'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'tools/asset-factory/scripts/export-character-asset-prompt.ts'
+      - 'scripts/quality/check-world-character-scenario-design-council.ts'
+      - '.github/workflows/world-character-scenario-design-council.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/visual/world-character-scenario-design-council-master-v1.md'
+      - 'data/visual/world-character-scenario-design-council-master-v1.json'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'tools/asset-factory/scripts/export-character-asset-prompt.ts'
+      - 'scripts/quality/check-world-character-scenario-design-council.ts'
+      - '.github/workflows/world-character-scenario-design-council.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate cross-discipline design council
+        run: node --experimental-strip-types scripts/quality/check-world-character-scenario-design-council.ts
+      - name: Smoke-test council-resolved character prompt
+        run: |
+          node --experimental-strip-types tools/asset-factory/scripts/export-character-asset-prompt.ts \
+            --character yui --kind character_reference --format json --output /tmp/yui-council.json
+          node - <<'NODE'
+          const x = require('/tmp/yui-council.json');
+          if (!x.authorityOrder.includes('docs/00-current-story-world-master.md')) process.exit(1);
+          if (!x.authorityOrder.includes('docs/visual/world-character-scenario-design-council-master-v1.md')) process.exit(1);
+          if (!x.prompt.includes('WORLD / CHARACTER / SCENARIO DESIGN COUNCIL')) process.exit(1);
+          if (!x.designCouncilFinalQuestion) process.exit(1);
+          NODE
