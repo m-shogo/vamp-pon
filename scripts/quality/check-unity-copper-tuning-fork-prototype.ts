@@ -32,28 +32,17 @@ const doc = readFileSync(docPath, 'utf8');
 const coordinator = readFileSync(coordinatorPath, 'utf8');
 
 for (const token of [
-  'public sealed class CopperTuningForkPrototypeTelemetry',
-  'public sealed class CopperTuningForkPrototypeRuntime',
-  'public const string WeaponId = "copper_tuning_fork";',
-  'public const string PrimaryContentStatusId = "SHOCK";',
-  'public const string PreferenceContentStatusId = "CONDUCTIVE";',
-  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
-  'PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
-  'PRIORITY_SNAPSHOT_CHAIN_DAMAGE_SURVIVING_SHOCK_THEN_CONDUCTIVE',
-  'candidate.Statuses.Has(EnemyStatusRuntimeKind.Conductive)',
-  'score += conductivePriorityBonus;',
-  'U2EnemyTargetChainSelectionRuntime.SelectChain(',
-  'target.TakeDamage(damage, damageFlashSeconds)',
-  'if (defeated) continue;',
-  'shockRequest.ApplyTo(target.Statuses);',
-  'conductiveRequest.ApplyTo(target.Statuses);',
+  'public sealed class CopperTuningForkPrototypeTelemetry','public sealed class CopperTuningForkPrototypeRuntime',
+  'public const string WeaponId = "copper_tuning_fork";','public const string PrimaryContentStatusId = "SHOCK";',
+  'public const string PreferenceContentStatusId = "CONDUCTIVE";','CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
+  'PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE','PRIORITY_SNAPSHOT_CHAIN_DAMAGE_SURVIVING_SHOCK_THEN_CONDUCTIVE',
+  'candidate.Statuses.Has(EnemyStatusRuntimeKind.Conductive)','score += conductivePriorityBonus;',
+  'U2EnemyTargetChainSelectionRuntime.SelectChain(','target.TakeDamage(damage, damageFlashSeconds)',
+  'if (defeated) continue;','shockRequest.ApplyTo(target.Statuses);','conductiveRequest.ApplyTo(target.Statuses);',
 ]) {
   assert(caller.includes(token), `Copper Tuning Fork caller missing contract: ${token}`);
 }
-for (const forbidden of [
-  'const float ConductivePriorityBonus', 'const float Damage', 'DefaultPriority', 'DefaultRange', 'long stun',
-  'ParticleSystem', 'AudioSource', 'Camera.', 'Stage1GameplayRuntimeCoordinator', 'WeaponEffectType', 'LevelUp',
-]) {
+for (const forbidden of ['const float ConductivePriorityBonus','const float Damage','DefaultPriority','DefaultRange','long stun','ParticleSystem','AudioSource','Camera.','Stage1GameplayRuntimeCoordinator','WeaponEffectType','LevelUp']) {
   assert(!caller.includes(forbidden), `Copper Tuning Fork caller must not own live/default behavior: ${forbidden}`);
 }
 
@@ -69,54 +58,31 @@ assert(selection.appliesStatuses.join(',') === 'SHOCK,CONDUCTIVE', 'Copper Tunin
 
 const admission = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'copper_tuning_fork');
 assert(admission, 'Copper Tuning Fork admission row missing');
-assert(currentUnityWeaponRuntimeCapabilities.TARGET_CHAIN_SELECTION === 'MISSING', 'caller-only PR must not pre-promote TARGET_CHAIN_SELECTION');
-assert(admission.missingUnityCapabilities.includes('TARGET_CHAIN_SELECTION'), 'Copper must remain primitive-blocked in staged caller PR');
-assert(!unityPrototypeCallerImplementedWeaponIds.includes('copper_tuning_fork'), 'Copper staged caller must not be registered early');
-assert(!admission.prototypeCallerImplemented, 'Copper staged caller proof must remain outside registry');
-assert(admission.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES', 'Copper staged caller must remain primitive-blocked');
-assert(!admission.mayEnterUnityRuntimeRegistry && admission.runtimeStatus === 'NOT_IMPLEMENTED', 'Copper staged caller must not claim implementation-review/live admission');
+assert(currentUnityWeaponRuntimeCapabilities.TARGET_CHAIN_SELECTION === 'IMPLEMENTED', 'verified Copper caller must back TARGET_CHAIN_SELECTION');
+assert(admission.implementedUnityCapabilities.join(',') === 'TARGET_CHAIN_SELECTION,STATUS_APPLICATION', `Copper implemented capabilities drift: ${admission.implementedUnityCapabilities.join(',')}`);
+assert(admission.missingUnityCapabilities.length === 0, 'Copper must have no primitive blockers after chain admission');
+assert(unityPrototypeCallerImplementedWeaponIds.includes('copper_tuning_fork'), 'Copper verified caller must be registered');
+assert(admission.prototypeCallerImplemented, 'Copper caller proof must be explicit');
+assert(admission.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && admission.mayEnterUnityRuntimeRegistry, 'Copper implementation-review admission drift');
+assert(admission.runtimeStatus === 'NOT_IMPLEMENTED', 'Copper implementation review must not claim live runtime');
 
 for (const token of [
-  'caller-supplied CONDUCTIVE bonus should beat higher unmarked base score',
-  'CONDUCTIVE preference must remain a caller bonus, not an absolute override',
-  'chain should select first target then re-anchor to one local hop',
-  'defeated target must not receive SHOCK or CONDUCTIVE after damage',
-  'existing SHOCK cooldown should block only SHOCK application',
-  'newly applied CONDUCTIVE must not retroactively change selection within the same pulse',
-  'invalid first range must fail closed',
-  'candidate/score length mismatch must fail closed',
-  'non-positive maxTargets must fail closed',
-  'non-positive damage must fail closed',
+  'caller-supplied CONDUCTIVE bonus should beat higher unmarked base score','CONDUCTIVE preference must remain a caller bonus, not an absolute override',
+  'chain should select first target then re-anchor to one local hop','defeated target must not receive SHOCK or CONDUCTIVE after damage',
+  'existing SHOCK cooldown should block only SHOCK application','newly applied CONDUCTIVE must not retroactively change selection within the same pulse',
+  'invalid first range must fail closed','candidate/score length mismatch must fail closed','non-positive maxTargets must fail closed','non-positive damage must fail closed',
 ]) {
   assert(contract.includes(token), `Copper executable contract missing scenario: ${token}`);
 }
-for (const linkedSource of [
-  'CopperTuningForkPrototypeRuntime.cs', 'U2EnemyTargetChainSelectionRuntime.cs',
-  'EnemyStatusRuntimeState.cs', 'EnemyStatusApplicationRequest.cs',
-]) {
+for (const linkedSource of ['CopperTuningForkPrototypeRuntime.cs','U2EnemyTargetChainSelectionRuntime.cs','EnemyStatusRuntimeState.cs','EnemyStatusApplicationRequest.cs']) {
   assert(project.includes(linkedSource), `Copper contract project must compile real source: ${linkedSource}`);
 }
 
-for (const token of [
-  'TITLE1_SELECTED', 'TARGET_CHAIN_CAPABILITY_NOT_YET_PROMOTED',
-  'PRIORITY_SNAPSHOT_CHAIN_DAMAGE_SURVIVING_SHOCK_THEN_CONDUCTIVE',
-  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON', 'TARGET_CHAIN_SELECTION = MISSING',
-  'BLOCKED_MISSING_UNITY_PRIMITIVES', 'runtimeStatus = NOT_IMPLEMENTED', 'runtimeAutoPromotionAllowed = false',
-]) {
+for (const token of ['TITLE1_SELECTED','TARGET_CHAIN_SELECTION = IMPLEMENTED','ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW','PRIORITY_SNAPSHOT_CHAIN_DAMAGE_SURVIVING_SHOCK_THEN_CONDUCTIVE','CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','runtimeStatus = NOT_IMPLEMENTED','runtimeAutoPromotionAllowed = false']) {
   assert(doc.includes(token), `Copper doc missing token: ${token}`);
 }
 for (const token of ['CopperTuningForkPrototypeRuntime','copper_tuning_fork','U2EnemyTargetChainSelectionRuntime']) {
   assert(!coordinator.includes(token), `Copper prototype leaked into live Stage1 coordinator: ${token}`);
 }
 
-console.log(JSON.stringify({
-  status: 'PASS',
-  caller: 'CopperTuningForkPrototypeRuntime',
-  selectionDecision: selection.decision,
-  targetChainCapability: currentUnityWeaponRuntimeCapabilities.TARGET_CHAIN_SELECTION,
-  admission: admission.unityDecision,
-  callerRegistryPromoted: admission.prototypeCallerImplemented,
-  liveRuntimeStatus: admission.runtimeStatus,
-  liveStage1Changed: false,
-  canonTuningChanged: false,
-}, null, 2));
+console.log(JSON.stringify({ status: 'PASS', caller: 'CopperTuningForkPrototypeRuntime', selectionDecision: selection.decision, targetChainCapability: currentUnityWeaponRuntimeCapabilities.TARGET_CHAIN_SELECTION, admission: admission.unityDecision, callerRegistryPromoted: admission.prototypeCallerImplemented, liveRuntimeStatus: admission.runtimeStatus, liveStage1Changed: false, canonTuningChanged: false }, null, 2));
