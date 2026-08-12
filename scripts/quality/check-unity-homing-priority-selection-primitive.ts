@@ -56,12 +56,15 @@ assert(starPin.runtimeStatus === 'NOT_IMPLEMENTED', 'Star Map Pin proof must not
 const returnNeedle = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'return_compass_needle');
 assert(returnNeedle, 'return_compass_needle admission row missing');
 assert(returnNeedle.implementedUnityCapabilities.includes('HOMING_PRIORITY_SELECTION'), 'return compass needle must inherit priority-selector evidence');
-assert(returnNeedle.missingUnityCapabilities.includes('RETURNING_PROJECTILE'), 'return compass needle must remain blocked until returning projectile capability is separately admitted');
-assert(returnNeedle.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES' && !returnNeedle.mayEnterUnityRuntimeRegistry, 'return compass needle must remain primitive-blocked');
+assert(returnNeedle.missingUnityCapabilities.length === 0, 'Return Compass should have no missing primitive after verified return admission');
+assert(returnNeedle.prototypeCallerImplemented, 'Return Compass executable caller proof must remain registered');
+assert(returnNeedle.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && returnNeedle.mayEnterUnityRuntimeRegistry, 'Return Compass implementation-review admission drift');
+assert(returnNeedle.runtimeStatus === 'NOT_IMPLEMENTED', 'Return Compass admission must not claim live runtime');
 
 assert(!weapons.some((weapon) => weapon.id === 'star_map_pin'), 'shared selector/caller proof must not add Star Map Pin to Web live catalog');
 assert(!coordinator.includes('U2EnemyHomingPrioritySelectionRuntime'), 'shared selector must not enter live Stage1 coordinator');
 assert(!coordinator.includes('star_map_pin'), 'Star Map Pin must remain outside live Stage1 coordinator');
+assert(!coordinator.includes('return_compass_needle'), 'Return Compass must remain outside live Stage1 coordinator');
 
 for (const token of [
   'highest finite in-range targetable priority must win before distance','PreferFarther must choose farthest equal-priority target',
