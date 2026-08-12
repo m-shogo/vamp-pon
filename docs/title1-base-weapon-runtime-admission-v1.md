@@ -6,7 +6,7 @@ Content Masterで選定した **Selected16** を既存runtimeへ形だけ押し�
 
 - Content選定とRuntime実装を分離
 - Web live catalogは別Authority
-- shared primitive実装とSelected16固有caller proofを分離
+- shared primitiveとSelected16固有caller proofを分離
 - live registry / LevelUp / balance / VFX / production承認はさらに別gate
 - `fake projectile` fallbackは禁止
 - `contentSelectionMayBeDowngradedToFitRuntime = false`
@@ -15,8 +15,6 @@ Content Masterで選定した **Selected16** を既存runtimeへ形だけ押し�
 ## Cross-runtime reality
 
 Web runtimeは5 effect types。Unity live executorはU47の `Projectile / GroundArea` 2系統のまま。
-
-shared primitiveやprototype callerが増えてもlive `WeaponEffectType` を名前だけ増やさない。
 
 ## Shared Unity primitive state
 
@@ -35,31 +33,29 @@ IMPLEMENTED:
 11. `BREAK_STAGGER_APPLICATION`
 12. `HOMING_PRIORITY_SELECTION`
 13. `RETURNING_PROJECTILE`
+14. `TRAP_PERSISTENCE`
 
-現在 **13 implemented** / **9 missing**。
+現在 **14 implemented** / **8 missing**。
 
 ### Foundation implemented but capability still MISSING
 
-shared foundationとexecutable contractがmainにあるが、Selected16 consumer proof/admissionが未完了:
-
-- `TRAP_PERSISTENCE` — `U2PersistentTrapState`
 - `DELAYED_TRIGGER` — `U2DelayedTriggerState`
 
-Foundation存在だけでconsumer semanticsを捏造しない。
+Dream Alarm callerは別PRでstaged proof中。Foundation存在だけでAdmissionを先行しない。
 
 ## Admission decisions
 
-- `BLOCKED_MISSING_UNITY_PRIMITIVES`: required primitive不足
-- `BLOCKED_MISSING_UNITY_CALLER_PROOF`: primitive完成、Selected16固有caller不足
-- `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`: primitive + executable caller proof完成
+- `BLOCKED_MISSING_UNITY_PRIMITIVES`
+- `BLOCKED_MISSING_UNITY_CALLER_PROOF`
+- `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
 implementation-reviewはlive/productionを意味しない。全entryの `runtimeStatus` は `NOT_IMPLEMENTED`。
 
 ## Current result
 
-**admitted=7**
+**admitted=8**
 
-**blocked=9**
+**blocked=8**
 
 implementation-review admitted:
 
@@ -68,139 +64,114 @@ implementation-review admitted:
 - `bellows_fan`
 - `copper_tuning_fork`
 - `pavement_hammer`
+- `pressed_flower_cards`
 - `star_map_pin`
 - `return_compass_needle`
 
 primitive-complete but caller-proof missing: none。
 
-## `copper_tuning_fork` — caller + capability verified / not live
+## `pressed_flower_cards` — caller + capability verified / not live
 
-Selected16 `PULSE_CHAIN` consumer。
+Selected16 `TRAP_FIELD`。
 
 Required:
 
-1. `TARGET_CHAIN_SELECTION`
+1. `TRAP_PERSISTENCE`
 2. `STATUS_APPLICATION`
-
-2つともIMPLEMENTED。
 
 Selected16 caller:
 
-`CopperTuningForkPrototypeRuntime`
+`PressedFlowerCardsPrototypeState`
 
 Application order:
 
-`PRIORITY_SNAPSHOT_CHAIN_DAMAGE_SURVIVING_SHOCK_THEN_CONDUCTIVE`
+`PLACE_ARM_WAIT_TARGET_ENTER_CONSUME_TRIGGER_THEN_TYPED_ROOTED`
 
-Verified behavior:
+Verified:
 
-- current CONDUCTIVE状態をselection前にsnapshot
-- caller-supplied bonusをeffective priorityへ変換
-- bonusは絶対overrideではなくbase scoreとの差で決まる
-- shared selectorのlocal re-anchor / hop range / no duplicateを利用
-- chain全体を選択後にeffect適用するため新規CONDUCTIVEは同pulseをretroactiveに変えない
-- damage first
-- surviving target only -> SHOCK -> CONDUCTIVE
-- defeated targetへpost-death Statusなし
-- SHOCK cooldownとdamage / CONDUCTIVEを分離
-- caller telemetry
+- one placed card = one shared trap state
+- caller-owned radius
+- pre-arm/out-of-range/untargetable/duplicate reject without budget loss
+- eligible physical trigger consumes budget before typed ROOTED
+- same target max once per placed card
+- ROOTED cooldown may block Status but does not refund trigger
+- arming carryover / exhaustion / expiry
+- telemetry/reset
+- all tuning NOT_CANON
 
 Atomic Admission:
 
-- `TARGET_CHAIN_SELECTION = IMPLEMENTED`
-- `copper_tuning_fork` caller proof registered
+- `TRAP_PERSISTENCE = IMPLEMENTED`
+- `pressed_flower_cards` caller proof registered
 - `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
-Still:
+Still `runtimeStatus = NOT_IMPLEMENTED`。
 
-- `runtimeStatus = NOT_IMPLEMENTED`
-- Web live catalog未接続
-- LevelUp未接続
-- `Stage1GameplayRuntimeCoordinator`未接続
-- U47 executor未拡張
-- final VFX / mobile readability未承認
+### Boss conversion boundary
 
-## `rain_thread` — caller implemented / not live
+Content runtime noteのBoss conversionは未実装。
 
-Required: `TWO_TARGET_TETHER`, `KNOCKBACK_VECTOR`, `STATUS_APPLICATION`。
+- normal typed ROOTED + trap lifecycleはimplementation-review proof済み
+- Boss conversionはshared boss-Status policy / runtime evidenceの別gate
+- exact slow/action-delay/immunityはここでCanon化しない
 
-`RainThreadPrototypeState` / `SELECT_PAIR_SOAK_BOTH_THEN_CALLER_OWNED_PULL_TICKS`。
+**Boss conversion** 未完了をlive admission blockerとして正直に保持する。
 
-Pair selection、両endpoint SOAK、caller-owned lifetime、対称pull、distance/endpoint/expiry、telemetryを実証済み。
+## `copper_tuning_fork`
 
-`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW` / `runtimeStatus = NOT_IMPLEMENTED`。
+`TARGET_CHAIN_SELECTION + STATUS_APPLICATION`。Caller `CopperTuningForkPrototypeRuntime`。
 
-## `return_compass_needle` — caller + capability verified / not live
+`PRIORITY_SNAPSHOT_CHAIN_DAMAGE_SURVIVING_SHOCK_THEN_CONDUCTIVE`
 
-Required: `RETURNING_PROJECTILE`, `HOMING_PRIORITY_SELECTION`, `STATUS_APPLICATION`。
+CONDUCTIVE snapshot priority、local re-anchor、damage-first SHOCK/CONDUCTIVEを実証済み。`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW` / `runtimeStatus = NOT_IMPLEMENTED`。
 
-`ReturnCompassNeedlePrototypeState`
+## `rain_thread`
 
-`OUTBOUND_LINE_THEN_MARKED_PRIORITY_RETURN_WAYPOINT_THEN_OWNER`
+`TWO_TARGET_TETHER + KNOCKBACK_VECTOR + STATUS_APPLICATION`。Caller `RainThreadPrototypeState`。
 
-`ONE_HIT_PER_TARGET_PER_LEG_OUTBOUND_AND_RETURN_SEPARATE`
+Pair selection、両endpoint SOAK、対称pull、distance/endpoint/expiryを実証済み。not live。
 
-MARKED caller bonus、bent return route、separate hit ledgers、damage-first surviving MARKED、waypoint loss fallbackを実証済み。
+## `return_compass_needle`
 
-`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW` / `runtimeStatus = NOT_IMPLEMENTED`。
+`RETURNING_PROJECTILE + HOMING_PRIORITY_SELECTION + STATUS_APPLICATION`。Caller `ReturnCompassNeedlePrototypeState`。
+
+MARKED-priority bent return、separate leg ledgers、damage-first surviving MARKEDを実証済み。not live。
 
 ## Existing admitted callers
 
-- `EmberMatchcasePrototypeRuntime`: multi-target projectile + typed BURN + telemetry
-- `BellowsFanPrototypeRuntime`: cone query + DISORIENTED + knockback + telemetry
-- `PavementHammerPrototypeRuntime`: `QUERY_DAMAGE_SURVIVING_STATUS_KNOCKBACK_BREAK_STAGGER`
-- `StarMapPinPrototypeRuntime`: `PRIORITY_SELECT_TARGETED_PROJECTILE_MARKED_ON_HIT`
+- `EmberMatchcasePrototypeRuntime`
+- `BellowsFanPrototypeRuntime`
+- `PavementHammerPrototypeRuntime`
+- `StarMapPinPrototypeRuntime`
 
-全callerの数値は `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`。
+全caller tuningは `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`。
 
 ## Hold boundaries
 
-### `name_reel`
+- `name_reel`: `HOLD_TARGET_LINK_READABILITY`
+- `repair_spanner`: `HOLD_RETURN_FAMILY_OVERLAP`
 
-Authoring Authority: `HOLD_TARGET_LINK_READABILITY`。Selected16ではない。
-
-### `repair_spanner`
-
-Authoring Authority: `HOLD_RETURN_FAMILY_OVERLAP`。
-
-non-selected return-family proofはhit semantics検証に使うがSelected16 caller proofとして数えない。`RETURNING_PROJECTILE` 実装後もHoldを維持する。
+runtime進捗を理由にSelected16へ昇格しない。
 
 ## Shared primitive evidence
 
+### `TRAP_PERSISTENCE`
+
+`U2PersistentTrapState` + `PressedFlowerCardsPrototypeState` executable proof。
+
+Shared stateはWeapon / ROOTED / query / boss conversion / damage / cadence / Canon値を持たない。
+
 ### `TARGET_CHAIN_SELECTION`
 
-`U2EnemyTargetChainSelectionRuntime`
-
-- caller-owned candidates / parallel scores
-- first origin / range
-- per-hop local anchor
-- max hop distance / max target count
-- highest finite caller priority
-- score tie -> nearer
-- exact tie -> stable input order
-- no duplicate
-- no LINQ/sort/internal List allocation
-
-Generic selectorは`copper_tuning_fork` / CONDUCTIVE / SHOCK / damage / Status / Canon tuningを持たない。
-
-### `TWO_TARGET_TETHER`
-
-`U2EnemyTetherPairSelectionRuntime`。Generic primitiveはRain Thread / SOAK / damage / lifetime / position-control / Canon値を持たない。
+`U2EnemyTargetChainSelectionRuntime` + Copper executable proof。Generic selectorはCONDUCTIVE/SHOCKを持たない。
 
 ### `RETURNING_PROJECTILE`
 
-`U2ReturningProjectileMotionState` + `U2ReturningWaypointMotionState` + `ReturnCompassNeedlePrototypeState` executable proof。
-
-Shared movementはWeapon/MARKED/hit/damage/Status semanticsを持たない。
+Returning motion + waypoint + Return Compass executable proof。Shared movementはMARKED/hit/damageを持たない。
 
 ### Other boundaries
 
-- `STATUS_APPLICATION`: Status state / stack / magnitude / cooldown / typed transport
-- `KNOCKBACK_VECTOR`: caller direction/distance、targetable-only、Z preserve
-- `CONE_QUERY`: caller range/angle/cap
-- `SLAM_WAVE_QUERY`: directional sector-band
-- `BREAK_STAGGER_APPLICATION`: HP独立break / residual / stagger / reset
-- `HOMING_PRIORITY_SELECTION`: caller score/range/tie-break
+`STATUS_APPLICATION`, `KNOCKBACK_VECTOR`, `CONE_QUERY`, `SLAM_WAVE_QUERY`, `BREAK_STAGGER_APPLICATION`, `HOMING_PRIORITY_SELECTION`, `TWO_TARGET_TETHER` はcaller tuning/identityを持たない。
 
 ## Live boundary
 
@@ -208,30 +179,22 @@ Shared movementはWeapon/MARKED/hit/damage/Status semanticsを持たない。
 
 - Web `weapons.ts` 自動追加
 - LevelUp pool自動追加
-- U47 executor enumの名前だけ追加
+- `Stage1GameplayRuntimeCoordinator` 自動接続
+- U47 executorの名前だけ追加
 - save migration先行作成
 - unsupported weaponをProjectile/GroundAreaへ偽装
-- primitive完成だけでcaller proofを捏造
-- prototype proofだけでruntime auto-promotion
+- primitive proofだけでruntime auto-promotion
 
 ## CONTENT_MASTER boundary
 
-Runtime進捗を理由にSelected16/Holdを変更しない。
+Runtime進捗を理由にSelected16/HoldやWeapon name / Attribute / Status / affinity / transformation graphを変更しない。
 
-- `copper_tuning_fork` はSelected16のまま
-- `rain_thread` はSelected16のまま
-- `name_reel` はHoldのまま
-- `return_compass_needle` はSelected16のまま
-- `repair_spanner` はHoldのまま
-- Weapon name / Attribute / Status / affinity / transformation graphを変更しない
-
-原本/Canonは別作業のAuthority。
+原本/Canonは別Authority。
 
 ## Next gates
 
-1. `pressed_flower_cards` Selected16 caller proof -> `TRAP_PERSISTENCE`
-2. `dream_alarm` Selected16 caller proof -> `DELAYED_TRIGGER`
-3. remaining shared primitives: `SWEEP_QUERY`, `REFLECT_WINDOW`, `VEIL_TRACKING_FRICTION`, `LINE_PIERCE_RESIDUE`, `ORBIT_LINK`, `SPIRAL_FIELD`, `LANE_BOUNDARY_TRIGGER`
-4. runtime evidence / mobile readability / human live-admission review
+1. `dream_alarm` Selected16 caller proof -> `DELAYED_TRIGGER`
+2. remaining shared primitives: `SWEEP_QUERY`, `REFLECT_WINDOW`, `VEIL_TRACKING_FRICTION`, `LINE_PIERCE_RESIDUE`, `ORBIT_LINK`, `SPIRAL_FIELD`, `LANE_BOUNDARY_TRIGGER`
+3. runtime evidence / Boss conversion / mobile readability / human live-admission review
 
-数値balanceは最後まで `PROTOTYPE_TUNING_NOT_CANON` として原本/Canonから分離する。
+数値balanceは最後まで `PROTOTYPE_TUNING_NOT_CANON`。
