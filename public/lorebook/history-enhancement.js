@@ -12,15 +12,17 @@ const historyNames = {
 };
 
 function threadMarkup(thread, index) {
+  const knownItems = thread.known.map((item) => `<li>${item}</li>`).join('');
+  const memberNames = thread.members.map((id) => historyNames[id] ?? id).join(' → ');
   return `
     <article class="history-thread">
       <header>
         <span>THREAD ${String(index + 1).padStart(2,'0')} / ${thread.status}</span>
         <h4>${thread.label}</h4>
-        <small>${thread.members.map((id) => historyNames[id] ?? id).join(' → ')}</small>
+        <small>${memberNames}</small>
       </header>
       <div class="history-thread-body">
-        <div><b>今わかっていること</b><ul>${thread.known.map((item) => `<li>${item}</li>`).join('')}</ul></div>
+        <div><b>今わかっていること</b><ul>${knownItems}</ul></div>
         <div class="history-gap"><b>まだ空いている時間</b><p>${thread.gap}</p></div>
         <div class="history-payoff"><b>この線が生きると</b><p>${thread.payoff}</p></div>
       </div>
@@ -30,12 +32,18 @@ function threadMarkup(thread, index) {
 }
 
 function eraMarkup(eraMethod) {
+  const layerCards = eraMethod.layers.map((layer) => `<article><b>${layer.label}</b><p>${layer.meaning}</p></article>`).join('');
+  const evidence = eraMethod.requiredEvidence.join(' / ');
+  const anchorCards = eraMethod.firstAnchors.map((anchor) => {
+    const name = historyNames[anchor.characterId] ?? anchor.characterId;
+    return `<article><span>${name}</span><p>${anchor.note}</p></article>`;
+  }).join('');
   return `
     <section class="era-method author-only">
       <header><span>RELATIVE ERA METHOD / CANDIDATE</span><h3>西暦より先に、時代の根拠を持つ。</h3><p>${eraMethod.principle}</p></header>
-      <div class="era-layer-row">${eraMethod.layers.map((layer) => `<article><b>${layer.label}</b><p>${layer.meaning}</p></article>`).join('')}</div>
-      <div class="era-evidence"><b>Eraを置く時に必要なevidence</b><p>${eraMethod.requiredEvidence.join(' / ')}</p></div>
-      <div class="era-anchors">${eraMethod.firstAnchors.map((anchor) => `<article><span>${historyNames[anchor.characterId] ?? anchor.characterId}</span><p>${anchor.note}</p></article>`).join('')}</div>
+      <div class="era-layer-row">${layerCards}</div>
+      <div class="era-evidence"><b>Eraを置く時に必要なevidence</b><p>${evidence}</p></div>
+      <div class="era-anchors">${anchorCards}</div>
     </section>
   `;
 }
@@ -63,8 +71,8 @@ function renderTemporalMap(eraBook) {
   if (!history || history.querySelector('.temporal-map')) return;
   const assignments = eraBook.assignments ?? [];
   if (assignments.length !== 5) return;
-
-  history.insertAdjacentHTML('beforeend', `
+  const laneCards = assignments.map(temporalLaneMarkup).join('');
+  const markup = `
     <section class="temporal-map" aria-labelledby="temporalMapHeading">
       <header class="temporal-map-heading">
         <span>TEMPORAL MAP / FIVE REALITY LANES</span>
@@ -74,7 +82,7 @@ function renderTemporalMap(eraBook) {
         </div>
         <small>${eraBook.authority}<br>${eraBook.researchAuthority}</small>
       </header>
-      <div class="temporal-lane-track">${assignments.map(temporalLaneMarkup).join('')}</div>
+      <div class="temporal-lane-track">${laneCards}</div>
       <div class="temporal-cross-overlays">
         <article class="dream-cross-overlay">
           <span>DREAM OVERLAY</span>
@@ -92,24 +100,29 @@ function renderTemporalMap(eraBook) {
         <p>Present ≠ 正解側 / Future ≠ Human upgrade / Dream ≠ 後の時代 / rough band ≠ exact date</p>
       </footer>
     </section>
-  `);
+  `;
+  history.insertAdjacentHTML('beforeend', markup);
 }
 
 function renderHistoryAtlas(data) {
   const history = document.querySelector('#history');
   if (!history || history.querySelector('.history-atlas')) return;
-  history.insertAdjacentHTML('beforeend', `
+  const layerCards = data.timeLayers.map((layer, index) => `<article><span>0${index + 1}</span><h4>${layer.label}</h4><p>${layer.summary}</p></article>`).join('');
+  const threadCards = data.objectThreads.map(threadMarkup).join('');
+  const eraSection = eraMarkup(data.eraMethod);
+  const markup = `
     <section class="history-atlas">
       <header class="history-atlas-heading">
         <span>OBJECT LINEAGE / HISTORY ATLAS</span>
         <h3>人が会えなくても、物は時代を渡れる。</h3>
         <p>Exact yearを埋める代わりに、両端の事実と「まだ分からない受け渡し」を同時に見せる。破線部分を勝手に歴史として埋めない。</p>
       </header>
-      <div class="time-layer-strip">${data.timeLayers.map((layer, index) => `<article><span>0${index + 1}</span><h4>${layer.label}</h4><p>${layer.summary}</p></article>`).join('')}</div>
-      <div class="history-thread-grid">${data.objectThreads.map(threadMarkup).join('')}</div>
-      ${eraMarkup(data.eraMethod)}
+      <div class="time-layer-strip">${layerCards}</div>
+      <div class="history-thread-grid">${threadCards}</div>
+      ${eraSection}
     </section>
   `;
+  history.insertAdjacentHTML('beforeend', markup);
 }
 
 async function bootHistoryAtlas() {
