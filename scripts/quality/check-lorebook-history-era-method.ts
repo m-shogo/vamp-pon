@@ -62,7 +62,7 @@ const lantern = history.objectThreads?.find((thread: any) => thread.id === 'thre
 if (!lantern) fail('lantern object thread missing');
 if (lantern.status !== 'CANDIDATE') fail('lantern thread must remain Candidate');
 if (!String(lantern.evidenceState).includes('EXACT HANDOFF OPEN')) fail('lantern exact handoff must remain Open');
-if (!lantern.known.some((item: string) => item.includes('AUTHOR_CANDIDATE'))) fail('lantern known/anchor list must label exact same-object handoff as Candidate');
+if (!lantern.known.some((item: string) => item.includes('AUTHOR_CANDIDATE'))) fail('lantern anchor list must label exact same-object handoff as Candidate');
 if (lantern.known.some((item: string) => item === 'トモリはユイのランタンを直した痕跡を持つ。')) fail('legacy lantern handoff must not be shown as Current-known fact');
 if (!lantern.gap.includes('本当に同一物')) fail('lantern thread must keep same-object identity unresolved');
 
@@ -94,7 +94,8 @@ for (const token of [
   'Source anchors / Candidate boundary',
   '36 CHARACTER ERA METHOD / AUTHOR CANDIDATE',
   'OLD / RECENTではなく',
-  'MYSTERY_SPECIAL_NOT_SIXTH_REALITY_ERA',
+  'data-era-kind',
+  'OPEN SPECIAL',
   'TomoriとPresent Yuiのofficial IAU 88 set差を年代伏線にはしない',
   'Candidate handoffを「今わかっている事実」へ混ぜない',
 ]) if (!js.includes(token)) fail(`History renderer contract missing: ${token}`);
@@ -106,10 +107,13 @@ for (const token of [
 ]) if (!css.includes(token)) fail(`History CSS contract missing: ${token}`);
 
 for (const token of [
-  'OLD / TRANSIT / RECENT / UNKNOWN',
+  '`OLD`',
+  '`TRANSIT`',
+  '`RECENT`',
+  '`UNKNOWN`',
   'Tomori official constellation set != Present Yui official constellation set is forbidden.',
   'object motif overlap != proven same-object lineage',
-  'CROSS_ERA_LONG_LIVED` != sixth chronological era',
+  '`CROSS_ERA_LONG_LIVED` != sixth chronological era',
 ]) if (!doc.includes(token)) fail(`Temporal integration doc boundary missing: ${token}`);
 
 console.log('[lorebook-history-era-method] OK schema2 / 5 Reality lanes + 1 Mystery special / 36 characters / lantern handoff Candidate');
