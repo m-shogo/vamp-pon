@@ -1,0 +1,37 @@
+name: Lorebook Author Dashboard Roots
+
+on:
+  pull_request:
+    paths:
+      - 'public/lorebook/author-dashboard-enhancement.js'
+      - 'public/lorebook/data/reality-root-map.v1.json'
+      - 'src/game/data/characterRealityRootMapReadModel.ts'
+      - 'docs/lorebook-author-overview-dashboard-v1.md'
+      - 'scripts/quality/check-lorebook-author-dashboard-roots.ts'
+      - '.github/workflows/lorebook-author-dashboard-roots.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/lorebook/author-dashboard-enhancement.js'
+      - 'public/lorebook/data/reality-root-map.v1.json'
+      - 'src/game/data/characterRealityRootMapReadModel.ts'
+      - 'docs/lorebook-author-overview-dashboard-v1.md'
+      - 'scripts/quality/check-lorebook-author-dashboard-roots.ts'
+      - '.github/workflows/lorebook-author-dashboard-roots.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate author dashboard JS syntax
+        run: node --check public/lorebook/author-dashboard-enhancement.js
+      - name: Validate checked Reality Root source and counts
+        run: node --experimental-strip-types scripts/quality/check-lorebook-author-dashboard-roots.ts
