@@ -9,7 +9,19 @@
 .constellation-entry-card h3 { margin:18px 0 4px; font:500 24px var(--serif); }
 .constellation-entry-card small { display:block; margin-top:14px; color:#8f887b; font-size:9px; letter-spacing:.04em; }
 .constellation-entry-card .callout { margin-top:14px; padding:12px; font-size:10px; }
+.clue-evidence-state { margin:14px 0 8px; padding:12px; border:1px solid rgba(103,135,162,.18); background:rgba(103,135,162,.025); }
+.clue-evidence-state > span { color:#86a0b3; font-size:7px; letter-spacing:.1em; }
+.clue-evidence-state dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin:10px 0 0; }
+.clue-evidence-state dl div { padding:8px; border:1px solid rgba(233,224,200,.08); }
+.clue-evidence-state dt { color:#706b68; font-size:6px; letter-spacing:.08em; }
+.clue-evidence-state dd { margin:4px 0 0; color:#c4b79e; font:500 17px/1 var(--serif); }
+.clue-evidence-state p { margin:9px 0 0; color:#817b73; font-size:8px; line-height:1.65; }
+.clue-evidence-state small { display:block; margin-top:8px; color:#a38c66; font-size:7px; overflow-wrap:anywhere; }
+.clue-evidence-state code { display:block; margin-top:5px; color:#6f6874; font-size:7px; overflow-wrap:anywhere; }
 .compact-heading { margin-top:64px; margin-bottom:24px; }
 @media (max-width: 900px) {
   .constellation-category-grid, .constellation-entry-grid { grid-template-columns:1fr; }
+}
+@media (max-width: 620px) {
+  .clue-evidence-state dl { grid-template-columns:1fr; }
 }

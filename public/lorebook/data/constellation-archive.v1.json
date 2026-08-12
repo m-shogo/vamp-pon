@@ -5,6 +5,7 @@
   "authority": {
     "research": "docs/research/constellation-history-usable-v1.md",
     "storyClues": "docs/constellation-story-clue-reservoir-v1.md",
+    "tomoriOldAtlasEvidence": "docs/research/tomori-old-atlas-evidence-v1.md",
     "sakuyaza": "docs/sakuyaza-current-identity-v1.md",
     "gunjoZankyoroku": "docs/gunjo-zankyoroku-current-v1.md",
     "bossNamingCandidates": "docs/research/obsolete-constellation-boss-naming-candidates-v1.md"
@@ -36,7 +37,7 @@
   ],
   "storyClues": [
     {"id":"quadrantid-name-fossil","tier":"S","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Quadrantid name fossil","nextSource":"Confirm source-specific Quadrans Muralis history, modern Quadrantids naming authority, and Japanese しぶんぎ座流星群 naming."},
-    {"id":"tomori-inherited-old-atlas","tier":"S","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Tomori inherited old atlas","nextSource":"Choose an exact historical atlas/publication era and verify obsolete figures plus plausible route to postwar Japan."},
+    {"id":"tomori-inherited-old-atlas","tier":"S","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Tomori inherited old atlas","nextSource":"Inspect the actual 1924 Japanese 星座の図 plates and/or identify an earlier/imported atlas with obsolete figures; then establish a plausible household, mentor, secondhand, repair, or inheritance route into postwar Japan.","researchSource":"docs/research/tomori-old-atlas-evidence-v1.md","researchEvidence":{"evidenceCount":4,"verifiedResearchCount":2,"bibliographicContentOpenCount":2,"tomoriSpecificArtifactConfirmed":false,"quadransInJapaneseCandidateConfirmed":false,"recommendedStoryState":"KEEP_TOMORI_INHERITED_OLD_ATLAS_AS_AUTHOR_CANDIDATE"}},
     {"id":"argo-one-to-many","tier":"A","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Argo Navis one → many","nextSource":"Verify historical treatment and modern IAU region mapping; keep Pyxis nuance source-backed."},
     {"id":"machina-electrica-era-mirror","tier":"A","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Machina Electrica era mirror","nextSource":"Verify creator, atlas placement/date, and Japanese display wording."},
     {"id":"officina-typographica-record-medium","tier":"A","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Officina Typographica / record medium","nextSource":"Verify source/creator, imagery, placement, and Japanese wording."},
