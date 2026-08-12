@@ -1,0 +1,15 @@
+.constellation-archive-rules { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 22px; }
+.constellation-archive-rules span { border:1px solid var(--line); border-radius:999px; padding:7px 10px; color:var(--ink-soft); font-size:10px; }
+.constellation-category-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:18px; }
+.constellation-category-card, .constellation-entry-card { border:1px solid var(--line); background:rgba(33,31,39,.72); padding:20px; }
+.constellation-category-card p, .constellation-entry-card p { margin:8px 0 0; color:var(--ink-soft); font-size:12px; }
+.constellation-entry-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.constellation-entry-card .card-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+.constellation-entry-card .group-mark { color:#8a8276; font-size:9px; letter-spacing:.08em; text-transform:uppercase; }
+.constellation-entry-card h3 { margin:18px 0 4px; font:500 24px var(--serif); }
+.constellation-entry-card small { display:block; margin-top:14px; color:#8f887b; font-size:9px; letter-spacing:.04em; }
+.constellation-entry-card .callout { margin-top:14px; padding:12px; font-size:10px; }
+.compact-heading { margin-top:64px; margin-bottom:24px; }
+@media (max-width: 900px) {
+  .constellation-category-grid, .constellation-entry-grid { grid-template-columns:1fr; }
+}

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "status": "AUTHOR_READ_MODEL_NON_CANON",
+  "updatedAt": "2026-08-12",
+  "authority": {
+    "research": "docs/research/constellation-history-usable-v1.md",
+    "storyClues": "docs/constellation-story-clue-reservoir-v1.md",
+    "sakuyaza": "docs/sakuyaza-current-identity-v1.md",
+    "gunjoZankyoroku": "docs/gunjo-zankyoroku-current-v1.md",
+    "bossNamingCandidates": "docs/research/obsolete-constellation-boss-naming-candidates-v1.md"
+  },
+  "rules": [
+    "Research fact != Story Canon",
+    "obsolete constellation != evil",
+    "star-map exclusion != cause of becoming an enemy",
+    "Tomori and Present Yui do not have different official IAU 88 sets merely because of their Current era bands",
+    "Character hook != ownership / zodiac / Star Beast / fate",
+    "外典星座 is CANDIDATE and must not replace 朔夜座"
+  ],
+  "categories": [
+    {"id":"current-88","label":"Current 88","meaning":"Modern IAU constellation framework. Stable reference layer for present-day comparison."},
+    {"id":"obsolete","label":"Obsolete / historical","meaning":"Historically proposed or used constellations not retained as modern official constellations."},
+    {"id":"renamed-absorbed","label":"Renamed / absorbed","meaning":"Historical identity or figure later represented within another accepted constellation framework."},
+    {"id":"name-fossil","label":"Name fossil","meaning":"A historical constellation name survives in modern vocabulary even though the constellation itself is obsolete."},
+    {"id":"restructured","label":"Restructured","meaning":"A historical constellation identity was later divided or reorganized into multiple modern constellation identities."},
+    {"id":"archival-only","label":"Archival only","meaning":"Useful for old atlas / archive / mystery authoring; not a modern Character identity by default."}
+  ],
+  "entries": [
+    {"id":"quadrans-muralis","name":"Quadrans Muralis","categoryIds":["obsolete","name-fossil","archival-only"],"storyUse":"S clue: modern Quadrantids preserves the historical name trace.","evidenceState":"RESEARCH_BACKED / CANON_GATE_OPEN","canonStatus":"RESEARCH","forbiddenShortcut":"Do not claim Tomori lived under a different official postwar constellation list."},
+    {"id":"argo-navis","name":"Argo Navis","categoryIds":["restructured","archival-only"],"storyUse":"A clue for one historical identity becoming multiple modern recognized regions.","evidenceState":"RESEARCH_BACKED / CANON_GATE_OPEN","canonStatus":"RESEARCH","forbiddenShortcut":"Do not force Character identity, twin identity, or Robot personhood conclusions from the split."},
+    {"id":"machina-electrica","name":"Machina Electrica","categoryIds":["obsolete","archival-only"],"storyUse":"Shows that people projected contemporary technology into the sky.","evidenceState":"RESEARCH_BACKED / SOURCE_SPECIFIC_ATLAS_CHECK_REQUIRED","canonStatus":"RESEARCH","forbiddenShortcut":"Artificial body != machine constellation assignment."},
+    {"id":"officina-typographica","name":"Officina Typographica","categoryIds":["obsolete","archival-only"],"storyUse":"Record medium / printing / archive clue; useful for information surviving while classifications change.","evidenceState":"RESEARCH_BACKED / SOURCE_SPECIFIC_ATLAS_CHECK_REQUIRED","canonStatus":"RESEARCH","forbiddenShortcut":"A changed classification does not imply written records are false."},
+    {"id":"robur-carolinum","name":"Robur Carolinum","categoryIds":["obsolete","archival-only"],"storyUse":"Authority and patronage can be visible in historical sky-map naming.","evidenceState":"RESEARCH_BACKED / HISTORICAL_CONTEXT_CHECK_REQUIRED","canonStatus":"RESEARCH","forbiddenShortcut":"Political naming does not make all official constellations arbitrary or corrupt."},
+    {"id":"antinous","name":"Antinous","categoryIds":["renamed-absorbed","archival-only"],"storyUse":"A person-name can disappear as a standalone figure while the stars remain.","evidenceState":"RESEARCH_BACKED / CULTURAL_CONTEXT_REVIEW_REQUIRED","canonStatus":"RESEARCH","forbiddenShortcut":"Do not reduce Antinous to generic tragic aesthetics."},
+    {"id":"felis","name":"Felis","categoryIds":["obsolete","archival-only"],"storyUse":"Low-stakes old-atlas clue that teaches the audience historical sky figures can differ from the modern 88.","evidenceState":"RESEARCH_BACKED / SOURCE_SPECIFIC_ATLAS_CHECK_REQUIRED","canonStatus":"RESEARCH","forbiddenShortcut":"Cat Character != Felis owner; obsolete != evil."}
+  ],
+  "storyClues": [
+    {"id":"quadrantid-name-fossil","tier":"S","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Quadrantid name fossil","nextSource":"Confirm source-specific Quadrans Muralis history, modern Quadrantids naming authority, and Japanese しぶんぎ座流星群 naming."},
+    {"id":"tomori-inherited-old-atlas","tier":"S","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Tomori inherited old atlas","nextSource":"Choose an exact historical atlas/publication era and verify obsolete figures plus plausible route to postwar Japan."},
+    {"id":"argo-one-to-many","tier":"A","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Argo Navis one → many","nextSource":"Verify historical treatment and modern IAU region mapping; keep Pyxis nuance source-backed."},
+    {"id":"machina-electrica-era-mirror","tier":"A","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Machina Electrica era mirror","nextSource":"Verify creator, atlas placement/date, and Japanese display wording."},
+    {"id":"officina-typographica-record-medium","tier":"A","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Officina Typographica / record medium","nextSource":"Verify source/creator, imagery, placement, and Japanese wording."},
+    {"id":"robur-authority-sky-map","tier":"A","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Robur Carolinum / authority map","nextSource":"Verify Halley / Charles II context and separate naming motive from obsolete status."},
+    {"id":"antinous-absorbed-name","tier":"B","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Antinous absorbed figure","nextSource":"Verify atlas tradition and complete cultural-history / sensitivity review."},
+    {"id":"felis-secret-archive","tier":"B","status":"AUTHOR_CANDIDATE_NON_CANON","label":"Felis secret archive","nextSource":"Verify source-specific Felis evidence and image-rights path before reproduction."}
+  ],
+  "groupGlossary": [
+    {"term":"朔夜座","status":"CANON_CURRENT","kind":"ENEMY_TEAM","definition":"Season 1の8人の正式な主要敵集団名。外典星座などの星座史Candidateで置き換えない。","source":"docs/sakuyaza-current-identity-v1.md"},
+    {"term":"群青残響録","status":"CANON_CURRENT","kind":"RECORD_TAXONOMY","definition":"各時代の大事件の中心人物・人物群を後世の記録側から括る名称。固定組織・固定人数・善悪集団ではない。","source":"docs/gunjo-zankyoroku-current-v1.md"},
+    {"term":"Star Beast / 星獣","status":"CURRENT_SEPARATE_AUTHORITY","kind":"CHARACTER_IDENTITY_SYSTEM","definition":"Character側の星獣Authority。obsolete constellation researchから自動で一対一割当しない。","source":"docs/CANON.md"},
+    {"term":"黒耀化","status":"CURRENT_SEPARATE_AUTHORITY","kind":"CHARACTER_STATE","definition":"長所・願いと恐怖・焦りが一つの答えへ極端化した状態。obsolete constellationであることを原因にしない。","source":"docs/CANON.md"},
+    {"term":"obsolete constellation","status":"RESEARCH","kind":"ASTRONOMY_HISTORY_CLASSIFICATION","definition":"歴史的には使われたが現代88星座には保持されていない星座・図像の研究分類。善悪属性ではない。","source":"docs/research/constellation-history-usable-v1.md"},
+    {"term":"外典星座","status":"CANDIDATE","kind":"ARCHIVE_OR_BOSS_SIDE_NAMING_CANDIDATE","definition":"旧星座・星図外モチーフを世界内Archive等で括る候補名。朔夜座の代替正式名称ではなく、Canon未確定。","source":"docs/research/obsolete-constellation-boss-naming-candidates-v1.md"}
+  ]
+}
