@@ -1,4 +1,5 @@
 const HISTORY_DATA_URL = './data/history-atlas.v1.json';
+const CORE5_ERA_DATA_URL = './data/core5-era-canon.v1.json';
 
 const historyStyles = document.createElement('link');
 historyStyles.rel = 'stylesheet';
@@ -39,6 +40,61 @@ function eraMarkup(eraMethod) {
   `;
 }
 
+function temporalLaneMarkup(assignment, index) {
+  const exactYear = assignment.exactYear == null ? 'EXACT YEAR / OPEN' : `EXACT YEAR / ${assignment.exactYear}`;
+  return `
+    <article class="temporal-lane" data-era="${assignment.era}" data-character="${assignment.id}">
+      <div class="temporal-lane-index">0${index + 1}</div>
+      <div class="temporal-lane-copy">
+        <div class="temporal-lane-meta"><span>${assignment.name}</span><b>${exactYear}</b></div>
+        <h4>${assignment.eraLabel}</h4>
+        <p class="temporal-band">${assignment.roughHistoricalBand} <em>≈ rough band</em></p>
+        <dl>
+          <div><dt>PRESSURE</dt><dd>${assignment.primaryPressure}</dd></div>
+          <div><dt>BRIDGE</dt><dd>${assignment.coreBridge}</dd></div>
+        </dl>
+      </div>
+    </article>
+  `;
+}
+
+function renderTemporalMap(eraBook) {
+  const history = document.querySelector('#history');
+  if (!history || history.querySelector('.temporal-map')) return;
+  const assignments = eraBook.assignments ?? [];
+  if (assignments.length !== 5) return;
+
+  history.insertAdjacentHTML('beforeend', `
+    <section class="temporal-map" aria-labelledby="temporalMapHeading">
+      <header class="temporal-map-heading">
+        <span>TEMPORAL MAP / FIVE REALITY LANES</span>
+        <div>
+          <h3 id="temporalMapHeading">同じ「今」ではない5人。</h3>
+          <p>左から右は時系列方向。ただしrough bandはExact yearではない。未確定の年号を見た目の都合で埋めない。</p>
+        </div>
+        <small>${eraBook.authority}<br>${eraBook.researchAuthority}</small>
+      </header>
+      <div class="temporal-lane-track">${assignments.map(temporalLaneMarkup).join('')}</div>
+      <div class="temporal-cross-overlays">
+        <article class="dream-cross-overlay">
+          <span>DREAM OVERLAY</span>
+          <strong>ヨルノシルベは第6の時代ではない。</strong>
+          <p>Realityの時系列を横断して交差する層。起床は一つの現代ではなく、それぞれのRealityへ戻る。</p>
+        </article>
+        <article class="sky-cross-overlay">
+          <span>SKY / CONSTELLATION OVERLAY</span>
+          <strong>星は見える。でも、星座の採用史は同じとは限らない。</strong>
+          <p>昔は採用され、後に外れた星座／後世に加わる星座を、時代差の伏線として重ねられる。最終理由はまだOpen。</p>
+        </article>
+      </div>
+      <footer class="temporal-map-rule">
+        <b>READING RULE</b>
+        <p>Present ≠ 正解側 / Future ≠ Human upgrade / Dream ≠ 後の時代 / rough band ≠ exact date</p>
+      </footer>
+    </section>
+  `);
+}
+
 function renderHistoryAtlas(data) {
   const history = document.querySelector('#history');
   if (!history || history.querySelector('.history-atlas')) return;
@@ -53,16 +109,21 @@ function renderHistoryAtlas(data) {
       <div class="history-thread-grid">${data.objectThreads.map(threadMarkup).join('')}</div>
       ${eraMarkup(data.eraMethod)}
     </section>
-  `);
+  `;
 }
 
 async function bootHistoryAtlas() {
   try {
-    const response = await fetch(HISTORY_DATA_URL, { cache: 'no-store' });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    renderHistoryAtlas(await response.json());
+    const [historyResponse, eraResponse] = await Promise.all([
+      fetch(HISTORY_DATA_URL, { cache: 'no-store' }),
+      fetch(CORE5_ERA_DATA_URL, { cache: 'no-store' }),
+    ]);
+    if (!historyResponse.ok || !eraResponse.ok) throw new Error(`history=${historyResponse.status} era=${eraResponse.status}`);
+    const [historyData, eraBook] = await Promise.all([historyResponse.json(), eraResponse.json()]);
+    renderTemporalMap(eraBook);
+    renderHistoryAtlas(historyData);
   } catch (error) {
-    console.error('[lorebook] failed to load history atlas', error);
+    console.error('[lorebook] failed to load history/temporal atlas', error);
   }
 }
 
