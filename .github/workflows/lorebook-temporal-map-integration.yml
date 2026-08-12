@@ -1,0 +1,74 @@
+name: Lorebook Temporal Map Integration
+
+on:
+  pull_request:
+    paths:
+      - 'public/lorebook/history-enhancement.js'
+      - 'public/lorebook/history.css'
+      - 'public/lorebook/data/core5-era-canon.v1.json'
+      - 'docs/lorebook-temporal-map-integration-v1.md'
+      - '.github/workflows/lorebook-temporal-map-integration.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/lorebook/history-enhancement.js'
+      - 'public/lorebook/history.css'
+      - 'public/lorebook/data/core5-era-canon.v1.json'
+      - 'docs/lorebook-temporal-map-integration-v1.md'
+      - '.github/workflows/lorebook-temporal-map-integration.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate history enhancement syntax
+        run: node --check public/lorebook/history-enhancement.js
+      - name: Validate temporal data and UI boundaries
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const era = JSON.parse(fs.readFileSync('public/lorebook/data/core5-era-canon.v1.json', 'utf8'));
+          const js = fs.readFileSync('public/lorebook/history-enhancement.js', 'utf8');
+          const css = fs.readFileSync('public/lorebook/history.css', 'utf8');
+          const doc = fs.readFileSync('docs/lorebook-temporal-map-integration-v1.md', 'utf8');
+          const fail = (message) => { console.error(message); process.exitCode = 1; };
+          const expectedIds = ['tomori','michiru','nagi','yui','asa'];
+          const expectedEras = [
+            'POSTWAR_RECOVERY_SCARCITY_JAPAN',
+            'LATE_HIGH_GROWTH_POLLUTION_ENERGY_TRANSITION_JAPAN',
+            'POST_BUBBLE_EARLY_MOBILE_INTERNET_JAPAN',
+            'PRESENT_DAY_JAPAN',
+            'FAR_FUTURE_HUMAN_ANDROID_ROBOT_AVATAR_SOCIETY',
+          ];
+          if (era.schemaVersion !== 2) fail(`core5 era schemaVersion drift: ${era.schemaVersion}`);
+          if (era.assignments?.length !== 5) fail(`expected five Core5 era assignments, got ${era.assignments?.length}`);
+          if (era.exactYearsFrozen !== false) fail('exactYearsFrozen must remain false');
+          if (era.exactDecadesAreExamplesNotAuthority !== true) fail('rough decade examples must not become authority');
+          if (JSON.stringify(era.assignments.map((item) => item.id)) !== JSON.stringify(expectedIds)) fail('Core5 temporal lead order drift');
+          if (JSON.stringify(era.assignments.map((item) => item.era)) !== JSON.stringify(expectedEras)) fail('Core5 era lane order drift');
+          if (era.assignments.some((item) => item.exactYear !== null)) fail('Lorebook temporal map may not receive an exact year yet');
+          if (era.assignments.some((item) => !item.roughHistoricalBand || !item.primaryPressure || !item.coreBridge)) fail('Core5 era display fields incomplete');
+          for (const token of [
+            'CORE5_ERA_DATA_URL',
+            'EXACT YEAR / OPEN',
+            'rough band',
+            'ヨルノシルベは第6の時代ではない。',
+            '起床は一つの現代ではなく、それぞれのRealityへ戻る。',
+            '星座の採用史は同じとは限らない。',
+            'Present ≠ 正解側 / Future ≠ Human upgrade / Dream ≠ 後の時代 / rough band ≠ exact date',
+          ]) if (!js.includes(token)) fail(`temporal UI guard missing: ${token}`);
+          for (const token of ['.temporal-map', '.temporal-lane-track', '.dream-cross-overlay', '.sky-cross-overlay']) {
+            if (!css.includes(token)) fail(`temporal CSS contract missing: ${token}`);
+          }
+          for (const token of [
+            'EXISTING LOREBOOK DATA REUSED / NO NEW TIME AUTHORITY',
+            'exact year remains Open',
+            'Dream != sixth physical era',
+            '同じ時代に並べるのではなく、違う時代に生きていたこと自体が一目で分かる画面にする。',
+          ]) if (!doc.includes(token)) fail(`temporal integration doc guard missing: ${token}`);
+          NODE
