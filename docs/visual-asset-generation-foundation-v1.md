@@ -1,124 +1,84 @@
 # ヨルノシルベ Visual Asset Generation Foundation v1
 
-Status: **INVENTORY CONNECTED / ONE REJECTED YUI TEST BATCH RECORDED / NO STORY PROMOTION**
+Status: **CHARACTER DESIGN MASTER PACK FOUNDATION CONNECTED / YUI SHEET 01 PREPARED / NO STORY OR RUNTIME PROMOTION**
 
 ## 目的
 
-設定変更に耐えられる形で、画像生成前のAuthority確認、asset ID、派生関係、coverage、batch、prompt packet、QA、reject、置換履歴を一つの系へ接続する。
+ゲーム・アニメ・Lorebook・Gameplay派生が長期に参照できるCharacter Design正本を、画像1枚や複数の独立Masterへ分裂させずversion管理する。
 
 ```txt
 SOURCE OF TRUTH
--> MASTER
--> LOREBOOK READ MODEL
--> GAMEPLAY DERIVED
+→ CHARACTER DESIGN MASTER PACK
+→ OVERVIEW READ MODEL / LOREBOOK DERIVED / GAMEPLAY DERIVED
 ```
 
-Lorebook画像をGameplay派生の親にしない。画像の出来栄えを理由にStoryをCanonへ昇格しない。
+- 1 characterにつき1つの論理的なCharacter Design Master Packを持つ。
+- Packのvisual evidenceは4枚のsource sheetであり、4つの独立Character Masterではない。
+- Overviewは決定論的read modelで、source、generation parent、authorityではない。
+- Lorebook / Gameplay childは承認済みPackだけを直接親にし、`parentPackId`、`parentPackHash`、`usedSheetIds`を固定する。
+- partial Packはderivative parentになれない。現在のplanned childはactual parent fieldsをnull/emptyのまま保持する。
+- Visual approvalはStory Canon、final、runtimeを昇格しない。
+
+## Character Design Master Pack
+
+Packは次の4 roleをuniqueに1枚ずつ要求する。
+
+1. `identity-turnaround`: neutral front / anatomical left / anatomical right / back。同一縮尺、共通ground/proportion line、同一人物構造、body-relative equipment固定、mirror禁止。
+2. `face-expression-acting`: neutral front、左右3/4、左右profile、目・眉・口・固有landmark・表情・年齢印象・nearest-face distinction。
+3. `costume-equipment-material`: layer front/back/inside、留め具、収納、靴、手元、palette/material/wear/repair、hold/stow/use。固有物体のorthographicはObject Masterへ分離する。
+4. `silhouette-motion-derivation`: one-color silhouette、rest/locomotion/signature interaction/action/exertion/hurt/recovery、motion signature、portrait/icon crop、gameplay-size proof。
+
+Sheet 01はHuman identity/construction approvalを得るまでSheet 02–04を生成しない。各sheetのHuman review、cross-sheet consistency review、Pack reviewを別々に行う。承認済みsheetはimmutableで、差替えはversionを上げる。
+
+例: Face sheet v2と他sheet v1でPack v2を作る。Packの`replaces` / `supersededBy`は双方向にする。Overview layoutだけの変更はOverview versionのみを上げる。
 
 ## 基盤ファイル
 
-- `data/character-assets/manifests/visual-asset-master-registry.v1.json`: 中央DAG。
-- `data/character-assets/manifests/visual-asset-coverage.v1.json`: 必要画像チェックリスト。coverageは品質評価ではない。
-- `data/character-assets/manifests/visual-generation-batches.v1.json`: 生成batch予約。
-- `data/character-assets/manifests/visual-character-prompt-packets.v1.json`: 36人のAuthority snapshotとprompt packet下書き。
-- `data/character-assets/manifests/visual-image-production-list.v1.json`: 生成担当が上から処理する画像リスト。asset ID、batch、parent、output、4候補、QA、blockerを保持。
-- `data/character-assets/templates/visual-asset-record.template.json`: asset record。
-- `data/character-assets/templates/visual-prompt-packet.template.json`: prompt packet。
-- `data/character-assets/templates/visual-generation-batch.template.json`: batch record。
-- `data/character-assets/templates/visual-qa-record.template.json`: QA。
-- `data/character-assets/templates/visual-reject-ledger.template.json`: reject理由。
+- `src/game/data/visualAssetGenerationInventory.ts`: projection source。
+- `data/character-assets/manifests/visual-asset-master-registry.v1.json`: logical Packとreject記録の中央registry。
+- `data/character-assets/manifests/visual-asset-coverage.v1.json`: Pack + 4 sheet + Overviewの36人coverage read model。
+- `data/character-assets/manifests/visual-character-prompt-packets.v1.json`: 36 Pack planとstructured authority snapshot。
+- `data/character-assets/manifests/visual-image-production-list.v1.json`: 36 logical Pack、144 source sheet evidence、36 Overview、その他Visual派生のproduction plan。
+- `data/character-assets/manifests/visual-generation-batches.v1.json`: 14 batch予約。全batchは停止中。
+- `data/character-assets/reviews/yui-character-design-master-pack-v1.json`: Yui Sheet 01 Turnaround prompt packet。
 
-5 manifestは手編集する正本ではない。`src/game/data/visualAssetGenerationInventory.ts`が既存Author DBとVisual Design Masterを束ねる投影定義で、次のコマンドから再生成する。
+5 manifestは手編集しない。再生成・検査:
 
 ```sh
 pnpm visual-assets:inventory:export
 pnpm visual-assets:check
 ```
 
-checkerは投影結果との完全一致を検査する。Character / Era / Reality Root等の正本が変わった時にmanifestだけ古い状態で残ることを許可しない。
+## Authority / Lineage
 
-## 接続済み正本
+各upstream snapshotは`sourceId`、`path`、`contentHash`、`authorityClass`、`consumedFields`を持つ。Story値をVisual側の新しい正本として複製しない。
 
-| 軸 | 正本 | 接続範囲 |
-|---|---|---|
-| Character identity | `characterAuthorDbCoverageManifest.ts` | 36人、Author ID、stable ID |
-| Physical identity | `characterAppearanceGenerationContracts.ts` | 36人、face/body/age/species/forbidden drift |
-| Era | `characterEraForeshadowDialogueReservoir.ts` | 36人、laneとCurrent/Candidate/Open |
-| Reality Root | `characterRealityRootRegistry.ts` | 36人、rootとstatus。birthplace/incident areaとは分離 |
-| Theme Color | `characterThemeColorReservoir.ts` | 36人、全件Author Reservoir・final未承認 |
-| Reference production | `characterReferenceProductionQueue.ts` | Current20の既存/不足/再審査とpriority |
-| Existing master | `core5-character-master-assets.json` | Core5 Master Board 5枚をreference-onlyで登録 |
-| Named Object | `namedObjectVisualSharedSource.ts` | Current21 luminous possession 21件のgeometry candidate |
-| Star Beast | `starBeastVisualSharedSource.ts` | Current20 + Official Reserveの形態source。画像は未生成 |
-| Group authority | `storyWorldMasterSource.ts` / `yatsukageIdentitySource.ts` | 朔夜座8人と群青残響録taxonomy |
+生成時Lineageはparent IDs/hashes、authority source/commit/hash/consumed fields、prompt/reference/output hashes、generator/version/seed（取得可能な範囲）、automatic QA、Human decision scope、replacement linkage、reject ledgerを記録する。
 
-`subjectAliases`には `yuubi/yubi`、`kaname/kage1`〜`tsumugi/kage4`、Future15の`F01`〜`F15`を自動接続する。別名を別人として数えない。
+## Yui境界
 
-未merge PRのデータはmainの正本として複製しない。PR #302のLiving Visual roster/profileがmainへ入った後、同じprojection moduleへsource adapterを追加する。
+- dominant handは`OPEN_NO_SOURCE`。保持物から推論しない。
+- Lanternはanatomical RIGHT hand。Paperはanatomical LEFT hand。
+- Strapはanatomical RIGHT shoulder → anatomical LEFT waist。Bagはanatomical LEFT waist。
+- Frontではbody-right = viewer left。Backではanatomical right = viewer right。
+- 年齢印象は`YOUNG_ADULT`。
+- soft oval、rounded cheeks、non-pointed chin、smaller almost-level almond-round brown eyes、tapered double eyelids、soft straight brows、warm-dark asymmetric bob、one ear tuck、bilateral smile dimplesをidentity anchorとする。
+- generic V jaw、giant eyes、missing dimples、side duplication/mirror、装備左右矛盾はhard veto。
+- Sheet 01だけがauthoring/generation準備可能。Sheet 02–04と全derivativeはTurnaround Human approval待ち。
 
-## 現在の実インベントリ
+過去のYui Full Body v2 4候補は全件rejectのlearning-only記録であり、Master、parent、Golden、Story、final、runtimeに使わない。
 
-- Character coverage: 36/36行。ただし割合を品質評価には使わない。
-- Core5既存Master Board: 5件。ユイはreference承認済み、他4人はboundary review待ち。全件final/runtime/currentではない。
-- Theme Color: 36件は候補として接続。色だけでidentityを作らない。
-- Named Object geometry: 21件は候補として接続。画像完成とは数えない。
-- Star Beast silhouette source: Current20 + Reserveはsource有り。Star Beast Master画像完成とは数えない。
-- Batch 01〜14: `planned-not-started`、`generationAllowed=false`。画像生成は停止中。
-- Character prompt packet: 36/36件。主promptはAuthority/Visual Language審査後に確定し、現状は生成禁止。
-- Yui Full Body v2 test: 4候補を生成したが全件reject。画像、prompt、QA、reject理由は`assets/import-staging/batch-character-master/yui/rejected-v2/`と`data/character-assets/reviews/`に保持し、Master parent/final/runtimeには使わない。
+## Hard veto
 
-既存のAsset Generation Contract、Golden Reference、Generation Lineage、candidate intake、U48 runtime approval chainは置換しない。この基盤はそれらを横断して追跡するindexである。
-
-## 画像生成前チェックリスト
-
-1. 最新mainとsource commitを記録する。
-2. Story AuthorityとOpen/Candidate/Researchを分離する。
-3. asset IDとversionを予約する。
-4. `sourceOfTruth`を指定する。
-5. parentを指定する。Masterは`derivedFrom=[]`。
-6. 実画像referenceを確認し、それぞれの役割を宣言する。
-7. prompt packetを作る。変更可能な設定はAuthority snapshot側に置く。
-8. 同一prompt/contractの4候補を予約する。
-9. QA recordとreject ledgerの保存先を予約する。
-10. output staging pathを予約し、既存asset上書きを禁止する。
-11. `pnpm visual-assets:inventory:export`で正本を投影し、`pnpm visual-assets:check`を通す。
-12. ここで生成前の人間判断が必要なら止める。
-
-## 生成後チェックリスト
-
-1. `generated-unreviewed`として登録する。
-2. output hashとGeneration Lineageを記録する。
-3. identity / face / body / age / silhouette / costume / props / Eraを目視QAする。
-4. small-size、alpha、edge、text/watermarkを技術QAする。
-5. reject理由をledgerへ残す。
-6. 4候補比較を行う。
-7. Human review前に`approved-current`へ上げない。
-8. Master承認後にだけLorebook/Game派生を作る。
-
-## 承認待ちになる地点
-
-- 画像生成の開始。
-- Candidateの選別・採用。
-- Story重大Canon決定。
-- `approved-current`、final、runtimeへの昇格。
-
-Registry、coverage、template、checker、CIの作成自体は承認待ちにしない。
-
-## Status境界
-
-- 初期状態は`needs-generation`。
-- 生成直後は`generated-unreviewed`。
-- 自動QAだけで`approved-current`にしない。
-- `current=true`はHuman review済み`approved-current`だけ。
-- Story Candidate/Research/OpenはVisualが良くてもStory Canonにならない。
-- Gameplay derivativeはMasterを直接親にする。
-
-## Replacement
-
-既存ファイルを上書きしない。新versionを追加し、`replaces`と`supersededBy`を双方向で記録する。置換cycleは禁止。
+- required sheet欠落またはrole重複
+- duplicated/mirrored side、hard identity landmark欠落、cross-sheet別人化
+- body-relative equipment conflict
+- Open/CandidateをCurrentとして描写
+- lineage/hash不整合
+- OverviewをMasterまたはparent登録
+- Pack approvalからchild final/runtimeを自動昇格
+- partial Packのderivative parent化
 
 ## 客観検査のみ
 
-許可: duplicate ID、missing source/file/parent、invalid layer/status、DAG cycle、orphan derivative、duplicate current、置換不整合、coverage ID/slot不整合。
-
-禁止: 台詞やpromptの文字数、完成率、quality/popularity score、長いほど良いという判定。
+checkerはID、role uniqueness、source/hash、lineage/version/replacement、parent gate、Yui equipment/identity lock、Story/final/runtime境界を検査する。quality score、completion %、popularity score、台詞やpromptの最低文字数は使わない。

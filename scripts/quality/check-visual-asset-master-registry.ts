@@ -23,7 +23,10 @@ const CHARACTER_PROMPT_PACKETS_PATH = 'data/character-assets/manifests/visual-ch
 const IMAGE_PRODUCTION_LIST_PATH = 'data/character-assets/manifests/visual-image-production-list.v1.json';
 const YUI_REJECT_QA_PATH = 'data/character-assets/reviews/yui-full-body-master-v2.qa.json';
 const YUI_REJECT_LEDGER_PATH = 'data/character-assets/reviews/yui-full-body-master-v2.rejects.json';
-const YUI_V3_PROMPT_PATH = 'data/character-assets/reviews/yui-full-body-master-v3.prompt.json';
+const YUI_PACK_PROMPT_PATH = 'data/character-assets/reviews/yui-character-design-master-pack-v1.json';
+const ASSET_TEMPLATE_PATH = 'data/character-assets/templates/visual-asset-record.template.json';
+const PROMPT_TEMPLATE_PATH = 'data/character-assets/templates/visual-prompt-packet.template.json';
+const QA_TEMPLATE_PATH = 'data/character-assets/templates/visual-qa-record.template.json';
 
 type JsonObject = Record<string, unknown>;
 
@@ -78,7 +81,10 @@ const promptPacketsManifest = readJson(CHARACTER_PROMPT_PACKETS_PATH);
 const imageProductionList = readJson(IMAGE_PRODUCTION_LIST_PATH);
 const yuiRejectQa = readJson(YUI_REJECT_QA_PATH);
 const yuiRejectLedger = readJson(YUI_REJECT_LEDGER_PATH);
-const yuiV3Prompt = readJson(YUI_V3_PROMPT_PATH);
+const yuiPackPrompt = readJson(YUI_PACK_PROMPT_PATH);
+const assetTemplate = readJson(ASSET_TEMPLATE_PATH);
+const promptTemplate = readJson(PROMPT_TEMPLATE_PATH);
+const qaTemplate = readJson(QA_TEMPLATE_PATH);
 
 function requireGeneratedSnapshot(actual: JsonObject, expected: unknown, path: string): void {
   if (JSON.stringify(actual) !== JSON.stringify(expected)) {
@@ -97,6 +103,9 @@ if (coverage.schemaVersion !== 1) fail('coverage.schemaVersion must be 1');
 if (batchesManifest.schemaVersion !== 1) fail('batches.schemaVersion must be 1');
 if (promptPacketsManifest.schemaVersion !== 1) fail('promptPackets.schemaVersion must be 1');
 if (imageProductionList.schemaVersion !== 1) fail('imageProductionList.schemaVersion must be 1');
+if (assetTemplate.kind !== 'character-design-master-pack' || !isObject(assetTemplate.masterPack)) fail('visual asset template must model one logical Character Design Master Pack');
+if (promptTemplate.sheetRole !== 'identity-turnaround' || !isObject(promptTemplate.dependencyGate)) fail('visual prompt template must model the Turnaround dependency gate');
+if (qaTemplate.sheetRole !== 'identity-turnaround' || !isObject(qaTemplate.hashes)) fail('visual QA template must be sheet-scoped and hash-aware');
 requireNonEmptyString(registry, 'registryId', 'registry');
 requireNonEmptyString(coverage, 'registryId', 'coverage');
 requireNonEmptyString(batchesManifest, 'registryId', 'batches');
@@ -126,6 +135,7 @@ else {
   if (placements.get('yui-lantern')?.bodySide !== 'BODY_RIGHT' || placements.get('yui-lantern')?.anchor !== 'HAND') fail('Yui lantern must remain in body-right hand');
   if (placements.get('yui-bag-strap')?.fromBodySide !== 'BODY_RIGHT' || placements.get('yui-bag-strap')?.toBodySide !== 'BODY_LEFT') fail('Yui bag strap must remain body-right shoulder to body-left hip');
   if (placements.get('yui-bag')?.bodySide !== 'BODY_LEFT' || placements.get('yui-bag')?.anchor !== 'HIP') fail('Yui bag must remain at body-left hip');
+  if (placements.get('yui-paper')?.bodySide !== 'BODY_LEFT' || placements.get('yui-paper')?.anchor !== 'HAND') fail('Yui paper must remain in body-left hand');
 }
 
 // Stable profile/runtime IDs and the historical F01..F15 appearance IDs are aliases,
@@ -183,7 +193,7 @@ if (registry.subjectAliases === undefined) {
 
 const allowedLayers = new Set(['master', 'lorebook', 'gameplay']);
 const allowedAuthorityStatuses = new Set(['CANON', 'CURRENT', 'USER_DIRECTION', 'CANDIDATE', 'AUTHOR_RESERVOIR', 'RESEARCH', 'OPEN', 'Future15']);
-const allowedReviewStatuses = new Set(['needs-generation', 'generated-unreviewed', 'needs-author-review', 'needs-boundary-review', 'approved-candidate', 'approved-current', 'superseded', 'archived']);
+const allowedReviewStatuses = new Set(['needs-authoring', 'needs-generation', 'generated-unreviewed', 'needs-author-review', 'needs-boundary-review', 'approved-candidate', 'approved-current', 'superseded', 'archived']);
 const sourceCatalog = isObject(registry.sourceCatalog) ? registry.sourceCatalog : {};
 const rawAssets = registry.assets;
 if (!Array.isArray(rawAssets)) fail('registry.assets must be an array');
@@ -226,7 +236,7 @@ for (const [index, asset] of assets.entries()) {
 
   if (!Array.isArray(asset.files)) fail(`${id}: files must be an array`);
   const files = Array.isArray(asset.files) ? asset.files : [];
-  if (reviewStatus !== 'needs-generation' && files.length === 0) fail(`${id}: ${reviewStatus} asset must register at least one file`);
+  if (!['needs-authoring', 'needs-generation'].includes(reviewStatus) && files.length === 0) fail(`${id}: ${reviewStatus} asset must register at least one file`);
   const fileRoles = new Set<string>();
   for (const [fileIndex, rawFile] of files.entries()) {
     if (!isObject(rawFile)) {
@@ -248,6 +258,18 @@ for (const [index, asset] of assets.entries()) {
       const value = asset.replacementPolicy[field];
       if (value !== null && typeof value !== 'string') fail(`${id}: replacementPolicy.${field} must be an asset ID or null`);
     }
+  }
+
+  if (kind === 'character-design-master-pack') {
+    const pack = isObject(asset.masterPack) ? asset.masterPack : {};
+    const roles = requireStringArray(pack, 'requiredSheetRoles', `${id}.masterPack`);
+    const sheetIds = requireStringArray(pack, 'requiredSheetIds', `${id}.masterPack`);
+    const requiredRoles = ['identity-turnaround', 'face-expression-acting', 'costume-equipment-material', 'silhouette-motion-derivation'];
+    if (JSON.stringify(roles) !== JSON.stringify(requiredRoles) || new Set(roles).size !== 4) fail(`${id}: Pack must declare four unique required sheet roles`);
+    if (sheetIds.length !== 4 || new Set(sheetIds).size !== 4) fail(`${id}: Pack must declare four unique source sheet IDs`);
+    if (pack.packId !== id || pack.packVersion !== 1 || !/^[a-f0-9]{64}$/.test(String(pack.packHash))) fail(`${id}: Pack identity/version/hash invalid`);
+    if (pack.approvalState !== 'partial-not-approved' || pack.mayParentDerivatives !== false || pack.packHumanApproved !== false || pack.allSheetsHumanApproved !== false || pack.crossSheetConsistencyApproved !== false) fail(`${id}: partial Pack may not parent derivatives`);
+    if (asset.current !== false || reviewStatus !== 'needs-authoring') fail(`${id}: unapproved Pack may not be current`);
   }
 
   if (authorityStatus === 'CANDIDATE' && (reviewStatus === 'approved-current' || asset.current === true)) {
@@ -331,40 +353,50 @@ for (const candidate of yuiQaCandidates) {
   }
 }
 
-if (yuiV3Prompt.packetId !== 'visual-prompt:yui:full-body-master:v3') fail('Yui v3 prompt packet ID drifted');
-if (yuiV3Prompt.assetFamilyId !== 'char-yui-full-body-master-v3' || yuiV3Prompt.subjectId !== 'yui') fail('Yui v3 prompt subject/family drifted');
-if (yuiV3Prompt.status !== 'AUTHORIZED_FOR_FOUR_CANDIDATE_GENERATION_NOT_APPROVED') fail('Yui v3 prompt must remain generation-authorized but unapproved');
-const yuiV3Authority = isObject(yuiV3Prompt.authoritySnapshot) ? yuiV3Prompt.authoritySnapshot : {};
-const yuiV3DominantHand = isObject(yuiV3Authority.dominantHand) ? yuiV3Authority.dominantHand : {};
-if (yuiV3DominantHand.value !== null || yuiV3DominantHand.status !== 'OPEN_NO_SOURCE') fail('Yui v3 prompt may not infer dominant hand');
-if (yuiV3Authority.heldItemHandMayNotInferDominantHand !== true || yuiV3Authority.storyAuthorityPromotedByImage !== false) fail('Yui v3 prompt lost handedness/Story authority boundary');
-if (yuiV3Authority.approvedAsFinal !== false || yuiV3Authority.runtimeApproved !== false) fail('Yui v3 prompt may not pre-approve final/runtime');
-const yuiV3PromptBody = isObject(yuiV3Prompt.prompt) ? yuiV3Prompt.prompt : {};
-const yuiV3Continuity = requireStringArray(yuiV3PromptBody, 'equipmentContinuity', 'yuiV3Prompt.prompt');
-for (const required of [
-  "Yui's anatomical RIGHT hand holds the lantern.",
-  "The strap begins at Yui's anatomical RIGHT shoulder, VIEWER'S LEFT in front view.",
-  "The strap crosses the chest and ends at Yui's anatomical LEFT waist, VIEWER'S RIGHT in front view.",
-  "The small bag rests at Yui's anatomical LEFT waist, VIEWER'S RIGHT.",
-  "Yui's anatomical LEFT hand, VIEWER'S RIGHT, holds or offers the found paper.",
-  'Do not mirror, swap, hand-transfer or hide these placements.',
-]) if (!yuiV3Continuity.includes(required)) fail(`Yui v3 prompt missing equipment continuity: ${required}`);
-const yuiV3Plan = isObject(yuiV3Prompt.candidatePlan) ? yuiV3Prompt.candidatePlan : {};
-const yuiV3CandidateIds = requireStringArray(yuiV3Plan, 'candidateIds', 'yuiV3Prompt.candidatePlan');
-if (yuiV3Plan.count !== 4 || yuiV3Plan.samePromptAndReferenceStack !== true || yuiV3CandidateIds.length !== 4 || new Set(yuiV3CandidateIds).size !== 4) {
-  fail('Yui v3 prompt must reserve exactly four same-prompt candidates');
+if (yuiPackPrompt.packetId !== 'visual-prompt:yui:identity-turnaround:v1' || yuiPackPrompt.packId !== 'char-yui-design-master-pack-v1') fail('Yui Pack/Sheet 01 prompt identity drifted');
+if (yuiPackPrompt.sheetId !== 'char-yui-design-sheet-01-identity-turnaround-v1' || yuiPackPrompt.sheetRole !== 'identity-turnaround') fail('Yui prompt must target Sheet 01 Identity / Turnaround only');
+if (yuiPackPrompt.status !== 'AUTHORIZED_FOR_FOUR_CANDIDATE_GENERATION_NOT_APPROVED') fail('Yui Sheet 01 prompt must remain generation-authorized but unapproved');
+const yuiAuthority = isObject(yuiPackPrompt.authoritySnapshot) ? yuiPackPrompt.authoritySnapshot : {};
+const yuiDominantHand = isObject(yuiAuthority.dominantHand) ? yuiAuthority.dominantHand : {};
+if (yuiDominantHand.value !== null || yuiDominantHand.status !== 'OPEN_NO_SOURCE') fail('Yui dominant hand must remain OPEN_NO_SOURCE');
+if (yuiAuthority.heldItemHandMayNotInferDominantHand !== true || yuiAuthority.storyAuthorityPromotedByImage !== false) fail('Yui prompt lost handedness/Story authority boundary');
+if (yuiAuthority.approvedAsFinal !== false || yuiAuthority.runtimeApproved !== false) fail('Yui prompt may not pre-approve final/runtime');
+const authoritySources = Array.isArray(yuiAuthority.sources) ? yuiAuthority.sources.filter(isObject) : [];
+if (authoritySources.length < 5) fail('Yui prompt requires structured upstream authority snapshots');
+for (const source of authoritySources) {
+  const sourceId = requireNonEmptyString(source, 'sourceId', 'yuiAuthority.source');
+  const path = requireNonEmptyString(source, 'path', `yuiAuthority.source:${sourceId}`);
+  const expectedHash = requireNonEmptyString(source, 'contentHash', `yuiAuthority.source:${sourceId}`);
+  requireNonEmptyString(source, 'authorityClass', `yuiAuthority.source:${sourceId}`);
+  if (requireStringArray(source, 'consumedFields', `yuiAuthority.source:${sourceId}`).length === 0) fail(`${sourceId}: consumedFields required`);
+  if (!isSafeRepoPath(path) || !existsSync(path)) fail(`${sourceId}: authority source missing`);
+  else if (createHash('sha256').update(readFileSync(path)).digest('hex') !== expectedHash) fail(`${sourceId}: authority content hash drifted`);
 }
-const yuiV3Approval = isObject(yuiV3Prompt.approval) ? yuiV3Prompt.approval : {};
-if (yuiV3Approval.automaticQaRequired !== true || yuiV3Approval.humanVisualReviewRequired !== true || yuiV3Approval.approvedAsFinal !== false || yuiV3Approval.runtimeApproved !== false) {
-  fail('Yui v3 prompt approval boundary must remain fail-closed');
+const yuiPromptBody = isObject(yuiPackPrompt.prompt) ? yuiPackPrompt.prompt : {};
+const promptHash = createHash('sha256').update(JSON.stringify(yuiPromptBody)).digest('hex');
+if (yuiPackPrompt.promptHash !== promptHash) fail('Yui Sheet 01 promptHash mismatch');
+const continuity = requireStringArray(yuiPromptBody, 'equipmentContinuity', 'yuiPackPrompt.prompt');
+for (const phrase of ['OPEN_NO_SOURCE', 'anatomical RIGHT hand', 'anatomical RIGHT shoulder', 'anatomical LEFT waist', 'anatomical LEFT hand', 'back view', 'never mirror']) {
+  if (!continuity.some((line) => line.includes(phrase))) fail(`Yui Sheet 01 equipment lock missing: ${phrase}`);
 }
-const yuiV3References = Array.isArray(yuiV3Prompt.references) ? yuiV3Prompt.references.filter(isObject) : [];
-if (yuiV3References.length !== 2) fail('Yui v3 prompt must preserve exactly two identity/runtime references');
-for (const reference of yuiV3References) {
-  const path = requireNonEmptyString(reference, 'path', 'yuiV3Prompt.reference');
-  const expectedHash = requireNonEmptyString(reference, 'sha256', `yuiV3Prompt.reference:${path}`);
-  if (!isSafeRepoPath(path) || !existsSync(path)) fail(`Yui v3 prompt reference is missing or outside the repository: ${path}`);
-  else if (createHash('sha256').update(readFileSync(path)).digest('hex') !== expectedHash) fail(`Yui v3 prompt reference hash drifted: ${path}`);
+const identityAnchors = requireStringArray(yuiPromptBody, 'identityAnchors', 'yuiPackPrompt.prompt');
+for (const phrase of ['YOUNG_ADULT', 'soft oval face', 'rounded cheeks', 'non-pointed chin', 'smaller almost-level almond-round brown eyes', 'tapered double eyelids', 'soft straight brows', 'warm-dark asymmetric bob with one ear tuck', 'bilateral smile dimples mandatory']) {
+  if (!identityAnchors.some((line) => line.includes(phrase))) fail(`Yui identity anchor missing: ${phrase}`);
+}
+const yuiPlan = isObject(yuiPackPrompt.candidatePlan) ? yuiPackPrompt.candidatePlan : {};
+const yuiCandidateIds = requireStringArray(yuiPlan, 'candidateIds', 'yuiPackPrompt.candidatePlan');
+if (yuiPlan.count !== 4 || yuiPlan.sameContractAndPrompt !== true || yuiCandidateIds.length !== 4 || new Set(yuiCandidateIds).size !== 4) fail('Yui Sheet 01 must reserve exactly four same-contract candidates');
+const dependencyGate = isObject(yuiPackPrompt.dependencyGate) ? yuiPackPrompt.dependencyGate : {};
+if (dependencyGate.turnaroundHumanApproval !== 'PENDING' || dependencyGate.sheet02GenerationAllowed !== false || dependencyGate.sheet03GenerationAllowed !== false || dependencyGate.sheet04GenerationAllowed !== false || dependencyGate.partialPackMayParentDerivatives !== false) fail('Yui dependent-sheet/partial-pack gate drifted');
+const yuiApproval = isObject(yuiPackPrompt.approval) ? yuiPackPrompt.approval : {};
+if (yuiApproval.automaticQaRequired !== true || yuiApproval.sheetHumanReviewRequired !== true || yuiApproval.crossSheetConsistencyReviewRequired !== true || yuiApproval.packHumanReviewRequired !== true || yuiApproval.approvedAsFinal !== false || yuiApproval.runtimeApproved !== false) fail('Yui Pack review boundary must remain fail-closed');
+const yuiReferences = Array.isArray(yuiPackPrompt.references) ? yuiPackPrompt.references.filter(isObject) : [];
+if (yuiReferences.length !== 2) fail('Yui prompt must preserve exactly two identity/runtime references');
+for (const reference of yuiReferences) {
+  const path = requireNonEmptyString(reference, 'path', 'yuiPackPrompt.reference');
+  const expectedHash = requireNonEmptyString(reference, 'sha256', `yuiPackPrompt.reference:${path}`);
+  if (!isSafeRepoPath(path) || !existsSync(path)) fail(`Yui prompt reference missing: ${path}`);
+  else if (createHash('sha256').update(readFileSync(path)).digest('hex') !== expectedHash) fail(`Yui prompt reference hash drifted: ${path}`);
 }
 
 function checkCycles(label: string, edges: (asset: JsonObject) => string[]): void {
@@ -531,6 +563,17 @@ for (const [index, packet] of promptPackets.entries()) {
   for (const requiredSource of ['character-handedness-equipment', 'character-living-visual-roster', 'visual-design-production-master']) {
     if (!sources.includes(requiredSource)) fail(`${packetId}: missing current Visual authority source: ${requiredSource}`);
   }
+  const snapshots = Array.isArray(authority.sources) ? authority.sources.filter(isObject) : [];
+  if (snapshots.length !== sources.length) fail(`${packetId}: every authority source requires a structured snapshot`);
+  for (const snapshot of snapshots) {
+    const sourceId = requireNonEmptyString(snapshot, 'sourceId', `${packetId}.authoritySource`);
+    const path = requireNonEmptyString(snapshot, 'path', `${packetId}.authoritySource:${sourceId}`);
+    const hash = requireNonEmptyString(snapshot, 'contentHash', `${packetId}.authoritySource:${sourceId}`);
+    requireNonEmptyString(snapshot, 'authorityClass', `${packetId}.authoritySource:${sourceId}`);
+    if (requireStringArray(snapshot, 'consumedFields', `${packetId}.authoritySource:${sourceId}`).length === 0) fail(`${packetId}:${sourceId}: consumedFields required`);
+    if (!sources.includes(sourceId) || !isSafeRepoPath(path) || !existsSync(path)) fail(`${packetId}:${sourceId}: authority snapshot path invalid`);
+    else if (createHash('sha256').update(readFileSync(path)).digest('hex') !== hash) fail(`${packetId}:${sourceId}: authority snapshot hash mismatch`);
+  }
   const continuity = isObject(packet.handednessEquipmentContinuity) ? packet.handednessEquipmentContinuity : {};
   const expectedContinuity = handednessByAuthorId.get(authorId);
   if (!expectedContinuity || JSON.stringify(continuity) !== JSON.stringify({
@@ -541,11 +584,15 @@ for (const [index, packet] of promptPackets.entries()) {
     frontViewProjection: expectedContinuity.frontViewProjection,
   })) fail(`${packetId}: handedness/equipment prompt continuity is missing or stale`);
   const plan = isObject(packet.candidatePlan) ? packet.candidatePlan : {};
-  if (plan.count !== 4 || plan.sameContractAndPrompt !== true) fail(`${packetId}: must reserve four comparable candidates`);
+  if (plan.scope !== 'per-source-sheet' || plan.countPerSheet !== 4 || plan.sameContractAndPromptWithinSheet !== true || plan.packItselfIsNotGenerated !== true) fail(`${packetId}: must reserve four comparable candidates per source sheet without generating the logical Pack`);
   const approval = isObject(packet.approval) ? packet.approval : {};
   if (approval.approvedAsFinal !== false || approval.runtimeApproved !== false || approval.humanVisualReviewRequired !== true) {
     fail(`${packetId}: approval must remain fail-closed before generation`);
   }
+  const packPlan = isObject(packet.packPlan) ? packet.packPlan : {};
+  const requiredSheets = Array.isArray(packPlan.requiredSheets) ? packPlan.requiredSheets.filter(isObject) : [];
+  const roles = requiredSheets.map((sheet) => String(sheet.role));
+  if (requiredSheets.length !== 4 || new Set(roles).size !== 4 || packPlan.dependentSheetsBlockedUntilTurnaroundHumanApproval !== true || packPlan.overviewIsDeterministicReadModel !== true) fail(`${packetId}: invalid Character Design Master Pack plan`);
 }
 if (packetSubjectIds.size !== canonicalCharacterIds.size) fail(`prompt packets must resolve to 36 unique Author DB subjects; got ${packetSubjectIds.size}`);
 
@@ -568,73 +615,84 @@ for (const [index, item] of productionItems.entries()) {
   if (!batchIds.has(batchId)) fail(`${assetId}: unknown production batch: ${batchId}`);
   const layer = requireNonEmptyString(item, 'layer', label);
   if (!allowedLayers.has(layer)) fail(`${assetId}: invalid production layer: ${layer}`);
-  if (item.reviewStatus !== 'needs-generation') fail(`${assetId}: list item must remain needs-generation before output exists`);
+  const expectedReviewStatus = item.recordType === 'master-pack' ? 'needs-authoring' : item.recordType === 'overview-read-model' ? 'not-materialized' : 'needs-generation';
+  if (item.reviewStatus !== expectedReviewStatus) fail(`${assetId}: invalid pre-output reviewStatus; expected ${expectedReviewStatus}`);
   const status = requireNonEmptyString(item, 'productionStatus', label);
-  if (!['blocked-authoring-required', 'ready-for-prompt-review', 'blocked-parent-master', 'blocked-human-approval'].includes(status)) fail(`${assetId}: invalid production status: ${status}`);
+  if (!['blocked-authoring-required', 'ready-for-prompt-review', 'blocked-parent-master', 'blocked-human-approval', 'blocked-turnaround-human-approval', 'blocked-parent-pack'].includes(status)) fail(`${assetId}: invalid production status: ${status}`);
   const candidates = requireStringArray(item, 'candidateIds', label);
-  if (candidates.length !== 4 || new Set(candidates).size !== 4) fail(`${assetId}: must reserve four unique candidate IDs`);
+  const isLogicalRecord = item.recordType === 'master-pack' || item.recordType === 'overview-read-model';
+  if (isLogicalRecord ? candidates.length !== 0 : candidates.length !== 4 || new Set(candidates).size !== 4) fail(`${assetId}: image rows require four candidates; logical Pack/Overview rows require none`);
   for (const candidateId of candidates) if (!/^[a-z0-9]+(?:-[a-z0-9]+)*-v[1-9][0-9]*$/.test(candidateId)) fail(`${assetId}: invalid candidate ID: ${candidateId}`);
   const outputPath = requireNonEmptyString(item, 'outputPath', label);
   if (!isSafeRepoPath(outputPath)) fail(`${assetId}: outputPath must be repository-relative`);
   const sources = requireStringArray(item, 'sourceOfTruth', label);
   if (sources.length === 0) fail(`${assetId}: sourceOfTruth must not be empty`);
   for (const source of sources) if (!(source in sourceCatalog)) fail(`${assetId}: unknown production source: ${source}`);
-  if ((item.subjectType === 'character' && item.layer === 'master') && !sources.includes('character-handedness-equipment')) fail(`${assetId}: Character Master production item must bind handedness/equipment authority`);
+  if ((item.subjectType === 'character' && item.layer === 'master') && !sources.includes('character-handedness-equipment')) fail(`${assetId}: Character Master Pack/source sheet must bind handedness/equipment authority`);
   const checklist = requireStringArray(item, 'qaChecklist', label);
   if (checklist.length === 0) fail(`${assetId}: QA checklist must not be empty`);
   requireNonEmptyString(item, 'blocker', label);
   if (typeof item.notes !== 'string') fail(`${assetId}: notes must be a string`);
   const parents = requireStringArray(item, 'parentAssetIds', label);
-  if (layer === 'master' && parents.length > 0 && item.kind !== 'character-master') {
-    fail(`${assetId}: only a Character Master composite may have Master component parents`);
+  if (parents.length > 0) fail(`${assetId}: unapproved/partial Pack may not be an active parent; use an empty actual parent plus plannedParentPackIds`);
+  if (item.recordType === 'source-sheet') {
+    const snapshots = Array.isArray(item.authoritySnapshots) ? item.authoritySnapshots.filter(isObject) : [];
+    if (snapshots.length !== sources.length) fail(`${assetId}: source sheet authority snapshot count mismatch`);
   }
-  if (layer !== 'master' && parents.length === 0) fail(`${assetId}: derivative must reserve direct master parents`);
 }
 for (const [assetId, item] of productionById) {
-  for (const parentId of strings(item.parentAssetIds)) {
-    if (rejectedAssetIds.has(parentId)) fail(`${assetId}: rejected/archived asset may not be a production parent: ${parentId}`);
-    const parent = productionById.get(parentId);
-    if (!parent) fail(`${assetId}: production parent is missing from image list: ${parentId}`);
-    else if (parent.layer !== 'master') fail(`${assetId}: parent must be a master production item`);
-    if (item.layer === 'master' && item.kind === 'character-master' && !String(parent?.kind).startsWith('character-')) {
-      fail(`${assetId}: Character Master composite may only use Character Master component parents`);
+  if (item.kind === 'character-design-master-pack' && !assetsById.has(assetId)) fail(`${assetId}: logical Pack reservation missing from central registry`);
+  if (item.recordType === 'master-pack') {
+    const roles = strings(item.requiredSheetRoles);
+    const sheetIds = strings(item.requiredSheetIds);
+    if (roles.length !== 4 || new Set(roles).size !== 4 || sheetIds.length !== 4 || new Set(sheetIds).size !== 4) fail(`${assetId}: Pack must bind four unique roles/sheets`);
+    const expectedPackHash = createHash('sha256').update(JSON.stringify({ assetId, packVersion: item.packVersion, sheetIds })).digest('hex');
+    if (item.packVersion !== 1 || item.packHash !== expectedPackHash || item.replaces !== null || item.supersededBy !== null) fail(`${assetId}: Pack version/hash/replacement linkage invalid`);
+    for (const sheetId of sheetIds) {
+      const sheet = productionById.get(sheetId);
+      if (!sheet || sheet.recordType !== 'source-sheet' || sheet.parentPackId !== assetId || sheet.subjectId !== item.subjectId) fail(`${assetId}: invalid source sheet evidence ${sheetId}`);
     }
-    if (item.layer === 'gameplay' && parent?.layer === 'lorebook') fail(`${assetId}: Lorebook may not parent Gameplay`);
   }
-  if (item.kind === 'character-master' && !assetsById.has(assetId)) fail(`${assetId}: Character Master reservation missing from central registry`);
-  if (item.kind === 'character-master') {
-    const parentIds = strings(item.parentAssetIds);
-    if (parentIds.length !== 9 || new Set(parentIds).size !== 9) fail(`${assetId}: Character Master composite must have exactly nine unique component parents`);
-    for (const parentId of parentIds) {
-      const parent = productionById.get(parentId);
-      if (!parent || parent.subjectId !== item.subjectId || parent.kind === 'character-master' || !String(parent.kind).startsWith('character-')) {
-        fail(`${assetId}: invalid Character Master component parent: ${parentId}`);
-      }
+  if (item.recordType === 'overview-read-model' && (item.layer === 'master' || item.kind !== 'character-design-master-overview-read-model')) fail(`${assetId}: Overview is a read model only, never a Master`);
+  if (item.recordType === 'source-sheet' && item.subjectId === 'yui') {
+    if (item.sheetRole === 'identity-turnaround' && item.productionStatus !== 'ready-for-prompt-review') fail('Yui Sheet 01 must remain the only authorable/generation-ready sheet');
+    if (item.sheetRole !== 'identity-turnaround' && item.productionStatus !== 'blocked-turnaround-human-approval') fail(`${assetId}: Yui Sheet 02–04 must wait for Turnaround Human approval`);
+  }
+  if (item.recordType === 'overview-read-model' || item.layer === 'lorebook' || item.layer === 'gameplay') {
+    const parent = isObject(item.derivationParent) ? item.derivationParent : {};
+    if (parent.parentPackId !== null || parent.parentPackHash !== null || strings(parent.usedSheetIds).length !== 0) fail(`${assetId}: partial Pack cannot populate derivative parent fields`);
+    const planned = strings(parent.plannedParentPackIds);
+    if (planned.length === 0) fail(`${assetId}: blocked derivative requires plannedParentPackIds`);
+    for (const plannedId of planned) {
+      const pack = productionById.get(plannedId);
+      if (!pack || pack.recordType !== 'master-pack') fail(`${assetId}: planned derivative parent must be a logical Pack: ${plannedId}`);
     }
   }
   const promptPacketId = typeof item.promptPacketId === 'string' ? item.promptPacketId : null;
-  if (item.productionStatus === 'ready-for-prompt-review' && !promptPacketId && item.kind === 'character-master') fail(`${assetId}: ready Character Master needs a prompt packet`);
+  if (item.productionStatus === 'ready-for-prompt-review' && !promptPacketId && item.recordType === 'source-sheet') fail(`${assetId}: ready source sheet needs a prompt packet`);
 }
-const yuiV3Production = productionById.get('char-yui-full-body-master-v3');
-if (!yuiV3Production) fail('Yui v3 full-body production reservation missing');
+const yuiTurnaroundProduction = productionById.get('char-yui-design-sheet-01-identity-turnaround-v1');
+if (!yuiTurnaroundProduction) fail('Yui Sheet 01 production reservation missing');
 else {
-  if (yuiV3Production.promptPacketId !== yuiV3Prompt.packetId) fail('Yui v3 production reservation is not linked to its prompt packet');
-  if (JSON.stringify(yuiV3Production.candidateIds) !== JSON.stringify(yuiV3CandidateIds)) fail('Yui v3 production candidate IDs differ from the prompt packet');
-  if (!strings(yuiV3Production.sourceOfTruth).includes('yui-full-body-master-v3-prompt')) fail('Yui v3 production reservation must bind its versioned prompt');
+  if (yuiTurnaroundProduction.promptPacketId !== yuiPackPrompt.packetId) fail('Yui Sheet 01 reservation is not linked to its prompt packet');
+  if (JSON.stringify(yuiTurnaroundProduction.candidateIds) !== JSON.stringify(yuiCandidateIds)) fail('Yui Sheet 01 candidate IDs differ from the prompt packet');
+  if (!strings(yuiTurnaroundProduction.sourceOfTruth).includes('yui-character-design-master-pack-v1')) fail('Yui Sheet 01 must bind its versioned prompt');
 }
 
 const counts = isObject(imageProductionList.counts) ? imageProductionList.counts : {};
 if (counts.totalItems !== productionItems.length) fail('image production list totalItems does not match items length');
-if (productionItems.length !== 624) fail(`image production list must contain exactly 624 rows; got ${productionItems.length}`);
-const characterMasterItems = productionItems.filter((item) => item.kind === 'character-master');
-const characterMasterComponentItems = productionItems.filter((item) => item.layer === 'master' && item.subjectType === 'character' && item.kind !== 'character-master');
+if (productionItems.length !== 480) fail(`production plan must contain exactly 480 rows; got ${productionItems.length}`);
+const characterMasterItems = productionItems.filter((item) => item.recordType === 'master-pack');
+const characterSourceSheetItems = productionItems.filter((item) => item.recordType === 'source-sheet');
+const characterOverviewItems = productionItems.filter((item) => item.recordType === 'overview-read-model');
 const sakuyazaItems = productionItems.filter((item) => item.kind === 'sakuyaza-character-master');
-if (characterMasterItems.length !== 36) fail(`image production list must contain 36 Character Masters; got ${characterMasterItems.length}`);
-if (characterMasterComponentItems.length !== 324) fail(`image production list must contain 324 Character Master components; got ${characterMasterComponentItems.length}`);
+if (characterMasterItems.length !== 36) fail(`production plan must contain 36 logical Character Design Master Packs; got ${characterMasterItems.length}`);
+if (characterSourceSheetItems.length !== 144) fail(`production plan must contain 144 source-sheet evidence rows; got ${characterSourceSheetItems.length}`);
+if (characterOverviewItems.length !== 36) fail(`production plan must contain 36 deterministic Overview read models; got ${characterOverviewItems.length}`);
 if (sakuyazaItems.length !== 8) fail(`image production list must contain 8 朔夜座 Masters; got ${sakuyazaItems.length}`);
 if (productionItems.filter((item) => item.kind === 'star-beast-master').length !== 21) fail('image production list must contain 21 Star Beast Masters');
 if (productionItems.filter((item) => item.kind === 'named-object-master').length !== 21) fail('image production list must contain 21 named-object Masters');
-if (productionItems.filter((item) => item.layer === 'lorebook').length !== 142) fail('image production list must contain 142 Lorebook rows');
+if (productionItems.filter((item) => item.layer === 'lorebook' && item.recordType !== 'overview-read-model').length !== 142) fail('production plan must contain 142 Lorebook derivative rows');
 if (productionItems.filter((item) => item.layer === 'gameplay').length !== 72) fail('image production list must contain 72 Gameplay rows');
 
 if (errors.length > 0) {

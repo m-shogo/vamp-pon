@@ -81,6 +81,17 @@ const yuiPlacements: readonly CharacterEquipmentPlacement[] = [
     source: 'src/game/data/goldenReferenceRegistry.ts',
     notes: '身体左腰。正面では画面右側に見える。',
   },
+  {
+    itemId: 'yui-paper',
+    itemLabel: '見つけた紙片',
+    anchor: 'HAND',
+    bodySide: 'BODY_LEFT',
+    fromBodySide: null,
+    toBodySide: null,
+    status: 'CURRENT_VISUAL_CONTINUITY',
+    source: 'assets/reference/character-master/core5/yui-character-master-v1.png',
+    notes: '身体左手で保持する。正面では画面右、背面では画面左に見える。保持手から利き腕は推論しない。',
+  },
 ];
 
 export const CHARACTER_HANDEDNESS_EQUIPMENT_REGISTRY: readonly CharacterHandednessEquipmentEntry[] =
@@ -101,7 +112,7 @@ export const CHARACTER_HANDEDNESS_EQUIPMENT_REGISTRY: readonly CharacterHandedne
       bodyRightAppearsOnScreenLeft: true,
     },
     notes: identity.authorId === 'yui'
-      ? 'ランタン保持手とバッグ配置はCurrent visual continuity。利き腕はOPEN。'
+      ? 'ランタン、紙片の保持手とバッグ配置はCurrent visual continuity。利き腕はOPEN。'
       : '利き腕・固定保持手・非対称装備位置は、根拠Sourceが接続されるまでOPEN。右利きの既定値を置かない。',
   }));
 

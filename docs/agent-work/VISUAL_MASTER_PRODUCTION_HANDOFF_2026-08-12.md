@@ -1,100 +1,63 @@
 # Visual Master Production handoff — 2026-08-12
 
-Status: CURRENT REVIEW CHECKPOINT / PR #304 / NO STORY OR RUNTIME PROMOTION
+Status: CURRENT REVIEW CHECKPOINT / PR #304 DRAFT / NO STORY, GAMEPLAY OR RUNTIME PROMOTION
 
-## Repository and branch
+## 現在地
 
 - Repository: `m-shogo/vamp-pon` only
-- Working branch: `agent/visual-asset-inventory`
-- Isolated worktree used for this checkpoint: `/private/tmp/vamp-pon-visual-registry`
-- Authority snapshot: `origin/main = 5ec2a8f519e5ea5bcbf2d653a4e5f1d3893951d1`
-- Main was fetched again immediately before checkpointing; local HEAD and `origin/main` agreed.
-- The normal checkout had unrelated/user work and was not modified or pulled over.
+- Branch: `agent/visual-asset-inventory`
+- PR: #304（設計・Human visual reviewが整うまでdraft維持）
+- PR #300は別Story作業で対象外。
+- U49/U50/U51 readiness、Gameplay、U48 production runtime providerは変更しない。
 
-At every meaningful batch boundary, run `git fetch origin main --prune`, compare `origin/main` with the branch base, and rebase/merge only after checking for Story/Gameplay/Visual overlap. Never force-push main.
+## 実装済み基盤
 
-## What is already implemented in this branch
+- 36人をそれぞれ1 logical Character Design Master Packとして登録。
+- Packごとに4 source sheet roleをuniqueに予約。
+- 36 Overviewをdeterministic read modelとして分離。Masterやgeneration parentにしない。
+- 36 Pack plan prompt skeletonとstructured upstream authority snapshot。
+- production planは480 rows:
+  - 36 logical Character Design Master Packs
+  - 144 source-sheet evidence rows（4 × 36。独立Masterとして数えない）
+  - 36 deterministic Overview read models
+  - 8 朔夜座、21 Star Beast、21 named-object
+  - 142 Lorebook derivatives、72 Gameplay derivatives
+- partial Packのactual parent fieldsはnull/empty。planned parentだけを保持し、生成禁止。
+- 既存Asset Factory 977 contractsはindex参照し、重複DBを作らない。
+- 36人handedness/equipment registry、Yui reject ledger、objective checker、CIを接続。
 
-- Visual Asset Master Registry generator and tracked JSON read models.
-- 36-character coverage inventory connected to Author DB, Appearance, Era, Reality Root, theme color, named object, Star Beast, silhouette, Core5 reference and other source registries.
-- Machine-readable generation batch plan.
-- 36 character prompt-packet skeletons.
-- Image production list with 624 explicit rows:
-  - 324 Character Master component rows (9 × 36)
-  - 36 Character Master composite rows
-  - 8 朔夜座 Master rows
-  - 21 Star Beast rows
-  - 21 named-object rows
-  - 142 Lorebook rows
-  - 72 Gameplay rows
-- Existing Asset Factory contracts are indexed instead of duplicated.
-- Visual checker/CIは、生成snapshot同期、36人coverage、624 production item、親子DAG、既存Asset Factory contract index、利き腕/装備、Yui reject境界まで接続済み。
-- PR #304はdraftとして作成済み。各更新後にlocal verificationとGitHub CIを再実行し、greenを確認してからreview-ready/mergeへ進める。
+## Yui
 
-## Handedness and equipment continuity
+`data/character-assets/reviews/yui-character-design-master-pack-v1.json`がSheet 01 Identity / Turnaroundのversioned packet。
 
-`src/game/data/characterHandednessEquipmentRegistry.ts` is the new 36-row machine-readable source.
+- 同一縮尺のneutral front / anatomical left / anatomical right / back。
+- dominant handは`OPEN_NO_SOURCE`。
+- lantern = anatomical right hand。
+- strap = anatomical right shoulder → anatomical left waist。
+- bag = anatomical left waist。
+- paper = anatomical left hand。
+- frontのbody-rightはviewer left、backのanatomical rightはviewer right。
+- `YOUNG_ADULT`、soft oval、rounded cheeks、non-pointed chin、small almost-level almond-round brown eyes、tapered double eyelids、soft straight brows、warm-dark asymmetric bob、one ear tuck、bilateral smile dimplesを固定。
 
-Rules:
+Sheet 01は同一contractの4候補生成準備ができているが、Human identity/construction approvalは未実施。Sheet 02–04、Pack approval、Lorebook/Gameplay派生、Story/final/runtime昇格はすべてblocked。
 
-- dominant hand, held-item hand, shoulder, hip and mirror policy are separate.
-- held item hand never proves dominant hand.
-- pose never proves dominant hand.
-- screen-left/right never replaces body-left/right.
-- asymmetric art may not be mirrored without manual correction.
-- unknown values remain `OPEN_NO_SOURCE`; never default the cast to right-handed.
+以前のYui Full Body v2 4候補と会話内試作は全件reject/learning-only。正本やparentにしない。
 
-Current Yui visual continuity from `goldenReferenceRegistry.ts`:
+## 次の順序
 
-- dominant hand: OPEN
-- lantern: body-right hand
-- strap: body-right shoulder to body-left hip
-- bag: body-left hip
-- front view projection: body-right appears screen-left; body-left appears screen-right
+1. export、objective checker、tests、build、implementation preflight、diff review。
+2. scoped commit/push、PR #304本文更新、CI確認。draft維持。
+3. Humanが生成開始を指示した場合だけ、Yui Sheet 01を同じcontractで4候補生成する。
+4. Automatic QAと比較を提示し、HumanがIdentity/Constructionを承認するまでSheet 02–04へ進まない。
+5. Yui identity anchor承認後は別characterのSheet 01を並列化できる。同じcharacterの依存sheetは先走らない。
 
-The handedness/equipment registry is connected to the central registry, coverage rows, all 36 prompt packets, Character Master production rows and the objective checker.
+## 不変境界
 
-## Yui generation attempt
-
-Four `1024 × 1536` full-body candidate images were generated and preserved under:
-
-`assets/import-staging/batch-character-master/yui/rejected-v2/`
-
-All four are rejected. They are not Story Canon, final, current, runtime-approved, or valid parents for Lorebook/Gameplay derivatives.
-
-Primary failure:
-
-- lantern body side was wrong in the front-view candidates;
-- strap/bag body-relative direction was not preserved;
-- young-adult/face specificity was weaker than the Appearance Contract;
-- star embroidery introduced unsupported motif noise.
-
-The exact prompt memory, file hashes, QA findings, rejection reasons and next-iteration corrections are tracked in:
-
-- `data/character-assets/reviews/yui-full-body-master-v2.prompt.json`
-- `data/character-assets/reviews/yui-full-body-master-v2.qa.json`
-- `data/character-assets/reviews/yui-full-body-master-v2.rejects.json`
-
-Do not delete rejected outputs; use them to prevent the same prompt failure. Do not regenerate until their records are connected to the central registry/checker.
-
-## Immediate next work
-
-1. Re-export all tracked manifests and prove that no snapshot is stale or hand-edited.
-2. Run `pnpm visual-assets:check`, current Visual Design Master checkers, implementation preflight, `git diff --check`, build/test and GitHub CI.
-3. Confirm PR #304 is based on latest `origin/main`, has no unrelated Gameplay/U49 changes, and remains mergeable.
-4. Mark PR #304 review-ready and squash merge only when all checks are green and authority boundaries remain fail-closed.
-5. Fetch latest main again after merge.
-6. Use the versioned Yui v3 same-prompt four-candidate packet for the next small intake batch; generated outputs, selection and promotion remain separate gates, and only selection/promotion require Human visual review.
-
-## Boundaries that remain non-negotiable
-
-- Source of Truth → Master → Lorebook Read Model / Gameplay Derived.
-- Lorebook images never parent Gameplay.
-- visual approval never promotes Story status.
-- Future15 is not a future-era label.
-- 群青残響録 is not an organization.
-- 外典星座 is not 朔夜座.
-- obsolete constellation does not mean evil or Star Beast assignment.
-- root is not birthplace or incident area.
-- no dialogue-length quality rule.
-- coverage is not quality, and no completion/quality/popularity percentage is introduced.
+- Visual approval != Story Canon。
+- Future15 != future era。
+- 群青残響録 != organization。
+- 外典星座 != 朔夜座。
+- obsolete != evil / Star Beast。
+- root != birthplace / incident area。
+- Candidate != Current/Canon/final/runtime。
+- quality score、completion %、popularity score、台詞最低文字数は禁止。

@@ -22,6 +22,11 @@ import { yatsukageCallNames } from './yatsukageIdentitySource.ts';
 import core5ReferenceManifest from '../../../data/character-assets/core5-character-master-assets.json' with { type: 'json' };
 import yuiFullBodyMasterV2Qa from '../../../data/character-assets/reviews/yui-full-body-master-v2.qa.json' with { type: 'json' };
 import yuiFullBodyMasterV2Rejects from '../../../data/character-assets/reviews/yui-full-body-master-v2.rejects.json' with { type: 'json' };
+// This inventory projection is imported only by Node-based export/check scripts.
+// @ts-expect-error The runtime Web tsconfig intentionally excludes Node ambient types.
+import { createHash } from 'node:crypto';
+// @ts-expect-error The runtime Web tsconfig intentionally excludes Node ambient types.
+import { readFileSync } from 'node:fs';
 
 export const VISUAL_ASSET_INVENTORY_PATHS = {
   coverage: 'data/character-assets/manifests/visual-asset-coverage.v1.json',
@@ -76,7 +81,7 @@ export const VISUAL_SOURCE_CATALOG = {
   'yui-full-body-master-v2-prompt': 'data/character-assets/reviews/yui-full-body-master-v2.prompt.json',
   'yui-full-body-master-v2-qa': 'data/character-assets/reviews/yui-full-body-master-v2.qa.json',
   'yui-full-body-master-v2-rejects': 'data/character-assets/reviews/yui-full-body-master-v2.rejects.json',
-  'yui-full-body-master-v3-prompt': 'data/character-assets/reviews/yui-full-body-master-v3.prompt.json',
+  'yui-character-design-master-pack-v1': 'data/character-assets/reviews/yui-character-design-master-pack-v1.json',
 } as const;
 
 export const CHARACTER_AUTHOR_DB_VISUAL_DIMENSION_SOURCES = {
@@ -105,7 +110,7 @@ export const CHARACTER_AUTHOR_DB_VISUAL_DIMENSION_SOURCES = {
 } as const;
 
 export const VISUAL_COVERAGE_REQUIREMENTS = {
-  characterMaster: ['masterBoard', 'face', 'bust', 'fullBody', 'expression', 'costume', 'props', 'silhouette', 'themeColor'],
+  characterMaster: ['masterPack', 'identityTurnaroundSheet', 'faceExpressionActingSheet', 'costumeEquipmentMaterialSheet', 'silhouetteMotionDerivationSheet', 'overviewReadModel'],
   groupMaster: ['groupMasterAsset'],
   starBeastMaster: ['starBeastMasterAsset', 'starBeastSilhouette', 'starBeastIconReady', 'starBeastLorebookReady'],
   objectMaster: ['objectNamedPossession', 'objectLantern', 'objectRepairMark', 'objectLetter', 'objectDiary', 'objectOldStarAtlas', 'objectPlanisphere', 'objectMechanical', 'objectSchoolOrWork', 'objectRecordingOrArchive'],
@@ -131,6 +136,27 @@ const referenceQueueById = new Map(characterReferenceProductionQueue.map((entry)
 const authorCoverageById = new Map(CHARACTER_AUTHOR_DB_COVERAGE.map((entry) => [entry.authorId, entry]));
 const core5ReferenceById = new Map(core5ReferenceManifest.characters.map((entry) => [entry.id, entry]));
 
+const sha256Json = (value: unknown) => createHash('sha256').update(JSON.stringify(value)).digest('hex');
+const authorityClassFor = (sourceId: string) => sourceId.includes('story-world') || sourceId.includes('visual-design-production') || sourceId.includes('living-visual')
+  ? 'UPSTREAM_AUTHORITY'
+  : sourceId.includes('reservoir') || sourceId.includes('candidate') ? 'AUTHOR_RESERVOIR' : 'STRUCTURAL_SOURCE';
+const consumedFieldsFor = (sourceId: string) => sourceId === 'character-appearance-contracts'
+  ? ['species', 'ageCoding', 'faceSignatureId', 'faceShape', 'eyeShape', 'eyelid', 'brow', 'mouth', 'cheekOrSurfaceMark', 'hairOrHeadStructure', 'bodyShape', 'clothingConstruction']
+  : sourceId === 'character-handedness-equipment'
+    ? ['dominantHand', 'equipmentPlacements', 'mirrorPolicy', 'frontViewProjection']
+    : sourceId === 'character-author-db' ? ['authorId', 'stableProfileId', 'name', 'rosterLayer'] : ['record-boundary'];
+const authoritySnapshots = (sourceIds: string[]) => sourceIds.map((sourceId) => {
+  const path = VISUAL_SOURCE_CATALOG[sourceId as keyof typeof VISUAL_SOURCE_CATALOG];
+  if (!path) throw new Error(`Unknown visual authority source: ${sourceId}`);
+  return {
+    sourceId,
+    path,
+    contentHash: createHash('sha256').update(readFileSync(path)).digest('hex'),
+    authorityClass: authorityClassFor(sourceId),
+    consumedFields: consumedFieldsFor(sourceId),
+  };
+});
+
 function queueEntryFor(authorId: string, stableProfileId: string) {
   return referenceQueueById.get(authorId) ?? referenceQueueById.get(stableProfileId);
 }
@@ -146,8 +172,7 @@ function priorityFor(authorId: string, stableProfileId: string, rosterLayer: 'CU
 function makeStatusBySlot(authorId: string, stableProfileId: string): Record<string, SlotState> {
   const result = Object.fromEntries(allSlots.map((slot) => [slot, 'missing'])) as Record<string, SlotState>;
   const queue = queueEntryFor(authorId, stableProfileId);
-  if (queue?.existingMasterPath) result.masterBoard = 'candidate';
-  if (themeById.has(stableProfileId)) result.themeColor = 'candidate';
+  if (queue?.existingMasterPath) result.identityTurnaroundSheet = 'candidate';
   if (objectByOwnerId.has(stableProfileId)) result.objectNamedPossession = 'candidate';
   if (starBeastByCharacterId.has(stableProfileId)) {
     result.starBeastMasterAsset = 'missing';
@@ -277,15 +302,18 @@ function reservedCharacterMasterAssets() {
     const root = rootById.get(identity.authorId);
     const queue = queueEntryFor(identity.authorId, identity.stableProfileId);
     if (!appearance || !era || !root) throw new Error(`Character master reservation source missing for ${identity.authorId}`);
+    const packId = `char-${identity.authorId}-design-master-pack-v1`;
+    const sheetIds = CHARACTER_DESIGN_SOURCE_SHEETS.map((sheet) => `char-${identity.authorId}-${sheet.idSuffix}-v1`);
+    const packHash = sha256Json({ assetId: packId, packVersion: 1, sheetIds });
     return {
-      id: `char-${identity.authorId}-master-v1`,
+      id: packId,
       subjectId: identity.authorId,
       subjectType: 'character',
-      title: `${identity.name} Character Master v1`,
+      title: `${identity.name} Character Design Master Pack v1`,
       layer: 'master',
-      kind: 'character-master',
+      kind: 'character-design-master-pack',
       authorityStatus: era.assignmentStatus === 'UPSTREAM_CURRENT' ? 'CURRENT' : era.assignmentStatus === 'OPEN_SPECIAL' ? 'OPEN' : identity.rosterLayer === 'FUTURE15' ? 'Future15' : 'CANDIDATE',
-      reviewStatus: 'needs-generation',
+      reviewStatus: 'needs-authoring',
       current: false,
       derivedFrom: [],
       sourceOfTruth: [
@@ -302,11 +330,32 @@ function reservedCharacterMasterAssets() {
         ...(current21SilhouetteMatrixById.has(identity.stableProfileId) ? ['current21-silhouette-matrix'] : []),
         ...(characterSilhouetteAnchorById.has(identity.stableProfileId) ? ['character-silhouette-canon'] : []),
       ],
-      usageTargets: ['lorebook', 'gameplay'],
-      tags: [identity.authorId, 'character', 'master', identity.rosterLayer.toLowerCase(), 'reserved-not-generated'],
+      usageTargets: ['lorebook-derived', 'gameplay-derived'],
+      tags: [identity.authorId, 'character', 'design-master-pack', identity.rosterLayer.toLowerCase(), 'reserved-not-generated', 'not-derivative-parent-until-approved'],
       files: [],
       replacementPolicy: { canReplace: true, replaces: null, supersededBy: null },
-      promptPacketId: null,
+      masterPack: {
+        packId,
+        packVersion: 1,
+        packHash,
+        requiredSheetRoles: CHARACTER_DESIGN_SOURCE_SHEETS.map((sheet) => sheet.role),
+        requiredSheetIds: sheetIds,
+        overviewReadModelId: `char-${identity.authorId}-design-master-overview-v1`,
+        approvalState: 'partial-not-approved',
+        allSheetsHumanApproved: false,
+        crossSheetConsistencyApproved: false,
+        packHumanApproved: false,
+        mayParentDerivatives: false,
+      },
+      lineage: {
+        authoritySnapshotsRequired: true,
+        promptReferenceOutputHashesRequired: true,
+        generatorVersionSeedRequiredWhenAvailable: true,
+        automaticQaRequired: true,
+        humanDecisionScopeRequired: true,
+        rejectLedgerRequired: true,
+      },
+      promptPacketId: `visual-prompt:${identity.authorId}:character-design-master-pack:v1`,
       generationReadiness: {
         authoritySourcesConnected: true,
         hasAppearanceContract: true,
@@ -317,7 +366,8 @@ function reservedCharacterMasterAssets() {
         hasLivingVisualAuthorityBoundary: true,
         hasMainSilhouetteSource: current21SilhouetteMatrixById.has(identity.stableProfileId),
         existingReferenceAction: queue?.action ?? 'none',
-        generationBlockedUntilPromptPacket: true,
+        generationBlockedUntilPromptPacket: identity.authorId !== 'yui',
+        turnaroundHumanApprovalRequiredBeforeDependentSheets: true,
       },
       notes: identity.rosterLayer === 'FUTURE15'
         ? 'Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。'
@@ -387,12 +437,16 @@ export function buildVisualAssetRegistry() {
     registryId: 'yoruno-shirube-visual-asset-master-registry-v1',
     generatedFrom: 'src/game/data/visualAssetGenerationInventory.ts',
     authorityModel: {
-      direction: 'SOURCE_OF_TRUTH -> MASTER -> READ_MODEL | GAMEPLAY_DERIVED',
+      direction: 'SOURCE_OF_TRUTH -> CHARACTER_DESIGN_MASTER_PACK -> OVERVIEW_READ_MODEL | LOREBOOK_DERIVED | GAMEPLAY_DERIVED',
       storyAuthorityMayNotBePromotedByVisualReview: true,
       lorebookMayNotParentGameplay: true,
       candidateMayNotBecomeCurrentWithoutHumanReview: true,
       existingReferenceIsNotFinalOrRuntime: true,
       rejectedAssetMayNotParentOrBecomeReference: true,
+      overviewReadModelIsNeverMasterOrGenerationParent: true,
+      partialPackMayNotParentDerivatives: true,
+      packApprovalMayNotPromoteChildFinalOrRuntime: true,
+      approvedSourceSheetIsImmutableReplacementRequiresVersion: true,
     },
     handednessEquipmentRegistry: {
       source: 'character-handedness-equipment',
@@ -404,7 +458,7 @@ export function buildVisualAssetRegistry() {
     allowedValues: {
       layers: ['master', 'lorebook', 'gameplay'],
       authorityStatuses: ['CANON', 'CURRENT', 'USER_DIRECTION', 'CANDIDATE', 'AUTHOR_RESERVOIR', 'RESEARCH', 'OPEN', 'Future15'],
-      reviewStatuses: ['needs-generation', 'generated-unreviewed', 'needs-author-review', 'needs-boundary-review', 'approved-candidate', 'approved-current', 'superseded', 'archived'],
+      reviewStatuses: ['needs-authoring', 'needs-generation', 'generated-unreviewed', 'needs-author-review', 'needs-boundary-review', 'approved-candidate', 'approved-current', 'superseded', 'archived'],
     },
     assets: [...core5Assets(), ...reservedCharacterMasterAssets(), ...yuiRejectedFullBodyAssets()],
   };
@@ -468,6 +522,37 @@ export function buildVisualGenerationBatches() {
   };
 }
 
+const CHARACTER_DESIGN_SOURCE_SHEETS = [
+  {
+    role: 'identity-turnaround',
+    idSuffix: 'design-sheet-01-identity-turnaround',
+    title: 'Sheet 01 Identity / Turnaround',
+    sources: ['character-author-db', 'character-appearance-contracts', 'character-handedness-equipment'],
+    qaChecklist: ['neutral-front', 'anatomical-left', 'anatomical-right', 'back', 'shared-ground-and-proportion-lines', 'same-scale', 'same-identity', 'body-relative-equipment-lock', 'no-mirror-substitution'],
+  },
+  {
+    role: 'face-expression-acting',
+    idSuffix: 'design-sheet-02-face-expression-acting',
+    title: 'Sheet 02 Face / Expression / Acting',
+    sources: ['character-author-db', 'character-appearance-contracts', 'character-behavior-identity', 'character-voice-prosody'],
+    qaChecklist: ['neutral-front', 'left-and-right-three-quarter', 'left-and-right-profile', 'eye-brow-mouth-structure', 'identity-landmarks', 'age-impression', 'nearest-face-distinction'],
+  },
+  {
+    role: 'costume-equipment-material',
+    idSuffix: 'design-sheet-03-costume-equipment-material',
+    title: 'Sheet 03 Costume / Equipment / Material',
+    sources: ['character-author-db', 'character-appearance-contracts', 'character-handedness-equipment', 'character-lived-artifact', 'named-object-visual-source'],
+    qaChecklist: ['layer-front-back-inside', 'fasteners-storage-footwear-hands', 'palette-material-wear-repair', 'body-relative-anchor', 'hold-stow-use', 'object-master-boundary', 'scale-grip-body-relationship'],
+  },
+  {
+    role: 'silhouette-motion-derivation',
+    idSuffix: 'design-sheet-04-silhouette-motion-derivation',
+    title: 'Sheet 04 Silhouette / Motion / Derivation',
+    sources: ['character-author-db', 'character-appearance-contracts'],
+    qaChecklist: ['one-color-silhouette', 'rest', 'locomotion', 'signature-interaction', 'action', 'exertion', 'hurt', 'recovery', 'motion-signature', 'portrait-icon-crop', 'gameplay-size-proof'],
+  },
+] as const;
+
 export function buildVisualCharacterPromptPackets() {
   return {
     schemaVersion: 1,
@@ -509,30 +594,32 @@ export function buildVisualCharacterPromptPackets() {
         ...(identity.authorId === 'tomori' ? ['戦後世代のトモリにIAU公式88星座差を捏造しない。古星図は継承候補としてのみ扱う。'] : []),
         ...(['kai', 'nao'].includes(identity.authorId) ? ['カイ/ナオを同一人物・色違いcloneへ潰さない。同じ選択も許す。'] : []),
       ];
+      const sourceOfTruth = [
+        'character-author-db',
+        'character-appearance-contracts',
+        'character-handedness-equipment',
+        'character-living-visual-roster',
+        'visual-design-production-master',
+        'character-era-registry',
+        'character-era-fingerprints',
+        'character-era-scene-seeds',
+        'character-reality-roots',
+        'character-theme-color-reservoir',
+        ...(silhouette ? ['current21-silhouette-matrix'] : []),
+        ...(hardSilhouette ? ['character-silhouette-canon'] : []),
+        ...(object ? ['named-object-visual-source'] : []),
+        ...(starBeast ? ['star-beast-visual-source'] : []),
+      ];
       return {
         schemaVersion: 1,
-        packetId: `visual-prompt:${identity.authorId}:character-master:v1`,
+        packetId: `visual-prompt:${identity.authorId}:character-design-master-pack:v1`,
         status: 'draft-not-approved-not-generated',
-        assetId: `char-${identity.authorId}-master-v1`,
+        assetId: `char-${identity.authorId}-design-master-pack-v1`,
         subject: { authorId: identity.authorId, stableProfileId: identity.stableProfileId, displayName: identity.name, rosterLayer: identity.rosterLayer },
         authoritySnapshot: {
           sourceCommit: 'REQUIRED_AT_EXECUTION',
-          sourceOfTruth: [
-            'character-author-db',
-            'character-appearance-contracts',
-            'character-handedness-equipment',
-            'character-living-visual-roster',
-            'visual-design-production-master',
-            'character-era-registry',
-            'character-era-fingerprints',
-            'character-era-scene-seeds',
-            'character-reality-roots',
-            'character-theme-color-reservoir',
-            ...(silhouette ? ['current21-silhouette-matrix'] : []),
-            ...(hardSilhouette ? ['character-silhouette-canon'] : []),
-            ...(object ? ['named-object-visual-source'] : []),
-            ...(starBeast ? ['star-beast-visual-source'] : []),
-          ],
+          sourceOfTruth,
+          sources: authoritySnapshots(sourceOfTruth),
           storyStatus: era.assignmentStatus,
           era: { lane: era.lane, status: era.assignmentStatus },
           realityRoot: { value: root.root, status: root.status, notBirthplaceOrIncidentArea: true },
@@ -615,14 +702,22 @@ export function buildVisualCharacterPromptPackets() {
         },
         promptSpec: {
           useCase: 'stylized-concept',
-          assetType: 'character-master',
-          primaryRequest: 'TO_BE_AUTHORED_AFTER_AUTHORITY_AND_VISUAL_LANGUAGE_REVIEW',
+          assetType: 'character-design-master-pack-plan',
+          primaryRequest: identity.authorId === 'yui' ? 'AUTHOR_SHEET_01_IDENTITY_TURNAROUND_ONLY' : 'TO_BE_AUTHORED_AFTER_AUTHORITY_AND_VISUAL_LANGUAGE_REVIEW',
           styleMedium: 'TO_BE_BOUND_TO_APPROVED_PROJECT_REFERENCE_AT_EXECUTION',
-          compositionFraming: 'face + bust + full body + expression + costume + props + silhouette + palette reference',
+          compositionFraming: 'one logical pack with four separately reviewed source sheets; never combine every decision into one generated board',
           constraints: ['no baked readable text', 'no generic anime face', 'no clone body/pose', 'no excessive glow/particles', 'preserve identity and Era boundary', 'use body-relative equipment placement', 'no uncorrected mirroring of asymmetric assets'],
           avoid: forbiddenInferences,
         },
-        candidatePlan: { count: 4, sameContractAndPrompt: true, ids: ['candidate-a', 'candidate-b', 'candidate-c', 'candidate-d'] },
+        candidatePlan: { scope: 'per-source-sheet', countPerSheet: 4, sameContractAndPromptWithinSheet: true, packItselfIsNotGenerated: true },
+        packPlan: {
+          packId: `char-${identity.authorId}-design-master-pack-v1`,
+          packVersion: 1,
+          requiredSheets: CHARACTER_DESIGN_SOURCE_SHEETS.map((sheet) => ({ role: sheet.role, sheetId: `char-${identity.authorId}-${sheet.idSuffix}-v1` })),
+          generationOrder: ['identity-turnaround', 'face-expression-acting', 'costume-equipment-material', 'silhouette-motion-derivation'],
+          dependentSheetsBlockedUntilTurnaroundHumanApproval: true,
+          overviewIsDeterministicReadModel: true,
+        },
         output: { stagingRoot: `assets/import-staging/batch-character-master/${identity.authorId}/`, overwriteExistingForbidden: true },
         approval: { automaticQaRequired: true, humanVisualReviewRequired: true, approvedAsFinal: false, runtimeApproved: false },
       };
@@ -640,8 +735,8 @@ type ProductionListItem = {
   layer: 'master' | 'lorebook' | 'gameplay';
   kind: string;
   authorityStatus: string;
-  productionStatus: 'blocked-authoring-required' | 'ready-for-prompt-review' | 'blocked-parent-master' | 'blocked-human-approval';
-  reviewStatus: 'needs-generation';
+  productionStatus: 'blocked-authoring-required' | 'ready-for-prompt-review' | 'blocked-parent-master' | 'blocked-human-approval' | 'blocked-turnaround-human-approval' | 'blocked-parent-pack';
+  reviewStatus: 'needs-authoring' | 'needs-generation' | 'not-materialized';
   sourceOfTruth: string[];
   parentAssetIds: string[];
   promptPacketId: string | null;
@@ -650,6 +745,18 @@ type ProductionListItem = {
   qaChecklist: string[];
   blocker: string;
   notes: string;
+  recordType?: 'master-pack' | 'source-sheet' | 'overview-read-model';
+  sheetRole?: string;
+  sheetOrder?: number;
+  parentPackId?: string;
+  packVersion?: number;
+  packHash?: string;
+  replaces?: string | null;
+  supersededBy?: string | null;
+  requiredSheetIds?: string[];
+  requiredSheetRoles?: string[];
+  authoritySnapshots?: ReturnType<typeof authoritySnapshots>;
+  derivationParent?: { parentPackId: string | null; parentPackHash: string | null; usedSheetIds: string[]; plannedParentPackIds: string[] };
 };
 
 const candidatesFor = (assetId: string) => {
@@ -660,72 +767,6 @@ const candidatesFor = (assetId: string) => {
 const masterOutput = (assetId: string) => `assets/import-staging/master/${assetId}/${assetId}.png`;
 const lorebookOutput = (assetId: string) => `assets/import-staging/lorebook/${assetId}/${assetId}.png`;
 const gameplayOutput = (assetId: string) => `assets/import-staging/gameplay/${assetId}/${assetId}.png`;
-
-const CHARACTER_MASTER_COMPONENTS = [
-  {
-    idSuffix: 'master-board',
-    title: 'Master Board',
-    kind: 'character-master-board',
-    sources: ['character-author-db', 'character-appearance-contracts', 'character-era-registry', 'character-reality-roots', 'character-theme-color-reservoir'],
-    qaChecklist: ['all-component-identity-consistent', 'status-not-baked-into-art', 'no-readable-text', 'no-canon-promotion-by-image'],
-  },
-  {
-    idSuffix: 'face-master',
-    title: 'Face Master',
-    kind: 'character-face-master',
-    sources: ['character-author-db', 'character-appearance-contracts'],
-    qaChecklist: ['face-signature', 'eye-architecture', 'nose-mouth-cheek-marks', 'age-impression', 'nearest-face-distinction'],
-  },
-  {
-    idSuffix: 'bust-master',
-    title: 'Bust Master',
-    kind: 'character-bust-master',
-    sources: ['character-author-db', 'character-appearance-contracts', 'character-era-registry', 'character-theme-color-reservoir'],
-    qaChecklist: ['face-continuity', 'hair-continuity', 'upper-body-shape', 'clothing-construction', 'theme-color-is-secondary-to-identity'],
-  },
-  {
-    idSuffix: 'full-body-master',
-    title: 'Full Body Master',
-    kind: 'character-full-body-master',
-    sources: ['character-author-db', 'character-appearance-contracts', 'character-era-registry', 'character-reality-roots'],
-    qaChecklist: ['body-shape', 'age-impression', 'posture', 'hand-footwear-language', 'body-relative-equipment-continuity', 'no-uncorrected-mirror', 'era-construction', 'no-clone-pose'],
-  },
-  {
-    idSuffix: 'expression-master',
-    title: 'Expression Master',
-    kind: 'character-expression-master',
-    sources: ['character-author-db', 'character-appearance-contracts', 'character-behavior-identity', 'character-voice-prosody'],
-    qaChecklist: ['face-signature-preserved', 'resting-expression', 'expression-range', 'no-generic-anime-expression-set', 'no-personality-score-inference'],
-  },
-  {
-    idSuffix: 'costume-master',
-    title: 'Costume Master',
-    kind: 'character-costume-master',
-    sources: ['character-author-db', 'character-appearance-contracts', 'character-era-registry', 'character-reality-roots', 'character-theme-color-reservoir'],
-    qaChecklist: ['clothing-construction', 'era-consistency', 'body-shape-preserved', 'material-language', 'no-era-cosplay-shorthand'],
-  },
-  {
-    idSuffix: 'props-master',
-    title: 'Props Master',
-    kind: 'character-props-master',
-    sources: ['character-author-db', 'character-lived-artifact', 'named-object-visual-source'],
-    qaChecklist: ['prop-authority-visible', 'scale', 'material', 'handling', 'body-relative-equipment-continuity', 'no-uncorrected-mirror', 'wear-and-repair-marks', 'no-unapproved-readable-text'],
-  },
-  {
-    idSuffix: 'silhouette-master',
-    title: 'Silhouette Master',
-    kind: 'character-silhouette-master',
-    sources: ['character-author-db', 'character-appearance-contracts'],
-    qaChecklist: ['one-color-read', 'body-mass', 'posture', 'hair-or-head-structure', 'prop-placement', 'nearest-character-distinction'],
-  },
-  {
-    idSuffix: 'theme-color-reference',
-    title: 'Theme Color Reference',
-    kind: 'character-theme-color-reference',
-    sources: ['character-author-db', 'character-theme-color-reservoir'],
-    qaChecklist: ['primary-accent-night-glow-separation', 'character-identity-not-color-only', 'source-status-visible-in-metadata', 'no-story-authority-promotion'],
-  },
-] as const;
 
 function characterMasterBatchId(authorId: string) {
   return CORE5.has(authorId)
@@ -741,84 +782,75 @@ function characterMasterAuthorityStatus(identity: (typeof CHARACTER_AUTHOR_DB_ID
   return era.assignmentStatus;
 }
 
-function characterMasterComponentAssetIds(authorId: string) {
-  return CHARACTER_MASTER_COMPONENTS.map((component) => `char-${authorId}-${component.idSuffix}-v${characterMasterComponentVersion(authorId, component.kind)}`);
-}
-
-function characterMasterComponentVersion(authorId: string, componentKind: string) {
-  return authorId === 'yui' && componentKind === 'character-full-body-master' ? 3 : 1;
-}
-
-function characterMasterComponentProductionItems(): ProductionListItem[] {
+function characterDesignSourceSheetProductionItems(): ProductionListItem[] {
   return CHARACTER_AUTHOR_DB_IDENTITIES.flatMap((identity) => {
-    const queue = queueEntryFor(identity.authorId, identity.stableProfileId);
-    const hasSilhouette = current21SilhouetteMatrixById.has(identity.stableProfileId);
     const authorityStatus = characterMasterAuthorityStatus(identity);
-    return CHARACTER_MASTER_COMPONENTS.map((component) => {
-      const assetId = `char-${identity.authorId}-${component.idSuffix}-v${characterMasterComponentVersion(identity.authorId, component.kind)}`;
-      const isExistingCore5Board = component.kind === 'character-master-board' && Boolean(queue?.existingMasterPath);
+    return CHARACTER_DESIGN_SOURCE_SHEETS.map((sheet, index) => {
+      const assetId = `char-${identity.authorId}-${sheet.idSuffix}-v1`;
+      const isYuiTurnaround = identity.authorId === 'yui' && sheet.role === 'identity-turnaround';
+      const isDependentSheet = sheet.role !== 'identity-turnaround';
       const sourceOfTruth = [
-        ...component.sources,
-        ...(component.kind === 'character-silhouette-master' && hasSilhouette ? ['current21-silhouette-matrix'] : []),
-        ...(component.kind === 'character-silhouette-master' && characterSilhouetteAnchorById.has(identity.stableProfileId) ? ['character-silhouette-canon'] : []),
-        ...(component.kind === 'character-master-board' && isExistingCore5Board ? ['character-reference-production-queue', 'core5-reference-manifest'] : []),
-        ...(identity.authorId === 'yui' && component.kind === 'character-full-body-master' ? ['yui-full-body-master-v3-prompt'] : []),
+        ...sheet.sources,
+        ...(!sheet.sources.some((source) => source === 'character-handedness-equipment') ? ['character-handedness-equipment'] : []),
+        'character-living-visual-roster',
+        'visual-design-production-master',
+        ...(isYuiTurnaround ? ['yui-character-design-master-pack-v1'] : []),
       ];
       return {
         assetId,
         subjectId: identity.authorId,
         subjectType: 'character',
-        title: `${identity.name} ${component.title}`,
+        title: `${identity.name} ${sheet.title}`,
         batchId: characterMasterBatchId(identity.authorId),
         priority: priorityFor(identity.authorId, identity.stableProfileId, identity.rosterLayer),
         layer: 'master',
-        kind: component.kind,
+        kind: 'character-design-source-sheet',
+        recordType: 'source-sheet',
+        sheetRole: sheet.role,
+        sheetOrder: index + 1,
+        parentPackId: `char-${identity.authorId}-design-master-pack-v1`,
         authorityStatus,
-        productionStatus: isExistingCore5Board ? 'blocked-human-approval' : 'blocked-authoring-required',
+        productionStatus: isYuiTurnaround ? 'ready-for-prompt-review' : isDependentSheet ? 'blocked-turnaround-human-approval' : 'blocked-authoring-required',
         reviewStatus: 'needs-generation',
-        sourceOfTruth: [
-          ...sourceOfTruth,
-          'character-handedness-equipment',
-          'character-living-visual-roster',
-          'visual-design-production-master',
-        ],
+        sourceOfTruth,
+        authoritySnapshots: authoritySnapshots(sourceOfTruth),
         parentAssetIds: [],
-        promptPacketId: identity.authorId === 'yui' && component.kind === 'character-full-body-master'
-          ? 'visual-prompt:yui:full-body-master:v3'
-          : null,
+        promptPacketId: isYuiTurnaround ? 'visual-prompt:yui:identity-turnaround:v1' : null,
         outputPath: masterOutput(assetId),
         candidateIds: candidatesFor(assetId),
-        qaChecklist: [...component.qaChecklist],
-        blocker: identity.authorId === 'yui' && component.kind === 'character-full-body-master'
-          ? 'v3同一prompt 4候補を生成・自動QAし、Human visual review前は選定/親/current/final/runtimeへ昇格しない。'
-          : isExistingCore5Board
-          ? `既存Master Board (${queue?.existingMasterPath}) を最新Authorityと比較し、reuseかversioned replacementかをHuman reviewで決める。`
-          : 'Component固有prompt packetとHuman authority reviewが未完了。Character Master共通packetだけで個別componentを生成しない。',
-        notes: [
-          'Component coverageは存在確認であり、quality/final/runtime承認を意味しない。',
-          identity.rosterLayer === 'FUTURE15' ? 'Future15はstory groupingでありfuture-era labelではない。' : '',
-          component.kind === 'character-silhouette-master' && !hasSilhouette ? 'mainのsilhouette authoring source未接続。Appearance contractから勝手にfinal silhouetteを補完しない。' : '',
-        ].filter(Boolean).join(' '),
+        qaChecklist: [...sheet.qaChecklist, 'human-sheet-review', 'cross-sheet-consistency-review', 'story-final-runtime-no-auto-promotion'],
+        blocker: isYuiTurnaround
+          ? '同一contractの4候補を比較し、Identity/Construction Human approvalを得るまでSheet 02–04を生成しない。'
+          : isDependentSheet
+            ? 'Sheet 01 Identity / TurnaroundのHuman identity/construction approval待ち。'
+            : 'Sheet固有prompt packetとHuman authority reviewが未完了。',
+        notes: '4 source sheetは独立したCharacter Masterではなく、1つの論理Packを裏付けるversioned visual evidence。承認済みsheetの差替えはversionを上げる。',
       } as ProductionListItem;
     });
   });
 }
 
-function characterMasterProductionItems(): ProductionListItem[] {
+function characterDesignMasterPackProductionItems(): ProductionListItem[] {
   return CHARACTER_AUTHOR_DB_IDENTITIES.map((identity) => {
-    const assetId = `char-${identity.authorId}-master-v1`;
+    const assetId = `char-${identity.authorId}-design-master-pack-v1`;
+    const sheetIds = CHARACTER_DESIGN_SOURCE_SHEETS.map((sheet) => `char-${identity.authorId}-${sheet.idSuffix}-v1`);
     return {
       assetId,
       subjectId: identity.authorId,
       subjectType: 'character',
-      title: `${identity.name} Character Master`,
+      title: `${identity.name} Character Design Master Pack`,
       batchId: characterMasterBatchId(identity.authorId),
       priority: priorityFor(identity.authorId, identity.stableProfileId, identity.rosterLayer),
       layer: 'master',
-      kind: 'character-master',
+      kind: 'character-design-master-pack',
+      recordType: 'master-pack',
+      packVersion: 1,
+      packHash: sha256Json({ assetId, packVersion: 1, sheetIds }),
+      replaces: null,
+      supersededBy: null,
       authorityStatus: characterMasterAuthorityStatus(identity),
-      productionStatus: 'blocked-parent-master',
-      reviewStatus: 'needs-generation',
+      productionStatus: 'blocked-human-approval',
+      reviewStatus: 'needs-authoring',
       sourceOfTruth: [
         'character-author-db', 'character-appearance-contracts', 'character-handedness-equipment',
         'character-living-visual-roster', 'visual-design-production-master',
@@ -826,16 +858,35 @@ function characterMasterProductionItems(): ProductionListItem[] {
         'character-era-scene-seeds', 'character-reality-roots', 'character-theme-color-reservoir',
         ...(current21SilhouetteMatrixById.has(identity.stableProfileId) ? ['current21-silhouette-matrix'] : []),
       ],
-      parentAssetIds: characterMasterComponentAssetIds(identity.authorId),
-      promptPacketId: `visual-prompt:${identity.authorId}:character-master:v1`,
-      outputPath: masterOutput(assetId),
-      candidateIds: candidatesFor(assetId),
-      qaChecklist: ['identity', 'face', 'hair', 'eyes', 'body', 'age-impression', 'silhouette', 'costume', 'props', 'theme-color', 'era-consistency'],
-      blocker: 'Nine Character Master component parents must be authored, generated, QA-reviewed, and selected before composite generation.',
+      parentAssetIds: [],
+      requiredSheetIds: sheetIds,
+      requiredSheetRoles: CHARACTER_DESIGN_SOURCE_SHEETS.map((sheet) => sheet.role),
+      promptPacketId: `visual-prompt:${identity.authorId}:character-design-master-pack:v1`,
+      outputPath: `data/character-assets/packs/${identity.authorId}/character-design-master-pack.v1.json`,
+      candidateIds: [],
+      qaChecklist: ['four-required-roles-unique', 'all-sheet-human-review', 'cross-sheet-same-person', 'body-relative-equipment-consistency', 'pack-human-review', 'lineage-and-hash-consistency'],
+      blocker: '4 source sheetの個別Human review、cross-sheet consistency review、Pack reviewが完了するまでpartial packのまま。derivative parent禁止。',
       notes: identity.rosterLayer === 'FUTURE15'
         ? 'Future15 is a story grouping, not a future-era label. Composite coverage and visual quality remain separate.'
         : 'Current21 membership and complete component coverage do not imply visual final/runtime approval.',
     };
+  });
+}
+
+function characterDesignOverviewProductionItems(): ProductionListItem[] {
+  return CHARACTER_AUTHOR_DB_IDENTITIES.map((identity) => {
+    const assetId = `char-${identity.authorId}-design-master-overview-v1`;
+    return {
+      assetId, subjectId: identity.authorId, subjectType: 'character', title: `${identity.name} Character Design Master Overview`,
+      batchId: characterMasterBatchId(identity.authorId), priority: priorityFor(identity.authorId, identity.stableProfileId, identity.rosterLayer),
+      layer: 'lorebook', kind: 'character-design-master-overview-read-model', recordType: 'overview-read-model', authorityStatus: characterMasterAuthorityStatus(identity),
+      productionStatus: 'blocked-parent-pack', reviewStatus: 'not-materialized', sourceOfTruth: ['character-author-db'], parentAssetIds: [],
+      derivationParent: { parentPackId: null, parentPackHash: null, usedSheetIds: [], plannedParentPackIds: [`char-${identity.authorId}-design-master-pack-v1`] },
+      promptPacketId: null, outputPath: `data/character-assets/overviews/${identity.authorId}/character-design-master-overview.v1.json`, candidateIds: [],
+      qaChecklist: ['deterministic-layout-only', 'source-sheet-hashes-preserved', 'never-master', 'never-generation-parent'],
+      blocker: 'Approved complete Packが成立するまでOverview read modelをmaterializeしない。',
+      notes: 'Layout-only versioning。Overview layout変更はPack versionを上げず、Overview versionだけを上げる。',
+    } as ProductionListItem;
   });
 }
 
@@ -1013,24 +1064,36 @@ function existingAssetGenerationContractIndex() {
 }
 
 export function buildVisualImageProductionList() {
-  const characterMasterComponents = characterMasterComponentProductionItems();
-  const characterMasterComposites = characterMasterProductionItems();
+  const characterDesignSourceSheets = characterDesignSourceSheetProductionItems();
+  const characterDesignMasterPacks = characterDesignMasterPackProductionItems();
+  const characterDesignOverviews = characterDesignOverviewProductionItems();
+  const detachUnapprovedPackParents = (item: ProductionListItem): ProductionListItem => {
+    if (item.layer === 'master' || item.recordType === 'overview-read-model') return item;
+    const plannedParentPackIds = item.parentAssetIds.map((id) => id.replace(/-master-v1$/, '-design-master-pack-v1'));
+    return {
+      ...item,
+      parentAssetIds: [],
+      derivationParent: { parentPackId: null, parentPackHash: null, usedSheetIds: [], plannedParentPackIds },
+      productionStatus: 'blocked-parent-pack',
+      blocker: 'Approved complete Character Design Master PackのparentPackId/hash/usedSheetIdsが固定されるまで生成禁止。',
+    };
+  };
   const items = [
-    // Parents intentionally precede the composite Character Master entries.
-    ...characterMasterComponents,
-    ...characterMasterComposites,
+    ...characterDesignMasterPacks,
+    ...characterDesignSourceSheets,
+    ...characterDesignOverviews,
     ...sakuyazaProductionItems(),
     ...starBeastProductionItems(),
     ...objectProductionItems(),
-    ...lorebookProductionItems(),
-    ...gameplayProductionItems(),
+    ...lorebookProductionItems().map(detachUnapprovedPackParents),
+    ...gameplayProductionItems().map(detachUnapprovedPackParents),
   ];
   const existingContractIndex = existingAssetGenerationContractIndex();
   return {
     schemaVersion: 1,
     listId: 'yoruno-shirube-image-production-list-v1',
     generatedFrom: 'src/game/data/visualAssetGenerationInventory.ts',
-    goal: 'Generate every listed asset through managed batches after blockers are cleared; assets not listed here are not authorized for generation.',
+    goal: 'Materialize logical Pack/Overview records deterministically and generate only image/source-sheet rows through managed batches after blockers are cleared; unlisted images are not authorized for generation.',
     currentMode: 'PRE_GENERATION_NO_IMAGE_OUTPUT',
     executionAllowed: false,
     listPolicy: {
@@ -1042,16 +1105,20 @@ export function buildVisualImageProductionList() {
       lorebookMayNotParentGameplay: true,
       humanReviewRequired: true,
       imageMayNotPromoteStoryAuthority: true,
-      componentCoverageMayNotBeUsedAsQualityOrApproval: true,
+      sourceSheetCoverageMayNotBeUsedAsQualityOrApproval: true,
       existingAssetFactoryContractsAreIndexedNotDuplicated: true,
+      partialPackMayNotParentDerivatives: true,
+      overviewReadModelMayNotBeMasterOrParent: true,
+      packApprovalMayNotAutoPromoteChildFinalOrRuntime: true,
     },
     sourceCatalog: VISUAL_SOURCE_CATALOG,
     counts: {
       totalItems: items.length,
-      characterMasterComponents: characterMasterComponents.length,
-      characterMasterComponentsPerCharacter: CHARACTER_MASTER_COMPONENTS.length,
-      characterMasterComposites: characterMasterComposites.length,
-      characterMasters: characterMasterComposites.length,
+      characterDesignMasterPacks: characterDesignMasterPacks.length,
+      characterDesignSourceSheets: characterDesignSourceSheets.length,
+      characterDesignSourceSheetsPerPack: CHARACTER_DESIGN_SOURCE_SHEETS.length,
+      characterDesignOverviewReadModels: characterDesignOverviews.length,
+      characterMasters: characterDesignMasterPacks.length,
       sakuyazaMasters: items.filter((item) => item.kind === 'sakuyaza-character-master').length,
       starBeastMasters: items.filter((item) => item.kind === 'star-beast-master').length,
       namedObjectMasters: items.filter((item) => item.kind === 'named-object-master').length,
@@ -1059,15 +1126,19 @@ export function buildVisualImageProductionList() {
       gameplayItems: items.filter((item) => item.layer === 'gameplay').length,
       existingAssetGenerationContractsIndexed: existingContractIndex.length,
     },
-    characterMasterComponentModel: {
-      direction: 'COMPONENT_MASTERS -> CHARACTER_MASTER_COMPOSITE -> LOREBOOK | GAMEPLAY',
-      componentKinds: CHARACTER_MASTER_COMPONENTS.map((component) => component.kind),
-      componentAssetIdSuffixes: CHARACTER_MASTER_COMPONENTS.map((component) => component.idSuffix),
-      componentCountPerCharacter: CHARACTER_MASTER_COMPONENTS.length,
+    characterDesignMasterPackModel: {
+      direction: 'SOURCE_OF_TRUTH -> CHARACTER_DESIGN_MASTER_PACK -> OVERVIEW_READ_MODEL | LOREBOOK_DERIVED | GAMEPLAY_DERIVED',
+      requiredSheetRoles: CHARACTER_DESIGN_SOURCE_SHEETS.map((sheet) => sheet.role),
+      sourceSheetAssetIdSuffixes: CHARACTER_DESIGN_SOURCE_SHEETS.map((sheet) => sheet.idSuffix),
+      sourceSheetCountPerPack: CHARACTER_DESIGN_SOURCE_SHEETS.length,
       requiredCharacterCount: CHARACTER_AUTHOR_DB_IDENTITIES.length,
       coverageIsNotQuality: true,
       completeCoverageIsNotApproval: true,
-      compositeMustReferenceEveryComponent: true,
+      logicalPackIsTheOnlyMaster: true,
+      sourceSheetsAreEvidenceNotIndependentMasters: true,
+      overviewIsDeterministicReadModelOnly: true,
+      turnaroundHumanApprovalGatesDependentSheets: true,
+      approvedSheetReplacementRequiresVersionIncrement: true,
     },
     existingAssetGenerationContractIndex: {
       source: 'asset-generation-policy',

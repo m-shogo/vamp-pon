@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "packetId": "visual-prompt:yui:identity-turnaround:v1",
+  "packId": "char-yui-design-master-pack-v1",
+  "packVersion": 1,
+  "sheetId": "char-yui-design-sheet-01-identity-turnaround-v1",
+  "sheetRole": "identity-turnaround",
+  "status": "AUTHORIZED_FOR_FOUR_CANDIDATE_GENERATION_NOT_APPROVED",
+  "purpose": "ゲーム、アニメ、Lorebook、portrait、icon、sprite派生が同じ人物構造へ戻れる長期Character Design正本のIdentity / Turnaround visual evidenceを作る。完成ポスター、Story Canon、runtime assetを作る作業ではない。",
+  "authoritySnapshot": {
+    "authorityBaseCommit": "69476d3bd2f67fa32e821610446b0f624b45dbe9",
+    "snapshotState": "WORKTREE_CONTENT_HASHES_BEFORE_SCOPED_COMMIT",
+    "sources": [
+      { "sourceId": "character-author-db", "path": "src/game/data/characterAuthorDbCoverageManifest.ts", "contentHash": "5584ae9871f23e3fc5f20658dee4fdbc600ca6a665ed04f63fd51624cde364c7", "authorityClass": "STRUCTURAL_SOURCE", "consumedFields": ["authorId", "stableProfileId", "name", "rosterLayer"] },
+      { "sourceId": "character-appearance-contracts", "path": "src/game/data/characterAppearanceGenerationContracts.ts", "contentHash": "4f658e38de8f3240604212e95a844b67b4a134d88a5e608fa00a7d2009be4eba", "authorityClass": "STRUCTURAL_SOURCE", "consumedFields": ["ageCoding", "faceShape", "eyeShape", "eyelid", "brow", "mouth", "cheekOrSurfaceMark", "hairOrHeadStructure", "bodyShape", "clothingConstruction"] },
+      { "sourceId": "character-handedness-equipment", "path": "src/game/data/characterHandednessEquipmentRegistry.ts", "contentHash": "415e29e1f8821eaddee31a1048d52c02b160633842d433ba851d8ed71885dc45", "authorityClass": "STRUCTURAL_SOURCE", "consumedFields": ["dominantHand", "equipmentPlacements", "mirrorPolicy", "frontViewProjection"] },
+      { "sourceId": "character-living-visual-roster", "path": "data/visual/character-living-visual-roster-v1.json", "contentHash": "7ad3838c447d85a0bbd8be605f8b789a6bb9cc456bff522138062f18e2e2a2d7", "authorityClass": "UPSTREAM_AUTHORITY", "consumedFields": ["record-boundary"] },
+      { "sourceId": "visual-design-production-master", "path": "data/visual/visual-design-production-master-v1.json", "contentHash": "27853b6a6ca352ec1f38df1096087fabea4af71bf44c104a284e06c5381aa898", "authorityClass": "UPSTREAM_AUTHORITY", "consumedFields": ["record-boundary"] }
+    ],
+    "dominantHand": { "value": null, "status": "OPEN_NO_SOURCE" },
+    "heldItemHandMayNotInferDominantHand": true,
+    "storyAuthorityPromotedByImage": false,
+    "approvedAsFinal": false,
+    "runtimeApproved": false
+  },
+  "references": [
+    { "path": "assets/reference/character-master/core5/yui-character-master-v1.png", "sha256": "7e60d964246fc31f91ceb1df5bab8bd6c5fbdd381eadaa9e8a5f218c3338c7fe", "role": "identity-face-hood-clothing-lantern-mood" },
+    { "path": "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png", "sha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e", "role": "gameplay-silhouette-pose-range-small-size-baseline" }
+  ],
+  "prompt": {
+    "assetType": "character-design-source-sheet",
+    "sheetRole": "identity-turnaround",
+    "primaryRequest": "Create one clean Identity / Turnaround source-sheet candidate for Yui. Show neutral front, anatomical left, anatomical right, and back at identical scale on shared ground and proportion lines. Every view must be the same young-adult person with the same body, face, warm-dark asymmetric bob with one ear tuck, hooded travel clothing, construction, and wear. This is visual evidence for one logical Character Design Master Pack, not a separate Character Master and not a poster.",
+    "identityAnchors": [
+      "YOUNG_ADULT",
+      "soft oval face",
+      "rounded cheeks",
+      "non-pointed chin",
+      "smaller almost-level almond-round brown eyes",
+      "tapered double eyelids",
+      "soft straight brows",
+      "warm-dark asymmetric bob with one ear tuck",
+      "bilateral smile dimples mandatory whenever smiling"
+    ],
+    "equipmentContinuity": [
+      "Dominant hand is OPEN_NO_SOURCE; never infer it from held objects.",
+      "Lantern is in Yui's anatomical RIGHT hand.",
+      "In front view, anatomical right appears on viewer/screen left.",
+      "Strap runs from anatomical RIGHT shoulder to anatomical LEFT waist.",
+      "Bag rests at anatomical LEFT waist.",
+      "Paper is in anatomical LEFT hand.",
+      "In back view, anatomical right appears on viewer/screen right.",
+      "Never substitute screen left/right for body left/right and never mirror asymmetric art."
+    ],
+    "construction": [
+      "neutral orthographic-like standing views",
+      "front, anatomical left, anatomical right, back",
+      "identical scale and shared ground/proportion lines",
+      "no perspective pose, action pose, layout crop, overlapping figures, readable labels or UI"
+    ],
+    "avoid": [
+      "child, baby, loli or doll proportions",
+      "generic V jaw or pointed chin",
+      "giant eyes",
+      "missing bilateral dimples in any smiling inset",
+      "duplicated or mirrored side view",
+      "wrong anatomical-side lantern, strap, bag or paper",
+      "cross-view identity, costume or proportion drift",
+      "Story, relationship, group, Reality Root, Star Beast, final or runtime inference",
+      "readable text, logo, watermark, UI, poster composition"
+    ]
+  },
+  "promptHash": "9fc7bb3f0e9afa177b3ca6a9be6322e2f94ee6e55b2287a7f60901eaef6c946e",
+  "candidatePlan": {
+    "count": 4,
+    "sameContractAndPrompt": true,
+    "candidateIds": [
+      "char-yui-design-sheet-01-identity-turnaround-candidate-a-v1",
+      "char-yui-design-sheet-01-identity-turnaround-candidate-b-v1",
+      "char-yui-design-sheet-01-identity-turnaround-candidate-c-v1",
+      "char-yui-design-sheet-01-identity-turnaround-candidate-d-v1"
+    ]
+  },
+  "lineage": {
+    "generator": null,
+    "generatorVersion": null,
+    "seed": null,
+    "outputHashes": [],
+    "automaticQa": "PENDING_GENERATION",
+    "humanDecisionScope": "SHEET_01_IDENTITY_AND_CONSTRUCTION_ONLY",
+    "rejectLedgerPath": "data/character-assets/reviews/yui-character-design-master-pack-v1.rejects.json"
+  },
+  "dependencyGate": {
+    "turnaroundHumanApproval": "PENDING",
+    "sheet02GenerationAllowed": false,
+    "sheet03GenerationAllowed": false,
+    "sheet04GenerationAllowed": false,
+    "partialPackMayParentDerivatives": false
+  },
+  "approval": {
+    "automaticQaRequired": true,
+    "sheetHumanReviewRequired": true,
+    "crossSheetConsistencyReviewRequired": true,
+    "packHumanReviewRequired": true,
+    "approvedAsFinal": false,
+    "runtimeApproved": false
+  }
+}

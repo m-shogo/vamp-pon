@@ -1,31 +1,19 @@
 {
   "schemaVersion": 1,
-  "packetId": "visual-prompt:subject:kind:v1",
+  "packetId": "visual-prompt:subject:identity-turnaround:v1",
   "status": "draft-not-approved-not-generated",
-  "assetId": "char-subject-master-v1",
+  "packId": "char-subject-design-master-pack-v1",
+  "sheetId": "char-subject-design-sheet-01-identity-turnaround-v1",
+  "sheetRole": "identity-turnaround",
   "authoritySnapshot": {
-    "sourceCommit": "REQUIRED_AT_EXECUTION",
-    "sourceOfTruth": [],
-    "storyStatus": "CANDIDATE",
+    "authorityBaseCommit": "REQUIRED",
+    "sources": [{"sourceId": "REQUIRED", "path": "REQUIRED", "contentHash": "REQUIRED_SHA256", "authorityClass": "REQUIRED", "consumedFields": ["REQUIRED"]}],
     "openQuestions": [],
     "forbiddenInferences": []
   },
-  "referenceStack": {"characterMaster": [], "currentBestAsset": [], "turnaround": [], "directEditTarget": [], "rolesMustBeDeclared": true},
-  "promptSpec": {
-    "useCase": "stylized-concept",
-    "assetType": "master",
-    "primaryRequest": "TO_BE_AUTHORED_AFTER_AUTHORITY_REVIEW",
-    "sceneBackdrop": "",
-    "subject": "",
-    "styleMedium": "",
-    "compositionFraming": "",
-    "lightingMood": "",
-    "colorPalette": "",
-    "materialsTextures": "",
-    "constraints": [],
-    "avoid": []
-  },
-  "candidatePlan": {"count": 4, "sameContractAndPrompt": true, "ids": ["candidate-a", "candidate-b", "candidate-c", "candidate-d"]},
-  "output": {"stagingRoot": "assets/import-staging/<batch-id>/", "transparentWorkflow": "chroma-key-then-shared-alpha-tool-when-needed", "overwriteExistingForbidden": true},
-  "approval": {"automaticQaRequired": true, "humanVisualReviewRequired": true, "approvedAsFinal": false, "runtimeApproved": false}
+  "prompt": {"assetType": "character-design-source-sheet", "primaryRequest": "REQUIRED", "identityAnchors": [], "equipmentContinuity": [], "construction": [], "avoid": []},
+  "promptHash": "REQUIRED_SHA256",
+  "candidatePlan": {"count": 4, "sameContractAndPrompt": true, "candidateIds": ["candidate-a", "candidate-b", "candidate-c", "candidate-d"]},
+  "dependencyGate": {"turnaroundHumanApproval": "PENDING", "sheet02GenerationAllowed": false, "sheet03GenerationAllowed": false, "sheet04GenerationAllowed": false, "partialPackMayParentDerivatives": false},
+  "approval": {"automaticQaRequired": true, "sheetHumanReviewRequired": true, "crossSheetConsistencyReviewRequired": true, "packHumanReviewRequired": true, "approvedAsFinal": false, "runtimeApproved": false}
 }

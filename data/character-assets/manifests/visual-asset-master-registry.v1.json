@@ -3,12 +3,16 @@
   "registryId": "yoruno-shirube-visual-asset-master-registry-v1",
   "generatedFrom": "src/game/data/visualAssetGenerationInventory.ts",
   "authorityModel": {
-    "direction": "SOURCE_OF_TRUTH -> MASTER -> READ_MODEL | GAMEPLAY_DERIVED",
+    "direction": "SOURCE_OF_TRUTH -> CHARACTER_DESIGN_MASTER_PACK -> OVERVIEW_READ_MODEL | LOREBOOK_DERIVED | GAMEPLAY_DERIVED",
     "storyAuthorityMayNotBePromotedByVisualReview": true,
     "lorebookMayNotParentGameplay": true,
     "candidateMayNotBecomeCurrentWithoutHumanReview": true,
     "existingReferenceIsNotFinalOrRuntime": true,
-    "rejectedAssetMayNotParentOrBecomeReference": true
+    "rejectedAssetMayNotParentOrBecomeReference": true,
+    "overviewReadModelIsNeverMasterOrGenerationParent": true,
+    "partialPackMayNotParentDerivatives": true,
+    "packApprovalMayNotPromoteChildFinalOrRuntime": true,
+    "approvedSourceSheetIsImmutableReplacementRequiresVersion": true
   },
   "handednessEquipmentRegistry": {
     "source": "character-handedness-equipment",
@@ -68,6 +72,17 @@
             "status": "CURRENT_VISUAL_CONTINUITY",
             "source": "src/game/data/goldenReferenceRegistry.ts",
             "notes": "身体左腰。正面では画面右側に見える。"
+          },
+          {
+            "itemId": "yui-paper",
+            "itemLabel": "見つけた紙片",
+            "anchor": "HAND",
+            "bodySide": "BODY_LEFT",
+            "fromBodySide": null,
+            "toBodySide": null,
+            "status": "CURRENT_VISUAL_CONTINUITY",
+            "source": "assets/reference/character-master/core5/yui-character-master-v1.png",
+            "notes": "身体左手で保持する。正面では画面右、背面では画面左に見える。保持手から利き腕は推論しない。"
           }
         ],
         "mirrorPolicy": "NO_UNCORRECTED_MIRROR_FOR_ASYMMETRIC_ASSETS",
@@ -75,7 +90,7 @@
           "bodyLeftAppearsOnScreenRight": true,
           "bodyRightAppearsOnScreenLeft": true
         },
-        "notes": "ランタン保持手とバッグ配置はCurrent visual continuity。利き腕はOPEN。"
+        "notes": "ランタン、紙片の保持手とバッグ配置はCurrent visual continuity。利き腕はOPEN。"
       },
       {
         "id": "asa-handedness-equipment-v1",
@@ -754,7 +769,7 @@
     "yui-full-body-master-v2-prompt": "data/character-assets/reviews/yui-full-body-master-v2.prompt.json",
     "yui-full-body-master-v2-qa": "data/character-assets/reviews/yui-full-body-master-v2.qa.json",
     "yui-full-body-master-v2-rejects": "data/character-assets/reviews/yui-full-body-master-v2.rejects.json",
-    "yui-full-body-master-v3-prompt": "data/character-assets/reviews/yui-full-body-master-v3.prompt.json"
+    "yui-character-design-master-pack-v1": "data/character-assets/reviews/yui-character-design-master-pack-v1.json"
   },
   "subjectAliases": {
     "F01": "hiyori",
@@ -795,6 +810,7 @@
       "Future15"
     ],
     "reviewStatuses": [
+      "needs-authoring",
       "needs-generation",
       "generated-unreviewed",
       "needs-author-review",
@@ -1058,14 +1074,14 @@
       "notes": "既存Master Board。最新Appearance/Era/Reality Root/Theme Colorとの境界審査前で、再生成より先に再利用可否を判定する。"
     },
     {
-      "id": "char-yui-master-v1",
+      "id": "char-yui-design-master-pack-v1",
       "subjectId": "yui",
       "subjectType": "character",
-      "title": "ユイ Character Master v1",
+      "title": "ユイ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CURRENT",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1082,15 +1098,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "yui",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1098,7 +1115,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-yui-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "eadeb4f5925e4c789ea95f1243b85340d8a3a20531bdc598951b4a1a3595020f",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-yui-design-sheet-01-identity-turnaround-v1",
+          "char-yui-design-sheet-02-face-expression-acting-v1",
+          "char-yui-design-sheet-03-costume-equipment-material-v1",
+          "char-yui-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-yui-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:yui:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1109,19 +1157,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "keep_and_revalidate",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": false,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-asa-master-v1",
+      "id": "char-asa-design-master-pack-v1",
       "subjectId": "asa",
       "subjectType": "character",
-      "title": "アサ Character Master v1",
+      "title": "アサ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CURRENT",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1138,15 +1187,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "asa",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1154,7 +1204,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-asa-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "02f726d3379ef999c309ab1639c6bcc561318cd877a5afa18d3dbb387188ac55",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-asa-design-sheet-01-identity-turnaround-v1",
+          "char-asa-design-sheet-02-face-expression-acting-v1",
+          "char-asa-design-sheet-03-costume-equipment-material-v1",
+          "char-asa-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-asa-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:asa:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1165,19 +1246,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "review_existing_master_then_register_or_regenerate",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-nagi-master-v1",
+      "id": "char-nagi-design-master-pack-v1",
       "subjectId": "nagi",
       "subjectType": "character",
-      "title": "ナギ Character Master v1",
+      "title": "ナギ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CURRENT",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1194,15 +1276,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "nagi",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1210,7 +1293,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-nagi-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "25762a5fecd0e30078aab5aca10a88b2c0eb043d20b0b2d0dcefc356d064584c",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-nagi-design-sheet-01-identity-turnaround-v1",
+          "char-nagi-design-sheet-02-face-expression-acting-v1",
+          "char-nagi-design-sheet-03-costume-equipment-material-v1",
+          "char-nagi-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-nagi-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:nagi:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1221,19 +1335,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "review_existing_master_then_register_or_regenerate",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-michiru-master-v1",
+      "id": "char-michiru-design-master-pack-v1",
       "subjectId": "michiru",
       "subjectType": "character",
-      "title": "ミチル Character Master v1",
+      "title": "ミチル Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CURRENT",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1250,15 +1365,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "michiru",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1266,7 +1382,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-michiru-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "f7a9c49ea35f06b5008b2af2270698171653c359f59434d8794a08b40b1bfe70",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-michiru-design-sheet-01-identity-turnaround-v1",
+          "char-michiru-design-sheet-02-face-expression-acting-v1",
+          "char-michiru-design-sheet-03-costume-equipment-material-v1",
+          "char-michiru-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-michiru-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:michiru:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1277,19 +1424,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "review_existing_master_then_register_or_regenerate",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-tomori-master-v1",
+      "id": "char-tomori-design-master-pack-v1",
       "subjectId": "tomori",
       "subjectType": "character",
-      "title": "トモリ Character Master v1",
+      "title": "トモリ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CURRENT",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1307,15 +1455,16 @@
         "character-silhouette-canon"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "tomori",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1323,7 +1472,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-tomori-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "cc2b15b0a35e1ad2938223235581c920635efbc0fc275f9c01fb7283e398e3e5",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-tomori-design-sheet-01-identity-turnaround-v1",
+          "char-tomori-design-sheet-02-face-expression-acting-v1",
+          "char-tomori-design-sheet-03-costume-equipment-material-v1",
+          "char-tomori-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-tomori-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:tomori:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1334,19 +1514,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "review_existing_master_then_register_or_regenerate",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-sen-master-v1",
+      "id": "char-sen-design-master-pack-v1",
       "subjectId": "sen",
       "subjectType": "character",
-      "title": "セン Character Master v1",
+      "title": "セン Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1363,15 +1544,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "sen",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1379,7 +1561,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-sen-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "f21ac2c1234c5d2558b48750e9438386fdd0bcf506dc6137cf28bb5ec87ad61c",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-sen-design-sheet-01-identity-turnaround-v1",
+          "char-sen-design-sheet-02-face-expression-acting-v1",
+          "char-sen-design-sheet-03-costume-equipment-material-v1",
+          "char-sen-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-sen-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:sen:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1390,19 +1603,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-ritsu-master-v1",
+      "id": "char-ritsu-design-master-pack-v1",
       "subjectId": "ritsu",
       "subjectType": "character",
-      "title": "リツ Character Master v1",
+      "title": "リツ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1419,15 +1633,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "ritsu",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1435,7 +1650,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-ritsu-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "436146ec376ab1edf380af314db7732c0eb600d44c3e6707c8c6e57aec5a7ca7",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-ritsu-design-sheet-01-identity-turnaround-v1",
+          "char-ritsu-design-sheet-02-face-expression-acting-v1",
+          "char-ritsu-design-sheet-03-costume-equipment-material-v1",
+          "char-ritsu-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-ritsu-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:ritsu:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1446,19 +1692,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-koyori-master-v1",
+      "id": "char-koyori-design-master-pack-v1",
       "subjectId": "koyori",
       "subjectType": "character",
-      "title": "コヨリ Character Master v1",
+      "title": "コヨリ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1475,15 +1722,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "koyori",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1491,7 +1739,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-koyori-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "1a2aa53bb56d5dd07eea9b7df93d4c82a89853a43627c7545a9cdaf37e0b6d9b",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-koyori-design-sheet-01-identity-turnaround-v1",
+          "char-koyori-design-sheet-02-face-expression-acting-v1",
+          "char-koyori-design-sheet-03-costume-equipment-material-v1",
+          "char-koyori-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-koyori-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:koyori:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1502,19 +1781,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-gen-master-v1",
+      "id": "char-gen-design-master-pack-v1",
       "subjectId": "gen",
       "subjectType": "character",
-      "title": "ゲン Character Master v1",
+      "title": "ゲン Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1532,15 +1812,16 @@
         "character-silhouette-canon"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "gen",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1548,7 +1829,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-gen-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "6c36efd525535cc5030a16110b9430afbc0a2d26efc4a92f2d4f1ed51db02f9b",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-gen-design-sheet-01-identity-turnaround-v1",
+          "char-gen-design-sheet-02-face-expression-acting-v1",
+          "char-gen-design-sheet-03-costume-equipment-material-v1",
+          "char-gen-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-gen-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:gen:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1559,19 +1871,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-hana-master-v1",
+      "id": "char-hana-design-master-pack-v1",
       "subjectId": "hana",
       "subjectType": "character",
-      "title": "ハナ Character Master v1",
+      "title": "ハナ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1589,15 +1902,16 @@
         "character-silhouette-canon"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "hana",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1605,7 +1919,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-hana-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "2ca14c8d8e71616faf04a220ee88e04deafdddd981bd8996c5553cde0b47c94f",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-hana-design-sheet-01-identity-turnaround-v1",
+          "char-hana-design-sheet-02-face-expression-acting-v1",
+          "char-hana-design-sheet-03-costume-equipment-material-v1",
+          "char-hana-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-hana-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:hana:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1616,19 +1961,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-yuubi-master-v1",
+      "id": "char-yuubi-design-master-pack-v1",
       "subjectId": "yuubi",
       "subjectType": "character",
-      "title": "ユウビ Character Master v1",
+      "title": "ユウビ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1645,15 +1991,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "yuubi",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1661,7 +2008,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-yuubi-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "b5f16550b8b134d8f772e76313cc2a612f55876895eeb11c1c5c1a4118da1556",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-yuubi-design-sheet-01-identity-turnaround-v1",
+          "char-yuubi-design-sheet-02-face-expression-acting-v1",
+          "char-yuubi-design-sheet-03-costume-equipment-material-v1",
+          "char-yuubi-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-yuubi-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:yuubi:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1672,19 +2050,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-madoka-master-v1",
+      "id": "char-madoka-design-master-pack-v1",
       "subjectId": "madoka",
       "subjectType": "character",
-      "title": "マドカ Character Master v1",
+      "title": "マドカ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1701,15 +2080,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "madoka",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1717,7 +2097,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-madoka-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "0b769a36fd188b80d6aa005dcdef72bcef87a0d950b5d7fcf1d928efd7cd5ad7",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-madoka-design-sheet-01-identity-turnaround-v1",
+          "char-madoka-design-sheet-02-face-expression-acting-v1",
+          "char-madoka-design-sheet-03-costume-equipment-material-v1",
+          "char-madoka-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-madoka-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:madoka:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1728,19 +2139,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-shiro-master-v1",
+      "id": "char-shiro-design-master-pack-v1",
       "subjectId": "shiro",
       "subjectType": "character",
-      "title": "シロ Character Master v1",
+      "title": "シロ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1758,15 +2170,16 @@
         "character-silhouette-canon"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "shiro",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1774,7 +2187,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-shiro-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "2ea53320a6174a0d06fcd100173b600131b89c814698630fe17cadc7d789ee82",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-shiro-design-sheet-01-identity-turnaround-v1",
+          "char-shiro-design-sheet-02-face-expression-acting-v1",
+          "char-shiro-design-sheet-03-costume-equipment-material-v1",
+          "char-shiro-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-shiro-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:shiro:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1785,19 +2229,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-tobari-master-v1",
+      "id": "char-tobari-design-master-pack-v1",
       "subjectId": "tobari",
       "subjectType": "character",
-      "title": "トバリ Character Master v1",
+      "title": "トバリ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1814,15 +2259,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "tobari",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1830,7 +2276,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-tobari-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "f9b99c7dc99f6a4f1f7586a18a7691f165f6ae04f57af1b2f0962ca70386065d",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-tobari-design-sheet-01-identity-turnaround-v1",
+          "char-tobari-design-sheet-02-face-expression-acting-v1",
+          "char-tobari-design-sheet-03-costume-equipment-material-v1",
+          "char-tobari-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-tobari-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:tobari:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1841,19 +2318,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-nemu-master-v1",
+      "id": "char-nemu-design-master-pack-v1",
       "subjectId": "nemu",
       "subjectType": "character",
-      "title": "ネム Character Master v1",
+      "title": "ネム Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1870,15 +2348,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "nemu",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1886,7 +2365,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-nemu-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "4e2a536dfaacf1c1e4d2c5991ff230a3e263314fcd7dc15a68e501dd6bb064ed",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-nemu-design-sheet-01-identity-turnaround-v1",
+          "char-nemu-design-sheet-02-face-expression-acting-v1",
+          "char-nemu-design-sheet-03-costume-equipment-material-v1",
+          "char-nemu-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-nemu-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:nemu:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1897,19 +2407,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-kuroori-master-v1",
+      "id": "char-kuroori-design-master-pack-v1",
       "subjectId": "kuroori",
       "subjectType": "character",
-      "title": "クロオリ Character Master v1",
+      "title": "クロオリ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1926,15 +2437,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "kuroori",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1942,7 +2454,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-kuroori-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "a51e4e070a2d692ec1b7dba58ff7ec093b95951fe82f4a011888eb4e3712d60f",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-kuroori-design-sheet-01-identity-turnaround-v1",
+          "char-kuroori-design-sheet-02-face-expression-acting-v1",
+          "char-kuroori-design-sheet-03-costume-equipment-material-v1",
+          "char-kuroori-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-kuroori-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:kuroori:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -1953,19 +2496,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-kaname-master-v1",
+      "id": "char-kaname-design-master-pack-v1",
       "subjectId": "kaname",
       "subjectType": "character",
-      "title": "カナメ Character Master v1",
+      "title": "カナメ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -1983,15 +2527,16 @@
         "character-silhouette-canon"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "kaname",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -1999,7 +2544,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-kaname-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "3a3e0f6e815f38fd4a23adc13969c5246604f8689ee70c8f4f5e6d4b5b061357",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-kaname-design-sheet-01-identity-turnaround-v1",
+          "char-kaname-design-sheet-02-face-expression-acting-v1",
+          "char-kaname-design-sheet-03-costume-equipment-material-v1",
+          "char-kaname-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-kaname-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:kaname:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2010,19 +2586,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-kasumi-master-v1",
+      "id": "char-kasumi-design-master-pack-v1",
       "subjectId": "kasumi",
       "subjectType": "character",
-      "title": "カスミ Character Master v1",
+      "title": "カスミ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2039,15 +2616,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "kasumi",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2055,7 +2633,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-kasumi-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "ce66086fdf17a7c7e244daab738a16cf4ab8363635ec2611cbb172ddc058858e",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-kasumi-design-sheet-01-identity-turnaround-v1",
+          "char-kasumi-design-sheet-02-face-expression-acting-v1",
+          "char-kasumi-design-sheet-03-costume-equipment-material-v1",
+          "char-kasumi-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-kasumi-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:kasumi:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2066,19 +2675,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-toki-master-v1",
+      "id": "char-toki-design-master-pack-v1",
       "subjectId": "toki",
       "subjectType": "character",
-      "title": "トキ Character Master v1",
+      "title": "トキ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2095,15 +2705,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "toki",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2111,7 +2722,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-toki-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "9dd0d7ba042a129e3bba201ce3c3f4cff7cacc466df7ed752e1483cfc316364a",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-toki-design-sheet-01-identity-turnaround-v1",
+          "char-toki-design-sheet-02-face-expression-acting-v1",
+          "char-toki-design-sheet-03-costume-equipment-material-v1",
+          "char-toki-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-toki-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:toki:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2122,19 +2764,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-tsumugi-master-v1",
+      "id": "char-tsumugi-design-master-pack-v1",
       "subjectId": "tsumugi",
       "subjectType": "character",
-      "title": "ツムギ Character Master v1",
+      "title": "ツムギ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2151,15 +2794,16 @@
         "current21-silhouette-matrix"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "tsumugi",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2167,7 +2811,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-tsumugi-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "d5dad3044536a8b56b82b2529d4bfd12785961657dd35f8c45ed80fec84aeb6b",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-tsumugi-design-sheet-01-identity-turnaround-v1",
+          "char-tsumugi-design-sheet-02-face-expression-acting-v1",
+          "char-tsumugi-design-sheet-03-costume-equipment-material-v1",
+          "char-tsumugi-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-tsumugi-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:tsumugi:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2178,19 +2853,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "generate_reference_then_review",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-ren-master-v1",
+      "id": "char-ren-design-master-pack-v1",
       "subjectId": "ren",
       "subjectType": "character",
-      "title": "レン Character Master v1",
+      "title": "レン Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CANDIDATE",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2208,15 +2884,16 @@
         "character-silhouette-canon"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "ren",
         "character",
-        "master",
+        "design-master-pack",
         "current21",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2224,7 +2901,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-ren-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "8e7d6ced8c58c83ad52f13c672f0a857580fa03402c2af9bf35f69d1d1ecaab7",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-ren-design-sheet-01-identity-turnaround-v1",
+          "char-ren-design-sheet-02-face-expression-acting-v1",
+          "char-ren-design-sheet-03-costume-equipment-material-v1",
+          "char-ren-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-ren-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:ren:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2235,19 +2943,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": true,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
     },
     {
-      "id": "char-hiyori-master-v1",
+      "id": "char-hiyori-design-master-pack-v1",
       "subjectId": "hiyori",
       "subjectType": "character",
-      "title": "ヒヨリ Character Master v1",
+      "title": "ヒヨリ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2263,15 +2972,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "hiyori",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2279,7 +2989,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-hiyori-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "48fadaffbe29bf919dc92e3b38811407bd493f9fc818e9f712733c58f1227f11",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-hiyori-design-sheet-01-identity-turnaround-v1",
+          "char-hiyori-design-sheet-02-face-expression-acting-v1",
+          "char-hiyori-design-sheet-03-costume-equipment-material-v1",
+          "char-hiyori-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-hiyori-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:hiyori:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2290,19 +3031,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-serika-master-v1",
+      "id": "char-serika-design-master-pack-v1",
       "subjectId": "serika",
       "subjectType": "character",
-      "title": "セリカ Character Master v1",
+      "title": "セリカ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2318,15 +3060,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "serika",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2334,7 +3077,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-serika-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "ff4c37ae6d8e37c78829cd3ae8db961c0d9dfc6efbbed89c208c40083f2d83df",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-serika-design-sheet-01-identity-turnaround-v1",
+          "char-serika-design-sheet-02-face-expression-acting-v1",
+          "char-serika-design-sheet-03-costume-equipment-material-v1",
+          "char-serika-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-serika-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:serika:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2345,19 +3119,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-chloe-master-v1",
+      "id": "char-chloe-design-master-pack-v1",
       "subjectId": "chloe",
       "subjectType": "character",
-      "title": "クロエ Character Master v1",
+      "title": "クロエ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "OPEN",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2373,15 +3148,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "chloe",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2389,7 +3165,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-chloe-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "96a532e80920235a9214d1e6c38b53610fa43c096142a7860aa3db5a59387f92",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-chloe-design-sheet-01-identity-turnaround-v1",
+          "char-chloe-design-sheet-02-face-expression-acting-v1",
+          "char-chloe-design-sheet-03-costume-equipment-material-v1",
+          "char-chloe-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-chloe-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:chloe:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2400,19 +3207,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-renji-master-v1",
+      "id": "char-renji-design-master-pack-v1",
       "subjectId": "renji",
       "subjectType": "character",
-      "title": "レンジ Character Master v1",
+      "title": "レンジ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2428,15 +3236,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "renji",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2444,7 +3253,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-renji-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "0f0a4983137d87e65edf8af09d5a9f89166ec5ad037c959830f5b5850695fa52",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-renji-design-sheet-01-identity-turnaround-v1",
+          "char-renji-design-sheet-02-face-expression-acting-v1",
+          "char-renji-design-sheet-03-costume-equipment-material-v1",
+          "char-renji-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-renji-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:renji:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2455,19 +3295,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-touma-master-v1",
+      "id": "char-touma-design-master-pack-v1",
       "subjectId": "touma",
       "subjectType": "character",
-      "title": "トウマ Character Master v1",
+      "title": "トウマ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2483,15 +3324,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "touma",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2499,7 +3341,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-touma-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "7abb9c61df5a95762660826072aeeabb19539a202ae83189622357543a17e4e5",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-touma-design-sheet-01-identity-turnaround-v1",
+          "char-touma-design-sheet-02-face-expression-acting-v1",
+          "char-touma-design-sheet-03-costume-equipment-material-v1",
+          "char-touma-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-touma-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:touma:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2510,19 +3383,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-kuu-master-v1",
+      "id": "char-kuu-design-master-pack-v1",
       "subjectId": "kuu",
       "subjectType": "character",
-      "title": "クウ Character Master v1",
+      "title": "クウ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2538,15 +3412,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "kuu",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2554,7 +3429,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-kuu-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "c5582a64de0089164350a68463b7e353c3eed06d9014b1da382b945785b08aaa",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-kuu-design-sheet-01-identity-turnaround-v1",
+          "char-kuu-design-sheet-02-face-expression-acting-v1",
+          "char-kuu-design-sheet-03-costume-equipment-material-v1",
+          "char-kuu-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-kuu-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:kuu:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2565,19 +3471,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-yomo-master-v1",
+      "id": "char-yomo-design-master-pack-v1",
       "subjectId": "yomo",
       "subjectType": "character",
-      "title": "ヨモ Character Master v1",
+      "title": "ヨモ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2593,15 +3500,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "yomo",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2609,7 +3517,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-yomo-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "d300377a72c99174f7da1113ec679eba5a4132658e9eb135eed346a6c862e42c",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-yomo-design-sheet-01-identity-turnaround-v1",
+          "char-yomo-design-sheet-02-face-expression-acting-v1",
+          "char-yomo-design-sheet-03-costume-equipment-material-v1",
+          "char-yomo-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-yomo-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:yomo:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2620,19 +3559,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-noa-master-v1",
+      "id": "char-noa-design-master-pack-v1",
       "subjectId": "noa",
       "subjectType": "character",
-      "title": "ノア Character Master v1",
+      "title": "ノア Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CURRENT",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2648,15 +3588,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "noa",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2664,7 +3605,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-noa-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "6a004f958f8e8d223bafd58db6eb64047372181eb4feb624f91a59f6037efa93",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-noa-design-sheet-01-identity-turnaround-v1",
+          "char-noa-design-sheet-02-face-expression-acting-v1",
+          "char-noa-design-sheet-03-costume-equipment-material-v1",
+          "char-noa-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-noa-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:noa:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2675,19 +3647,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-rum-master-v1",
+      "id": "char-rum-design-master-pack-v1",
       "subjectId": "rum",
       "subjectType": "character",
-      "title": "ルム Character Master v1",
+      "title": "ルム Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "CURRENT",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2703,15 +3676,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "rum",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2719,7 +3693,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-rum-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "c8d635c71295a23495d2f91d26afa62e0d2576dde55134f36f3cbefe4f93c2dd",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-rum-design-sheet-01-identity-turnaround-v1",
+          "char-rum-design-sheet-02-face-expression-acting-v1",
+          "char-rum-design-sheet-03-costume-equipment-material-v1",
+          "char-rum-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-rum-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:rum:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2730,19 +3735,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-maki-master-v1",
+      "id": "char-maki-design-master-pack-v1",
       "subjectId": "maki",
       "subjectType": "character",
-      "title": "マキ Character Master v1",
+      "title": "マキ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2758,15 +3764,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "maki",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2774,7 +3781,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-maki-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "c44282fd05f2283675c447cfc9897180ad72e8651374970ace24a850f2cd9b48",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-maki-design-sheet-01-identity-turnaround-v1",
+          "char-maki-design-sheet-02-face-expression-acting-v1",
+          "char-maki-design-sheet-03-costume-equipment-material-v1",
+          "char-maki-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-maki-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:maki:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2785,19 +3823,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-suzu-master-v1",
+      "id": "char-suzu-design-master-pack-v1",
       "subjectId": "suzu",
       "subjectType": "character",
-      "title": "スズ Character Master v1",
+      "title": "スズ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2813,15 +3852,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "suzu",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2829,7 +3869,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-suzu-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "7b119c11a72a5e44267fa1da7aa6f1cd6e9c9b3bf6c2c5b1286b5ddd67c6d6f0",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-suzu-design-sheet-01-identity-turnaround-v1",
+          "char-suzu-design-sheet-02-face-expression-acting-v1",
+          "char-suzu-design-sheet-03-costume-equipment-material-v1",
+          "char-suzu-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-suzu-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:suzu:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2840,19 +3911,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-io-master-v1",
+      "id": "char-io-design-master-pack-v1",
       "subjectId": "io",
       "subjectType": "character",
-      "title": "イオ Character Master v1",
+      "title": "イオ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2868,15 +3940,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "io",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2884,7 +3957,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-io-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "d6d9dfde930e5adb84aac410116be70893e84f730ac99fa6df18d86268b1ca1d",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-io-design-sheet-01-identity-turnaround-v1",
+          "char-io-design-sheet-02-face-expression-acting-v1",
+          "char-io-design-sheet-03-costume-equipment-material-v1",
+          "char-io-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-io-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:io:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2895,19 +3999,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-kai-master-v1",
+      "id": "char-kai-design-master-pack-v1",
       "subjectId": "kai",
       "subjectType": "character",
-      "title": "カイ Character Master v1",
+      "title": "カイ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2923,15 +4028,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "kai",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2939,7 +4045,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-kai-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "0a95d73463ea86d6ed18d954a9426ede33262bc0e441ba8c91f2de5a96e9068b",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-kai-design-sheet-01-identity-turnaround-v1",
+          "char-kai-design-sheet-02-face-expression-acting-v1",
+          "char-kai-design-sheet-03-costume-equipment-material-v1",
+          "char-kai-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-kai-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:kai:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -2950,19 +4087,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-nao-master-v1",
+      "id": "char-nao-design-master-pack-v1",
       "subjectId": "nao",
       "subjectType": "character",
-      "title": "ナオ Character Master v1",
+      "title": "ナオ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -2978,15 +4116,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "nao",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -2994,7 +4133,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-nao-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "84124c96927d2d7611799bd80e9580767d4abd9b3d70c6c7dc4b90e2ca1d3e2c",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-nao-design-sheet-01-identity-turnaround-v1",
+          "char-nao-design-sheet-02-face-expression-acting-v1",
+          "char-nao-design-sheet-03-costume-equipment-material-v1",
+          "char-nao-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-nao-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:nao:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -3005,19 +4175,20 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
     {
-      "id": "char-amane-master-v1",
+      "id": "char-amane-design-master-pack-v1",
       "subjectId": "amane",
       "subjectType": "character",
-      "title": "アマネ Character Master v1",
+      "title": "アマネ Character Design Master Pack v1",
       "layer": "master",
-      "kind": "character-master",
+      "kind": "character-design-master-pack",
       "authorityStatus": "Future15",
-      "reviewStatus": "needs-generation",
+      "reviewStatus": "needs-authoring",
       "current": false,
       "derivedFrom": [],
       "sourceOfTruth": [
@@ -3033,15 +4204,16 @@
         "character-theme-color-reservoir"
       ],
       "usageTargets": [
-        "lorebook",
-        "gameplay"
+        "lorebook-derived",
+        "gameplay-derived"
       ],
       "tags": [
         "amane",
         "character",
-        "master",
+        "design-master-pack",
         "future15",
-        "reserved-not-generated"
+        "reserved-not-generated",
+        "not-derivative-parent-until-approved"
       ],
       "files": [],
       "replacementPolicy": {
@@ -3049,7 +4221,38 @@
         "replaces": null,
         "supersededBy": null
       },
-      "promptPacketId": null,
+      "masterPack": {
+        "packId": "char-amane-design-master-pack-v1",
+        "packVersion": 1,
+        "packHash": "c5d6d8d47cb981234f3a21207a1414c93a1276917289cbbd45b751b9e290b38a",
+        "requiredSheetRoles": [
+          "identity-turnaround",
+          "face-expression-acting",
+          "costume-equipment-material",
+          "silhouette-motion-derivation"
+        ],
+        "requiredSheetIds": [
+          "char-amane-design-sheet-01-identity-turnaround-v1",
+          "char-amane-design-sheet-02-face-expression-acting-v1",
+          "char-amane-design-sheet-03-costume-equipment-material-v1",
+          "char-amane-design-sheet-04-silhouette-motion-derivation-v1"
+        ],
+        "overviewReadModelId": "char-amane-design-master-overview-v1",
+        "approvalState": "partial-not-approved",
+        "allSheetsHumanApproved": false,
+        "crossSheetConsistencyApproved": false,
+        "packHumanApproved": false,
+        "mayParentDerivatives": false
+      },
+      "lineage": {
+        "authoritySnapshotsRequired": true,
+        "promptReferenceOutputHashesRequired": true,
+        "generatorVersionSeedRequiredWhenAvailable": true,
+        "automaticQaRequired": true,
+        "humanDecisionScopeRequired": true,
+        "rejectLedgerRequired": true
+      },
+      "promptPacketId": "visual-prompt:amane:character-design-master-pack:v1",
       "generationReadiness": {
         "authoritySourcesConnected": true,
         "hasAppearanceContract": true,
@@ -3060,7 +4263,8 @@
         "hasLivingVisualAuthorityBoundary": true,
         "hasMainSilhouetteSource": false,
         "existingReferenceAction": "none",
-        "generationBlockedUntilPromptPacket": true
+        "generationBlockedUntilPromptPacket": true,
+        "turnaroundHumanApprovalRequiredBeforeDependentSheets": true
       },
       "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
     },
