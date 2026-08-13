@@ -1,0 +1,30 @@
+name: All Character Life Choice Visual Gap Audit
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/all-character-life-choice-visual-gap-audit-v1.json'
+      - 'docs/visual/all-character-life-choice-visual-gap-audit-v1.md'
+      - 'scripts/quality/check-all-character-life-choice-visual-gap-audit.ts'
+      - '.github/workflows/all-character-life-choice-visual-gap-audit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/all-character-life-choice-visual-gap-audit-v1.json'
+      - 'docs/visual/all-character-life-choice-visual-gap-audit-v1.md'
+      - 'scripts/quality/check-all-character-life-choice-visual-gap-audit.ts'
+      - '.github/workflows/all-character-life-choice-visual-gap-audit.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify deterministic 36-character life-choice gap audit
+        run: node --experimental-strip-types scripts/quality/check-all-character-life-choice-visual-gap-audit.ts
