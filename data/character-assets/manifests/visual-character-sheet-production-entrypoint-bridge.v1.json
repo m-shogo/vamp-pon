@@ -2,12 +2,17 @@
   "schemaVersion": 1,
   "bridgeId": "yoruno-shirube-character-sheet-production-entrypoint-bridge-v1",
   "status": "BLOCKED_UNTIL_LATEST_MAIN_SYNC_AND_ADAPTER_IMPLEMENTATION",
-  "purpose": "Prevent Character Design Sheet 01-04 generation from bypassing the single production character prompt exporter and the newer readiness/feedback/color/cross-asset identity authority chain added on main after this inventory branch diverged.",
+  "purpose": "Prevent Character Design Sheet 01-04 generation from bypassing the single production character prompt exporter and every later readiness/review/fidelity authority added on main after this inventory branch diverged.",
+  "observedLatestMain": {
+    "sha": "6a67d967a2658b2cc411c16cd24ad61b4b5fe8a9",
+    "throughPullRequest": 323,
+    "mustRecheckImmediatelyBeforeSyncOrGeneration": true
+  },
   "existingInventoryPacket": {
     "path": "data/character-assets/manifests/visual-character-prompt-packets.v1.json",
     "state": "DRAFT_NOT_APPROVED_NOT_GENERATED",
     "mayBeUsedDirectlyForProductionImageGeneration": false,
-    "reason": "Its authority snapshots predate the mandatory production exporter chain now present on main."
+    "reason": "Its authority snapshots predate the mandatory single production exporter and later fidelity authorities now present on main."
   },
   "latestMainRequirementsToIntegrate": [
     {
@@ -29,42 +34,115 @@
     {
       "source": "PR #317",
       "requirement": "Character identity must remain stable across reference, sprite, cut-in, Dawn/Kokuyou and emblem-adjacent asset kinds under a simplification hierarchy."
+    },
+    {
+      "source": "PR #318",
+      "requirement": "Cross-asset fidelity review is fail-closed: identity-critical species/age/body, face, mass/proportion/mobility equipment, head/hair, silhouette/posture and clothing/exposure axes cannot be rescued by a high weighted score."
+    },
+    {
+      "source": "PR #319",
+      "requirement": "Candidate fidelity review packets/evaluation produce system recommendations only; automation may not impersonate reviewer verdict or create authority/recurrence directives."
+    },
+    {
+      "source": "PR #320",
+      "requirement": "Expression, cut-in intensity and state changes must preserve base face geometry and age coding; Dawn/Kokuyou may not rebuild the face."
+    },
+    {
+      "source": "PR #321",
+      "requirement": "Perspective/foreshortening/motion may not redesign body mass, limb thickness, head/body proportions, clothing anchors, exposure, prop scale or mobility equipment."
+    },
+    {
+      "source": "PR #322",
+      "requirement": "Hands/paws/manipulators, props, storage and mobility equipment require physically coherent contact/load paths; unknown dominant hand stays OPEN_DO_NOT_INVENT."
+    },
+    {
+      "source": "PR #323",
+      "requirement": "Weather/environment effects must act causally on authorized materials/body/props without inventing wardrobe, exposure or magical decoration; unknown environment defaults to neutral physically plausible minimal effect."
     }
   ],
   "requiredPostSyncArchitecture": {
     "productionCharacterPromptExporter": "tools/asset-factory/scripts/export-production-character-design-prompt.ts",
     "sheetAdapterRequired": true,
-    "sheetAdapterPurpose": "Start from the production-ready resolved character prompt/authority chain, then add only Sheet-role-specific composition and QA constraints without replacing or weakening upstream identity/color/garment/light/world/acting/feedback/readiness guards.",
+    "sheetAdapterPurpose": "Start from the latest production-ready resolved character prompt/authority chain, then add only Sheet-role-specific composition and QA constraints without replacing or weakening upstream identity/color/garment/light/world/acting/feedback/readiness/expression/motion/contact/environment guards.",
     "sheetRoles": [
       "identity-turnaround",
       "face-expression-acting",
       "costume-equipment-material",
       "silhouette-motion-derivation"
     ],
+    "requiredFidelityLayers": [
+      "identity",
+      "garment",
+      "night-light",
+      "world-material",
+      "embodied-acting",
+      "readiness",
+      "feedback-recurrence",
+      "color",
+      "cross-asset-consistency",
+      "cross-asset-review",
+      "expression-fidelity",
+      "motion-perspective-fidelity",
+      "hand-contact-fidelity",
+      "environment-weather-fidelity"
+    ],
     "handWrittenPromptMayBeProductionReady": false,
     "lowerExporterMayBeProductionReady": false,
     "sheetSpecificPromptMayCreateCanon": false,
     "generatedSheetMayCreateCanon": false,
     "candidateReviewMayAutoCreateGlobalRule": false,
+    "systemReviewRecommendationMayEqualHumanApproval": false,
     "humanReviewRequired": true
   },
-  "sheet01AdditionalHardConstraints": [
+  "sheetRoleBoundaries": {
+    "identity-turnaround": [
+      "same-scale-front-anatomical-left-anatomical-right-back",
+      "same-face-body-clothing-equipment-topology-across-views",
+      "anatomical-coordinate-system-not-viewer-side-substitution",
+      "no-uncorrected-mirror-for-asymmetric-assets",
+      "neutral-inspection-pose-does-not-create-signature-pose"
+    ],
+    "face-expression-acting": [
+      "base-face-invariant-from-expression-fidelity",
+      "expression-deforms-soft-tissue-not-identity-geometry",
+      "no-common-anime-expression-face",
+      "candidate-expression-does-not-create-character-emotional-canon"
+    ],
+    "costume-equipment-material": [
+      "garment-construction-and-storage-authority",
+      "hand-contact-and-load-path-proof",
+      "weather-material-response-reference",
+      "no-invented-pocket-strap-closure-jewelry-or-exposure",
+      "named-object-geometry-remains-separate-authority"
+    ],
+    "silhouette-motion-derivation": [
+      "motion-perspective-fidelity",
+      "embodied-posture-boundary",
+      "prop-scale-and-contact-continuity",
+      "no-dynamic-pose-body-redesign",
+      "derived-motion-does-not-create-new-identity"
+    ]
+  },
+  "yuiSheet01AdditionalHardConstraints": [
     "four same-scale full-body views: front, anatomical-left, anatomical-right, back",
     "one canonical anatomical coordinate system; do not substitute viewer-left/right for body-left/right",
     "lantern remains anatomical RIGHT hand when carried",
     "paper remains anatomical LEFT hand when carried",
     "strap remains anatomical RIGHT shoulder to anatomical LEFT waist",
     "bag remains anatomical LEFT waist",
+    "dominant hand remains OPEN_NO_SOURCE and may not be inferred from held-item hand",
     "no mirrored duplicate profile",
     "same face/body/clothing/equipment topology across all four views",
     "Yui bilateral smile dimples remain an identity requirement rather than optional decoration"
   ],
   "mergeGate": {
     "syncLatestMainFirst": true,
+    "latestMainMustBeRecheckedAtExecutionTime": true,
     "implementSheetAdapter": true,
     "reexportAll36PromptPackets": true,
     "invalidateOldAuthorityHashes": true,
     "rerunVisualCI": true,
+    "rerunCrossAssetReviewTooling": true,
     "imageGenerationAllowedBeforeGatePass": false
   }
 }
