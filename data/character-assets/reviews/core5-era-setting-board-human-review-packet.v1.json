@@ -12,6 +12,7 @@
     "executionQueue": "data/character-assets/manifests/core5-era-setting-board-execution-queue.v1.json",
     "productionContract": "data/visual/core5-era-setting-board-production-contract-v1.json",
     "evidencePackets": "data/visual/core5-era-setting-board-evidence-packets-v1.json",
+    "crossEraDistinctionMatrix": "data/visual/core5-cross-era-life-system-distinction-matrix-v1.json",
     "boardDirectory": "data/visual/setting-boards"
   },
   "reviewScale": {
@@ -28,6 +29,11 @@
     {
       "id": "ERA_SYSTEM_READABILITY",
       "question": "Can the era difference be understood from ordinary systems, access, repair, transport, records, provisioning and friction rather than clothing or nostalgia alone?",
+      "blocking": true
+    },
+    {
+      "id": "CROSS_ERA_DISTINCTNESS",
+      "question": "If character faces and clothing were hidden, would this board still be distinguishable from the other four eras through communication, movement, shopping, repair, exchange, privacy, household access, task friction and material infrastructure?",
       "blocking": true
     },
     {
@@ -56,14 +62,16 @@
     "E02 compares communication, transport/navigation, shopping/availability, repair/replacement and privacy/records.",
     "E03 contains reusable ordinary prop/material evidence rather than decorative period props.",
     "E04 shows at least two kinds of human use/friction without turning hardship into personality shorthand.",
-    "E05 keeps source/research/open boundaries legible."
+    "E05 keeps source/research/open boundaries legible.",
+    "The board remains era-identifiable when costume, face and hero props are mentally removed."
   ],
   "populationHouseholdSpecificReview": [
     "P01 contains all six population lenses without implying literal family membership.",
     "P02 shows at least three non-identical household/access situations.",
     "P03 distributes at least four ordinary task categories without father/work mother/housework shorthand.",
     "P04 compares at least three system-access axes.",
-    "P05 explicitly states that the board does not define the Core5 character's literal family/address/partner/children."
+    "P05 explicitly states that the board does not define the Core5 character's literal family/address/partner/children.",
+    "Population differences reinforce the era system without making one household structure representative of the era."
   ],
   "hardVetoes": [
     "board silently fixes an exact historical year that is OPEN",
@@ -71,6 +79,7 @@
     "board copies a real tragedy/incident into fictional Story authority",
     "board presents a future research trajectory as proven future fact",
     "board relies primarily on costume, sepia, neon, device stereotype or decorative signage to communicate era",
+    "board becomes indistinguishable from another Core5 era when faces, costume and hero props are ignored",
     "board uses a generated candidate image as historical, family or Story authority",
     "board removes OPEN/source labels for visual cleanliness",
     "board claims Human approval, Master approval or runtime approval before explicit review"
