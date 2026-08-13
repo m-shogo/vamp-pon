@@ -40,12 +40,13 @@ assert(sakuyazaCallNames.length === 8, 'Current alias call-name count drift');
 
 const enemyId = sakuyazaCallNames[0].enemyId;
 let state = createEmptySakuyazaRelationMemoryState(enemyId, 'yui');
-for (const [index, kind] of [
+const migrationEvents = [
   'FIRST_ENCOUNTER_SEEN',
   'CALL_NAME_OBSERVED',
   'PAST_FRAGMENT_OBSERVED',
   'REINTERPRETATION_BEAT_SEEN',
-] as const satisfies readonly ['FIRST_ENCOUNTER_SEEN', 'CALL_NAME_OBSERVED', 'PAST_FRAGMENT_OBSERVED', 'REINTERPRETATION_BEAT_SEEN']) {
+] as const;
+for (const [index, kind] of migrationEvents.entries()) {
   state = applySakuyazaEncounterMemoryEvent(state, {
     eventId: `migration-check-${index}`,
     enemyId,
