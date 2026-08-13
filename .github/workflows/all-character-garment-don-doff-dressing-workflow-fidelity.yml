@@ -1,0 +1,34 @@
+name: All Character Garment Don Doff Dressing Workflow Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md'
+      - 'data/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.json'
+      - 'docs/visual/character-production-generation-entrypoint-v2.md'
+      - 'data/visual/character-production-generation-entrypoint-v2.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-dressing-workflow-locked-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-garment-don-doff-dressing-workflow-fidelity.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/all-character-garment-don-doff-dressing-workflow-fidelity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md'
+      - 'data/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.json'
+      - 'docs/visual/character-production-generation-entrypoint-v2.md'
+      - 'data/visual/character-production-generation-entrypoint-v2.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-dressing-workflow-locked-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-garment-don-doff-dressing-workflow-fidelity.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/all-character-garment-don-doff-dressing-workflow-fidelity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate dressing workflow authority for all 36 characters
+        run: node --experimental-strip-types scripts/quality/check-all-character-garment-don-doff-dressing-workflow-fidelity.ts

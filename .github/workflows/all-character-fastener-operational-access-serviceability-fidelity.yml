@@ -1,0 +1,34 @@
+name: All Character Fastener Operational Access Serviceability Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.md'
+      - 'data/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.json'
+      - 'docs/visual/character-production-generation-entrypoint-v4.md'
+      - 'data/visual/character-production-generation-entrypoint-v4.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-operational-access-locked-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-fastener-operational-access-serviceability-fidelity.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/all-character-fastener-operational-access-serviceability-fidelity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.md'
+      - 'data/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.json'
+      - 'docs/visual/character-production-generation-entrypoint-v4.md'
+      - 'data/visual/character-production-generation-entrypoint-v4.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-operational-access-locked-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-fastener-operational-access-serviceability-fidelity.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/all-character-fastener-operational-access-serviceability-fidelity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate fastener operational access and serviceability authority for all 36 characters
+        run: node --experimental-strip-types scripts/quality/check-all-character-fastener-operational-access-serviceability-fidelity.ts

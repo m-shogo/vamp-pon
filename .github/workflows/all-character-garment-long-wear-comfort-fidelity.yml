@@ -1,0 +1,34 @@
+name: All Character Garment Long Wear Comfort Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.md'
+      - 'data/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.json'
+      - 'docs/visual/character-production-generation-entrypoint-v3.md'
+      - 'data/visual/character-production-generation-entrypoint-v3.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-long-wear-comfort-locked-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-garment-long-wear-comfort-fidelity.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/all-character-garment-long-wear-comfort-fidelity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.md'
+      - 'data/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.json'
+      - 'docs/visual/character-production-generation-entrypoint-v3.md'
+      - 'data/visual/character-production-generation-entrypoint-v3.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-long-wear-comfort-locked-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-garment-long-wear-comfort-fidelity.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/all-character-garment-long-wear-comfort-fidelity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate long-wear comfort authority for all 36 characters
+        run: node --experimental-strip-types scripts/quality/check-all-character-garment-long-wear-comfort-fidelity.ts
