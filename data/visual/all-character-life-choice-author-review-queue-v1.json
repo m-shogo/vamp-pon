@@ -1,0 +1,35 @@
+{
+  "id": "yoru-no-shirube-all-character-life-choice-author-review-queue-v1",
+  "date": "2026-08-14",
+  "status": "DERIVED_AUTHOR_REVIEW_QUEUE_NON_CANON",
+  "sourceAudit": "data/visual/all-character-life-choice-visual-gap-audit-v1.json",
+  "sourceAuditSha256": "2c456ac38b98dfc1d38b19cb52bdab84e1c5d753bf5339af785f0150b6fb7e4c",
+  "scopeCount": 36,
+  "safety": {
+    "requiresHumanDecision": true,
+    "canonPromotionBlocked": true,
+    "imageModelFreedom": false,
+    "generatedImageMayCloseItem": false,
+    "candidateGenerationPolicy": "MAY_USE_DOMAIN_UNRESOLVED_DEFAULT_ONLY"
+  },
+  "core5": ["yui", "asa", "nagi", "michiru", "tomori"],
+  "domainPriority": {
+    "bodyAdornment": "P0",
+    "skinCoverage": "P0",
+    "personalGrooming": "P1",
+    "footwearGroundInterface": "P1",
+    "accessoryPropInventory": "P2",
+    "materialWearMaintenance": "P2"
+  },
+  "summary": {
+    "core5ReviewItemCount": 30,
+    "countsByPriority": {"P0": 10, "P1": 10, "P2": 10},
+    "profileExpansionBacklogCount": 2,
+    "profileExpansionCharacterCount": 31,
+    "profileExpansionDecisionCount": 186
+  },
+  "profileExpansionBacklog": [
+    {"id":"PROFILE_GAP_CURRENT_ROSTER","backlogTier":"P3_CURRENT_ROSTER_PROFILE_EXPANSION","sourceProfile":"data/visual/current21-extended-living-visual-profiles-v1.json","characterCount":16,"unresolvedDecisionCount":96},
+    {"id":"PROFILE_GAP_FUTURE_ROSTER","backlogTier":"P4_FUTURE_ROSTER_PROFILE_EXPANSION","sourceProfile":"data/visual/future15-living-visual-profiles-v1.json","characterCount":15,"unresolvedDecisionCount":90}
+  ]
+}
