@@ -56,6 +56,7 @@ on:
       - 'scripts/quality/check-sakuyaza-legacy-migration.ts'
       - 'scripts/quality/check-visual-pre-game-fixed-master-rows.ts'
       - 'scripts/quality/check-visual-pre-game-source-master-inventory.ts'
+      - 'scripts/quality/check-visual-existing-top-loading-reuse-audit.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
   push:
@@ -114,6 +115,7 @@ on:
       - 'scripts/quality/check-sakuyaza-legacy-migration.ts'
       - 'scripts/quality/check-visual-pre-game-fixed-master-rows.ts'
       - 'scripts/quality/check-visual-pre-game-source-master-inventory.ts'
+      - 'scripts/quality/check-visual-existing-top-loading-reuse-audit.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
 
@@ -146,6 +148,8 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-visual-pre-game-fixed-master-rows.ts
       - name: Validate source-derived pre-game master rows
         run: node --experimental-strip-types scripts/quality/check-visual-pre-game-source-master-inventory.ts
+      - name: Validate existing TOP and Loading reuse classification
+        run: node --experimental-strip-types scripts/quality/check-visual-existing-top-loading-reuse-audit.ts
       - name: Validate dynamic Gunjo visual subject admission
         run: node --experimental-strip-types scripts/quality/check-visual-gunjo-subject-admission.ts
       - name: Validate Story authority visual coverage gaps
