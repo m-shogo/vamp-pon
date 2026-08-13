@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "assetId": "era-michiru-population-household-reference-master-v1",
+  "status": "EDITABLE_SETTING_BOARD_SPEC_AUTHORED_HUMAN_REVIEW_REQUIRED_NO_RASTER",
+  "characterId": "michiru",
+  "boardType": "POPULATION_HOUSEHOLD",
+  "eraBand": "late_high_growth_pollution_oil_shock",
+  "exactYearState": "OPEN",
+  "literalFamilyCanonCreated": false,
+  "authoritySources": ["data/visual/core5-era-life-design-master-v1.json","data/visual/core5-era-population-household-authoring-brief-v1.json","data/visual/core5-era-setting-board-production-contract-v1.json","data/visual/core5-era-setting-board-evidence-packets-v1.json"],
+  "panels": [
+    {"id":"P01-six-population-lenses","content":["child","teen-or-young-adult","parent-age adult","older adult","non-parent aunt/uncle-like adult","non-nuclear household example"]},
+    {"id":"P02-household-system-variation","content":["household benefiting from newer infrastructure/products","household facing price/energy or pollution-related friction","mixed-generation/non-nuclear household balancing old routes/practices with new convenience"]},
+    {"id":"P03-ordinary-task-distribution","content":["shopping/provisioning","commute/school travel","care","route planning","household energy use","record/signage interpretation"]},
+    {"id":"P04-system-access-differences","content":["rail/road access","new-product/appliance access","energy/price sensitivity","exposure to environmental friction","ability to change route or residence"]},
+    {"id":"P05-not-literal-family-boundary","content":"These are population-study composites. They do not define Michiru's parents, siblings, grandparents, partner, children, address or literal household."}
+  ],
+  "forbiddenShortcuts": ["father_equals_work_only","mother_equals_housework_only","grandparent_equals_wisdom_only","child_equals_pure_truth_only","everyone_is_activist","one_household_is_whole_era","family_photo_implies_literal_character_family"],
+  "openFields": ["exact year","exact city/development district","exact household composition","specific appliance penetration","specific pollution event","specific products/brands"],
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "masterApproval": false,
+  "runtimeApproval": false
+}
