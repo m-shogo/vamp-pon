@@ -19,16 +19,18 @@ const evidenceIds = new Set((evidence.packets ?? []).map((entry: any) => entry.c
 const envPanels = contract.boardFamilies.environment.requiredPanels.map((entry: any) => entry.id);
 const popPanels = contract.boardFamilies.populationHousehold.requiredPanels.map((entry: any) => entry.id);
 
-assert(queue.schemaVersion === 1, 'Core5 execution queue schemaVersion drift');
-assert(queue.status === 'BRIEF_AND_EVIDENCE_READY_SETTING_BOARDS_NOT_AUTHORED', 'Core5 execution queue must remain pre-authoring');
+assert(queue.schemaVersion === 2, 'Core5 execution queue schemaVersion must be 2 after spec authoring');
+assert(queue.status === 'ALL_TEN_EDITABLE_SETTING_BOARD_SPECS_AUTHORED_HUMAN_REVIEW_PENDING_NO_RASTER', 'Core5 execution queue authored state drift');
 assert(queue.counts?.environment === 5 && queue.counts?.populationHousehold === 5 && queue.counts?.total === 10, 'Core5 execution queue count drift');
 assert(queue.counts?.briefReady === 10 && queue.counts?.evidenceReady === 10, 'all ten Core5 entries must remain brief/evidence ready');
-assert(queue.counts?.editableBoardAuthored === 0 && queue.counts?.humanApproved === 0 && queue.counts?.rasterAuthority === 0, 'Core5 queue may not claim authored/approved/raster boards yet');
+assert(queue.counts?.editableBoardSpecAuthored === 10, 'all ten editable setting-board specs must be authored');
+assert(queue.counts?.humanApproved === 0 && queue.counts?.rasterAuthority === 0, 'Core5 queue may not claim Human approval or raster authority');
 
 for (const [key, expected] of Object.entries({
   reuseExistingStableAssetIds: true,
   newDuplicateAssetIdAllowed: false,
   briefOrEvidencePacketCountsAsCompletedBoard: false,
+  editableSpecCountsAsHumanApprovedMaster: false,
   settingBoardMustFollowProductionContract: true,
   exactOpenFieldsMayNotBeInvented: true,
   generatedImageMayOnlyBeCandidateEvidence: true,
@@ -44,7 +46,7 @@ assert(Array.isArray(queue.entries) && queue.entries.length === 10, 'Core5 execu
 const ids = queue.entries.map((entry: any) => entry.assetId);
 assert(new Set(ids).size === 10, 'Core5 execution queue asset IDs must be unique');
 const paths = queue.entries.map((entry: any) => entry.plannedEditableBoardPath);
-assert(new Set(paths).size === 10, 'Core5 planned editable board paths must be unique');
+assert(new Set(paths).size === 10, 'Core5 editable board paths must be unique');
 
 for (const entry of queue.entries as any[]) {
   const fixedRow = fixedById.get(entry.assetId) as any;
@@ -52,10 +54,13 @@ for (const entry of queue.entries as any[]) {
   assert(fixedRow.familyId === entry.familyId, `${entry.assetId}: familyId drift from fixed registry`);
   assert(fixedRow.generationAllowed === false, `${entry.assetId}: fixed registry generation must remain blocked`);
   assert(evidenceIds.has(entry.characterId), `${entry.assetId}: character evidence packet missing`);
-  assert(entry.currentState === 'BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED', `${entry.assetId}: may not claim authored board`);
+  assert(entry.currentState === 'EDITABLE_SETTING_BOARD_SPEC_AUTHORED_HUMAN_REVIEW_PENDING', `${entry.assetId}: authored state drift`);
   assert(entry.imageGenerationAuthorized === false, `${entry.assetId}: queue may not authorize image generation`);
   assert(entry.humanReviewRequired === true, `${entry.assetId}: Human review gate missing`);
   assert(typeof entry.plannedEditableBoardPath === 'string' && entry.plannedEditableBoardPath.endsWith(`${entry.assetId}.json`), `${entry.assetId}: editable board path must preserve stable Asset ID`);
+  const board = JSON.parse(readFileSync(entry.plannedEditableBoardPath, 'utf8'));
+  assert(board.assetId === entry.assetId, `${entry.assetId}: authored board missing or wrong ID`);
+  assert(board.masterApproval === false && board.runtimeApproval === false, `${entry.assetId}: authored spec may not self-promote`);
   if (entry.characterId === 'yui') {
     assert(entry.exactYearState === '2026_CURRENT', `${entry.assetId}: Yui must preserve 2026 Current state`);
   } else {
@@ -79,8 +84,8 @@ const fixedPopulationIds = fixed.masters.filter((entry: any) => entry.familyId =
 assert(JSON.stringify([...queueEnvironmentIds].sort()) === JSON.stringify([...fixedEnvironmentIds].sort()), 'environment queue must reuse exactly the five fixed stable IDs');
 assert(JSON.stringify([...queuePopulationIds].sort()) === JSON.stringify([...fixedPopulationIds].sort()), 'population queue must reuse exactly the five fixed stable IDs');
 
-assert(queue.nextGate?.action === 'AUTHOR_EDITABLE_SETTING_BOARD_FROM_CURRENT_BRIEF_CONTRACT_AND_EVIDENCE', 'Core5 next gate drift');
-assert(queue.nextGate?.mayUseGeneratedCandidateEvidence === true, 'candidate evidence may remain available for later authoring');
+assert(queue.nextGate?.action === 'HUMAN_REVIEW_EDITABLE_SETTING_BOARD_SPECS_THEN_AUTHOR_VISUAL_REFERENCE_EVIDENCE', 'Core5 next gate drift');
+assert(queue.nextGate?.mayUseGeneratedCandidateEvidence === true, 'candidate evidence may remain available later');
 assert(queue.nextGate?.mayTreatGeneratedCandidateAsAuthority === false, 'generated candidate may never become authority automatically');
 assert(queue.nextGate?.mustPreserveStableAssetId === true, 'Core5 board authoring must preserve stable Asset IDs');
 assert(queue.nextGate?.mustKeepOpenFieldsVisible === true, 'Core5 board authoring must keep OPEN fields visible');
@@ -93,8 +98,8 @@ console.log(JSON.stringify({
   environmentEntries: queueEnvironmentIds.length,
   populationHouseholdEntries: queuePopulationIds.length,
   stableIdsReused: 10,
-  duplicateAssetIds: 0,
-  editableBoardsAuthored: queue.counts.editableBoardAuthored,
+  editableBoardSpecsAuthored: queue.counts.editableBoardSpecAuthored,
   humanApproved: queue.counts.humanApproved,
+  rasterAuthority: queue.counts.rasterAuthority,
   imageGenerationAuthorized: false,
 }, null, 2));
