@@ -1,0 +1,57 @@
+{
+  "id": "yoru-no-shirube-all-character-fastener-operational-access-serviceability-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.md",
+  "unknownOperationalAccessDefault": "SOURCE_CONSTRAINED_NEUTRAL_OPERATIONAL_ACCESS_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedOperationalAccessCreatesCanon": false
+  },
+  "operationalAxes": [
+    "closureOperationFamily", "operationDirection", "operationTravelDistance", "operationForceFamily", "gripSurfaceSize", "pinchSurfaceSize", "pullTabSize", "pullTabThickness", "buttonDiameterFamily", "buttonProjection", "buttonholeClearance", "snapDiameterSeatingDepth", "hookEyeAccessClearance", "buckleFrameSize", "buckleTongueAccess", "buckleStrapThreadingClearance", "lacingEyeletSpacing", "laceEndAccess", "drawcordEndAccess", "drawcordChannelResistance", "knotAccess", "zipperPullAccess", "zipperSliderClearance", "zipperStartAlignment", "zipperEndStopVisibility", "twoSidedClosureAlignment", "closureVerificationVisibility", "closureTactileVerificationPlausibility", "frontTorsoReachEnvelope", "sideTorsoReachEnvelope", "rearTorsoReachEnvelope", "shoulderReachEnvelope", "neckReachEnvelope", "waistReachEnvelope", "hipReachEnvelope", "thighReachEnvelope", "ankleReachEnvelope", "footwearReachEnvelope", "seatedReachEnvelope", "standingReachEnvelope", "crouchedReachEnvelope", "oneHandStabilizationNeed", "twoHandStabilizationNeed", "oppositeHandStabilizationNeed", "handInsertionClearance", "fingerInsertionClearance", "thumbOppositionClearance", "wristAngleClearance", "forearmApproachClearance", "sleeveCuffInterference", "authorizedGloveInterference", "sourceBackedNailJewelryInterference", "hairInterference", "headwearInterference", "bagStrapInterference", "layerInterference", "mobilityEquipmentInterference", "wheelchairArmrestFrameInterference", "prostheticOrthoticInterference", "assistiveDeviceInterference", "pocketOpeningWidth", "pocketOpeningOrientation", "pocketDepthRetrievalPath", "pocketObjectScaleCompatibility", "pocketHandAccessClearance", "pocketSeatedAccessClearance", "pocketLoadRetention", "storageReturnPath", "strapAdjustmentAccess", "beltAdjustmentAccess", "harnessAdjustmentAccess", "authorizedEmergencyReleaseStatus", "inspectionVisibility", "cleaningAccess", "repairAccess", "stitchSeamRepairAccess", "fastenerReplacementAccess", "buttonReplacementAccess", "zipperReplacementAccess", "buckleReplacementAccess", "strapReplacementAccess", "hardwareAttachmentExposure", "sourceBackedToolAccess", "partRemovalPath", "replacementPartInsertionPath", "serviceClearance", "reassemblyVerification", "operationalUncertaintyClass"
+  ],
+  "operationalInvariants": [
+    "functional hardware has finite operable geometry", "controls remain within plausible reach without body redesign", "closures do not move for convenience", "pockets do not move for convenience", "hands are not resized for operation", "arms are not lengthened for reach", "wheelchair geometry is not removed for reach", "assistive equipment is not removed for reach", "handedness is not invented", "dexterity impairment is not invented", "helper use is not invented", "adaptive mechanisms are not invented", "zipper pulls remain grippable where authored", "zipper starts remain alignable", "buttons retain manipulation clearance", "snaps retain seating logic", "buckles retain strap threading clearance", "lacing retains finger access", "drawcord ends remain accessible when adjustable", "pocket openings admit intended object scale", "pocket access preserves real opening topology", "strap adjustment retains load path", "authorized gloves and sleeves remain part of operation", "seated reach respects seat geometry", "wheelchair operation respects frame and armrests", "prosthetic orthotic interactions remain source constrained", "serviceability does not invent removable construction", "cleaning access does not invent habits", "operation force does not become pain storytelling", "premium does not add unusable micro controls", "premium does not relocate controls for elegance", "LOD preserves functional topology", "chibi preserves major access topology", "sprite preserves major access topology", "generated operation method remains candidate only", "generated serviceability never creates canon"
+  ],
+  "preservationPriority": [
+    "authorizedBodyMobilityAndReach", "existingGarmentHardwareTopology", "closureAndPocketLocation", "controlGripGeometry", "operationDirectionAndTravel", "layerGloveAndHairInterference", "seatedWheelchairEquipmentInterference", "pocketStorageRetrievalPath", "strapBuckleAdjustmentLogic", "inspectionRepairReplacementAccess", "operationVerification", "microHardwarePolish"
+  ],
+  "forbiddenShortcuts": [
+    "enlargeHandsToOperateHardware", "shrinkHandsToEnterPocket", "lengthenArmsForReach", "shrinkTorsoForReach", "moveClosureForReach", "movePocketForReach", "rotatePocketAroundBody", "removeWheelchairArmrestForReach", "shrinkWheelchairForReach", "removeAssistiveDeviceForReach", "hiddenHelperAssumed", "handednessInvented", "reducedDexterityInvented", "tremorInvented", "gripWeaknessInvented", "painInventedFromOperation", "adaptiveFastenerInvented", "enlargedPullInvented", "magneticClosureInvented", "velcroLikeClosureInvented", "quickReleaseInvented", "elasticLoopInvented", "hiddenAccessPanelInvented", "toolFreeReleaseInvented", "zipperPullTooSmallToGrip", "zipperStartImpossibleToAlign", "zipperClosedWhileMisaligned", "buttonWithoutManipulationClearance", "buttonSecureWithoutReceivingHole", "snapEngagedWhileSeparated", "buckleWithoutStrapThreadingClearance", "buckleTongueInaccessible", "lacingWithoutFingerAccess", "drawcordAdjustableWithoutAccessibleEnds", "pocketOpeningTooSmallForIntendedObject", "pocketOpeningTooSmallForIntendedHandAccess", "invisiblePocketOpening", "decorativePatchBecomesPocket", "pocketObjectShrunkForRetrieval", "pocketHandShrunkForRetrieval", "strapTailMissingDespiteAdjustment", "adjustmentTravelPassesThroughBody", "adjustmentTravelPassesThroughSolidHardware", "loadedStrapAdjustedWithoutLoadLogic", "gloveIgnoredDuringOperation", "sleeveBulkIgnoredDuringOperation", "hairClipsThroughFastenerOperation", "seatedReachIgnoresSeatGeometry", "wheelchairFrameIgnoredDuringOperation", "prostheticOrthoticRoutineInvented", "serviceScrewInvented", "removableLiningInvented", "modularPartInvented", "replacementPanelInvented", "cleaningHabitInvented", "maintenancePersonalityInvented", "premiumAddsMicroJewelledClasp", "premiumAddsDecorativeBuckles", "premiumAddsExtraZipperPull", "premiumShrinksControlsForElegance", "premiumMovesFastenerToBackForElegance", "lodErasesClosureType", "chibiErasesPocketOpening", "spriteErasesStrapBuckleRelation", "effectGlowHidesInoperableHardware", "generatedOperationMethodCreatesCanon", "generatedServiceabilityCreatesCanon", "gloveSizedControlInventedWithoutAuthority", "oneHandedOperationInvented", "twoHandedDependencyInventedAsCharacterFact", "caregiverUseInvented", "occupationalSkillInvented", "emergencyReleaseInvented", "hardwareDuplicatedForSymmetry", "controlMirroredAcrossBodyWithoutAuthority"
+  ],
+  "rules": {
+    "unknownOperationalAccessMayBeInventedByImageModel": false,
+    "bodyMayBeResizedForOperationalAccess": false,
+    "closureMayMoveForOperationalAccess": false,
+    "pocketMayMoveForOperationalAccess": false,
+    "handednessMayBeInferred": false,
+    "dexterityImpairmentMayBeInferred": false,
+    "helperUseMayBeInferred": false,
+    "adaptiveFastenerMayBeInvented": false,
+    "gripAidMayBeInvented": false,
+    "magneticOrQuickReleaseMechanismMayBeInvented": false,
+    "gloveCompatibleControlMayBeInventedWithoutAuthority": false,
+    "oneHandedOperationMayBeInventedAsCharacterTrait": false,
+    "pocketOpeningMayBeEnlargedForAccess": false,
+    "storedObjectMayBeRescaledForRetrieval": false,
+    "wheelchairGeometryMayBeRemovedForReach": false,
+    "assistiveDeviceMayBeRemovedForReach": false,
+    "prostheticOrthoticRoutineMayBeInvented": false,
+    "serviceHardwareMayBeInvented": false,
+    "removablePanelMayBeInventedForService": false,
+    "cleaningHabitMayBeInferred": false,
+    "maintenancePersonalityMayBeInferred": false,
+    "operationForceMayCreatePainNarrative": false,
+    "premiumMayAddDecorativeFunctionalHardware": false,
+    "premiumMayShrinkControlsForElegance": false,
+    "premiumMayRelocateFastenersForElegance": false,
+    "lodMayEraseFunctionalTopology": false,
+    "chibiMayEraseFunctionalTopology": false,
+    "spriteMayEraseFunctionalTopology": false,
+    "generatedOperationalAccessCreatesCanon": false
+  }
+}
