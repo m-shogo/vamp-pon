@@ -1,0 +1,32 @@
+name: Character Image Generation Readiness Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/character-image-generation-readiness-master-v1.md'
+      - 'data/visual/character-image-generation-readiness-master-v1.json'
+      - 'tools/asset-factory/scripts/export-final-character-design-prompt.ts'
+      - 'scripts/quality/check-character-image-generation-readiness-master.ts'
+      - '.github/workflows/character-image-generation-readiness-master.yml'
+      - 'data/visual/*living-visual-profiles-v1.json'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/character-image-generation-readiness-master-v1.md'
+      - 'data/visual/character-image-generation-readiness-master-v1.json'
+      - 'tools/asset-factory/scripts/export-final-character-design-prompt.ts'
+      - 'scripts/quality/check-character-image-generation-readiness-master.ts'
+      - '.github/workflows/character-image-generation-readiness-master.yml'
+      - 'data/visual/*living-visual-profiles-v1.json'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate 36/36 image-generation readiness
+        run: node --experimental-strip-types scripts/quality/check-character-image-generation-readiness-master.ts
