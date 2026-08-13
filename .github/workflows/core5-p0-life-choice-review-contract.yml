@@ -1,0 +1,35 @@
+name: Core5 P0 Life Choice Review Contract
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/all-character-life-choice-author-review-queue-v1.json'
+      - 'data/visual/core5-p0-life-choice-review-contract-v1.json'
+      - 'docs/visual/core5-p0-life-choice-review-contract-v1.md'
+      - 'scripts/quality/build-core5-p0-life-choice-review-contract.ts'
+      - 'scripts/quality/check-core5-p0-life-choice-review-contract.ts'
+      - '.github/workflows/core5-p0-life-choice-review-contract.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/all-character-life-choice-author-review-queue-v1.json'
+      - 'data/visual/core5-p0-life-choice-review-contract-v1.json'
+      - 'docs/visual/core5-p0-life-choice-review-contract-v1.md'
+      - 'scripts/quality/build-core5-p0-life-choice-review-contract.ts'
+      - 'scripts/quality/check-core5-p0-life-choice-review-contract.ts'
+      - '.github/workflows/core5-p0-life-choice-review-contract.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Derive Core5 P0 review contract
+        run: node --experimental-strip-types scripts/quality/build-core5-p0-life-choice-review-contract.ts --emit
+      - name: Validate materialized contract when present
+        run: |
+          if [ -f scripts/quality/check-core5-p0-life-choice-review-contract.ts ]; then
+            node --experimental-strip-types scripts/quality/check-core5-p0-life-choice-review-contract.ts
+          fi
