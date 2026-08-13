@@ -1,10 +1,12 @@
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
+import { CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT } from '../../../src/game/data/characterReferenceProductionEntrypoint.ts';
 
 const BRIDGE_PATH = 'data/character-assets/manifests/visual-character-sheet-production-entrypoint-bridge.v1.json';
-const PARENT_POLICY_PATH = 'data/visual/character-production-generation-entrypoint-v1.json';
-const PARENT_EXPORTER = 'tools/asset-factory/scripts/export-production-character-design-prompt.ts';
+const PARENT_ENTRYPOINT_SOURCE = 'src/game/data/characterReferenceProductionEntrypoint.ts';
+const PARENT_POLICY_PATH = CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.policy;
+const PARENT_EXPORTER = CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.exporter;
 
 type SheetNumber = '01' | '02' | '03' | '04';
 type SheetSelection = SheetNumber | 'all';
@@ -167,8 +169,9 @@ function buildSheet(base: Record<string, unknown>, characterId: string, sheetNum
 
   return {
     ...base,
-    schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 23),
+    schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 26),
     generatedBy: 'tools/asset-factory/scripts/export-character-design-sheet-prompt.ts',
+    parentProductionEntrypointSource: PARENT_ENTRYPOINT_SOURCE,
     parentProductionExporter: PARENT_EXPORTER,
     parentProductionPolicy: PARENT_POLICY_PATH,
     sheetBridgePolicy: BRIDGE_PATH,
@@ -200,7 +203,8 @@ function buildSheet(base: Record<string, unknown>, characterId: string, sheetNum
 const options = parseArgs(process.argv.slice(2));
 const bridge = JSON.parse(readFileSync(resolve(process.cwd(), BRIDGE_PATH), 'utf8'));
 if (bridge.status !== 'ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION') throw new Error(`Sheet bridge is not active: ${bridge.status}`);
-if (bridge.parentProductionExporter !== PARENT_EXPORTER) throw new Error('Sheet bridge parent exporter mismatch');
+if (bridge.parentProductionEntrypointSource !== PARENT_ENTRYPOINT_SOURCE) throw new Error('Sheet bridge parent entrypoint source mismatch');
+if (bridge.parentExporterResolution !== 'LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT') throw new Error('Sheet bridge must resolve parent exporter live from code entrypoint');
 if (bridge.directLegacyPacketProductionAllowed !== false) throw new Error('Legacy packet production bypass was enabled');
 if (bridge.generatedSheetMayCreateCanon !== false || bridge.humanReviewRequired !== true) throw new Error('Sheet candidate/Human boundary weakened');
 
@@ -209,6 +213,8 @@ if (heldIds.has(options.characterId)) {
   const held = {
     schemaVersion: 1,
     generatedBy: 'tools/asset-factory/scripts/export-character-design-sheet-prompt.ts',
+    parentProductionEntrypointSource: PARENT_ENTRYPOINT_SOURCE,
+    parentProductionExporter: PARENT_EXPORTER,
     characterId: options.characterId,
     requestedSheet: options.sheet,
     productionReady: false,
@@ -246,9 +252,10 @@ if (options.sheet === 'all') {
   serialize({
     schemaVersion: 1,
     generatedBy: 'tools/asset-factory/scripts/export-character-design-sheet-prompt.ts',
+    parentProductionEntrypointSource: PARENT_ENTRYPOINT_SOURCE,
+    parentProductionExporter: PARENT_EXPORTER,
     characterId: options.characterId,
     productionReady: true,
-    parentProductionExporter: PARENT_EXPORTER,
     generatedOutputState: 'CANDIDATE_REVIEW_REQUIRED',
     sheets: Object.fromEntries(sheetNumbers.map((sheetNumber) => [sheetNumber, buildSheet(parent, options.characterId, sheetNumber, bridge)])),
   }, options.output);
