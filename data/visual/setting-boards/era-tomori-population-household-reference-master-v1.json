@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "assetId": "era-tomori-population-household-reference-master-v1",
+  "status": "EDITABLE_SETTING_BOARD_SPEC_AUTHORED_HUMAN_REVIEW_REQUIRED_NO_RASTER",
+  "characterId": "tomori",
+  "boardType": "POPULATION_HOUSEHOLD",
+  "eraBand": "postwar_reconstruction_scarcity",
+  "exactYearState": "OPEN",
+  "literalFamilyCanonCreated": false,
+  "authoritySources": ["data/visual/core5-era-life-design-master-v1.json","data/visual/core5-era-population-household-authoring-brief-v1.json","data/visual/core5-era-setting-board-production-contract-v1.json","data/visual/core5-era-setting-board-evidence-packets-v1.json"],
+  "panels": [
+    {"id":"P01-six-population-lenses","content":["child","teen-or-young-adult","parent-age adult","older adult","non-parent aunt/uncle-like adult","non-nuclear household example"]},
+    {"id":"P02-household-system-variation","content":["household relying strongly on formal distribution/records","household combining repair/reuse with shopping or informal mutual aid","non-nuclear/shared household where access and care are distributed differently"]},
+    {"id":"P03-ordinary-task-distribution","content":["provisioning/distribution","repair/mending","care","paper record keeping","shopping/transport planning"]},
+    {"id":"P04-system-access-differences","content":["who holds/reads coupons or ledgers","who can travel for shopping","who has repair skill/tools","who waits for supply","who manages shared containers/materials"]},
+    {"id":"P05-not-literal-family-boundary","content":"These are population-study composites. They do not define Tomori's parents, siblings, grandparents, partner, children, address, school or literal household."}
+  ],
+  "forbiddenShortcuts": ["father_equals_work_only","mother_equals_housework_only","grandparent_equals_wisdom_only","child_equals_pure_truth_only","everyone_in_rags","one_household_is_whole_era","family_photo_implies_literal_character_family"],
+  "openFields": ["exact year","exact household types/counts","exact family composition","exact district","exact income/class distribution","specific products/fixtures"],
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "masterApproval": false,
+  "runtimeApproval": false
+}
