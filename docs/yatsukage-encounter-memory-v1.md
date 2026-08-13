@@ -1,11 +1,15 @@
-# 夜綴りの八影 — Encounter Memory v1
+# 朔夜座 — Encounter Memory migration reservoir v2
 
-Date: 2026-08-11  
-Status: **CONTENT LEDGER CONTRACT / RUNTIME NOT IMPLEMENTED**
+Date: 2026-08-13  
+Status: **S1 CURRENT ENCOUNTER-MEMORY RESERVOIR / LEGACY 八影 LABEL COMPATIBILITY / RUNTIME NOT IMPLEMENTED**
+
+> Current formal Season 1 antagonist team is **朔夜座**。
+> 旧path / type / event名に `Yatsukage` が残る場合はstable compatibilityのためであり、`八影` をCurrent formal team名へ戻すAuthorityではない。
+> `八影` は明示的なearly-observer / historical presentationでのみ使える。
 
 ## Goal
 
-八影を何度か見るほど「知っている敵」に変える。
+朔夜座memberを何度か見るほど「知っている敵」に変える。
 
 ただし、撃破回数だけで好感度や関係レベルが上がる方式にはしない。
 
@@ -29,6 +33,8 @@ FIRST_ENCOUNTER
 
 など、Current21それぞれのfirstReactionを使う。
 
+正式team名をPlayerがまだ知らないsceneなら、ここで朔夜座badgeを先出ししない。
+
 ### CALL_NAME_RECOGNIZED
 
 「またあいつだ」が成立する段階。
@@ -42,7 +48,9 @@ FIRST_ENCOUNTER
 - ユラネ
 - ペタ
 
-という作中呼称が会話で自然に使える。
+という作中call nameが会話で自然に使える。
+
+Call nameは真名ではない。
 
 ### PAST_CONTEXT_KNOWN
 
@@ -56,9 +64,13 @@ FIRST_ENCOUNTER
 
 Current21各人物のlateShiftを表示へ使い、「理解したが止める」「技術だけ認める」「余計に許せなくなる」も成立させる。
 
+このphaseで旧 `八影` という観測呼称そのものを資料として見せる場合は、**旧観測呼称であることを明示**する。Current formal nameとしてbadge化しない。
+
 ### REINTERPRETED
 
 後半Stageの出来事を通して、最初の戦闘の意味が変わる。
+
+Current formal group labelが必要な表示では **朔夜座** を使う。
 
 勝利台詞を派手にするより、postBattleActionの小さな差分を使う。
 
@@ -93,7 +105,7 @@ REINTERPRETED
 
 ## Three-person party
 
-八影戦では3人それぞれにpersonal presentationを持つ。
+朔夜座戦では3人それぞれにpersonal presentationを持つ。
 
 Speaker候補:
 
@@ -109,12 +121,21 @@ Featured Arc人物がopening候補になりやすくても、同じ1人に3slot�
 
 ## No power reward
 
-八影の過去を読むこと、呼び名を知ること、REINTERPRETEDまで見ることをcombat power条件へしない。
+朔夜座memberの過去を読むこと、呼び名を知ること、REINTERPRETEDまで見ることをcombat power条件へしない。
 
 - 読む人は深く楽しめる
 - 読まない人もTitle1を攻略できる
 - 100% collectionとは接続できる
 - Story Complete必須条件にはしない
+
+## Visual / Guide rule
+
+- Encounter Memory phaseごとに同じ人物画像を複製しない。
+- approved individual Character / Enemy reference Masterを共通parentとして使う。
+- phase badge、履歴、テキスト、relation statusはHTML/CSS/SVG/dataを優先する。
+- `PAST_CONTEXT_KNOWN`の旧八影資料表示だけを理由に、旧八影集合Masterを新規生成しない。
+- `REINTERPRETED`のCurrent formal labelは朔夜座。
+- phase変化から衣装・身体・真名を画像モデルに発明させない。
 
 ## Runtime open work
 
@@ -126,3 +147,20 @@ Featured Arc人物がopening候補になりやすくても、同じ1人に3slot�
 - subtitle/voice variant selection
 
 Content contractだけでruntime実装済みとは扱わない。
+
+## Compatibility
+
+Legacy stable source/API names:
+
+- `src/game/data/yatsukageEncounterMemorySource.ts`
+- `Yatsukage*` types/functions
+
+Current-facing facade:
+
+- `src/game/data/sakuyazaLegacyMigrationSource.ts`
+
+Current authority:
+
+- `docs/00-current-story-world-master.md`
+- `docs/sakuyaza-current-identity-v1.md`
+- `src/game/data/sakumeiCandidateSource.ts`
