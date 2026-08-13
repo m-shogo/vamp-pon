@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "assetId": "era-nagi-reality-environment-reference-master-v1",
+  "status": "EDITABLE_SETTING_BOARD_SPEC_AUTHORED_HUMAN_REVIEW_REQUIRED_NO_RASTER",
+  "characterId": "nagi",
+  "boardType": "ENVIRONMENT",
+  "eraBand": "post_bubble_early_mobile_internet",
+  "exactYearState": "OPEN",
+  "authoritySources": ["data/visual/core5-era-life-design-master-v1.json","data/visual/core5-reality-era-environment-authoring-brief-v1.json","data/visual/core5-era-setting-board-production-contract-v1.json","data/visual/core5-era-setting-board-evidence-packets-v1.json"],
+  "panels": [
+    {"id":"E01-establishing-system-view","content":"Early mobile/internet ordinary-life setting where feature phone/PHS, shared PC, print/FAX, cash, convenience stores and printed navigation coexist; not a modern always-online scene with retro props added."},
+    {"id":"E02-system-comparison-strip","content":{"communication":["feature phone or PHS","mobile mail","PC mail","BBS/personal-site era context"],"transportNavigation":["printed map plus digital information"],"shoppingAvailability":["convenience/prepared food and growing abundance"],"repairReplacement":["device generations change but total cloud dependency is absent"],"privacyRecords":["handles","shared household PC","print/forward/copy friction"]}},
+    {"id":"E03-material-prop-detail","content":["feature phone/PHS-class device","printed directions","FAX/printout workflow","small charger/cable where appropriate","cash and physical receipt","screen privacy/storage behavior"]},
+    {"id":"E04-human-use-and-friction","content":["reply delay is normal","shared-PC access affects privacy","online and offline directions disagree or complement","employment/reputation records can create pressure without defining every person"]},
+    {"id":"E05-source-open-boundary","content":{"open":["exact year","exact handset/model/network","exact PC/OS/interface","exact broadband penetration","exact recruiting medium","exact package/store design"],"note":"No modern smartphone UI, algorithmic social feed or instant-reply norm may leak backward without exact-year authority."}}
+  ],
+  "forbiddenShortcuts": ["everyone_has_home_internet","everyone_has_mobile_internet","modern_smartphone_UI","algorithmic_social_feed_as_core","cyberpunk_network_visuals","instant_reply_norm","era_explained_by_costume_only"],
+  "downstreamReuse": ["Character era-context review","Story blocking","Lorebook composition","Reality keyframe admission","Stage environment authoring","prop/material reference"],
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "masterApproval": false,
+  "runtimeApproval": false
+}
