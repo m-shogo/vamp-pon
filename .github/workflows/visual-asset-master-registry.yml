@@ -56,6 +56,7 @@ on:
       - 'scripts/quality/check-character-design-sheet-production-entrypoint.ts'
       - 'scripts/quality/check-visual-item-lineage-review-queue.ts'
       - 'scripts/quality/check-visual-production-execution-view.ts'
+      - 'scripts/quality/check-gunjo-record-foundation-masters.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
@@ -126,6 +127,7 @@ on:
       - 'scripts/quality/check-character-design-sheet-production-entrypoint.ts'
       - 'scripts/quality/check-visual-item-lineage-review-queue.ts'
       - 'scripts/quality/check-visual-production-execution-view.ts'
+      - 'scripts/quality/check-gunjo-record-foundation-masters.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
@@ -168,6 +170,8 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-visual-item-lineage-review-queue.ts
       - name: Validate deduped current visual production execution view
         run: node --experimental-strip-types scripts/quality/check-visual-production-execution-view.ts
+      - name: Validate Gunjo record foundation editable masters
+        run: node --experimental-strip-types scripts/quality/check-gunjo-record-foundation-masters.ts
       - name: Validate Sakuyaza Current naming and Gunjo record-taxonomy visual masters
         run: node --experimental-strip-types scripts/quality/check-visual-current-group-record-master.ts
       - name: Validate Sakuyaza legacy-ID migration facade
