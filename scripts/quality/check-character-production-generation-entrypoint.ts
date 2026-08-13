@@ -18,14 +18,19 @@ const layeredPolicies = [
   ['garmentConstruction', 'data/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.json', 'docs/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.md', 'preservationPriority', 'garmentConstructionPreservationPriority', 12],
   ['garmentMaterial', 'data/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.json', 'docs/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.md', 'preservationPriority', 'garmentMaterialPreservationPriority', 12],
   ['dressingWorkflow', 'data/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.json', 'docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md', 'preservationPriority', 'dressingWorkflowPreservationPriority', 12],
+  ['longWearComfort', 'data/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.json', 'docs/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.md', 'preservationPriority', 'longWearComfortPreservationPriority', 12],
 ] as const;
 
 function fail(message: string): never {
   throw new Error(`[character-production-entrypoint] ${message}`);
 }
 
+function loadJson(path: string): any {
+  return JSON.parse(readFileSync(resolve(root, path), 'utf8'));
+}
+
 const terminalPolicyPath = CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.policy;
-const terminalPolicy = JSON.parse(readFileSync(resolve(root, terminalPolicyPath), 'utf8'));
+const terminalPolicy = loadJson(terminalPolicyPath);
 if (terminalPolicy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT') fail('terminal policy status invalid');
 if (terminalPolicy.scopeCount !== 36) fail('terminal policy scopeCount must be 36');
 if (terminalPolicy.productionExporter !== CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.exporter) fail('code/terminal policy exporter mismatch');
@@ -34,14 +39,32 @@ if (terminalPolicy.lowerExportersAreProductionEntrypoints !== false) fail('termi
 if (terminalPolicy.handWrittenPromptIsProductionReady !== false) fail('terminal hand-prompt bypass guard weakened');
 if (CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.lowerExporterOutputIsProductionReady !== false) fail('code lower-exporter guard weakened');
 if (CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.handWrittenPromptIsProductionReady !== false) fail('code hand-prompt guard weakened');
-if (typeof terminalPolicy.basePolicy !== 'string') fail('terminal basePolicy missing');
+for (const [field, expected] of Object.entries(CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.requiredOutputFlags ?? {})) {
+  if (terminalPolicy.requiredOutputFlags?.[field] !== expected) fail(`code/terminal required flag mismatch: ${field}`);
+}
 
-const basePolicy = JSON.parse(readFileSync(resolve(root, terminalPolicy.basePolicy), 'utf8'));
-if (basePolicy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT' || basePolicy.scopeCount !== 36) fail('base production policy invalid');
-if (terminalPolicy.wrappedExporter !== basePolicy.productionExporter) fail('terminal wrapper/base exporter mismatch');
+const policyLineage: Array<{ path: string; policy: any }> = [];
+const seenPolicyPaths = new Set<string>();
+let lineagePath = terminalPolicyPath;
+while (true) {
+  if (seenPolicyPaths.has(lineagePath)) fail(`entrypoint policy lineage cycle: ${lineagePath}`);
+  seenPolicyPaths.add(lineagePath);
+  const policy = loadJson(lineagePath);
+  if (policy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT' || policy.scopeCount !== 36) fail(`entrypoint policy invalid: ${lineagePath}`);
+  if (typeof policy.productionExporter !== 'string' || typeof policy.authorityDocument !== 'string') fail(`entrypoint policy incomplete: ${lineagePath}`);
+  if (policy.lowerExportersAreProductionEntrypoints !== false || policy.handWrittenPromptIsProductionReady !== false) fail(`entrypoint bypass boundary weakened: ${lineagePath}`);
+  policyLineage.push({ path: lineagePath, policy });
+  if (typeof policy.basePolicy !== 'string') break;
+  const parent = loadJson(policy.basePolicy);
+  if (policy.wrappedExporter !== parent.productionExporter) fail(`entrypoint wrapper/parent exporter mismatch: ${lineagePath}`);
+  lineagePath = policy.basePolicy;
+}
+
+const rootPolicy = policyLineage[policyLineage.length - 1]?.policy;
+if (!rootPolicy || rootPolicy.id !== 'yoru-no-shirube-character-production-generation-entrypoint-v1') fail('entrypoint lineage must terminate at v1 root policy');
 
 const loadedPolicies = layeredPolicies.map(([name, policyPath, authorityPath, policyPriorityField, outputPriorityField, minimumPriority]) => {
-  const policy = JSON.parse(readFileSync(resolve(root, policyPath), 'utf8'));
+  const policy = loadJson(policyPath);
   if (policy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY' || policy.scopeCount !== 36 || policy.assetKindCount !== 9) fail(`${name}: authority invalid`);
   for (const [field, value] of Object.entries(policy.rules ?? {})) if (value !== false) fail(`${name}: machine rule must remain false: ${field}`);
   if ((policy[policyPriorityField] ?? []).length < minimumPriority) fail(`${name}: preservation priority depth weakened`);
@@ -50,7 +73,7 @@ const loadedPolicies = layeredPolicies.map(([name, policyPath, authorityPath, po
 
 const ids: string[] = [];
 for (const path of profilePaths) {
-  const json = JSON.parse(readFileSync(resolve(root, path), 'utf8'));
+  const json = loadJson(path);
   if (!Array.isArray(json.characters)) fail(`${path}: characters missing`);
   for (const character of json.characters) ids.push(character.id);
 }
@@ -74,6 +97,7 @@ const promptMarkers = [
   'GARMENT PATTERN / SEAM / CLOSURE / LOAD FIDELITY — FINAL CONSTRUCTION TOPOLOGY LOCK.',
   'GARMENT MATERIAL / DRAPE / FOLD MEMORY FIDELITY — FINAL CLOTH PHYSICS LOCK.',
   'GARMENT DON / DOFF / DRESSING WORKFLOW FIDELITY — FINAL WEARABILITY LOCK.',
+  'GARMENT COMFORT / PRESSURE / CHAFING / THERMAL / LONG-WEAR FIDELITY — FINAL LIVED-USE LOCK.',
 ];
 
 for (const id of ids) {
@@ -81,14 +105,20 @@ for (const id of ids) {
     '--experimental-strip-types', resolve(root, terminalPolicy.productionExporter),
     '--character', id,
     '--kind', 'character_reference',
-  ], { cwd: root, encoding: 'utf8', maxBuffer: 280 * 1024 * 1024 });
+  ], { cwd: root, encoding: 'utf8', maxBuffer: 360 * 1024 * 1024 });
   const exported = JSON.parse(stdout);
 
-  for (const [field, expected] of Object.entries(terminalPolicy.requiredOutputFlags ?? {})) {
-    if (exported[field] !== expected) fail(`${id}: terminal required output mismatch: ${field}`);
+  for (const { path, policy } of policyLineage) {
+    for (const [field, expected] of Object.entries(policy.requiredOutputFlags ?? {})) {
+      if (exported[field] !== expected) fail(`${id}: ${path} required output mismatch: ${field}`);
+    }
+    for (const authorityPath of [path, policy.authorityDocument, policy.terminalPolicy, policy.terminalAuthorityDocument].filter((value): value is string => typeof value === 'string')) {
+      if (!exported.authorityOrder?.includes(authorityPath)) fail(`${id}: entrypoint lineage authority missing: ${authorityPath}`);
+    }
   }
+
   for (const groupName of inheritedFlagGroups) {
-    for (const [field, expected] of Object.entries(basePolicy[groupName] ?? {})) {
+    for (const [field, expected] of Object.entries(rootPolicy[groupName] ?? {})) {
       if (exported[field] !== expected) fail(`${id}: inherited ${groupName} mismatch: ${field}`);
     }
   }
@@ -109,10 +139,10 @@ for (const id of ids) {
   if ((exported.garmentConstructionAxes ?? []).length < 60) fail(`${id}: garment construction axes missing`);
   if ((exported.garmentMaterialMechanicsAxes ?? []).length < 65) fail(`${id}: garment material mechanics axes missing`);
   if ((exported.dressingWorkflowAxes ?? []).length < 65) fail(`${id}: dressing workflow axes missing`);
+  if ((exported.longWearComfortAxes ?? []).length < 80) fail(`${id}: long-wear comfort axes missing`);
 
   for (const marker of promptMarkers) if (!exported.prompt?.includes(marker)) fail(`${id}: prompt marker missing: ${marker}`);
-  for (const path of basePolicy.requiredAuthorityPaths ?? []) if (!exported.authorityOrder?.includes(path)) fail(`${id}: inherited required authority missing: ${path}`);
-  for (const path of [terminalPolicy.authorityDocument, terminalPolicyPath, terminalPolicy.terminalAuthorityDocument, terminalPolicy.terminalPolicy]) if (!exported.authorityOrder?.includes(path)) fail(`${id}: terminal authority missing: ${path}`);
+  for (const path of rootPolicy.requiredAuthorityPaths ?? []) if (!exported.authorityOrder?.includes(path)) fail(`${id}: inherited root authority missing: ${path}`);
 }
 
-console.log(`[character-production-entrypoint] OK: ${ids.length}/36 production prompts preserve inherited v1 authority plus dressing workflow terminal lock through ${terminalPolicy.productionExporter}`);
+console.log(`[character-production-entrypoint] OK: ${ids.length}/36 production prompts preserve ${policyLineage.length}-generation entrypoint lineage and all layered fidelity authorities through ${terminalPolicy.productionExporter}`);
