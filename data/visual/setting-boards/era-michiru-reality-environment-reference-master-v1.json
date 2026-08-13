@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "assetId": "era-michiru-reality-environment-reference-master-v1",
+  "status": "EDITABLE_SETTING_BOARD_SPEC_AUTHORED_HUMAN_REVIEW_REQUIRED_NO_RASTER",
+  "characterId": "michiru",
+  "boardType": "ENVIRONMENT",
+  "eraBand": "late_high_growth_pollution_oil_shock",
+  "exactYearState": "OPEN",
+  "authoritySources": ["data/visual/core5-era-life-design-master-v1.json","data/visual/core5-reality-era-environment-authoring-brief-v1.json","data/visual/core5-era-setting-board-production-contract-v1.json","data/visual/core5-era-setting-board-evidence-packets-v1.json"],
+  "panels": [
+    {"id":"E01-establishing-system-view","content":"Lived-in development-era setting where rail, road, new-town growth, older routes, public signage and household convenience coexist with pollution/energy friction; not a reenactment of a famous disaster."},
+    {"id":"E02-system-comparison-strip","content":{"communication":["printed information","public signage","in-person coordination"],"transportNavigation":["rail/road/new-town/old-route coexistence","printed maps and timetables"],"shoppingAvailability":["expanding consumer goods with price/energy pressure"],"repairReplacement":["new convenience competes with continued use of old routes/objects"],"privacyRecords":["public plans and monitoring can affect neighborhood life"]}},
+    {"id":"E03-material-prop-detail","content":["printed map and timetable","ticket/notebook","processed-food or changing household-goods evidence","public planning signage","energy-saving/price-pressure trace"]},
+    {"id":"E04-human-use-and-friction","content":["route choice between old and new systems","transfers and travel time remain visible","development benefit and resident friction coexist","energy price/supply pressure changes ordinary behavior"]},
+    {"id":"E05-source-open-boundary","content":{"open":["exact year","exact development district","specific train/road model","specific brand/package","specific appliance penetration","specific pollution-monitoring equipment"],"note":"Do not copy a real pollution case, victim history or oil-shock episode into a fictional incident."}}
+  ],
+  "forbiddenShortcuts": ["everyone_is_activist","1970s_catalog_costume_as_worldbuilding","universal_poverty","one_famous_pollution_case_reenacted","era_explained_by_costume_only"],
+  "downstreamReuse": ["Character era-context review","Story blocking","Lorebook composition","Reality keyframe admission","Stage environment authoring","prop/material reference"],
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "masterApproval": false,
+  "runtimeApproval": false
+}
