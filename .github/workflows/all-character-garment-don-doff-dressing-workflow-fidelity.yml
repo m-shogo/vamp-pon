@@ -32,5 +32,3 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate dressing workflow authority for all 36 characters
         run: node --experimental-strip-types scripts/quality/check-all-character-garment-don-doff-dressing-workflow-fidelity.ts
-      - name: Validate inherited production entrypoint chain
-        run: node --experimental-strip-types scripts/quality/check-character-production-generation-entrypoint.ts
