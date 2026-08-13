@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "masterId": "gunjo-record-medium-evidence-master-v1",
+  "displayName": "群青残響録 Record Medium / Evidence Master",
+  "status": "CURRENT_EDITABLE_REFERENCE_MASTER_SPEC_HUMAN_REVIEW_REQUIRED",
+  "format": "EDITABLE_REFERENCE_BOARD_WITH_SOURCE_BACKED_RASTER_ONLY_WHEN_NEEDED",
+  "mandatoryRasterImage": false,
+  "authority": {
+    "primary": "docs/00-current-story-world-master.md",
+    "definition": "docs/gunjo-zankyoroku-current-v1.md",
+    "overlay": "data/character-assets/manifests/visual-current-group-record-master.v1.json",
+    "taxonomyMaster": "data/visual/gunjo-record-taxonomy-system-master-v1.json"
+  },
+  "purpose": "Define how record media, evidence state, provenance, redaction, disagreement and identity reveal are represented across eras without inventing exact documents, names, dates, places, institutions or incidents.",
+  "principles": [
+    "record-medium-follows-era-and-source-context",
+    "medium-does-not-prove-truth-by-itself",
+    "source-and-evidence-state-remain-visible",
+    "absence-redaction-and-dispute-have-distinct-visual-states",
+    "call-name-to-full-name-reveal-needs-source-support",
+    "correction-history-remains-visible",
+    "future-records-are-not-automatically-retro-paper",
+    "historical-records-are-not-automatically-sepia"
+  ],
+  "recordMediumFamilies": [
+    {
+      "id": "newspaper-or-periodical",
+      "availability": "ONLY_WHEN_ERA_AND_INCIDENT_SOURCE_SUPPORT_IT",
+      "editableRepresentation": ["masthead-placeholder", "column-grid", "image-slot", "date-slot", "source-marker"],
+      "inventReadableArticleText": false
+    },
+    {
+      "id": "photograph",
+      "availability": "ONLY_WHEN_SOURCE_SUPPORTS_PHOTOGRAPHIC_RECORD",
+      "editableRepresentation": ["photo-frame", "caption-slot", "provenance-slot", "uncertainty-marker"],
+      "inventPeopleOrPlace": false
+    },
+    {
+      "id": "minutes-or-organizational-document",
+      "availability": "ONLY_WHEN_RELEVANT_INSTITUTION_AND_DOCUMENT_PRACTICE_ARE_AUTHORIZED",
+      "editableRepresentation": ["document-header-slot", "participant-slot", "body-placeholder", "annotation-layer", "source-marker"],
+      "inventInstitution": false
+    },
+    {
+      "id": "register-or-name-record",
+      "availability": "ONLY_WHEN_THE_ERA_AND_LEGAL_SOCIAL_SYSTEM_SUPPORT_THIS_RECORD_FORM",
+      "editableRepresentation": ["name-field-slot", "relation-field-slot", "record-id-slot", "redaction-layer", "source-marker"],
+      "inventLegalRegistrySystem": false
+    },
+    {
+      "id": "book-or-archival-volume",
+      "availability": "ONLY_WHEN_SOURCE_SUPPORTS_BOOK_OR_BOUND_ARCHIVE",
+      "editableRepresentation": ["cover-or-spine-slot", "page-grid", "annotation-layer", "source-marker"],
+      "automaticOldPaperStyling": false
+    },
+    {
+      "id": "digital-record",
+      "availability": "ONLY_WHEN_ERA_AND_SYSTEM_SUPPORT_DIGITAL_RECORDS",
+      "editableRepresentation": ["record-shell", "timestamp-slot", "account-or-system-slot", "version-history", "source-marker"],
+      "automaticFuturisticNeonUI": false
+    },
+    {
+      "id": "incident-file-or-evidence-bundle",
+      "availability": "ONLY_AFTER_FORMAL_INCIDENT_ADMISSION",
+      "editableRepresentation": ["index", "evidence-items", "source-links", "conflict-markers", "spoiler-tier"],
+      "inventEvidence": false
+    }
+  ],
+  "evidenceStates": [
+    {"id":"confirmed-current-source","meaning":"Current project authority explicitly supports the displayed fact","presentation":"solid source marker"},
+    {"id":"candidate","meaning":"Strong candidate but not Current/Canon fact","presentation":"candidate badge and non-solid treatment"},
+    {"id":"source-disagreement","meaning":"Two or more admitted records disagree","presentation":"parallel records with disagreement marker; do not silently choose one"},
+    {"id":"redacted","meaning":"Record exists but part is intentionally unavailable in-story","presentation":"redaction layer with source/provenance retained"},
+    {"id":"missing","meaning":"Expected or referenced record is absent","presentation":"missing-record state distinct from redaction"},
+    {"id":"later-corrected","meaning":"Later record corrects or reframes an earlier one","presentation":"version/correction chain rather than replacing history"},
+    {"id":"unknown","meaning":"Project authority does not yet resolve the fact","presentation":"UNKNOWN/Open marker; no invented filler"}
+  ],
+  "identityReveal": {
+    "sequence": ["dream-call-name", "surname-clue", "kanji-name", "full-name", "era-incident-context"],
+    "eachStepRequiresAdmittedEvidence": true,
+    "skipDirectlyToFullNameByDefault": false,
+    "candidateFullNameMayRenderAsFact": false,
+    "generatedDocumentMayCreateName": false
+  },
+  "materialLanguage": {
+    "paper": "Use paper age, fiber, damage, ink and binding only when source/era/material authority supports them.",
+    "photo": "Do not force universal monochrome, sepia, vignette or film damage; use era/source-backed photographic characteristics.",
+    "print": "Typography/layout may indicate medium and era only after research/source support; do not use decorative retro shorthand as evidence.",
+    "digital": "Use readable native UI/data structure; do not assume cyan hologram, glassmorphism or sci-fi terminal styling.",
+    "annotation": "Annotations must be visually separable from the underlying record and carry author/source state when known.",
+    "redaction": "Redaction is not generic mystery decoration and cannot be used to hide an unresolved design decision."
+  },
+  "provenanceModel": {
+    "requiredFields": [
+      "record-id",
+      "medium-family",
+      "era-context",
+      "source-status",
+      "evidence-state",
+      "spoiler-tier",
+      "supersedes-or-corrects",
+      "notes"
+    ],
+    "correctionHistoryAppendOnlyByDefault": true,
+    "silentReplacementForbidden": true,
+    "sameRecordMayHaveMultipleInterpretations": true
+  },
+  "forbiddenShortcuts": [
+    "one-universal-institutional-stationery-style-across-all-eras",
+    "automatic-sepia-for-history",
+    "automatic-paper-texture-for-all-records",
+    "automatic-neon-ui-for-future-records",
+    "invented-readable-full-names",
+    "invented-readable-dates",
+    "invented-readable-places",
+    "invented-casualty-counts",
+    "invented-institutions",
+    "invented-signatures-or-stamps",
+    "redaction-used-to-cover-authoring-open-question",
+    "generic-secret-file-aesthetic",
+    "evidence-board-connected-by-red-string-as-default",
+    "generated-document-treated-as-story-proof"
+  ],
+  "guideLorebookReuse": {
+    "recordIndexUsesNativeHtmlData": true,
+    "sourceBadgesUseCssSvg": true,
+    "longReadableTextBakedIntoRaster": false,
+    "documentIllustrationGeneratedOnlyWhenSourceBackedNeedExists": true,
+    "sameEvidenceAssetReusedByReference": true
+  },
+  "authorityBoundary": {
+    "thisMasterCreatesDocuments": false,
+    "thisMasterCreatesEvidence": false,
+    "thisMasterCreatesIncidents": false,
+    "thisMasterCreatesNames": false,
+    "thisMasterCreatesDates": false,
+    "thisMasterCreatesPlaces": false,
+    "thisMasterCreatesInstitutions": false,
+    "generatedRecordArtCreatesCanon": false,
+    "humanReviewRequired": true,
+    "imageGenerationAuthorized": false
+  }
+}
