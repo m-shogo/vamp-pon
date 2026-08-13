@@ -1,0 +1,31 @@
+{
+  "id": "yoru-no-shirube-character-production-generation-entrypoint-v3",
+  "date": "2026-08-13",
+  "status": "TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT",
+  "scopeCount": 36,
+  "authorityDocument": "docs/visual/character-production-generation-entrypoint-v3.md",
+  "productionExporter": "tools/asset-factory/scripts/export-long-wear-comfort-locked-character-design-prompt.ts",
+  "wrappedExporter": "tools/asset-factory/scripts/export-dressing-workflow-locked-character-design-prompt.ts",
+  "basePolicy": "data/visual/character-production-generation-entrypoint-v2.json",
+  "terminalAuthorityDocument": "docs/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.md",
+  "terminalPolicy": "data/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.json",
+  "requiredOutputFlags": {
+    "productionImageGenerationEntrypoint": true,
+    "productionCharacterPromptReady": true,
+    "productionPromptAuthorityLocked": true,
+    "imageGenerationReadinessState": "READY_FOR_CANDIDATE_GENERATION",
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "allCharacterGarmentDonDoffDressingWorkflowFidelityRequired": true,
+    "allCharacterGarmentLongWearComfortFidelityRequired": true,
+    "lowerExporterOutputIsProductionReady": false,
+    "handWrittenPromptIsProductionReady": false,
+    "generatedImageCreatesCanon": false,
+    "generatedImageCreatesFeedbackRule": false,
+    "generatedDressingWorkflowCreatesCanon": false,
+    "generatedLongWearBehaviorCreatesCanon": false
+  },
+  "lowerExportersAreProductionEntrypoints": false,
+  "handWrittenPromptIsProductionReady": false,
+  "generatedImageCreatesCanon": false,
+  "generatedArtStartsAs": "CANDIDATE_REVIEW_REQUIRED"
+}
