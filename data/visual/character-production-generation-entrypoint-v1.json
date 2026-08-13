@@ -4,7 +4,7 @@
   "status": "TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT",
   "scopeCount": 36,
   "authorityDocument": "docs/visual/character-production-generation-entrypoint-v1.md",
-  "productionExporter": "tools/asset-factory/scripts/export-viewpoint-turnaround-character-design-prompt.ts",
+  "productionExporter": "tools/asset-factory/scripts/export-hair-grooming-locked-character-design-prompt.ts",
   "wrappedExporter": "tools/asset-factory/scripts/export-cross-asset-consistent-character-design-prompt.ts",
   "requiredFlags": {
     "feedbackRecurrenceGenerationEntrypoint": true,
@@ -182,6 +182,27 @@
     "premiumViewMayAddRearOrnament": false,
     "generatedHiddenSurfaceCreatesCanon": false
   },
+  "hairTerminalWrapperRequiredFlags": {
+    "allCharacterHairGroomingConstructionFidelityRequired": true,
+    "unknownHairMayBeInventedByImageModel": false,
+    "viewpointMayChangeHairline": false,
+    "viewpointMayChangePart": false,
+    "viewpointMayChangeFringeTopology": false,
+    "viewpointMayChangeEarExposure": false,
+    "viewpointMayChangeTieAnchor": false,
+    "viewpointMayMirrorCanonicalHairAsymmetry": false,
+    "premiumAssetMayBeautifyHairline": false,
+    "premiumAssetMayIncreaseHairOrnament": false,
+    "premiumAssetMayChangeHairVolume": false,
+    "stateMayChangeHairstyleWithoutAuthorizedDelta": false,
+    "weatherMayRedesignHairTopology": false,
+    "motionMayRedesignHairTopology": false,
+    "wetHairMayIncreaseSexualization": false,
+    "lodMayChangeIdentityHairTopology": false,
+    "hairMayHideMobilityEquipmentForComposition": false,
+    "skinToneMayInferHairTextureOrCulturalStyle": false,
+    "generatedHairTreatmentCreatesCanon": false
+  },
   "lowerExportersAreProductionEntrypoints": false,
   "handWrittenPromptIsProductionReady": false,
   "generatedImageCreatesCanon": false,
@@ -242,7 +263,9 @@
     "docs/visual/all-character-variant-delta-state-transformation-fidelity-master-v1.md",
     "data/visual/all-character-variant-delta-state-transformation-fidelity-master-v1.json",
     "docs/visual/all-character-viewpoint-turnaround-back-design-fidelity-master-v1.md",
-    "data/visual/all-character-viewpoint-turnaround-back-design-fidelity-master-v1.json"
+    "data/visual/all-character-viewpoint-turnaround-back-design-fidelity-master-v1.json",
+    "docs/visual/all-character-hair-grooming-construction-fidelity-master-v1.md",
+    "data/visual/all-character-hair-grooming-construction-fidelity-master-v1.json"
   ],
   "candidateBoundary": [
     "not-final-art-approval",
