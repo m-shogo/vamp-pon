@@ -1,0 +1,26 @@
+name: All Character Life Choice Author Review Queue
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/all-character-life-choice-visual-gap-audit-v1.json'
+      - 'data/visual/all-character-life-choice-author-review-queue-v1.json'
+      - 'docs/visual/all-character-life-choice-author-review-queue-v1.md'
+      - 'scripts/quality/check-all-character-life-choice-author-review-queue.ts'
+      - '.github/workflows/all-character-life-choice-author-review-queue.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/all-character-life-choice-visual-gap-audit-v1.json'
+      - 'data/visual/all-character-life-choice-author-review-queue-v1.json'
+      - 'docs/visual/all-character-life-choice-author-review-queue-v1.md'
+      - 'scripts/quality/check-all-character-life-choice-author-review-queue.ts'
+      - '.github/workflows/all-character-life-choice-author-review-queue.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify deterministic author review queue
+        run: node --experimental-strip-types scripts/quality/check-all-character-life-choice-author-review-queue.ts
