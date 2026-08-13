@@ -5,8 +5,8 @@
   "purpose": "Separate discovered visual-production gaps from their current remediation state so old audit findings do not look unresolved after migration work, while keeping content-authority and Human gates explicit.",
   "currentBoundary": {
     "workingBranch": "agent/visual-asset-inventory",
-    "latestMainSyncBaseline": "84cef6537ccd7875335bf4d2a1d8dee95c6ee4e4",
-    "latestMainSyncThroughPullRequest": 328,
+    "latestMainSyncBaseline": "4e6b49bdf02208ffd9637a2d3a8904baee8365b9",
+    "latestMainSyncThroughPullRequest": 329,
     "latestMainBaselineMergedIntoBranchWithoutForce": true,
     "latestMainMustBeRecheckedBeforeImageGenerationOrMerge": true,
     "imageGenerationAllowed": false,
@@ -18,42 +18,17 @@
     "SOURCE_DERIVED_INVENTORY_IMPLEMENTED": "Membership/rows are derived from source DB arrays so additions/removals automatically change inventory; generation remains blocked.",
     "POLICY_IMPLEMENTED_NOT_CONTENT_ADMITTED": "A safe future admission model exists; concrete content remains OPEN or not yet admitted.",
     "REUSE_AUDIT_IMPLEMENTED": "Existing assets are classified for reuse/review rather than blindly regenerated.",
-    "LIVE_ADAPTER_IMPLEMENTED": "Production composition is a live child of the current parent production exporter rather than a stale static prompt snapshot.",
+    "LIVE_ADAPTER_IMPLEMENTED": "Production composition is a live child of the current Character Reference Production Entrypoint rather than a stale static prompt snapshot or hard-coded wrapper path.",
     "NON_RASTER_MIGRATION_IMPLEMENTED": "Stable planning rows are preserved for traceability but current execution reinterprets them as data/HTML/CSS/SVG/read-model composition rather than independent raster generation.",
     "COLLISION_REVIEW_IMPLEMENTED_CONTENT_UNRESOLVED": "Exact collision membership and non-auto-collapse rules are deterministic, but physical lineage remains unresolved until explicit authority is available.",
     "OPEN_AUTHORITY_DEPENDENT": "Count/content cannot be safely fixed yet without upstream Story/visual/human authority."
   },
   "legacySakuyazaMigration": [
-    {
-      "findingId": "LEGACY-YATSUKAGE-IDENTITY-DOC-CURRENT",
-      "state": "RESOLVED_SYNCED",
-      "evidence": ["docs/yatsukage-identity-v1.md", "scripts/quality/check-sakuyaza-legacy-migration.ts"],
-      "result": "Legacy document is SUPERSEDED/early-observer compatibility only; Current formal S1 team is 朔夜座."
-    },
-    {
-      "findingId": "LEGACY-YATSUKAGE-MACHINE-AUTHORITY-CURRENT",
-      "state": "RESOLVED_SYNCED",
-      "evidence": ["src/game/data/yatsukageIdentitySource.ts", "src/game/data/sakuyazaLegacyMigrationSource.ts"],
-      "result": "YATSUKAGE_GROUP_IDENTITY is SUPERSEDED_LEGACY_OBSERVER_LABEL; stable exports remain compatibility-only."
-    },
-    {
-      "findingId": "LEGACY-YATSUKAGE-PAIR-CURRENT",
-      "state": "RESOLVED_SYNCED",
-      "evidence": ["docs/yatsukage-pair-dynamics-v1.md"],
-      "result": "28 pair concepts preserved under 朔夜座 migration reservoir; old non-faction organization semantics no longer Current authority."
-    },
-    {
-      "findingId": "LEGACY-YATSUKAGE-RELATIONSHIP-CURRENT",
-      "state": "RESOLVED_SYNCED",
-      "evidence": ["docs/yatsukage-current21-relationship-matrix-v1.md", "src/game/data/sakuyazaLegacyMigrationSource.ts"],
-      "result": "168 relation lanes preserved under 朔夜座 naming; they are data lanes, not 168 image-generation rows."
-    },
-    {
-      "findingId": "LEGACY-YATSUKAGE-PLAYER-PRESENTATION",
-      "state": "RESOLVED_SYNCED",
-      "evidence": ["src/game/data/yatsukageCollectionPresentationSource.ts", "src/game/data/yatsukageEncounterMemorySource.ts", "scripts/quality/check-sakuyaza-legacy-migration.ts"],
-      "result": "Late/current presentation uses 朔夜座; 八影 may appear only as explicit legacy/early-observer context."
-    }
+    {"findingId":"LEGACY-YATSUKAGE-IDENTITY-DOC-CURRENT","state":"RESOLVED_SYNCED","evidence":["docs/yatsukage-identity-v1.md","scripts/quality/check-sakuyaza-legacy-migration.ts"],"result":"Legacy document is SUPERSEDED/early-observer compatibility only; Current formal S1 team is 朔夜座."},
+    {"findingId":"LEGACY-YATSUKAGE-MACHINE-AUTHORITY-CURRENT","state":"RESOLVED_SYNCED","evidence":["src/game/data/yatsukageIdentitySource.ts","src/game/data/sakuyazaLegacyMigrationSource.ts"],"result":"YATSUKAGE_GROUP_IDENTITY is SUPERSEDED_LEGACY_OBSERVER_LABEL; stable exports remain compatibility-only."},
+    {"findingId":"LEGACY-YATSUKAGE-PAIR-CURRENT","state":"RESOLVED_SYNCED","evidence":["docs/yatsukage-pair-dynamics-v1.md"],"result":"28 pair concepts preserved under 朔夜座 migration reservoir; old non-faction organization semantics no longer Current authority."},
+    {"findingId":"LEGACY-YATSUKAGE-RELATIONSHIP-CURRENT","state":"RESOLVED_SYNCED","evidence":["docs/yatsukage-current21-relationship-matrix-v1.md","src/game/data/sakuyazaLegacyMigrationSource.ts"],"result":"168 relation lanes preserved under 朔夜座 naming; they are data lanes, not 168 image-generation rows."},
+    {"findingId":"LEGACY-YATSUKAGE-PLAYER-PRESENTATION","state":"RESOLVED_SYNCED","evidence":["src/game/data/yatsukageCollectionPresentationSource.ts","src/game/data/yatsukageEncounterMemorySource.ts","scripts/quality/check-sakuyaza-legacy-migration.ts"],"result":"Late/current presentation uses 朔夜座; 八影 may appear only as explicit legacy/early-observer context."}
   ],
   "fixedMasterFamilies": [
     {"findingId":"SAKUYAZA_TEAM_COMPARISON_MASTER","state":"MATERIALIZED_PLANNED_NOT_AUTHORED","rowIds":["sakuyaza-s1-team-comparison-master-v1"]},
@@ -73,16 +48,7 @@
   "sourceDerivedPreGameFamilies": [
     {"familyId":"CHARACTER_STATE_TRANSFORMATION_MASTERS","state":"SOURCE_DERIVED_INVENTORY_IMPLEMENTED","rowCount":20},
     {"familyId":"ENEMY_CREATURE_REFERENCE_MASTERS","state":"SOURCE_DERIVED_INVENTORY_IMPLEMENTED","rowCount":48,"sakuyazaSubset":8,"sakuyazaAdditionalRows":0},
-    {
-      "familyId":"ITEM_OBJECT_DESIGN_MASTERS",
-      "state":"COLLISION_REVIEW_IMPLEMENTED_CONTENT_UNRESOLVED",
-      "rawLineageCandidateRows":105,
-      "exactLabelCollisionGroups":11,
-      "collisionRowsAuthorizedToCollapse":0,
-      "exactCollisionReview":"data/character-assets/manifests/visual-item-lineage-review-queue.v1.json",
-      "finalMasterCount":"TBD_AFTER_AUTHORITY_REVIEW",
-      "reason":"Exact label equality alone does not establish physical construction/material/evolution continuity."
-    },
+    {"familyId":"ITEM_OBJECT_DESIGN_MASTERS","state":"COLLISION_REVIEW_IMPLEMENTED_CONTENT_UNRESOLVED","rawLineageCandidateRows":105,"exactLabelCollisionGroups":11,"collisionRowsAuthorizedToCollapse":0,"exactCollisionReview":"data/character-assets/manifests/visual-item-lineage-review-queue.v1.json","finalMasterCount":"TBD_AFTER_AUTHORITY_REVIEW","reason":"Exact label equality alone does not establish physical construction/material/evolution continuity."},
     {"familyId":"LOCATION_ENVIRONMENT_SETTING_MASTERS","state":"SOURCE_DERIVED_INVENTORY_IMPLEMENTED","rowCount":20},
     {"familyId":"TOUMON_SIGIL_AND_SYMBOL_MASTERS","state":"SOURCE_DERIVED_INVENTORY_IMPLEMENTED","rowCount":21,"authorityFormat":"SVG_VECTOR"},
     {"familyId":"WORLD_VISUAL_EFFECT_LANGUAGE_MASTER","state":"OPEN_AUTHORITY_DEPENDENT","reason":"World/material/light authorities exist; final example/reference plate grouping is still to be authored/minimized."},
@@ -92,46 +58,22 @@
     {"familyId":"STORY_SCENE_KEYFRAME_MASTERS","state":"OPEN_AUTHORITY_DEPENDENT","reason":"Exact keyframe count follows admitted Story scenes and cannot be inferred from candidate plot notes."}
   ],
   "reuseAndDerivativeAudits": {
-    "topLoading": {
-      "state": "REUSE_AUDIT_IMPLEMENTED",
-      "source": "data/character-assets/manifests/visual-existing-top-loading-reuse-audit.v1.json",
-      "loadingCommittedSources": 4,
-      "topV3ExistingCandidate": 1,
-      "topV2LayerSources": 17,
-      "runtimeEvidenceScreenshotsNotGenerationRows": 15,
-      "newAuthorizedReplacementRowsNow": 0
-    },
-    "guideDb": {
-      "state": "NON_RASTER_MIGRATION_IMPLEMENTED",
-      "policy": "data/character-assets/manifests/visual-production-execution-policy.v2.json",
-      "executionSource": "src/game/data/visualProductionExecutionView.ts",
-      "reusableMasterSubjects": 110,
-      "legacyBakedRowsMigrated": 142,
-      "independentGuideBinariesDefault": 0,
-      "currentExecutionImageBearingRows": 266,
-      "currentExecutionLogicalNonImageRows": 214,
-      "legacyPlanningListDirectGenerationAuthority": false
-    },
-    "assetFactory977": {
-      "state": "REUSE_AUDIT_IMPLEMENTED",
-      "snapshot": "data/character-assets/manifests/visual-existing-contract-output-audit.v1.json",
-      "totalContracts": 977,
-      "existingOutputPathsObserved": 0,
-      "missingOutputPathsObserved": 977,
-      "automaticGenerationAuthorized": false,
-      "mustRevalidateOnCurrentHead": true
-    }
+    "topLoading": {"state":"REUSE_AUDIT_IMPLEMENTED","source":"data/character-assets/manifests/visual-existing-top-loading-reuse-audit.v1.json","loadingCommittedSources":4,"topV3ExistingCandidate":1,"topV2LayerSources":17,"runtimeEvidenceScreenshotsNotGenerationRows":15,"newAuthorizedReplacementRowsNow":0},
+    "guideDb": {"state":"NON_RASTER_MIGRATION_IMPLEMENTED","policy":"data/character-assets/manifests/visual-production-execution-policy.v2.json","executionSource":"src/game/data/visualProductionExecutionView.ts","reusableMasterSubjects":110,"legacyBakedRowsMigrated":142,"independentGuideBinariesDefault":0,"currentExecutionImageBearingRows":266,"currentExecutionLogicalNonImageRows":214,"legacyPlanningListDirectGenerationAuthority":false},
+    "assetFactory977": {"state":"REUSE_AUDIT_IMPLEMENTED","snapshot":"data/character-assets/manifests/visual-existing-contract-output-audit.v1.json","totalContracts":977,"existingOutputPathsObserved":0,"missingOutputPathsObserved":977,"automaticGenerationAuthorized":false,"mustRevalidateOnCurrentHead":true}
   },
   "characterSheetExecution": {
     "state": "LIVE_ADAPTER_IMPLEMENTED",
     "bridge": "data/character-assets/manifests/visual-character-sheet-production-entrypoint-bridge.v1.json",
     "adapter": "tools/asset-factory/scripts/export-character-design-sheet-prompt.ts",
     "codeEntrypoint": "src/game/data/characterDesignSheetProductionEntrypoint.ts",
-    "latestMainSyncBaselineThrough": 328,
-    "latestInheritedAuthorityAdditions": ["occlusion-layering-fidelity", "crop-silhouette-readability"],
+    "parentEntrypointSource": "src/game/data/characterReferenceProductionEntrypoint.ts",
+    "parentExporterResolution": "LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT",
+    "latestMainSyncBaselineThrough": 329,
+    "latestInheritedAuthorityAdditions": ["occlusion-layering-fidelity","crop-silhouette-readability","focus-depth-effects-fidelity"],
     "oldPromptPacketDirectGenerationAllowed": false,
     "staticPacketReexportRequiredForProduction": false,
-    "reasonStaticPacketReexportNoLongerRequired": "The live Sheet Adapter resolves the top-level Production Exporter on every export; the old static packet manifest is retained only as legacy draft history.",
+    "reasonStaticPacketReexportNoLongerRequired": "The live Sheet Adapter resolves the top-level Character Reference Production Entrypoint on every export; wrapper changes no longer require a hard-coded Sheet parent path.",
     "activeCharacters":35,
     "activeLiveSheetPrompts":140,
     "heldCharacterIds":["yui"],
