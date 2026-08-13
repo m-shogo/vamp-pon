@@ -1,0 +1,26 @@
+name: All Character Environment Weather Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-environment-weather-fidelity-master-v1.md'
+      - 'data/visual/all-character-environment-weather-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'scripts/quality/check-all-character-environment-weather-fidelity.mjs'
+      - '.github/workflows/all-character-environment-weather-fidelity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-environment-weather-fidelity-master-v1.md'
+      - 'data/visual/all-character-environment-weather-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'scripts/quality/check-all-character-environment-weather-fidelity.mjs'
+      - '.github/workflows/all-character-environment-weather-fidelity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character environment weather fidelity authority
+        run: node scripts/quality/check-all-character-environment-weather-fidelity.mjs
