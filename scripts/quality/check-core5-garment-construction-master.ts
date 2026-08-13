@@ -53,11 +53,12 @@ for (const marker of [
   'CORE5_GARMENT_DOC',
   'CORE5_GARMENT_JSON',
   'loadCore5GarmentProfile',
-  'CORE5 GARMENT CONSTRUCTION MASTER — REQUIRED PRODUCTION CLOTHING AUTHORITY.',
+  'CORE5 GARMENT CONSTRUCTION MASTER — STRONGER DEDICATED OVERRIDE.',
+  'ALL CHARACTER GARMENT PRODUCTION MASTER — REQUIRED FOR EVERY CHARACTER.',
   'unknownGarmentDetailMayBeInventedByImageModel: false',
   'core5GarmentConstructionRequired: CORE5_IDS.has(options.characterId)',
 ]) {
   if (!exporter.includes(marker)) fail(`production exporter missing marker: ${marker}`);
 }
 
-console.log('[core5-garment-construction] OK: Core5 garment/world construction locked into production exporter');
+console.log('[core5-garment-construction] OK: Core5 dedicated garment authority preserved inside all-character production exporter');
