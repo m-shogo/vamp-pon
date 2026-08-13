@@ -46,23 +46,30 @@ function runBaseExporter(characterId: string, kind: string) {
   return JSON.parse(stdout);
 }
 
-function resolveIdentityContract(characterId: string, master: any) {
-  const contract = characterAppearanceGenerationContracts.find((entry) => entry.id === characterId);
-  if (!contract) throw new Error(`Appearance Generation Contract missing for ${characterId}; final production export blocked.`);
+function resolveIdentityContract(characterId: string, base: any, master: any) {
+  const livingName = base?.livingVisualProfile?.name ?? base?.livingVisualProfile?.displayName ?? null;
+  const byId = characterAppearanceGenerationContracts.find((entry) => entry.id === characterId);
+  const byDisplayName = livingName
+    ? characterAppearanceGenerationContracts.filter((entry) => entry.displayName === livingName)
+    : [];
+  if (byDisplayName.length > 1) throw new Error(`${characterId}: ambiguous Appearance Generation Contract displayName match: ${livingName}`);
+  const contract = byId ?? byDisplayName[0] ?? null;
+  if (!contract) throw new Error(`Appearance Generation Contract missing for ${characterId}${livingName ? ` / ${livingName}` : ''}; final production export blocked.`);
   for (const field of master.requiredFields) {
     if (!(field in contract)) throw new Error(`${characterId}: required appearance field missing: ${field}`);
   }
   if (!Array.isArray(contract.forbiddenDrift) || contract.forbiddenDrift.length < 1) throw new Error(`${characterId}: forbiddenDrift missing`);
   if (contract.nearestExistingFace && !contract.differenceFromNearest) throw new Error(`${characterId}: nearestExistingFace requires differenceFromNearest`);
-  return contract;
+  return { contract, resolution: byId ? 'DIRECT_ID' : 'LIVING_DISPLAY_NAME_BRIDGE' };
 }
 
-function identityPromptBlock(master: any, contract: any) {
+function identityPromptBlock(master: any, contract: any, resolution: string, productionId: string) {
   return [
     'ALL CHARACTER IDENTITY PRODUCTION MASTER — FINAL FACE/BODY AUTHORITY.',
     `Authority: ${IDENTITY_DOC}.`,
     `Machine policy: ${IDENTITY_JSON}.`,
     `Canonical machine source: ${master.canonicalMachineSource}.`,
+    `Production ID → Appearance Contract resolution: ${productionId} → ${contract.id} (${resolution}).`,
     'Use the exact loaded Appearance Generation Contract. Do not use one attractive anime face/body base and then distinguish by hair, color, prop, glow, makeup, marks or clothing.',
     'Rendering may not change face anatomy, eye/eyelid/brow/lash construction, nose/mouth geometry, age coding, species, hair/head mass, body shape, or nearest-face distinction.',
     'Candidate surface marks/body modifications remain candidates. They cannot become mandatory identity anchors and generated output never promotes them.',
@@ -79,28 +86,31 @@ const options = parseArgs(process.argv.slice(2));
 const identityMaster = loadIdentityMaster();
 const base = runBaseExporter(options.characterId, options.kind);
 if (base.generationReadyProductionEntrypoint !== true) throw new Error(`${options.characterId}: base exporter is not generation-ready`);
-const contract = resolveIdentityContract(options.characterId, identityMaster);
-const identityBlock = identityPromptBlock(identityMaster, contract);
+const resolved = resolveIdentityContract(options.characterId, base, identityMaster);
+const identityBlock = identityPromptBlock(identityMaster, resolved.contract, resolved.resolution, options.characterId);
 const authorityOrder = Array.isArray(base.authorityOrder) ? [...base.authorityOrder] : [];
 const insertAt = Math.min(3, authorityOrder.length);
 authorityOrder.splice(insertAt, 0, IDENTITY_DOC, IDENTITY_JSON, identityMaster.canonicalMachineSource);
 
 const result = {
   ...base,
-  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 13),
+  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 14),
   generatedBy: 'tools/asset-factory/scripts/export-final-character-design-prompt.ts',
   finalCharacterDesignProductionEntrypoint: true,
   allCharacterIdentityProductionMasterPath: IDENTITY_JSON,
   allCharacterIdentityProductionAuthorityDocument: IDENTITY_DOC,
   allCharacterIdentityProductionRequired: true,
   appearanceGenerationContractSource: identityMaster.canonicalMachineSource,
-  appearanceGenerationContract: contract,
+  appearanceGenerationContractProductionId: options.characterId,
+  appearanceGenerationContractResolution: resolved.resolution,
+  appearanceGenerationContract: resolved.contract,
   unknownIdentityGeometryMayBeInventedByImageModel: false,
   candidateAppearanceDetailCreatesCanon: false,
   authorityOrder,
   prompt: `${base.prompt}\n\n${identityBlock}`,
   reviewChecklist: [
     'All Character Identity Production Masterとexact Appearance Generation Contractを読む',
+    'Future15はproduction IDとFxx contract IDのbridgeをdisplayName一致で検証する',
     'hair/color/prop/glow/accessoryをface/body identityの代用にしない',
     'nearestExistingFaceとの差をdifferenceFromNearestどおり維持する',
     'candidate surface/body-modification detailを必須identityへ昇格しない',
