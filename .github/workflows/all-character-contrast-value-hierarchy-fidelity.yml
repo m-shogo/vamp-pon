@@ -1,0 +1,28 @@
+name: All Character Contrast Value Hierarchy Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-contrast-value-hierarchy-fidelity-master-v1.md'
+      - 'data/visual/all-character-contrast-value-hierarchy-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-contrast-value-hierarchy-fidelity.ts'
+      - '.github/workflows/all-character-contrast-value-hierarchy-fidelity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-contrast-value-hierarchy-fidelity-master-v1.md'
+      - 'data/visual/all-character-contrast-value-hierarchy-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-contrast-value-hierarchy-fidelity.ts'
+      - '.github/workflows/all-character-contrast-value-hierarchy-fidelity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character contrast value hierarchy authority
+        run: node --experimental-strip-types scripts/quality/check-all-character-contrast-value-hierarchy-fidelity.ts
