@@ -9,10 +9,17 @@ const ALL_GARMENT_DOC = 'docs/visual/all-character-garment-production-master-v1.
 const ALL_GARMENT_JSON = 'data/visual/all-character-garment-production-master-v1.json';
 const CORE5_GARMENT_DOC = 'docs/visual/core5-garment-construction-master-v1.md';
 const CORE5_GARMENT_JSON = 'data/visual/core5-garment-construction-master-v1.json';
+const PROFESSIONAL_DOC = 'docs/visual/master-authoring-professional-standard-v1.md';
+const PROFESSIONAL_JSON = 'data/visual/master-authoring-professional-standard-v1.json';
+const WORLD_MASTER = 'docs/00-current-story-world-master.md';
 const BASE_EXPORTER = 'tools/asset-factory/scripts/export-character-asset-prompt.ts';
+const LIVING_PATHS = [
+  'data/visual/core5-living-visual-profiles-v1.json',
+  'data/visual/current21-extended-living-visual-profiles-v1.json',
+  'data/visual/future15-living-visual-profiles-v1.json',
+];
 
 type Options = { characterId: string; kind: string; output: string | null };
-
 type BaseResolvedPrompt = Record<string, any> & {
   livingVisualProfile?: Record<string, any>;
   livingVisualProfilePath?: string;
@@ -66,12 +73,91 @@ function loadCore5GarmentProfile(characterId: string) {
   return { master, profile };
 }
 
+function findLivingProfile(characterId: string) {
+  for (const path of LIVING_PATHS) {
+    const document = JSON.parse(readFileSync(resolve(process.cwd(), path), 'utf8'));
+    const profile = (document.characters ?? []).find((entry: any) => entry.id === characterId);
+    if (profile) return { path, status: document.status ?? null, profile };
+  }
+  throw new Error(`Living Visual Profile missing for ${characterId}; fallback export blocked.`);
+}
+
+function buildFallbackBase(characterId: string, kind: string): BaseResolvedPrompt {
+  if (kind !== 'character_reference') throw new Error(`No Asset Factory prompt for ${characterId}/${kind}; fallback supports character_reference only.`);
+  const living = findLivingProfile(characterId);
+  const professional = JSON.parse(readFileSync(resolve(process.cwd(), PROFESSIONAL_JSON), 'utf8'));
+  if (professional.status !== 'TOP_LEVEL_AUTHORING_GOVERNANCE') throw new Error(`Professional Master Standard invalid: ${PROFESSIONAL_JSON}`);
+  if (professional.generationPolicy?.openMeansModelFreedom !== false || professional.generationPolicy?.generatedImageCreatesCanon !== false) throw new Error(`Professional generation policy weakened: ${PROFESSIONAL_JSON}`);
+  const name = living.profile.name ?? living.profile.displayName ?? characterId;
+  const authorityOrder = [
+    PROFESSIONAL_DOC,
+    PROFESSIONAL_JSON,
+    WORLD_MASTER,
+    'docs/visual/character-living-visual-master-v1.md',
+    living.path,
+    'docs/character-appearance-source-book-v1.md',
+    'docs/character-appearance-distinction-generation-contract-v1.md',
+    'docs/visual/character-designer-philosophy-master-v1.md',
+    'data/visual/character-designer-philosophy-master-v1.json',
+    'docs/visual/character-designer-craft-master-v1.md',
+    'data/visual/character-designer-craft-master-v1.json',
+    'docs/visual/character-designer-precedent-master-v1.md',
+    'data/visual/character-designer-precedent-master-v1.json',
+    'docs/visual/world-character-scenario-design-council-master-v1.md',
+    'data/visual/world-character-scenario-design-council-master-v1.json',
+    'docs/visual/relationship-embodied-daily-life-contract-v1.md',
+    'data/visual/relationship-embodied-daily-life-contract-v1.json',
+    'data/visual/character-designer-ai-brain.json',
+  ];
+  return {
+    schemaVersion: 1,
+    generatedBy: 'source-locked-fallback-inside-export-generation-ready-character-asset-prompt.ts',
+    characterId,
+    kind,
+    professionalMasterPath: PROFESSIONAL_DOC,
+    professionalMasterDataPath: PROFESSIONAL_JSON,
+    professionalGenerationReadinessGate: professional.imageGenerationReadinessGate,
+    livingVisualProfilePath: living.path,
+    livingVisualProfileSourceStatus: living.status,
+    livingVisualProfile: living.profile,
+    openMeansImageModelFreedom: false,
+    generatedImageCreatesCanon: false,
+    unknownLifePreferenceMayBeInventedByImageModel: false,
+    authorityOrder,
+    prompt: [
+      'SOURCE-LOCKED FALLBACK CHARACTER REFERENCE PROMPT.',
+      `Character: ${name} (${characterId}).`,
+      'Create a single full-body design-review reference on transparent background. This fallback exists only because the legacy Asset Factory prompt pack is absent.',
+      'The loaded Living Visual Profile and downstream Masters are the design authority. Do not invent unresolved anatomy, exposure, body modification, garment detail, cultural shorthand, jewelry, ornament, prop history or relationship history.',
+      'OPEN is not image-model freedom. Generated output is candidate review only and cannot create canon.',
+      `Professional generation readiness gate: ${JSON.stringify(professional.imageGenerationReadinessGate)}.`,
+      'LIVING VISUAL PROFILE — REQUIRED CHARACTER AUTHORITY.',
+      JSON.stringify(living.profile, null, 2),
+    ].join('\n'),
+    negativePrompt: 'no text, no letters, no numbers, no logo, no watermark, no generic fantasy/gacha filler, no invented piercing, no invented tattoo, no invented exposure, no premium gold or gemstone escalation',
+    reviewChecklist: [
+      'Living Visual Profileのbody / exposure / body modification / clothing / absoluteNever / positivePreferenceを守る',
+      'legacy prompt欠落を理由にimage modelへdesign decisionを委譲しない',
+      'generated detailをCanonへ昇格しない',
+    ],
+    outputPathHint: `public/assets/prototypes/characters/${characterId}/references/${characterId}-reference-v1.png`,
+    sizeSpec: '1024x1024 PNG RGBA, full body, front 3/4 view, transparent background, centered, no baked text.',
+    fallbackPromptUsed: true,
+  };
+}
+
 function runBaseExporter(characterId: string, kind: string): BaseResolvedPrompt {
-  const stdout = execFileSync(process.execPath, [
-    '--experimental-strip-types', resolve(process.cwd(), BASE_EXPORTER),
-    '--character', characterId, '--kind', kind, '--format', 'json',
-  ], { cwd: process.cwd(), encoding: 'utf8' });
-  return JSON.parse(stdout);
+  try {
+    const stdout = execFileSync(process.execPath, [
+      '--experimental-strip-types', resolve(process.cwd(), BASE_EXPORTER),
+      '--character', characterId, '--kind', kind, '--format', 'json',
+    ], { cwd: process.cwd(), encoding: 'utf8' });
+    return JSON.parse(stdout);
+  } catch (error: any) {
+    const stderr = String(error?.stderr ?? error?.message ?? '');
+    if (!stderr.includes('Character asset prompt not found:')) throw error;
+    return buildFallbackBase(characterId, kind);
+  }
 }
 
 function normalizeAllCharacterGarmentProfile(base: BaseResolvedPrompt, master: any) {
@@ -188,7 +274,7 @@ if (core5Garment) authorityOrder.splice(insertionIndex + 4, 0, CORE5_GARMENT_DOC
 
 const result = {
   ...base,
-  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 10),
+  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 11),
   generatedBy: 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts',
   generationReadyProductionEntrypoint: true,
   worldMaterialTranslationMasterPath: WORLD_MATERIAL_JSON,
