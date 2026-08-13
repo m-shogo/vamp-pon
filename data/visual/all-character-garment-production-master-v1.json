@@ -1,0 +1,82 @@
+{
+  "id": "yoru-no-shirube-all-character-garment-production-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION",
+  "authorityDocument": "docs/visual/all-character-garment-production-master-v1.md",
+  "doesNotCreateNewStoryCanon": true,
+  "doesNotPromoteAuthorCandidates": true,
+  "scopeCount": 36,
+  "livingVisualSources": [
+    "data/visual/core5-living-visual-profiles-v1.json",
+    "data/visual/current21-extended-living-visual-profiles-v1.json",
+    "data/visual/future15-living-visual-profiles-v1.json"
+  ],
+  "core5DedicatedOverride": "data/visual/core5-garment-construction-master-v1.json",
+  "worldMaterialAuthority": "data/visual/world-material-translation-master-v1.json",
+  "projectionFields": [
+    "species",
+    "lifeFocus",
+    "bodyComfort",
+    "bodyComfort.value",
+    "movementNeeds",
+    "exposure",
+    "exposurePreference",
+    "bodyModification",
+    "piercingPolicy",
+    "tattooPolicy",
+    "jewelryPolicy",
+    "clothing",
+    "silhouettePreference",
+    "fitPreference",
+    "materialPreference",
+    "patternPreference",
+    "footwearPreference",
+    "bagPocketBehavior",
+    "wearHabits",
+    "clothingWearHabits",
+    "maintenance",
+    "maintenanceBehavior",
+    "socialPresentation",
+    "absoluteNever",
+    "positivePreference"
+  ],
+  "sharedRules": {
+    "unknownGarmentDetailMayBeInventedByImageModel": false,
+    "sourcePreservingProjection": true,
+    "genericHumanGarmentTemplateForNonHumansAllowed": false,
+    "representationTraitMayGenerateCostumeShorthand": false,
+    "worldMotifMayReplaceConstructionReasoning": false,
+    "premiumRenderingMayAddGarmentConcepts": false,
+    "generatedDetailCreatesCanon": false
+  },
+  "nonHumanHandling": {
+    "DOG": "resolve profile as body equipment / carried equipment / grooming only when source-backed; do not invent human clothing",
+    "CAT": "resolve profile as body equipment / carried equipment / grooming only when source-backed; do not invent human clothing",
+    "ARTIFICIAL_PERSON": "preserve personhood and source-backed surface/clothing construction; do not robotize personality by default",
+    "MAINTENANCE_ROBOT": "resolve shell/panel/tool-storage/maintenance logic from source-backed profile; do not dress as a human unless explicitly supported"
+  },
+  "worldTranslation": {
+    "principle": "worldbuilding appears as consequence, not sticker",
+    "channels": ["seam","fold","fastening","storage","edge_treatment","wear","repair","object_access","local_light_response"],
+    "forbidden": ["universal_star_jewelry","floating_paper","ink_tattoo_shorthand","gold_trim","glowing_seams","decorative_lantern","decorative_compass","random_patchwork","empty_belts","empty_pouches"]
+  },
+  "imageGenerationGate": [
+    "living_visual_source_loaded",
+    "exact_character_profile_found",
+    "source_status_preserved",
+    "body_and_movement_intent_loaded",
+    "exposure_boundary_loaded",
+    "body_modification_boundary_loaded",
+    "silhouette_fit_loaded_when_present",
+    "material_preference_loaded_when_present",
+    "footwear_storage_loaded_when_present",
+    "wear_maintenance_loaded",
+    "absolute_never_loaded",
+    "positive_preference_loaded",
+    "world_material_master_loaded",
+    "core5_dedicated_override_loaded_when_applicable",
+    "nonhuman_humanization_guard_applied_when_applicable",
+    "unknown_detail_not_delegated_to_image_model"
+  ],
+  "unknownGarmentDetailMayBeInventedByImageModel": false
+}
