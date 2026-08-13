@@ -4,8 +4,8 @@
   "status": "ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION",
   "purpose": "Make Character Design Sheet 01-04 composition a strict child of the current Character Reference Production Entrypoint so wrapper changes on main are inherited live instead of requiring a stale parent script name in this bridge.",
   "observedLatestMain": {
-    "sha": "8deccd65c19017e5cda4d3d8a26d0e0d45ffb303",
-    "throughPullRequest": 334,
+    "sha": "53fdd27c6e9dca12883b262ee215950eeeb035d7",
+    "throughPullRequest": 336,
     "syncedIntoInventoryBranch": true,
     "mustRecheckImmediatelyBeforeAnyImageGenerationOrMerge": true,
     "note": "This SHA records the synchronization baseline, not a permanent authority freeze. A newer main must be rechecked before generation or merge."
@@ -81,7 +81,9 @@
     "contrast-value-hierarchy-fidelity",
     "edge-line-shape-boundary-fidelity",
     "detail-density-ornament-budget-fidelity",
-    "negative-space-cluster-separation-fidelity"
+    "negative-space-cluster-separation-fidelity",
+    "feature-scale-proportion-lod-fidelity",
+    "variant-delta-state-transformation-fidelity"
   ],
   "latestInheritedAuthorities": [
     {
@@ -123,6 +125,16 @@
       "source": "PR #334",
       "id": "negative-space-cluster-separation-fidelity",
       "rule": "Negative space is identity-critical readability structure; effects, ornament, premium polish, action posing and high resolution may not fill functional gaps, detach props, hide mobility equipment, force relationship touching silhouettes or turn generated spacing accidents into canon."
+    },
+    {
+      "source": "PR #335",
+      "id": "feature-scale-proportion-lod-fidelity",
+      "rule": "LOD is information reduction rather than character redesign; portrait, sprite, chibi, resolution or distance changes may not enlarge eyes, beautify jaw/chin, alter head/body or limb proportions, slim bodies, de-age, shrink mobility equipment, mascotify animals or humanize robots."
+    },
+    {
+      "source": "PR #336",
+      "id": "variant-delta-state-transformation-fidelity",
+      "rule": "Every visual state is baseline plus explicitly authorized delta; unspecified axes inherit baseline, and Dawn/Kokuyou/premium/battle/seasonal labels do not permit automatic body, exposure, modification, disability, garment, prop, palette, maintenance, ornament or relationship redesign."
     }
   ],
   "sheetRoleBoundaries": {
@@ -132,14 +144,16 @@
       "no mirror substitution for asymmetric construction",
       "same face/body/clothing/equipment topology across views",
       "neutral inspection pose does not create signature pose",
-      "do not hide unresolved overlap or construction behind crop, blur, foreground effects, depth of field, surface polish, contrast crushing, edge cleanup, ornament inflation or collapsed negative space"
+      "do not hide unresolved overlap or construction behind crop, blur, foreground effects, depth of field, surface polish, contrast crushing, edge cleanup, ornament inflation or collapsed negative space",
+      "LOD never changes identity proportions; state labels inherit baseline identity unless an explicit authorized delta says otherwise"
     ],
     "face-expression-acting": [
       "neutral base face remains parent geometry",
       "expression deforms soft tissue rather than identity geometry",
       "diagnostic acting does not create signature emotional canon",
       "no generic premium-anime face convergence",
-      "crop/focus/effects/tone mapping/contrast/edge/detail/spacing treatment may not erase identity-bearing face/head construction, age or skin/body identity"
+      "crop/focus/effects/tone mapping/contrast/edge/detail/spacing/LOD treatment may not erase or beautify identity-bearing face/head construction or age",
+      "state variants may not de-age, enlarge eyes or change jaw/chin geometry without explicit upstream authority"
     ],
     "costume-equipment-material": [
       "authorized garment construction and storage only",
@@ -153,14 +167,17 @@
       "contrast may not invent outline/glow or hide mobility/storage structure",
       "edge cleanup may not remove seams, closures, layered garment boundaries or mobility-equipment shape",
       "detail density may not add unsupported gems, emissive nodes, jewelry, piercings, tattoos, harnesses, cutouts or floating decorative cloth",
-      "negative space may not be created through invented exposure/cutouts or destroyed by ornament/effects clutter"
+      "negative space may not be created through invented exposure/cutouts or destroyed by ornament/effects clutter",
+      "LOD may simplify only non-identity information while preserving garment/prop/mobility proportions",
+      "state variants inherit baseline garment, exposure, maintenance, prop and ornament axes unless their delta ledger explicitly authorizes a change"
     ],
     "silhouette-motion-derivation": [
       "body mass/species/age/mobility identity survives motion and perspective",
       "prop scale/contact continuity",
       "world adapts around the character rather than resizing the character",
       "OPEN motion uses neutral diagnostic placeholders rather than signature choreography",
-      "crop, blur, effects, grading, contrast, line treatment, detail density and cluster spacing preserve identity-bearing silhouette/body-volume information"
+      "crop, blur, effects, grading, contrast, line treatment, detail density, cluster spacing and LOD preserve identity-bearing silhouette/body-volume information",
+      "variant/state silhouettes remain baseline plus explicit authorized delta rather than a wholesale redesign"
     ]
   },
   "yuiReferenceOnlyHardConstraintsPreservedForFutureResume": [
