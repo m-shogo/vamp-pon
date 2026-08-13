@@ -1,0 +1,81 @@
+{
+  "id": "yoru-no-shirube-all-character-hand-contact-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_FIDELITY_AUTHORITY",
+  "scopeCount": 36,
+  "assetKinds": [
+    "sprite_sheet_180",
+    "character_reference",
+    "normal_cutin",
+    "dawn_cutin",
+    "kokuyou_cutin",
+    "emblem_blank",
+    "emblem_normal",
+    "emblem_dawn",
+    "emblem_kokuyou"
+  ],
+  "contactInvariants": [
+    "anatomically-plausible-digit-paw-manipulator-form",
+    "identity-compatible-hand-paw-manipulator-scale",
+    "held-object-contact-point-exists",
+    "grip-matches-object-geometry",
+    "object-weight-has-support",
+    "wrist-forearm-alignment-fits-load",
+    "storage-access-matches-garment-construction",
+    "straps-cords-handles-must-be-authorized",
+    "two-handed-actions-have-distinct-hand-jobs",
+    "mobility-equipment-contact-is-physically-coherent",
+    "gloves-sleeves-do-not-erase-grasp-mechanics",
+    "named-prop-scale-and-orientation-family-preserved"
+  ],
+  "hardGuards": {
+    "unknownDominantHandMayBeInventedByImageModel": false,
+    "unknownSignatureGripMayBeInventedByImageModel": false,
+    "propMayFloatNearHandWithoutContact": false,
+    "storageMayBeInventedToFitProp": false,
+    "strapCordHolsterMayBeInventedForComposition": false,
+    "propScaleMayChangeBetweenAssets": false,
+    "mobilityEquipmentMayBeRemovedForPose": false,
+    "nonHumanMayGainHumanHandsToSolvePropUse": false,
+    "generatedGripCreatesCanon": false,
+    "generatedHandednessCreatesCanon": false
+  },
+  "forbiddenShortcuts": [
+    "floating-prop-near-open-palm",
+    "fused-fingers-around-handle",
+    "hand-through-object",
+    "object-through-sleeve-or-body",
+    "missing-load-support",
+    "impossible-wrist-bend-for-weight",
+    "random-pointing-finger-for-expression",
+    "beauty-hand-pose-replacing-practical-grip",
+    "invented-rings-nails-gloves-to-hide-anatomy",
+    "invented-strap-holster-pocket",
+    "duplicate-prop-in-storage-and-hand",
+    "prop-scale-changing-between-assets",
+    "impossible-wheelchair-contact",
+    "human-hands-added-to-non-human-character",
+    "unexplained-object-levitation"
+  ],
+  "assetKindPolicy": {
+    "character_reference": {"appearanceFidelityApplicable":true,"primaryPropContactShouldBeLegible":true},
+    "sprite_sheet_180": {"appearanceFidelityApplicable":true,"fingerSimplificationAllowed":true,"contactLogicMayChange":false},
+    "normal_cutin": {"appearanceFidelityApplicable":true,"cropMayHideContactEvidence":true,"visibleContactMayContradictReference":false},
+    "dawn_cutin": {"appearanceFidelityApplicable":true,"effectsMayReplaceGripWithLevitation":false},
+    "kokuyou_cutin": {"appearanceFidelityApplicable":true,"effectsMayReplaceGripWithLevitation":false},
+    "emblem_blank": {"appearanceFidelityApplicable":false},
+    "emblem_normal": {"appearanceFidelityApplicable":false},
+    "emblem_dawn": {"appearanceFidelityApplicable":false},
+    "emblem_kokuyou": {"appearanceFidelityApplicable":false}
+  },
+  "storageRouteRequired": [
+    "storage-location",
+    "opening-or-closure",
+    "hand-access",
+    "extraction-angle",
+    "usable-position",
+    "return-path"
+  ],
+  "authorityDocument": "docs/visual/all-character-hand-contact-fidelity-master-v1.md",
+  "generatedImageCreatesCanon": false
+}

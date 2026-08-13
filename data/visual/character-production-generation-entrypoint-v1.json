@@ -59,7 +59,9 @@
     "docs/visual/all-character-expression-fidelity-master-v1.md",
     "data/visual/all-character-expression-fidelity-master-v1.json",
     "docs/visual/all-character-motion-perspective-fidelity-master-v1.md",
-    "data/visual/all-character-motion-perspective-fidelity-master-v1.json"
+    "data/visual/all-character-motion-perspective-fidelity-master-v1.json",
+    "docs/visual/all-character-hand-contact-fidelity-master-v1.md",
+    "data/visual/all-character-hand-contact-fidelity-master-v1.json"
   ],
   "candidateBoundary": [
     "not-final-art-approval",
