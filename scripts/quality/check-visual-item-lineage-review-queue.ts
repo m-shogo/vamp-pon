@@ -13,7 +13,7 @@ const roles = ['starterGear', 'passiveItem', 'rareItem', 'lampTsugi', 'akatsukiB
 type Role = (typeof roles)[number];
 
 if (characterProductionPlans.length !== 20) fail(`expected 20 character production plans, got ${characterProductionPlans.length}`);
-if (queue.schemaVersion !== 2) fail(`queue schemaVersion must be 2, got ${queue.schemaVersion}`);
+if (queue.schemaVersion !== 1) fail(`queue schemaVersion must remain backward-compatible v1, got ${queue.schemaVersion}`);
 if (queue.status !== 'REVIEW_REQUIRED_NO_AUTOMATIC_COLLAPSE') fail(`invalid queue status: ${queue.status}`);
 if (queue.automaticSamePhysicalObjectDecisionAllowed !== false || queue.automaticEvolutionDecisionAllowed !== false) fail('automatic physical/evolution collapse must remain forbidden');
 if (queue.sameLabelProvesSamePhysicalObject !== false || queue.sameOwnerProvesSamePhysicalObject !== false || queue.sameMotifProvesSamePhysicalObject !== false) fail('same label/owner/motif may not prove physical sameness');
@@ -83,6 +83,7 @@ if (queue.namedObjectBoundary?.automaticallyMergedWithCharacterItemRows !== fals
 
 console.log(JSON.stringify({
   status: 'PASS',
+  schemaVersion: queue.schemaVersion,
   characterPlans: characterProductionPlans.length,
   sourcePhaseRows: occurrences.length,
   exactDistinctCharacterLabels: exactDistinctLabels,
