@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "queueId": "yoruno-shirube-pre-game-master-expansion-queue-v2",
+  "schemaVersion": 1,
+  "queueId": "yoruno-shirube-pre-game-master-expansion-queue-v1",
   "status": "LIST_ONLY_NO_AUTOMATIC_GENERATION",
   "purpose": "Define every missing pre-game visual master family that must be normalized before guide/TOP/gameplay image execution, without duplicating existing production rows or current main visual authorities.",
   "dependsOn": [
@@ -85,6 +85,23 @@
         ],
         "countedAsAdditionalEnemyMasters": false,
         "formalName": "朔夜座",
+        "legacyObserverLabel": "八影"
+      },
+      "yatsukageSubset": {
+        "compatibilityAliasOnly": true,
+        "count": 8,
+        "enemyIds": [
+          "boss_name_without_owner",
+          "boss_closed_morning_box",
+          "boss_night_without_route",
+          "omburo_black_origami",
+          "omburo_blank_card",
+          "omburo_repair_seam",
+          "omburo_dream_wave",
+          "omburo_nameplate"
+        ],
+        "countedAsAdditionalEnemyMasters": false,
+        "currentFormalName": "朔夜座",
         "legacyObserverLabel": "八影"
       },
       "productionState": "REFERENCE_MASTER_MODEL_REQUIRED",
