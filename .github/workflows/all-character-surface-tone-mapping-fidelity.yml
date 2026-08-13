@@ -1,0 +1,30 @@
+name: All Character Surface Tone Mapping Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-surface-tone-mapping-fidelity-master-v1.md'
+      - 'data/visual/all-character-surface-tone-mapping-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-surface-tone-mapping-fidelity.ts'
+      - '.github/workflows/all-character-surface-tone-mapping-fidelity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-surface-tone-mapping-fidelity-master-v1.md'
+      - 'data/visual/all-character-surface-tone-mapping-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-surface-tone-mapping-fidelity.ts'
+      - '.github/workflows/all-character-surface-tone-mapping-fidelity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character surface tone mapping fidelity authority
+        run: node --experimental-strip-types scripts/quality/check-all-character-surface-tone-mapping-fidelity.ts
