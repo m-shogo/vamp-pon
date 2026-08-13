@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "baselineId": "yoruno-shirube-visual-generation-count-baseline-v1",
+  "status": "LISTING_BASELINE_NO_IMAGE_GENERATION",
+  "purpose": "Convert the visual backlog from category-level planning into exact or bounded production counts while preventing duplicate masters and premature gameplay generation.",
+  "productionOrder": [
+    "MASTER_SETTING_BOOK",
+    "GUIDE_LOREBOOK_DATABASE",
+    "TOP_LOADING_PRESENTATION",
+    "GAMEPLAY_DERIVATIVES_LAST"
+  ],
+  "authorityBoundary": {
+    "thisFileIsStoryAuthority": false,
+    "thisFileIsVisualFinalApproval": false,
+    "automaticGenerationAllowed": false,
+    "yuiRegenerationOnHold": true,
+    "countsMustBeRevalidatedAfterBranchSync": true
+  },
+  "observedRefs": {
+    "workingBranch": "agent/visual-asset-inventory",
+    "workingHeadBeforeThisWrite": "c01c80690e86eda890ae9df3d76f473e10fe4a49",
+    "mainObserved": "0e8538c9a920cd856a70dba2c011b5082c966efe",
+    "branchState": "DIVERGED_MAIN_HAS_NEW_VISUAL_AUTHORITIES",
+    "syncRequiredBeforeMerge": true
+  },
+  "currentMainVisualAuthoritiesToReuse": [
+    {
+      "path": "data/visual/all-character-identity-production-master-v1.json",
+      "scopeCount": 36,
+      "role": "reuse as identity authority; do not duplicate with a new identity master"
+    },
+    {
+      "path": "data/visual/all-character-garment-production-master-v1.json",
+      "scopeCount": 36,
+      "role": "reuse as garment/construction authority; Character Sheet 03 remains visual evidence, not a competing authority"
+    },
+    {
+      "path": "data/visual/all-character-night-light-rendering-master-v1.json",
+      "scopeCount": 36,
+      "role": "reuse as night/light rendering authority; do not create a duplicate per-character lighting authority"
+    },
+    {
+      "path": "data/visual/world-material-translation-master-v1.json",
+      "role": "reuse as world/material translation authority; texture/reference plates remain evidence and examples only"
+    }
+  ],
+  "phase1MasterSettingBook": {
+    "characterBaseDesign": {
+      "characterCount": 36,
+      "logicalPackCount": 36,
+      "sourceSheetsPerPack": 4,
+      "sourceSheetRows": 144,
+      "yuiHoldSheetRows": 4,
+      "nonYuiListedSheetRows": 140,
+      "rule": "one logical Character Design Master Pack per character; four source sheets are evidence, not four independent masters"
+    },
+    "characterStateTransformation": {
+      "sourceCharacterSet": "current gameplay character database",
+      "eligibleCharacterCount": 20,
+      "proposedLogicalComparisonMasters": 20,
+      "statesInOneLogicalMaster": [
+        "normal-baseline-link",
+        "kokuyou",
+        "akatsuki-dawn"
+      ],
+      "rule": "prefer one multi-state comparison master per character instead of counting Kokuyou and Dawn as unrelated character designs"
+    },
+    "starBeast": {
+      "masterCount": 21,
+      "referenceGenerationReadyCount": 21,
+      "authoritySeparateFromCharacterMaster": true
+    },
+    "enemyCreature": {
+      "enemyDatabaseCount": 48,
+      "masterReferenceCount": 48,
+      "yatsukageSubsetCount": 8,
+      "uniqueMasterCountAfterYatsukageDedupe": 48,
+      "yatsukageEnemyIds": [
+        "boss_name_without_owner",
+        "boss_closed_morning_box",
+        "boss_night_without_route",
+        "omburo_black_origami",
+        "omburo_blank_card",
+        "omburo_repair_seam",
+        "omburo_dream_wave",
+        "omburo_nameplate"
+      ],
+      "rule": "the eight Yatsukage/Sakuyaza spotlight identities are a subset of the 48 enemy records; never count them as 48 + 8 separate creature masters"
+    },
+    "namedObject": {
+      "luminousPossessionMasterCount": 21,
+      "referenceGenerationReadyCount": 0,
+      "state": "GEOMETRY_REVIEW_REQUIRED"
+    },
+    "itemObjectDesign": {
+      "characterProductionPlanCount": 20,
+      "characterLinkedPhasesPerCharacter": 5,
+      "characterLinkedRawRows": 100,
+      "fieldDropRows": 5,
+      "rawItemRows": 105,
+      "exactDistinctCharacterLinkedLabels": 89,
+      "exactDistinctLabelsIncludingFieldDrops": 94,
+      "exactDuplicateLabelGroups": 11,
+      "physicalObjectLineageMasterCount": "TBD_AFTER_AUTHORITY_REVIEW",
+      "exactDuplicateCandidates": [
+        { "characterId": "koyori", "label": "呼び名の紙縒り", "fields": ["passiveItem", "lampTsugi"] },
+        { "characterId": "gen", "label": "駅前の道火", "fields": ["passiveItem", "lampTsugi"] },
+        { "characterId": "hana", "label": "箱底の花", "fields": ["passiveItem", "lampTsugi"] },
+        { "characterId": "shiro", "label": "未分類の頁", "fields": ["passiveItem", "lampTsugi"] },
+        { "characterId": "tobari", "label": "片道ではない切符", "fields": ["rareItem", "akatsukiBiraki"] },
+        { "characterId": "nemu", "label": "眠り頁", "fields": ["passiveItem", "lampTsugi"] },
+        { "characterId": "kuroori", "label": "四つ折りの影", "fields": ["passiveItem", "lampTsugi"] },
+        { "characterId": "kage1", "label": "隠し火", "fields": ["passiveItem", "lampTsugi"] },
+        { "characterId": "kage2", "label": "薄れ名", "fields": ["passiveItem", "lampTsugi"] },
+        { "characterId": "kage3", "label": "角度の火", "fields": ["passiveItem", "lampTsugi"] },
+        { "characterId": "kage4", "label": "余白の継ぎ目", "fields": ["passiveItem", "lampTsugi"] }
+      ],
+      "fieldDrops": [
+        "記憶片",
+        "朝露",
+        "迷子の鈴",
+        "夜明けマッチ",
+        "白い切符"
+      ],
+      "rule": "exact text equality is only a dedupe candidate, not automatic proof that two phases are the same physical object; state/evolution lineage requires authority review"
+    },
+    "locationEnvironment": {
+      "stageDatabaseCount": 20,
+      "locationSettingMasterCount": 20,
+      "gameplayDerivativesPerLocation": 4,
+      "gameplayKinds": [
+        "background_390x844",
+        "parallax_layer_pack",
+        "stage_thumbnail",
+        "battle_tile_patch"
+      ]
+    },
+    "toumonSigil": {
+      "vectorMasterCount": 21,
+      "current20": 20,
+      "officialReserve": 1,
+      "officialReserveIds": ["ren"],
+      "preferredAuthorityFormat": "SVG_VECTOR",
+      "rasterGenerationIsAuthority": false
+    },
+    "constellationArchive": {
+      "researchBackedCandidateClueCount": 8,
+      "plannedArchivePlateCount": "TBD_PER_OBJECT_AUTHORITY",
+      "rule": "the eight clue candidates do not automatically equal eight final constellation objects; archive object definitions must be authorized first"
+    },
+    "worldVisualEffectLanguage": {
+      "plannedTopics": [
+        "night-quiet-darkness",
+        "route-way-home",
+        "paper-record-ledger-label",
+        "black-ink-edge-spread-puddle",
+        "lantern-small-practical-light",
+        "memory-fragment",
+        "missing-record-blank-margin",
+        "repair-binding-folding-seams",
+        "old-changing-star-charts",
+        "night-to-dawn-transition",
+        "kokuyou-boundary",
+        "allowed-vs-forbidden-glow"
+      ],
+      "topicCount": 12,
+      "finalPlateCount": "TBD_COMPOSITION_CAN_COMBINE_TOPICS",
+      "mainAuthorityToReuse": "data/visual/world-material-translation-master-v1.json"
+    },
+    "stillAuthorityDependentCounts": [
+      "ensemble-lineup-plate-count",
+      "group-faction-master-count",
+      "story-scene-keyframe-count",
+      "seasonal-time-weather-color-script-output-count",
+      "material-example-plate-count",
+      "logo-lockup-variant-count"
+    ]
+  },
+  "phase2GuideLorebookDatabase": {
+    "managedDerivativeTotal": 142,
+    "breakdown": {
+      "characterProfiles": 36,
+      "characterEraCards": 36,
+      "characterRealityRootCards": 36,
+      "relationshipCards": 24,
+      "foreshadowCards": 10
+    },
+    "nonRasterByDefault": [
+      "relationship-network-lines",
+      "timeline-text",
+      "stat-tables",
+      "filters-tabs",
+      "profile-card-chrome",
+      "status-badges",
+      "long-readable-copy"
+    ]
+  },
+  "phase3TopLoadingPresentation": {
+    "existingTopWorkMustBeReusedOrAuditedBeforeReplacement": true,
+    "knownExistingTopV2LayerKitAssets": 17,
+    "knownTopV3FinalCandidateGenerated": true,
+    "knownTopV3ApprovedAsFinal": false,
+    "knownTopV3RuntimeApproved": false,
+    "newMissingImageCount": "TBD_AFTER_EXISTENCE_REPLACEMENT_AUDIT",
+    "doNotBlindlyRegenerate": [
+      "top-key-art",
+      "loading-seasonal-art",
+      "stars-clouds-fire-smoke-embers",
+      "distant-light-and-glow-masks"
+    ]
+  },
+  "phase4GameplayLast": {
+    "managedCharacterIconPortraitRows": {
+      "icons": 36,
+      "portraits": 36,
+      "total": 72
+    },
+    "existingAssetFactoryContractIndex": {
+      "character": {
+        "sourceCharacterCount": 20,
+        "kindsPerCharacter": 9,
+        "contractCount": 180
+      },
+      "enemy": {
+        "sourceEnemyCount": 48,
+        "kindsPerEnemy": 4,
+        "contractCount": 192
+      },
+      "item": {
+        "sourceItemCount": 105,
+        "kindsPerItem": 5,
+        "contractCount": 525
+      },
+      "stage": {
+        "sourceStageCount": 20,
+        "kindsPerStage": 4,
+        "contractCount": 80
+      },
+      "totalContractCount": 977,
+      "actualGenerationNeed": "TBD_EXISTS_REUSE_MISSING_REPLACE_AUTHORITY_AUDIT"
+    }
+  },
+  "nextActions": [
+    "sync or reconstruct this listing on top of current main visual authorities before merge",
+    "audit the 105 item rows into physical-object/evolution lineages; do not auto-collapse beyond exact-label candidates",
+    "materialize 20 location-setting-master rows before stage gameplay derivatives",
+    "reclassify enemy reference assets as 48 master references with Yatsukage as an 8-member subset",
+    "create 20 character transformation comparison master rows from Normal/Kokuyou/Dawn authority",
+    "audit existing TOP/Loading outputs and all 977 Asset Factory outputPathHint targets for EXISTS_REUSE/MISSING_GENERATE/REPLACE_REQUIRED/BLOCKED_AUTHORITY",
+    "finalize only truly missing image counts after those audits; image generation remains disabled during listing"
+  ]
+}
