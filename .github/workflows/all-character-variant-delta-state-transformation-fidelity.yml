@@ -1,0 +1,31 @@
+name: All Character Variant Delta State Transformation Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-variant-delta-state-transformation-fidelity-master-v1.md'
+      - 'data/visual/all-character-variant-delta-state-transformation-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-variant-delta-state-transformation-fidelity.ts'
+      - '.github/workflows/all-character-variant-delta-state-transformation-fidelity.yml'
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-variant-delta-state-transformation-fidelity-master-v1.md'
+      - 'data/visual/all-character-variant-delta-state-transformation-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-variant-delta-state-transformation-fidelity.ts'
+      - '.github/workflows/all-character-variant-delta-state-transformation-fidelity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character variant delta state transformation fidelity authority
+        run: node --experimental-strip-types scripts/quality/check-all-character-variant-delta-state-transformation-fidelity.ts
