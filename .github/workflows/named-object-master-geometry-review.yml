@@ -1,0 +1,30 @@
+name: Named Object Master Geometry Review
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/namedObjectMasterGeometryReviewQueue.ts'
+      - 'scripts/quality/check-named-object-master-geometry-review-queue.ts'
+      - '.github/workflows/named-object-master-geometry-review.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/namedObjectMasterGeometryReviewQueue.ts'
+      - 'scripts/quality/check-named-object-master-geometry-review-queue.ts'
+      - '.github/workflows/named-object-master-geometry-review.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate live Named Object geometry review queue
+        run: node --experimental-strip-types scripts/quality/check-named-object-master-geometry-review-queue.ts
