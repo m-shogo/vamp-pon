@@ -151,7 +151,21 @@
     "lodMayMascotifyAnimal": false,
     "lodMayHumanizeRobot": false,
     "premiumAssetMayBeautifyProportionAutomatically": false,
-    "generatedLodTreatmentCreatesCanon": false
+    "generatedLodTreatmentCreatesCanon": false,
+    "allCharacterVariantDeltaStateTransformationFidelityRequired": true,
+    "unknownStateDeltaMayBeInventedByImageModel": false,
+    "stateMayRedesignIdentity": false,
+    "stateMayChangeBodyCategory": false,
+    "stateMayDeAgeCharacter": false,
+    "stateMayIncreaseExposureAutomatically": false,
+    "stateMayInventBodyModification": false,
+    "stateMayRemoveMobilityEquipment": false,
+    "stateMayResetMaintenanceHistory": false,
+    "stateMayIncreaseOrnamentAutomatically": false,
+    "stateMayReplaceIdentityPaletteAutomatically": false,
+    "stateMayInventPropOrRelationshipEvidence": false,
+    "premiumVariantMayBeautifyCharacterAutomatically": false,
+    "generatedStateDeltaCreatesCanon": false
   },
   "lowerExportersAreProductionEntrypoints": false,
   "handWrittenPromptIsProductionReady": false,
@@ -209,7 +223,9 @@
     "docs/visual/all-character-negative-space-cluster-separation-fidelity-master-v1.md",
     "data/visual/all-character-negative-space-cluster-separation-fidelity-master-v1.json",
     "docs/visual/all-character-feature-scale-proportion-lod-fidelity-master-v1.md",
-    "data/visual/all-character-feature-scale-proportion-lod-fidelity-master-v1.json"
+    "data/visual/all-character-feature-scale-proportion-lod-fidelity-master-v1.json",
+    "docs/visual/all-character-variant-delta-state-transformation-fidelity-master-v1.md",
+    "data/visual/all-character-variant-delta-state-transformation-fidelity-master-v1.json"
   ],
   "candidateBoundary": [
     "not-final-art-approval",
