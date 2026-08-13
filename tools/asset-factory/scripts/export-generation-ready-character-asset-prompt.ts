@@ -7,6 +7,8 @@ const WORLD_MATERIAL_DOC = 'docs/visual/world-material-translation-master-v1.md'
 const WORLD_MATERIAL_JSON = 'data/visual/world-material-translation-master-v1.json';
 const ALL_GARMENT_DOC = 'docs/visual/all-character-garment-production-master-v1.md';
 const ALL_GARMENT_JSON = 'data/visual/all-character-garment-production-master-v1.json';
+const ALL_LIGHT_DOC = 'docs/visual/all-character-night-light-rendering-master-v1.md';
+const ALL_LIGHT_JSON = 'data/visual/all-character-night-light-rendering-master-v1.json';
 const CORE5_GARMENT_DOC = 'docs/visual/core5-garment-construction-master-v1.md';
 const CORE5_GARMENT_JSON = 'data/visual/core5-garment-construction-master-v1.json';
 const PROFESSIONAL_DOC = 'docs/visual/master-authoring-professional-standard-v1.md';
@@ -59,6 +61,15 @@ function loadAllCharacterGarmentMaster() {
   if (master.scopeCount !== 36) throw new Error(`All Character Garment scope must remain 36: ${ALL_GARMENT_JSON}`);
   if (master.unknownGarmentDetailMayBeInventedByImageModel !== false || master.sharedRules?.unknownGarmentDetailMayBeInventedByImageModel !== false) throw new Error(`Image-model garment invention must remain disabled: ${ALL_GARMENT_JSON}`);
   if (!Array.isArray(master.imageGenerationGate) || master.imageGenerationGate.length < 14) throw new Error(`All Character Garment image-generation gate incomplete: ${ALL_GARMENT_JSON}`);
+  return master;
+}
+
+function loadAllCharacterNightLightMaster() {
+  const master = JSON.parse(readFileSync(resolve(process.cwd(), ALL_LIGHT_JSON), 'utf8'));
+  if (master.status !== 'CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION') throw new Error(`All Character Night/Light Rendering Master is not current: ${ALL_LIGHT_JSON}`);
+  if (master.scopeCount !== 36 || master.doesNotCreateNewStoryCanon !== true) throw new Error(`All Character Night/Light scope/governance weakened: ${ALL_LIGHT_JSON}`);
+  if (master.renderingMayRedesignCharacter !== false || master.unknownLightSourceMayBeInventedByImageModel !== false || master.nightIsPalettePreset !== false) throw new Error(`All Character Night/Light rendering guard weakened: ${ALL_LIGHT_JSON}`);
+  if (!Array.isArray(master.imageGenerationGate) || master.imageGenerationGate.length < 12) throw new Error(`All Character Night/Light image-generation gate incomplete: ${ALL_LIGHT_JSON}`);
   return master;
 }
 
@@ -213,6 +224,32 @@ function normalizeAllCharacterGarmentProfile(base: BaseResolvedPrompt, master: a
   };
 }
 
+function normalizeNightLightProfile(base: BaseResolvedPrompt, garmentProfile: any, master: any) {
+  const p = base.livingVisualProfile ?? {};
+  return {
+    id: garmentProfile.id,
+    name: garmentProfile.name,
+    species: garmentProfile.species,
+    sourceProfilePath: garmentProfile.sourceProfilePath,
+    derivationAuthority: 'SOURCE_PRESERVING_RENDERING_PROJECTION',
+    bodyComfort: garmentProfile.bodyComfort,
+    exposure: garmentProfile.exposure,
+    bodyModification: garmentProfile.bodyModification,
+    materials: garmentProfile.materials,
+    wearMaintenance: garmentProfile.maintenance,
+    socialPresentation: garmentProfile.socialPresentation,
+    absoluteNever: garmentProfile.absoluteNever,
+    positivePreference: garmentProfile.positivePreference,
+    skinAgeBodyPreservationRule: 'Preserve loaded neutral authority exactly; lighting cannot lighten skin, smooth age, slim body, change disability equipment, or alter species/body structure.',
+    emittedVsReflectedRule: master.emissionRule,
+    materialResponseRules: master.materialResponseRules,
+    backgroundRules: master.backgroundRules,
+    speciesLightRule: master.nonHumanRules?.[p.species ?? garmentProfile.species] ?? null,
+    reviewTests: master.reviewTests,
+    hardProhibitions: master.hardProhibitions,
+  };
+}
+
 function buildWorldPromptBlock(master: any, characterId: string): string {
   const core5 = Array.isArray(master.core5) ? master.core5.find((entry: any) => entry.id === characterId) ?? null : null;
   return [
@@ -244,6 +281,21 @@ function buildAllCharacterGarmentBlock(master: any, profile: any): string {
   ].join('\n');
 }
 
+function buildNightLightBlock(master: any, profile: any): string {
+  return [
+    'ALL CHARACTER NIGHT / LIGHT RENDERING MASTER — REQUIRED FOR EVERY CHARACTER.',
+    `Authority: ${ALL_LIGHT_DOC}.`,
+    `Machine rules: ${ALL_LIGHT_JSON}.`,
+    'Night is not a palette preset. Do not apply universal navy/black recolor, cyan/violet rim, glowing eyes, glowing seams, magical bloom, or premium gold highlights.',
+    'Rendering reveals the loaded design and may not redesign anatomy, skin tone, age, body shape, disability equipment, species, clothing construction, exposure, body modification, or object relation.',
+    'Separate emitted from reflected light. Every emitted source must be loaded and identifiable. Reflection follows actual material; paper, skin, hair, fur, glass, shell and metal do not become self-luminous by mood.',
+    'For transparent character references, use restrained neutral/world-credible inspection light without scenic background. For scene/cutin assets, environment light may affect local response but cannot invent character-side emission or recolor identity.',
+    'CHARACTER-SPECIFIC RESOLVED NIGHT/LIGHT PROFILE — REQUIRED.',
+    JSON.stringify(profile, null, 2),
+    `Night/light generation gate: ${JSON.stringify(master.imageGenerationGate)}`,
+  ].join('\n');
+}
+
 function buildCore5GarmentPromptBlock(garment: { master: any; profile: any } | null): string {
   if (!garment) return '';
   return [
@@ -261,20 +313,23 @@ const options = parseArgs(process.argv.slice(2));
 const base = runBaseExporter(options.characterId, options.kind);
 const worldMaster = loadWorldMaterialMaster();
 const allGarmentMaster = loadAllCharacterGarmentMaster();
+const allLightMaster = loadAllCharacterNightLightMaster();
 const allGarmentProfile = normalizeAllCharacterGarmentProfile(base, allGarmentMaster);
+const nightLightProfile = normalizeNightLightProfile(base, allGarmentProfile, allLightMaster);
 const core5Garment = loadCore5GarmentProfile(options.characterId);
 const worldBlock = buildWorldPromptBlock(worldMaster, options.characterId);
 const allGarmentBlock = buildAllCharacterGarmentBlock(allGarmentMaster, allGarmentProfile);
+const nightLightBlock = buildNightLightBlock(allLightMaster, nightLightProfile);
 const core5GarmentBlock = buildCore5GarmentPromptBlock(core5Garment);
 
 const authorityOrder = Array.isArray(base.authorityOrder) ? [...base.authorityOrder] : [];
 const insertionIndex = Math.min(3, authorityOrder.length);
-authorityOrder.splice(insertionIndex, 0, WORLD_MATERIAL_DOC, WORLD_MATERIAL_JSON, ALL_GARMENT_DOC, ALL_GARMENT_JSON);
-if (core5Garment) authorityOrder.splice(insertionIndex + 4, 0, CORE5_GARMENT_DOC, CORE5_GARMENT_JSON);
+authorityOrder.splice(insertionIndex, 0, WORLD_MATERIAL_DOC, WORLD_MATERIAL_JSON, ALL_GARMENT_DOC, ALL_GARMENT_JSON, ALL_LIGHT_DOC, ALL_LIGHT_JSON);
+if (core5Garment) authorityOrder.splice(insertionIndex + 6, 0, CORE5_GARMENT_DOC, CORE5_GARMENT_JSON);
 
 const result = {
   ...base,
-  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 11),
+  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 12),
   generatedBy: 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts',
   generationReadyProductionEntrypoint: true,
   worldMaterialTranslationMasterPath: WORLD_MATERIAL_JSON,
@@ -284,23 +339,32 @@ const result = {
   allCharacterGarmentProductionAuthorityDocument: ALL_GARMENT_DOC,
   allCharacterGarmentProductionRequired: true,
   allCharacterGarmentProductionProfile: allGarmentProfile,
+  allCharacterNightLightRenderingMasterPath: ALL_LIGHT_JSON,
+  allCharacterNightLightRenderingAuthorityDocument: ALL_LIGHT_DOC,
+  allCharacterNightLightRenderingRequired: true,
+  allCharacterNightLightRenderingProfile: nightLightProfile,
   core5GarmentConstructionMasterPath: core5Garment ? CORE5_GARMENT_JSON : null,
   core5GarmentConstructionAuthorityDocument: core5Garment ? CORE5_GARMENT_DOC : null,
   core5GarmentConstructionProfile: core5Garment?.profile ?? null,
   core5GarmentConstructionRequired: CORE5_IDS.has(options.characterId),
   unknownWorldMaterialMayBeInventedByImageModel: false,
   unknownGarmentDetailMayBeInventedByImageModel: false,
+  unknownLightSourceMayBeInventedByImageModel: false,
+  renderingMayRedesignCharacter: false,
   authorityOrder,
-  prompt: `${base.prompt}\n\n${worldBlock}\n\n${allGarmentBlock}${core5GarmentBlock ? `\n\n${core5GarmentBlock}` : ''}`,
+  prompt: `${base.prompt}\n\n${worldBlock}\n\n${allGarmentBlock}\n\n${nightLightBlock}${core5GarmentBlock ? `\n\n${core5GarmentBlock}` : ''}`,
   reviewChecklist: [
     'All Character Garment Production Masterを全キャラで本文まで読み、Living Visual Profileの衣装・身体境界をproductionへ投影する',
     'AUTHOR_CANDIDATEをUSER_DECIDEDへ昇格せず、欠けたexact detailをimage modelに発明させない',
     '非人間キャラへhuman garment templateを強制しない',
     '年齢・体型・障害・肌色・gender presentation・sexuality・speciesをcostume shorthandへ変換しない',
+    'All Character Night/Light Rendering Masterを読み、nightを青filter / rim / bloomで代用しない',
+    'skin tone / age / body shape / disability equipment / species / face geometryをlightingで変更しない',
+    '全emitted lightに実在sourceがあり、reflectionをemissionへ誤変換しない',
+    'rim / bloom / accentを消してもidentityとsilhouetteが残る',
     'World Material Translation Masterを本文まで読み、世界観を装飾記号ではなく構造・素材・使用痕へ翻訳する',
     '星 / 紙 / 墨 / 灯りを全員共通アクセサリーとして貼っていない',
     '素材・留め具・収納・摩耗・修繕が人物の生活・好みと矛盾しない',
-    '発光には実際のsourceがあり、premium感のための常時発光をしていない',
     ...(core5Garment ? [
       'Core5 Garment Construction Masterのdedicated material / construction / closure / storage / footwear / wear / repair / prop interferenceを優先する',
       '歩行・着座・しゃがみ・腕上げ・prop取得で衣装構造が破綻しない',
