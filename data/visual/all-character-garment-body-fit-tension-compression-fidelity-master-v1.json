@@ -1,0 +1,52 @@
+{
+  "id": "yoru-no-shirube-all-character-garment-body-fit-tension-compression-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.md",
+  "unknownFitDefault": "SOURCE_CONSTRAINED_MECHANICALLY_PLAUSIBLE_FIT_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedGarmentFitCreatesCanon": false
+  },
+  "constructionAxes": [
+    "garmentEaseFamily", "bodyGarmentClearance", "neckOpeningClearance", "collarStandBehavior", "shoulderSeamPlacement", "shoulderEase", "armholeDepth", "armholeMobilityEase", "sleeveCapEase", "upperArmEase", "elbowBendAllowance", "forearmEase", "cuffClearance", "chestBustEase", "upperBackEase", "ribcageEase", "waistEase", "waistbandCompression", "abdominalDrape", "pelvisHipEase", "seatEase", "crotchDepth", "risePlacement", "thighEase", "kneeBendAllowance", "calfEase", "ankleOpeningClearance", "hemClearance", "garmentLengthLandmark", "frontBackLengthBalance", "sideSeamBalance", "grainAndBiasBehavior", "fabricWeightResponse", "fabricStretchResponse", "fabricRecoveryBehavior", "foldScaleFamily", "foldDirectionUnderGravity", "tensionLineOrigin", "compressionFoldOrigin", "shearBehavior", "gatherDistribution", "pleatRetention", "closureLoadDistribution", "buttonSnapLoad", "zipperLoadAndAlignment", "strapPressure", "beltPressure", "bagHarnessPressure", "seatedCompression", "crouchCompression", "reachAndLiftDisplacement", "twistDisplacement", "mobilityEquipmentContact", "wheelchairSeatBackClearance", "prostheticOrthoticClearance", "footwearInstepVolume", "footwearToeBoxVolume", "sockStockingCompression", "layeringOrderClearance", "outerwearUnderlayerAllowance"
+  ],
+  "fitInvariants": [
+    "garment fit follows the authorized body rather than replacing it", "body category remains readable through plausible cloth behavior", "loose fit does not imply a thinner hidden body", "close fit does not invent unsupported anatomy", "shoulder seams remain mechanically plausible", "armholes preserve intended mobility", "sleeves bend from joints rather than arbitrary decorative folds", "waistbands compress only where construction supports pressure", "belts do not manufacture a narrower waist", "straps create localized pressure without body reshaping", "seated poses create plausible torso pelvis and thigh compression", "crouching creates joint-driven fold redistribution", "reaching displaces garment panels without redesigning them", "twisting creates shear without changing garment inventory", "fabric weight controls drape amplitude", "fabric stretch does not become body exposure permission", "wetness does not increase sexualized anatomical revelation", "damage does not create new fit or exposure", "premium art does not tailor every garment closer to the body", "premium art does not sharpen folds into musculature", "LOD removes secondary folds before construction cues", "chibi preserves fit family and garment-body relationship", "sprite preserves major fit and pressure cues", "outerwear preserves underlayer allowance", "layering does not collapse body mass", "closures carry believable load", "pockets and storage do not float off the body", "bags and harnesses respect body mass and garment thickness", "mobility equipment clearances remain functional", "wheelchair seating preserves cloth-seat interaction", "prosthetic orthotic and assistive-device clearances remain functional", "footwear volume fits the authorized foot scale", "children are not fitted with adult sexualized tailoring", "older bodies are not smoothed by garment tailoring", "plus-size broad soft and stocky bodies are not visually slimmed by cloth", "generated garment fit never creates canon"
+  ],
+  "preservationPriority": [
+    "existingCanonGarmentConstruction", "authorizedBodyConstruction", "mobilityAndAssistiveEquipmentFunction", "exposureAndBodyModificationPolicy", "closureAndLayeringTopology", "materialAndFabricBehavior", "fitEaseAndClearance", "pressureAndCompressionZones", "movementAllowance", "seatedAndCrouchedBehavior", "storageAndPropInteraction", "surfacePolishAndMicroFolds"
+  ],
+  "forbiddenShortcuts": [
+    "tailorEveryGarmentToSlimBody", "narrowWaistByFabricTension", "flattenAbdomenWithShadowedFolds", "eraseHipVolumeWithStraightSideSeams", "eraseChestVolumeWithImpossibleFrontPanel", "inventChestVolumeWithTightCloth", "inventHipVolumeWithTightCloth", "inventMusculatureWithFoldHighlights", "inventBodyContoursUnderLooseCloth", "useLooseClothToHideBodyMismatch", "useOversizedCoatToHideShoulderMismatch", "useLongSkirtToHideLegMismatch", "useCapeToHideTorsoMismatch", "useBagToHidePelvisMismatch", "useForegroundClothToHideMobilityEquipment", "shrinkGarmentAroundPlusSizeBody", "shrinkBroadBodyToFitCostume", "stretchGarmentWithoutConstructionReason", "addElasticWithoutAuthority", "addCorsetWithoutAuthority", "addShapewearWithoutAuthority", "addBeltToJustifyNarrowWaist", "addStrapToJustifyBodyContour", "addCutoutToResolveTension", "increaseNecklineToResolveClipping", "shortenHemToResolvePose", "splitSkirtToResolveStrideWithoutAuthority", "openClosureToResolveBodyFit", "removeLayerToResolveBulk", "deletePocketToResolveFold", "movePocketToAvoidCompression", "moveClosureToAvoidTension", "floatButtonAcrossBodyMass", "misalignZipperForStylization", "universalFashionIllustrationFolds", "universalPinchedWaistFolds", "universalBreastUnderfold", "universalHipAccentFold", "universalCrotchTensionLines", "universalThighHighlightBand", "universalWetClothingCling", "premiumAutomaticBodyCling", "premiumAutomaticWaistSuppression", "premiumAutomaticOpenCollar", "premiumAutomaticSleeveRoll", "premiumAutomaticHemLift", "actionAutomaticGarmentTightening", "actionAutomaticExposureIncrease", "seatedTorsoLengtheningForElegance", "seatedThighSlimmingForClearance", "crouchBodySlimmingToAvoidOverlap", "wheelchairClothFloatingAboveSeat", "wheelchairSeatClothIntersection", "assistiveDeviceHiddenByGarment", "prostheticClearanceIgnored", "footwearShrunkForPrettiness", "highHeelAddedForLegLength", "childGarmentAdultBodyCling", "olderBodyTailoredToYoungerSilhouette", "generatedFitAccidentCreatesCanon"
+  ],
+  "rules": {
+    "unknownGarmentFitMayBeInventedByImageModel": false,
+    "garmentMayRedesignAuthorizedBody": false,
+    "looseGarmentMayImplyThinnerBody": false,
+    "tightGarmentMayInventUnsupportedAnatomy": false,
+    "premiumMayIncreaseBodyCling": false,
+    "premiumMaySuppressWaist": false,
+    "premiumMayIncreaseExposureForFit": false,
+    "poseMayChangeGarmentConstruction": false,
+    "seatedPoseMaySlimBodyForClearance": false,
+    "crouchMaySlimBodyForOverlap": false,
+    "wetnessMayIncreaseAnatomicalRevelation": false,
+    "damageMayChangeFitOrExposureWithoutAuthority": false,
+    "foldsMayInventMusculature": false,
+    "strapsMayReshapeBodyBeyondLocalizedPressure": false,
+    "beltsMayManufactureNarrowerWaist": false,
+    "layersMayEraseAuthorizedBodyMass": false,
+    "mobilityEquipmentMayBeHiddenToSimplifyFit": false,
+    "wheelchairContactMayBeIgnored": false,
+    "assistiveDeviceClearanceMayBeIgnored": false,
+    "lodMayConvergeToGenericSlimFit": false,
+    "chibiMayConvergeToGenericSlimFit": false,
+    "spriteMayConvergeToGenericSlimFit": false,
+    "identityTraitsMayBeGuessedFromFitStereotype": false,
+    "generatedGarmentFitCreatesCanon": false
+  }
+}
