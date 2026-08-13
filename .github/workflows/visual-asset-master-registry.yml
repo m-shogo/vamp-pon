@@ -29,6 +29,7 @@ on:
       - 'src/game/data/characterDatabase.ts'
       - 'src/game/data/characterProductionPlans.ts'
       - 'src/game/data/characterDesignSheetProductionEntrypoint.ts'
+      - 'src/game/data/visualProductionExecutionView.ts'
       - 'src/game/data/itemProductionCanon.ts'
       - 'src/game/data/itemAssetProductionDatabase.ts'
       - 'src/game/data/enemyProductionDatabase.ts'
@@ -53,6 +54,8 @@ on:
       - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
       - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
       - 'scripts/quality/check-character-design-sheet-production-entrypoint.ts'
+      - 'scripts/quality/check-visual-item-lineage-review-queue.ts'
+      - 'scripts/quality/check-visual-production-execution-view.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
@@ -96,6 +99,7 @@ on:
       - 'src/game/data/characterDatabase.ts'
       - 'src/game/data/characterProductionPlans.ts'
       - 'src/game/data/characterDesignSheetProductionEntrypoint.ts'
+      - 'src/game/data/visualProductionExecutionView.ts'
       - 'src/game/data/itemProductionCanon.ts'
       - 'src/game/data/itemAssetProductionDatabase.ts'
       - 'src/game/data/enemyProductionDatabase.ts'
@@ -120,6 +124,8 @@ on:
       - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
       - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
       - 'scripts/quality/check-character-design-sheet-production-entrypoint.ts'
+      - 'scripts/quality/check-visual-item-lineage-review-queue.ts'
+      - 'scripts/quality/check-visual-production-execution-view.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
@@ -158,6 +164,10 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-visual-generation-governance.ts
       - name: Validate live Character Design Sheet production adapter
         run: node --experimental-strip-types scripts/quality/check-character-design-sheet-production-entrypoint.ts
+      - name: Validate item physical/evolution lineage collision queue
+        run: node --experimental-strip-types scripts/quality/check-visual-item-lineage-review-queue.ts
+      - name: Validate deduped current visual production execution view
+        run: node --experimental-strip-types scripts/quality/check-visual-production-execution-view.ts
       - name: Validate Sakuyaza Current naming and Gunjo record-taxonomy visual masters
         run: node --experimental-strip-types scripts/quality/check-visual-current-group-record-master.ts
       - name: Validate Sakuyaza legacy-ID migration facade
