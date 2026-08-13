@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "queueId": "yoruno-shirube-visual-item-lineage-review-queue-v1",
   "status": "REVIEW_REQUIRED_NO_AUTOMATIC_COLLAPSE",
   "purpose": "Reduce duplicate item/object master generation safely by reviewing exact-name collisions before any physical-object lineage is declared. Exact text equality is evidence of a naming collision only, never proof of one physical object.",
