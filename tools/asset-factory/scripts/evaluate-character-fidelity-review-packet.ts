@@ -22,10 +22,11 @@ const options = parseArgs(process.argv.slice(2));
 const master = JSON.parse(readFileSync(resolve(process.cwd(), MASTER_PATH), 'utf8'));
 const packet = JSON.parse(readFileSync(resolve(process.cwd(), options.input), 'utf8'));
 if (packet.masterPath !== MASTER_PATH) throw new Error(`Packet master mismatch: ${packet.masterPath}`);
+if (packet.systemMaySetHumanVerdict !== false) throw new Error('Packet must keep human verdict outside system evaluation');
 const kindPolicy = master.assetKinds?.[packet.assetKind];
 if (!kindPolicy) throw new Error(`Unknown asset kind: ${packet.assetKind}`);
 if (kindPolicy.appearanceFidelityNotApplicable === true) {
-  const result = { ...packet, hardGateFailures: [], weightedScore: null, fidelityState: 'NOT_APPLICABLE', reviewComplete: true, promotionBlocked: true };
+  const result = { ...packet, hardGateFailures: [], weightedScore: null, fidelityState: 'NOT_APPLICABLE', systemRecommendation: 'EMBLEM_CANON_REVIEW_REQUIRED', reviewerVerdict: null, reviewComplete: true, promotionBlocked: true };
   const out = `${JSON.stringify(result, null, 2)}\n`;
   if (options.output) writeFileSync(options.output, out); else process.stdout.write(out);
   process.exit(0);
@@ -51,22 +52,24 @@ else if (weightedScore >= 95) fidelityState = 'FIDELITY_PASS_STRONG';
 else if (weightedScore >= 90) fidelityState = 'FIDELITY_PASS';
 else if (weightedScore >= 85) fidelityState = 'REWORK_SUPPORTING_AXES';
 
-const reviewerVerdict = fidelityState === 'FIDELITY_PASS_STRONG' || fidelityState === 'FIDELITY_PASS'
-  ? 'KEEP'
+const systemRecommendation = fidelityState === 'FIDELITY_PASS_STRONG' || fidelityState === 'FIDELITY_PASS'
+  ? 'ELIGIBLE_FOR_HUMAN_KEEP_REVIEW'
   : fidelityState === master.hardGateFailureState || fidelityState === 'REWORK_MAJOR'
-    ? 'REJECT'
-    : 'REWORK';
+    ? 'REJECT_OR_MAJOR_REWORK_RECOMMENDED'
+    : 'SUPPORTING_AXIS_REWORK_RECOMMENDED';
 
 const result = {
   ...packet,
   hardGateFailures,
   weightedScore: Math.round(weightedScore * 100) / 100,
   fidelityState,
-  reviewerVerdict,
+  systemRecommendation,
+  reviewerVerdict: null,
   reviewComplete: true,
   promotionBlocked: fidelityState !== 'FIDELITY_PASS_STRONG' && fidelityState !== 'FIDELITY_PASS',
   generatedImageCreatesAuthority: false,
   generatedImageCreatesRecurrenceDirective: false,
+  systemMaySetHumanVerdict: false,
 };
 
 const out = `${JSON.stringify(result, null, 2)}\n`;
