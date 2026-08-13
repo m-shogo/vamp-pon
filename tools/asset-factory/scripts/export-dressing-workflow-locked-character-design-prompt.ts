@@ -5,6 +5,8 @@ import { resolve } from 'node:path';
 const BASE_EXPORTER = 'tools/asset-factory/scripts/export-face-skull-landmark-locked-character-design-prompt.ts';
 const POLICY_PATH = 'data/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.json';
 const AUTHORITY_PATH = 'docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md';
+const ENTRYPOINT_POLICY_PATH = 'data/visual/character-production-generation-entrypoint-v2.json';
+const ENTRYPOINT_AUTHORITY_PATH = 'docs/visual/character-production-generation-entrypoint-v2.md';
 
 type Options = { characterId: string; kind: string };
 
@@ -25,8 +27,12 @@ function parseArgs(args: string[]): Options {
 const options = parseArgs(process.argv.slice(2));
 const policy = JSON.parse(readFileSync(resolve(process.cwd(), POLICY_PATH), 'utf8'));
 const authority = readFileSync(resolve(process.cwd(), AUTHORITY_PATH), 'utf8');
+const entrypointPolicy = JSON.parse(readFileSync(resolve(process.cwd(), ENTRYPOINT_POLICY_PATH), 'utf8'));
+const entrypointAuthority = readFileSync(resolve(process.cwd(), ENTRYPOINT_AUTHORITY_PATH), 'utf8');
 if (policy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') throw new Error('dressing workflow authority status invalid');
 if (policy.scopeCount !== 36 || policy.assetKindCount !== 9 || policy.production?.requiredForCandidateGeneration !== true) throw new Error('dressing workflow scope weakened');
+if (entrypointPolicy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT' || entrypointPolicy.scopeCount !== 36) throw new Error('production entrypoint v2 invalid');
+if (entrypointPolicy.productionExporter !== 'tools/asset-factory/scripts/export-dressing-workflow-locked-character-design-prompt.ts' || entrypointPolicy.wrappedExporter !== BASE_EXPORTER) throw new Error('production entrypoint v2 wrapper mismatch');
 
 const stdout = execFileSync(process.execPath, [
   '--experimental-strip-types', resolve(process.cwd(), BASE_EXPORTER),
@@ -52,6 +58,8 @@ const result: Record<string, any> = {
   dressingWorkflowPreservationPriority: policy.preservationPriority,
   dressingWorkflowPolicyPath: POLICY_PATH,
   dressingWorkflowAuthorityPath: AUTHORITY_PATH,
+  productionEntrypointPolicyPath: ENTRYPOINT_POLICY_PATH,
+  productionEntrypointAuthorityPath: ENTRYPOINT_AUTHORITY_PATH,
   generatedOutputState: 'CANDIDATE_REVIEW_REQUIRED',
 };
 
@@ -61,7 +69,7 @@ for (const [field, expected] of Object.entries(policy.rules ?? {})) {
 }
 
 const authorityOrder = Array.isArray(base.authorityOrder) ? [...base.authorityOrder] : [];
-for (const path of [AUTHORITY_PATH, POLICY_PATH]) if (!authorityOrder.includes(path)) authorityOrder.push(path);
+for (const path of [AUTHORITY_PATH, POLICY_PATH, ENTRYPOINT_AUTHORITY_PATH, ENTRYPOINT_POLICY_PATH]) if (!authorityOrder.includes(path)) authorityOrder.push(path);
 result.authorityOrder = authorityOrder;
 
 const dressingBlock = [
@@ -72,6 +80,7 @@ const dressingBlock = [
   'Unknown workflow uses SOURCE_CONSTRAINED_MINIMUM_PLAUSIBLE_DRESSING_WORKFLOW_COMPLETION. Do not resize the body to fit clothing; invent hidden zippers, elastic, stretch, detachable panels, magnetic or magical fastening; invent helper dependency or disability accommodation; remove prosthetic/orthotic/assistive equipment; redesign hair or remove body modifications; or move closures merely to make dressing easier.',
   'Premium art may not increase exposure or add hidden wearability mechanisms. LOD/chibi/sprite may simplify depiction but must preserve critical opening, closure, layer and footwear logic. Generated don/doff workflow remains CANDIDATE_REVIEW_REQUIRED and never creates canon.',
   authority,
+  entrypointAuthority,
 ].join('\n');
 
 result.prompt = `${base.prompt}\n\n${dressingBlock}`;
