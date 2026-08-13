@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "yoruno-shirube-visual-image-generation-subject-catalog-v1",
+  "status": "LISTED_NOT_AUTHORIZED_FOR_AUTOMATIC_GENERATION",
+  "purpose": "Enumerate previously count-only Star Beast and Named Object image-generation subjects so production work can be scheduled without inventing IDs or names.",
+  "sourceOfTruth": {
+    "starBeast": [
+      "src/game/data/starBeastVisualSharedSource.ts",
+      "src/game/data/characterThemeColors.ts",
+      "src/game/data/commercialProductionProfile.ts"
+    ],
+    "namedObject": [
+      "src/game/data/namedObjectVisualSharedSource.ts",
+      "src/game/data/namedObjectRegistry.ts"
+    ],
+    "productionList": "data/character-assets/manifests/visual-image-production-list.v1.json",
+    "backlog": "data/character-assets/manifests/visual-image-generation-backlog.v1.json"
+  },
+  "policy": {
+    "catalogIsAuthority": false,
+    "sourceRecordsRemainAuthority": true,
+    "automaticGenerationAllowed": false,
+    "humanPromptReviewRequired": true,
+    "storyCanonPromotionForbidden": true,
+    "finalRuntimePromotionForbidden": true,
+    "yuiCharacterWorkOnHold": true
+  },
+  "starBeasts": {
+    "count": 21,
+    "sourceReferenceGenerationReady": true,
+    "productionState": "READY_FOR_PROMPT_REVIEW_NOT_IMAGE_EXECUTION",
+    "items": [
+      { "assetId": "star-beast-yui-master-v1", "characterId": "yui", "characterDisplayName": "ユイ", "constellationKey": "leo", "species": "子獅子「ルク」仮称", "subjectHold": true },
+      { "assetId": "star-beast-asa-master-v1", "characterId": "asa", "characterDisplayName": "アサ", "constellationKey": "aries", "species": "若い雄羊", "subjectHold": false },
+      { "assetId": "star-beast-nagi-master-v1", "characterId": "nagi", "characterDisplayName": "ナギ", "constellationKey": "cancer", "species": "小さな蟹", "subjectHold": false },
+      { "assetId": "star-beast-michiru-master-v1", "characterId": "michiru", "characterDisplayName": "ミチル", "constellationKey": "ursa-minor", "species": "小熊", "subjectHold": false },
+      { "assetId": "star-beast-tomori-master-v1", "characterId": "tomori", "characterDisplayName": "トモリ", "constellationKey": "leo", "species": "少し煤けた若獅子", "subjectHold": false },
+      { "assetId": "star-beast-sen-master-v1", "characterId": "sen", "characterDisplayName": "セン", "constellationKey": "corvus", "species": "小烏", "subjectHold": false },
+      { "assetId": "star-beast-ritsu-master-v1", "characterId": "ritsu", "characterDisplayName": "リツ", "constellationKey": "canes-venatici", "species": "二頭のうち大きい猟犬", "subjectHold": false },
+      { "assetId": "star-beast-koyori-master-v1", "characterId": "koyori", "characterDisplayName": "コヨリ", "constellationKey": "canes-venatici", "species": "二頭のうち小さい猟犬", "subjectHold": false },
+      { "assetId": "star-beast-gen-master-v1", "characterId": "gen", "characterDisplayName": "ゲン", "constellationKey": "ursa-major", "species": "大熊", "subjectHold": false },
+      { "assetId": "star-beast-hana-master-v1", "characterId": "hana", "characterDisplayName": "ハナ", "constellationKey": "cygnus", "species": "ふっくらした白鳥", "subjectHold": false },
+      { "assetId": "star-beast-yubi-master-v1", "characterId": "yubi", "characterDisplayName": "ユウビ", "constellationKey": "columba", "species": "小鳩", "subjectHold": false },
+      { "assetId": "star-beast-madoka-master-v1", "characterId": "madoka", "characterDisplayName": "マドカ", "constellationKey": "aquila", "species": "小鷲", "subjectHold": false },
+      { "assetId": "star-beast-shiro-master-v1", "characterId": "shiro", "characterDisplayName": "シロ", "constellationKey": "lynx", "species": "山猫", "subjectHold": false },
+      { "assetId": "star-beast-tobari-master-v1", "characterId": "tobari", "characterDisplayName": "トバリ", "constellationKey": "canis-major", "species": "大きな番犬", "subjectHold": false },
+      { "assetId": "star-beast-nemu-master-v1", "characterId": "nemu", "characterDisplayName": "ネム", "constellationKey": "delphinus", "species": "小イルカ", "subjectHold": false },
+      { "assetId": "star-beast-kuroori-master-v1", "characterId": "kuroori", "characterDisplayName": "クロオリ", "constellationKey": "chamaeleon", "species": "黒紙カメレオン", "subjectHold": false },
+      { "assetId": "star-beast-kage1-master-v1", "characterId": "kage1", "characterDisplayName": "カナメ", "constellationKey": "lupus", "species": "大きな灰狼", "subjectHold": false },
+      { "assetId": "star-beast-kage2-master-v1", "characterId": "kage2", "characterDisplayName": "カスミ", "constellationKey": "vulpecula", "species": "淡い小狐", "subjectHold": false },
+      { "assetId": "star-beast-kage3-master-v1", "characterId": "kage3", "characterDisplayName": "トキ", "constellationKey": "grus", "species": "細身の鶴", "subjectHold": false },
+      { "assetId": "star-beast-kage4-master-v1", "characterId": "kage4", "characterDisplayName": "ツムギ", "constellationKey": "lepus", "species": "白灰の野兎", "subjectHold": false },
+      { "assetId": "star-beast-ren-master-v1", "characterId": "ren", "characterDisplayName": "レン", "constellationKey": "canis-minor", "species": "小さな観察犬", "subjectHold": false }
+    ]
+  },
+  "namedObjects": {
+    "count": 21,
+    "sourceReferenceGenerationReady": false,
+    "productionState": "BLOCKED_OBJECT_GEOMETRY_AUTHORING",
+    "items": [
+      { "assetId": "artifact-yui-named-object-master-v1", "characterId": "yui", "characterDisplayName": "ユイ", "displayName": "持ち主待ちのランタン", "namingStatus": "CURRENT_DIRECTION", "subjectHold": true },
+      { "assetId": "artifact-asa-named-object-master-v1", "characterId": "asa", "characterDisplayName": "アサ", "displayName": "名結びの小鋏", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-nagi-named-object-master-v1", "characterId": "nagi", "characterDisplayName": "ナギ", "displayName": "月箱の銀鍵", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-michiru-named-object-master-v1", "characterId": "michiru", "characterDisplayName": "ミチル", "displayName": "帰り針のコンパス", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-tomori-named-object-master-v1", "characterId": "tomori", "characterDisplayName": "トモリ", "displayName": "継火の修理ランプ", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-sen-named-object-master-v1", "characterId": "sen", "characterDisplayName": "セン", "displayName": "白線のチョーク灯", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-ritsu-named-object-master-v1", "characterId": "ritsu", "characterDisplayName": "リツ", "displayName": "半灯りの飴缶", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-koyori-named-object-master-v1", "characterId": "koyori", "characterDisplayName": "コヨリ", "displayName": "呼び名の紙縒り札", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-gen-named-object-master-v1", "characterId": "gen", "characterDisplayName": "ゲン", "displayName": "古針の駅灯", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-hana-named-object-master-v1", "characterId": "hana", "characterDisplayName": "ハナ", "displayName": "花脈の保管箱", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-yubi-named-object-master-v1", "characterId": "yubi", "characterDisplayName": "ユウビ", "displayName": "返事待ちの郵便灯", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-madoka-named-object-master-v1", "characterId": "madoka", "characterDisplayName": "マドカ", "displayName": "見送り窓の観測レンズ", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-shiro-named-object-master-v1", "characterId": "shiro", "characterDisplayName": "シロ", "displayName": "未分類の白栞灯", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-tobari-named-object-master-v1", "characterId": "tobari", "characterDisplayName": "トバリ", "displayName": "往復穴の改札鋏", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-nemu-named-object-master-v1", "characterId": "nemu", "characterDisplayName": "ネム", "displayName": "夢頁の水面日記", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-kuroori-named-object-master-v1", "characterId": "kuroori", "characterDisplayName": "クロオリ", "displayName": "折り目だけ光る黒紙", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-kage1-named-object-master-v1", "characterId": "kage1", "characterDisplayName": "カナメ", "displayName": "受け灯の腕帯", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-kage2-named-object-master-v1", "characterId": "kage2", "characterDisplayName": "カスミ", "displayName": "消し跡の白灯", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-kage3-named-object-master-v1", "characterId": "kage3", "characterDisplayName": "トキ", "displayName": "星目盛りの夜定規", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-kage4-named-object-master-v1", "characterId": "kage4", "characterDisplayName": "ツムギ", "displayName": "余白を縫う糸巻き", "namingStatus": "CURRENT_DIRECTION", "subjectHold": false },
+      { "assetId": "artifact-ren-named-object-master-v1", "characterId": "ren", "characterDisplayName": "レン", "displayName": "片焦点のレンズ灯", "namingStatus": "WORKING", "subjectHold": false }
+    ]
+  },
+  "nextAction": {
+    "starBeasts": "Author/review 20 non-Yui prompt packets first; Yui-linked Star Beast remains listed but not executed while Yui work is on hold.",
+    "namedObjects": "Do not generate. Finish and explicitly approve object geometry/referenceGenerationReady first, including the WORKING Ren object name boundary.",
+    "global": "Continue the 977 Asset Factory contract existence/replacement audit and TOP/Loading/Story/key-art surface cross-check before adding new image rows."
+  }
+}
