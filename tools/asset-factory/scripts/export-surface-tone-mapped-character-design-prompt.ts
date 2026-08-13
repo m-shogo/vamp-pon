@@ -11,6 +11,8 @@ const EDGE_POLICY_PATH = 'data/visual/all-character-edge-line-shape-boundary-fid
 const EDGE_AUTHORITY_PATH = 'docs/visual/all-character-edge-line-shape-boundary-fidelity-master-v1.md';
 const DETAIL_POLICY_PATH = 'data/visual/all-character-detail-density-ornament-budget-fidelity-master-v1.json';
 const DETAIL_AUTHORITY_PATH = 'docs/visual/all-character-detail-density-ornament-budget-fidelity-master-v1.md';
+const SPACE_POLICY_PATH = 'data/visual/all-character-negative-space-cluster-separation-fidelity-master-v1.json';
+const SPACE_AUTHORITY_PATH = 'docs/visual/all-character-negative-space-cluster-separation-fidelity-master-v1.md';
 
 type Options = { characterId: string; kind: string };
 
@@ -41,19 +43,20 @@ const surface = loadAuthority(POLICY_PATH, AUTHORITY_PATH, 'surface/tone-mapping
 const value = loadAuthority(VALUE_POLICY_PATH, VALUE_AUTHORITY_PATH, 'contrast/value-hierarchy');
 const edge = loadAuthority(EDGE_POLICY_PATH, EDGE_AUTHORITY_PATH, 'edge/line/shape-boundary');
 const detail = loadAuthority(DETAIL_POLICY_PATH, DETAIL_AUTHORITY_PATH, 'detail-density/ornament-budget');
+const space = loadAuthority(SPACE_POLICY_PATH, SPACE_AUTHORITY_PATH, 'negative-space/cluster-separation');
 
 const stdout = execFileSync(process.execPath, [
   '--experimental-strip-types', resolve(process.cwd(), BASE_EXPORTER),
   '--character', options.characterId,
   '--kind', options.kind,
-], { cwd: process.cwd(), encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+], { cwd: process.cwd(), encoding: 'utf8', maxBuffer: 68 * 1024 * 1024 });
 const base = JSON.parse(stdout);
 if (base.productionImageGenerationEntrypoint !== true || base.productionCharacterPromptReady !== true || base.productionPromptAuthorityLocked !== true) throw new Error(`${options.characterId}: lower production chain not ready`);
 if (base.allCharacterFocusDepthEffectsFidelityRequired !== true) throw new Error(`${options.characterId}: focus/depth/effects chain missing`);
 
 const result = {
   ...base,
-  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 29),
+  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 30),
   generatedBy: 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts',
   allCharacterSurfaceToneMappingFidelityRequired: true,
   unknownSurfaceMayBeInventedByImageModel: surface.policy.rules?.unknownSurfaceMayBeInventedByImageModel,
@@ -96,6 +99,17 @@ const result = {
   worldMotifMayBeRepeatedAsFiller: detail.policy.rules?.worldMotifMayBeRepeatedAsFiller,
   generatedOrnamentCreatesCanon: detail.policy.rules?.generatedOrnamentCreatesCanon,
   detailOrnamentDefaultBudgets: detail.policy.defaultBudgets,
+  allCharacterNegativeSpaceClusterSeparationFidelityRequired: true,
+  unknownSpacingMayBeInventedByImageModel: space.policy.rules?.unknownSpacingMayBeInventedByImageModel,
+  premiumAssetMayReduceNegativeSpaceAutomatically: space.policy.rules?.premiumAssetMayReduceNegativeSpaceAutomatically,
+  effectsMayFillIdentityCriticalNegativeSpace: space.policy.rules?.effectsMayFillIdentityCriticalNegativeSpace,
+  ornamentMayFillIdentityCriticalNegativeSpace: space.policy.rules?.ornamentMayFillIdentityCriticalNegativeSpace,
+  spacingMayIncreaseExposure: space.policy.rules?.spacingMayIncreaseExposure,
+  spacingMayInventGarmentCutout: space.policy.rules?.spacingMayInventGarmentCutout,
+  spacingMayDetachPropFromUseRelation: space.policy.rules?.spacingMayDetachPropFromUseRelation,
+  spacingMayHideMobilityEquipment: space.policy.rules?.spacingMayHideMobilityEquipment,
+  relationshipMayForceTouchingSilhouette: space.policy.rules?.relationshipMayForceTouchingSilhouette,
+  generatedSpacingTreatmentCreatesCanon: space.policy.rules?.generatedSpacingTreatmentCreatesCanon,
   surfaceToneMappingPolicyPath: POLICY_PATH,
   surfaceToneMappingAuthorityPath: AUTHORITY_PATH,
   contrastValueHierarchyPolicyPath: VALUE_POLICY_PATH,
@@ -104,6 +118,8 @@ const result = {
   edgeLineShapeBoundaryAuthorityPath: EDGE_AUTHORITY_PATH,
   detailDensityOrnamentBudgetPolicyPath: DETAIL_POLICY_PATH,
   detailDensityOrnamentBudgetAuthorityPath: DETAIL_AUTHORITY_PATH,
+  negativeSpaceClusterSeparationPolicyPath: SPACE_POLICY_PATH,
+  negativeSpaceClusterSeparationAuthorityPath: SPACE_AUTHORITY_PATH,
   generatedOutputState: 'CANDIDATE_REVIEW_REQUIRED',
 };
 
@@ -120,13 +136,17 @@ for (const field of [
   'premiumAssetMayIncreaseOrnamentCountAutomatically', 'highResolutionMayInventMicroDecoration',
   'importanceMayIncreaseOrnamentDensity', 'rarityMayIncreaseOrnamentDensity', 'ornamentMayCompensateForWeakIdentity',
   'ornamentMayAlterExposurePolicy', 'ornamentMayAlterBodyModificationPolicy', 'worldMotifMayBeRepeatedAsFiller',
-  'generatedOrnamentCreatesCanon',
+  'generatedOrnamentCreatesCanon', 'unknownSpacingMayBeInventedByImageModel',
+  'premiumAssetMayReduceNegativeSpaceAutomatically', 'effectsMayFillIdentityCriticalNegativeSpace',
+  'ornamentMayFillIdentityCriticalNegativeSpace', 'spacingMayIncreaseExposure', 'spacingMayInventGarmentCutout',
+  'spacingMayDetachPropFromUseRelation', 'spacingMayHideMobilityEquipment', 'relationshipMayForceTouchingSilhouette',
+  'generatedSpacingTreatmentCreatesCanon',
 ]) {
   if (result[field] !== false) throw new Error(`${options.characterId}: final rendering guard weakened: ${field}`);
 }
 
 const authorityOrder = Array.isArray(base.authorityOrder) ? [...base.authorityOrder] : [];
-for (const path of [AUTHORITY_PATH, POLICY_PATH, VALUE_AUTHORITY_PATH, VALUE_POLICY_PATH, EDGE_AUTHORITY_PATH, EDGE_POLICY_PATH, DETAIL_AUTHORITY_PATH, DETAIL_POLICY_PATH]) if (!authorityOrder.includes(path)) authorityOrder.push(path);
+for (const path of [AUTHORITY_PATH, POLICY_PATH, VALUE_AUTHORITY_PATH, VALUE_POLICY_PATH, EDGE_AUTHORITY_PATH, EDGE_POLICY_PATH, DETAIL_AUTHORITY_PATH, DETAIL_POLICY_PATH, SPACE_AUTHORITY_PATH, SPACE_POLICY_PATH]) if (!authorityOrder.includes(path)) authorityOrder.push(path);
 
 const surfaceBlock = [
   'SURFACE / TONE-MAPPING FIDELITY — FINAL MATERIAL LOCK.',
@@ -170,19 +190,26 @@ const detailBlock = [
   detail.authority,
 ].join('\n');
 
+const spaceBlock = [
+  'NEGATIVE SPACE / CLUSTER SEPARATION FIDELITY — FINAL SPACING LOCK.',
+  `Authority: ${SPACE_AUTHORITY_PATH}.`,
+  `Machine policy: ${SPACE_POLICY_PATH}.`,
+  'Empty space is a readability structure, not missing detail. Preserve readable gaps around face, body-category cues, garment construction, hand/prop contact, main props and mobility equipment.',
+  'Unknown spacing uses FUNCTIONAL_IDENTITY_PRESERVING_BREATHING_ROOM. Do not fill identity-critical gaps with effects or ornament, invent exposure/cutouts, detach props from believable use, hide mobility equipment, or force relationship silhouettes to touch.',
+  'For crowded assets, remove decorative/effect clutter before changing anatomy, clothing, mobility, or prop relations. Generated spacing remains CANDIDATE_REVIEW_REQUIRED and never creates canon.',
+  space.authority,
+].join('\n');
+
 result.authorityOrder = authorityOrder;
-result.prompt = `${base.prompt}\n\n${surfaceBlock}\n\n${valueBlock}\n\n${edgeBlock}\n\n${detailBlock}`;
+result.prompt = `${base.prompt}\n\n${surfaceBlock}\n\n${valueBlock}\n\n${edgeBlock}\n\n${detailBlock}\n\n${spaceBlock}`;
 result.reviewChecklist = [
   '肌色・年齢・体格をtone mappingやbeauty smoothingで変えない',
   'fur/shell/cloth/leather/paper/wood/metalを同一glossにしない',
-  '雨濡れを性的なwet glossへ変換しない',
-  '高解像度化でfreckles/scars/scratches/poresを発明しない',
   '夜でもmidtoneを残し、顔の白化・黒潰れ・万能rim lightで本人性を作らない',
-  'premium/Dawn/Kokuyouを理由にglobal contrastやaccent luminanceを自動増加しない',
   '線幅・輪郭整理・小型化で顔形、目、年齢、体型、服構造を別物にしない',
-  'sprite/chibiの可読性を目拡大・白縁・体型細化・mobility equipment省略で作らない',
   'premium/重要/rare/high-resを理由にgold trim・gem・belt・harness・floating cloth・glow nodeを増やさない',
-  '各detailにidentity/construction/use/historyの仕事がなければ削るかcandidate-onlyにする',
+  '顔・手/prop・脚/衣服・mobility equipmentのidentity-criticalな空白をeffect/ornamentで埋めない',
+  'spacingのために露出・cutout・浮遊prop・白縁・relationship接触を発明しない',
   ...(Array.isArray(base.reviewChecklist) ? base.reviewChecklist : []),
 ];
 
