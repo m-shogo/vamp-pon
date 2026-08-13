@@ -2,7 +2,7 @@
   "id": "yoru-no-shirube-character-design-feedback-ledger-v1",
   "date": "2026-08-13",
   "status": "DESIGNER_LEARNING_NON_CANON",
-  "purpose": "Preserve candidate-by-candidate human feedback without mixing it with assistant interpretation, and carry only explicitly promoted recurrence directives into later candidate generation.",
+  "purpose": "Preserve candidate-by-candidate human feedback without mixing it with assistant interpretation, carry only explicitly promoted recurrence directives into later candidate generation, and preserve structured cross-asset fidelity evidence.",
   "rules": {
     "userFeedbackIsHighestPriorityWithinCandidateReview": true,
     "assistantDiagnosisMustBeSeparate": true,
@@ -12,7 +12,9 @@
     "namedArtistOrIpStyleTargetAllowed": false,
     "candidateReviewDoesNotAutomaticallyModifyGeneration": true,
     "onlyActiveRecurrenceDirectivesMayModifyLaterGeneration": true,
-    "generatedImageNeverCreatesRecurrenceDirective": true
+    "generatedImageNeverCreatesRecurrenceDirective": true,
+    "weightedFidelityScoreNeverOverridesIdentityHardGate": true,
+    "generatedImageNeverBecomesFidelityAuthorityByItself": true
   },
   "candidateReviewSchema": {
     "candidateId": "string",
@@ -37,6 +39,18 @@
         "note": "string"
       }
     ],
+    "crossAssetFidelityReview": {
+      "master": "data/visual/cross-asset-fidelity-review-master-v1.json",
+      "assetKind": "string",
+      "authoritySources": ["string"],
+      "axisScores": {"axisId": "0..100"},
+      "hardGateFailures": ["string"],
+      "weightedScore": "0..100|null",
+      "fidelityState": "FIDELITY_PASS_STRONG|FIDELITY_PASS|REWORK_SUPPORTING_AXES|REWORK_MAJOR|BLOCK_IDENTITY_DRIFT|NOT_APPLICABLE|null",
+      "reviewerVerdict": "KEEP|REWORK|REJECT|null",
+      "keepRemoveReplaceBanNotes": ["string"],
+      "recurrenceDirectivePromotionState": "NONE|PROPOSED|ACTIVE|null"
+    },
     "keepElements": ["string"],
     "changeElements": ["string"],
     "associationNotes": ["string"],
