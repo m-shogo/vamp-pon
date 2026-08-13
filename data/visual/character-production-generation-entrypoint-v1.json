@@ -95,7 +95,16 @@
     "premiumAssetMayUniversalizeGloss": false,
     "weatherMaySexualizeWetSurface": false,
     "nonHumanSurfaceMayHumanize": false,
-    "generatedMicrotextureCreatesCanon": false
+    "generatedMicrotextureCreatesCanon": false,
+    "allCharacterContrastValueHierarchyFidelityRequired": true,
+    "unknownValueHierarchyMayBeInventedByImageModel": false,
+    "contrastMayChangeSkinIdentity": false,
+    "contrastMayHideBodyCategory": false,
+    "contrastMayHideMobilityEquipment": false,
+    "contrastMayInventOutlineOrGlow": false,
+    "premiumAssetMayIncreaseContrastAutomatically": false,
+    "nightMayCrushIdentityMidtones": false,
+    "generatedValueTreatmentCreatesCanon": false
   },
   "lowerExportersAreProductionEntrypoints": false,
   "handWrittenPromptIsProductionReady": false,
@@ -143,7 +152,9 @@
     "docs/visual/all-character-focus-depth-effects-fidelity-master-v1.md",
     "data/visual/all-character-focus-depth-effects-fidelity-master-v1.json",
     "docs/visual/all-character-surface-tone-mapping-fidelity-master-v1.md",
-    "data/visual/all-character-surface-tone-mapping-fidelity-master-v1.json"
+    "data/visual/all-character-surface-tone-mapping-fidelity-master-v1.json",
+    "docs/visual/all-character-contrast-value-hierarchy-fidelity-master-v1.md",
+    "data/visual/all-character-contrast-value-hierarchy-fidelity-master-v1.json"
   ],
   "candidateBoundary": [
     "not-final-art-approval",
