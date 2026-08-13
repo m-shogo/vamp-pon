@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "bridgeId": "yoruno-shirube-character-sheet-production-entrypoint-bridge-v1",
+  "status": "BLOCKED_UNTIL_LATEST_MAIN_SYNC_AND_ADAPTER_IMPLEMENTATION",
+  "purpose": "Prevent Character Design Sheet 01-04 generation from bypassing the single production character prompt exporter and the newer readiness/feedback/color/cross-asset identity authority chain added on main after this inventory branch diverged.",
+  "existingInventoryPacket": {
+    "path": "data/character-assets/manifests/visual-character-prompt-packets.v1.json",
+    "state": "DRAFT_NOT_APPROVED_NOT_GENERATED",
+    "mayBeUsedDirectlyForProductionImageGeneration": false,
+    "reason": "Its authority snapshots predate the mandatory production exporter chain now present on main."
+  },
+  "latestMainRequirementsToIntegrate": [
+    {
+      "source": "PR #313",
+      "requirement": "Character image readiness must be READY_FOR_CANDIDATE_GENERATION with zero readiness failures; OPEN is never model freedom."
+    },
+    {
+      "source": "PR #314",
+      "requirement": "Only ACTIVE reviewed recurrence directives may affect later generation; candidate rejection does not automatically become global design law."
+    },
+    {
+      "source": "PR #315",
+      "requirement": "The single production-ready character exporter is tools/asset-factory/scripts/export-production-character-design-prompt.ts; handwritten/lower exporter outputs are not production-ready."
+    },
+    {
+      "source": "PR #316",
+      "requirement": "All 36 characters must use the full color-production boundary; Current21 exact HEX and Future15 unresolved exact palette must not be invented."
+    },
+    {
+      "source": "PR #317",
+      "requirement": "Character identity must remain stable across reference, sprite, cut-in, Dawn/Kokuyou and emblem-adjacent asset kinds under a simplification hierarchy."
+    }
+  ],
+  "requiredPostSyncArchitecture": {
+    "productionCharacterPromptExporter": "tools/asset-factory/scripts/export-production-character-design-prompt.ts",
+    "sheetAdapterRequired": true,
+    "sheetAdapterPurpose": "Start from the production-ready resolved character prompt/authority chain, then add only Sheet-role-specific composition and QA constraints without replacing or weakening upstream identity/color/garment/light/world/acting/feedback/readiness guards.",
+    "sheetRoles": [
+      "identity-turnaround",
+      "face-expression-acting",
+      "costume-equipment-material",
+      "silhouette-motion-derivation"
+    ],
+    "handWrittenPromptMayBeProductionReady": false,
+    "lowerExporterMayBeProductionReady": false,
+    "sheetSpecificPromptMayCreateCanon": false,
+    "generatedSheetMayCreateCanon": false,
+    "candidateReviewMayAutoCreateGlobalRule": false,
+    "humanReviewRequired": true
+  },
+  "sheet01AdditionalHardConstraints": [
+    "four same-scale full-body views: front, anatomical-left, anatomical-right, back",
+    "one canonical anatomical coordinate system; do not substitute viewer-left/right for body-left/right",
+    "lantern remains anatomical RIGHT hand when carried",
+    "paper remains anatomical LEFT hand when carried",
+    "strap remains anatomical RIGHT shoulder to anatomical LEFT waist",
+    "bag remains anatomical LEFT waist",
+    "no mirrored duplicate profile",
+    "same face/body/clothing/equipment topology across all four views",
+    "Yui bilateral smile dimples remain an identity requirement rather than optional decoration"
+  ],
+  "mergeGate": {
+    "syncLatestMainFirst": true,
+    "implementSheetAdapter": true,
+    "reexportAll36PromptPackets": true,
+    "invalidateOldAuthorityHashes": true,
+    "rerunVisualCI": true,
+    "imageGenerationAllowedBeforeGatePass": false
+  }
+}
