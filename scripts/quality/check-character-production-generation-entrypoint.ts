@@ -24,6 +24,14 @@ if (policy.lowerExportersAreProductionEntrypoints !== false) fail('lower exporte
 if (policy.handWrittenPromptIsProductionReady !== false) fail('hand prompt bypass guard weakened');
 if (CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.lowerExporterOutputIsProductionReady !== false) fail('code lower-exporter guard weakened');
 if (CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.handWrittenPromptIsProductionReady !== false) fail('code hand-prompt guard weakened');
+if (policy.hairTerminalWrapperRequiredFlags?.allCharacterHairGroomingConstructionFidelityRequired !== true) fail('hair terminal requirement missing');
+for (const [field, expected] of Object.entries(policy.hairTerminalWrapperRequiredFlags ?? {})) {
+  if (field === 'allCharacterHairGroomingConstructionFidelityRequired') {
+    if (expected !== true) fail(`hair terminal flag must remain true: ${field}`);
+  } else if (expected !== false) {
+    fail(`hair terminal guard must remain false: ${field}`);
+  }
+}
 
 const ids: string[] = [];
 for (const path of profilePaths) {
@@ -38,7 +46,7 @@ for (const id of ids) {
     '--experimental-strip-types', resolve(root, policy.productionExporter),
     '--character', id,
     '--kind', 'character_reference',
-  ], { cwd: root, encoding: 'utf8', maxBuffer: 40 * 1024 * 1024 });
+  ], { cwd: root, encoding: 'utf8', maxBuffer: 128 * 1024 * 1024 });
   const exported = JSON.parse(stdout);
   if (exported.productionImageGenerationEntrypoint !== true) fail(`${id}: production entrypoint flag missing`);
   if (exported.productionCharacterPromptReady !== true) fail(`${id}: production ready flag missing`);
@@ -52,7 +60,30 @@ for (const id of ids) {
   if (exported.handWrittenPromptIsProductionReady !== false) fail(`${id}: hand prompt bypass guard weakened`);
   if (exported.generatedImageCreatesCanon !== false) fail(`${id}: generated image canon guard weakened`);
   if (exported.generatedImageCreatesFeedbackRule !== false) fail(`${id}: generated image feedback guard weakened`);
+  if (exported.allCharacterViewpointTurnaroundBackDesignFidelityRequired !== true) fail(`${id}: turnaround terminal chain missing`);
+  if (exported.allCharacterHairGroomingConstructionFidelityRequired !== true) fail(`${id}: hair terminal chain missing`);
+  for (const field of [
+    'unknownHairMayBeInventedByImageModel',
+    'viewpointMayChangeHairline',
+    'viewpointMayChangePart',
+    'viewpointMayChangeFringeTopology',
+    'viewpointMayChangeEarExposure',
+    'viewpointMayChangeTieAnchor',
+    'viewpointMayMirrorCanonicalHairAsymmetry',
+    'premiumAssetMayBeautifyHairline',
+    'premiumAssetMayIncreaseHairOrnament',
+    'premiumAssetMayChangeHairVolume',
+    'stateMayChangeHairstyleWithoutAuthorizedDelta',
+    'weatherMayRedesignHairTopology',
+    'motionMayRedesignHairTopology',
+    'wetHairMayIncreaseSexualization',
+    'lodMayChangeIdentityHairTopology',
+    'hairMayHideMobilityEquipmentForComposition',
+    'skinToneMayInferHairTextureOrCulturalStyle',
+    'generatedHairTreatmentCreatesCanon',
+  ]) if (exported[field] !== false) fail(`${id}: hair guard weakened: ${field}`);
   if (!exported.prompt.includes('CHARACTER PRODUCTION GENERATION ENTRYPOINT — FINAL AUTHORITY LOCK.')) fail(`${id}: final production prompt block missing`);
+  if (!exported.prompt.includes('HAIR / GROOMING CONSTRUCTION FIDELITY — FINAL HAIR TOPOLOGY LOCK.')) fail(`${id}: final hair prompt block missing`);
   for (const path of policy.requiredAuthorityPaths) {
     if (!exported.authorityOrder.includes(path)) fail(`${id}: required authority missing: ${path}`);
   }
