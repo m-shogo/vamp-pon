@@ -7,7 +7,6 @@ on:
       - 'data/visual/all-character-life-choice-author-review-queue-v1.json'
       - 'data/visual/core5-p1-life-choice-review-contract-v1.json'
       - 'scripts/quality/build-core5-p1-life-choice-review-contract.ts'
-      - 'scripts/quality/check-core5-p1-life-choice-review-contract.ts'
       - '.github/workflows/core5-p1-life-choice-review-contract.yml'
   push:
     branches: [main]
@@ -16,7 +15,6 @@ on:
       - 'data/visual/all-character-life-choice-author-review-queue-v1.json'
       - 'data/visual/core5-p1-life-choice-review-contract-v1.json'
       - 'scripts/quality/build-core5-p1-life-choice-review-contract.ts'
-      - 'scripts/quality/check-core5-p1-life-choice-review-contract.ts'
       - '.github/workflows/core5-p1-life-choice-review-contract.yml'
 
 jobs:
@@ -26,8 +24,24 @@ jobs:
       - uses: actions/checkout@v4
       - name: Derive Core5 P1 review contract
         run: node --experimental-strip-types scripts/quality/build-core5-p1-life-choice-review-contract.ts --emit
-      - name: Validate materialized contract when present
+      - name: Validate materialized snapshot
         run: |
-          if [ -f scripts/quality/check-core5-p1-life-choice-review-contract.ts ]; then
-            node --experimental-strip-types scripts/quality/check-core5-p1-life-choice-review-contract.ts
-          fi
+          node --input-type=module <<'NODE'
+          import { createHash } from 'node:crypto';
+          import { readFileSync } from 'node:fs';
+          const profileText=readFileSync('data/visual/core5-living-visual-profiles-v1.json','utf8');
+          const profile=JSON.parse(profileText);
+          const snapshot=JSON.parse(readFileSync('data/visual/core5-p1-life-choice-review-contract-v1.json','utf8'));
+          const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+          if(snapshot.sourceProfileSha256!==createHash('sha256').update(profileText).digest('hex')) throw new Error('stale source hash');
+          if(!same(snapshot.scope,{characterCount:5,domainCount:2,reviewItemCount:10})) throw new Error('scope drift');
+          const liveById=new Map(profile.characters.map(entry=>[entry.id,entry]));
+          for(const item of snapshot.characters){
+            const live=liveById.get(item.id);
+            if(!live) throw new Error(`missing ${item.id}`);
+            if(!same(item.personalGrooming,{makeupPolicy:live.makeupPolicy,nailPolicy:live.nailPolicy,hairGroomingBehavior:live.hairGroomingBehavior})) throw new Error(`grooming stale ${item.id}`);
+            if(!same(item.footwearGroundInterface,live.footwearPreference)) throw new Error(`footwear stale ${item.id}`);
+          }
+          if(snapshot.policy.requiresHumanDecision!==true||snapshot.policy.canonPromotionBlocked!==true||snapshot.policy.imageModelFreedom!==false||snapshot.policy.generatedImageMayCloseItem!==false) throw new Error('policy drift');
+          console.log('[core5-p1-review] OK: snapshot matches live profile');
+          NODE
