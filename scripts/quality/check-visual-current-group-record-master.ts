@@ -8,6 +8,8 @@ const SAKUYAZA_DOC = 'docs/sakuyaza-current-identity-v1.md';
 const GUNJO_DOC = 'docs/gunjo-zankyoroku-current-v1.md';
 const BASELINE_PATH = 'data/character-assets/manifests/visual-generation-count-baseline.v1.json';
 const EXPANSION_PATH = 'data/character-assets/manifests/visual-pre-game-master-expansion-queue.v1.json';
+const CANONICAL_GUNJO_MEDIUM_MASTER_ID = 'gunjo-record-medium-evidence-master-v1';
+const SUPERSEDED_GUNJO_MEDIUM_PLANNING_ID = 'gunjo-record-medium-material-master-v1';
 
 const errors: string[] = [];
 const fail = (message: string) => errors.push(message);
@@ -104,12 +106,26 @@ if (gunjo.generationAllowed !== false) fail('Gunjo Zankyoroku generation must re
 const foundationMasters = Array.isArray(gunjo.foundationMasters) ? gunjo.foundationMasters : [];
 if (foundationMasters.length !== 2) fail('Gunjo Zankyoroku must list exactly two foundation visual masters before incident-specific expansion');
 const foundationIds = foundationMasters.map((entry: any) => entry?.masterId);
-for (const required of ['gunjo-record-taxonomy-system-master-v1', 'gunjo-record-medium-material-master-v1']) {
+for (const required of ['gunjo-record-taxonomy-system-master-v1', CANONICAL_GUNJO_MEDIUM_MASTER_ID]) {
   if (!foundationIds.includes(required)) fail(`Gunjo foundation master missing: ${required}`);
 }
+if (foundationIds.includes(SUPERSEDED_GUNJO_MEDIUM_PLANNING_ID)) fail('superseded Gunjo medium/material planning ID may not remain a Current foundation master');
+if (gunjo.foundationMasterIdMigration?.canonicalRecordMediumMasterId !== CANONICAL_GUNJO_MEDIUM_MASTER_ID) fail('Gunjo canonical record-medium master ID migration drifted');
+if (gunjo.foundationMasterIdMigration?.supersededPlanningId !== SUPERSEDED_GUNJO_MEDIUM_PLANNING_ID) fail('Gunjo superseded record-medium planning ID history missing');
+if (gunjo.foundationMasterIdMigration?.supersededPlanningIdMayReceiveNewAssets !== false) fail('superseded Gunjo planning ID may not receive new assets');
 for (const master of foundationMasters) {
   if (master.mandatoryRasterImage !== false) fail(`${String(master.masterId)} must not force raster generation`);
 }
+
+const expansionGunjo = Array.isArray(expansion.families)
+  ? expansion.families.find((entry: any) => entry?.familyId === 'gunjo-record-foundation-masters')
+  : undefined;
+if (expansionGunjo) {
+  const expansionMasterIds = Array.isArray(expansionGunjo.masterIds) ? expansionGunjo.masterIds : [];
+  if (!expansionMasterIds.includes(CANONICAL_GUNJO_MEDIUM_MASTER_ID)) fail('expansion queue is not aligned to canonical Gunjo record-medium master ID');
+  if (expansionMasterIds.includes(SUPERSEDED_GUNJO_MEDIUM_PLANNING_ID)) fail('expansion queue still uses superseded Gunjo record-medium planning ID');
+}
+
 if (gunjo.futureIncidentMasters?.count !== 'TBD_AFTER_FORMAL_INCIDENT_AUTHORITY') fail('Gunjo incident master count must remain authority-dependent');
 if (gunjo.futureIncidentMasters?.generationAllowedNow !== false) fail('Gunjo incident generation must remain blocked');
 if (!Array.isArray(gunjo.guideLorebookDbDerivatives) || gunjo.guideLorebookDbDerivatives.length < 4) fail('Gunjo guide/Lorebook/DB derivative list is incomplete');
@@ -130,4 +146,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Visual Current Group / Record Master check PASS — Sakuyaza=${currentMembers.length}, Gunjo foundation masters=${foundationMasters.length}, Gunjo incident count=OPEN`);
+console.log(`Visual Current Group / Record Master check PASS — Sakuyaza=${currentMembers.length}, Gunjo foundation masters=${foundationMasters.length}, Gunjo record-medium master=${CANONICAL_GUNJO_MEDIUM_MASTER_ID}, Gunjo incident count=OPEN`);
