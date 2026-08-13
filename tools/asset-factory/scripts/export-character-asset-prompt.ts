@@ -20,6 +20,8 @@ const ERA_LIFE_DOC = 'docs/visual/core5-era-life-design-master-v1.md';
 const ERA_LIFE_JSON = 'data/visual/core5-era-life-design-master-v1.json';
 const CORE5_COLOR_DOC = 'docs/visual/core5-color-application-master-v1.md';
 const CORE5_COLOR_JSON = 'data/visual/core5-color-application-master-v1.json';
+const CORE5_GEOMETRY_DOC = 'docs/visual/core5-identity-geometry-master-v1.md';
+const CORE5_GEOMETRY_JSON = 'data/visual/core5-identity-geometry-master-v1.json';
 const RELATIONSHIP_DOC = 'docs/visual/relationship-embodied-daily-life-contract-v1.md';
 const RELATIONSHIP_JSON = 'data/visual/relationship-embodied-daily-life-contract-v1.json';
 
@@ -33,6 +35,7 @@ type CliOptions = {
 type LivingVisualProfile = Record<string, unknown> & { id: string; name?: string };
 type EraLifeProfile = Record<string, unknown> & { id: string; name?: string };
 type ColorApplicationProfile = Record<string, unknown> & { id: string; name?: string };
+type IdentityGeometryProfile = Record<string, unknown> & { id: string; name?: string };
 
 function parseArgs(args: string[]): CliOptions {
   let characterId = '';
@@ -106,6 +109,22 @@ function loadColorApplicationProfile(characterId: string): ColorApplicationProfi
   return profile;
 }
 
+function loadIdentityGeometryProfile(characterId: string): IdentityGeometryProfile | null {
+  if (!CORE5_IDS.has(characterId)) return null;
+  const document = JSON.parse(readFileSync(resolve(process.cwd(), CORE5_GEOMETRY_JSON), 'utf8'));
+  if (document.status !== 'CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION' || document.doesNotPromoteCandidates !== true) {
+    throw new Error(`Core5 Identity Geometry Master is not current or candidate policy weakened: ${CORE5_GEOMETRY_JSON}`);
+  }
+  if (document.sharedRules?.sameFaceBaseAllowed !== false || document.sharedRules?.renderingMayChangeGeometry !== false) {
+    throw new Error(`Core5 Identity Geometry same-face/rendering guard weakened: ${CORE5_GEOMETRY_JSON}`);
+  }
+  const profile = (document.characters ?? []).find((entry: IdentityGeometryProfile) => entry.id === characterId);
+  if (!profile) throw new Error(`Core5 Identity Geometry Profile missing for ${characterId} in ${CORE5_GEOMETRY_JSON}; export blocked.`);
+  const gate = document.imageGenerationGate;
+  if (!Array.isArray(gate) || gate.length < 10) throw new Error(`Core5 Identity Geometry image-generation gate incomplete: ${CORE5_GEOMETRY_JSON}`);
+  return profile;
+}
+
 function loadProfessionalStandard() {
   const standard = JSON.parse(readFileSync(resolve(process.cwd(), PROFESSIONAL_JSON), 'utf8'));
   if (standard.status !== 'TOP_LEVEL_AUTHORING_GOVERNANCE') {
@@ -155,6 +174,7 @@ function resolvedPromptBlock(
   council: any,
   eraLife: EraLifeProfile | null,
   colorApplication: ColorApplicationProfile | null,
+  identityGeometry: IdentityGeometryProfile | null,
   relationship: any,
 ): string {
   return [
@@ -179,6 +199,17 @@ function resolvedPromptBlock(
           'Do not express era only through costume styling. Preserve ordinary-system assumptions: communication, money/payment, transport/navigation, shopping/availability, repair/replacement, food/packaging, waiting, privacy/records, work/institution, household comfort, carried objects, and conversational assumptions.',
           'Dream translation may stylize the character, but must preserve some Reality-era habits in storage, repair, movement, object handling, posture, or acting.',
           JSON.stringify(eraLife, null, 2),
+        ]
+      : []),
+    ...(identityGeometry
+      ? [
+          'CORE5 IDENTITY GEOMETRY MASTER — REQUIRED FACE/BODY AUTHORITY.',
+          `Geometry authority: ${CORE5_GEOMETRY_DOC}.`,
+          `Geometry machine rules: ${CORE5_GEOMETRY_JSON}.`,
+          'Do not use one attractive anime face base. Preserve face shape, eye/eyelid/brow/lash construction, nose, mouth, surface identity, hair mass, body shape, clothing construction, nearest-face distinction, and forbidden drift.',
+          'Color, lighting, hero pose, props, goggles, freckles, piercings or tattoos may not substitute for geometry. Candidate marks/modifications remain candidates and are never auto-promoted by image generation.',
+          'Rendering style may not alter face anatomy or normalize the Core5 toward one V-jaw / large-eye base.',
+          JSON.stringify(identityGeometry, null, 2),
         ]
       : []),
     ...(colorApplication
@@ -224,7 +255,7 @@ function authorityOrder(characterId: string, profilePath: string): string[] {
     PROFESSIONAL_DOC,
     PROFESSIONAL_JSON,
     WORLD_MASTER,
-    ...(CORE5_IDS.has(characterId) ? [ERA_LIFE_DOC, ERA_LIFE_JSON, CORE5_COLOR_DOC, CORE5_COLOR_JSON] : []),
+    ...(CORE5_IDS.has(characterId) ? [ERA_LIFE_DOC, ERA_LIFE_JSON, CORE5_GEOMETRY_DOC, CORE5_GEOMETRY_JSON, CORE5_COLOR_DOC, CORE5_COLOR_JSON] : []),
     'docs/visual/character-living-visual-master-v1.md',
     profilePath,
     'docs/character-appearance-source-book-v1.md',
@@ -249,10 +280,11 @@ function renderMarkdown(options: CliOptions) {
   const living = loadProfile(options.characterId);
   const eraLife = loadEraLifeProfile(options.characterId);
   const colorApplication = loadColorApplicationProfile(options.characterId);
+  const identityGeometry = loadIdentityGeometryProfile(options.characterId);
   const professional = loadProfessionalStandard();
   const council = loadCouncil();
   const relationship = loadRelationshipMaster();
-  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile, professional, council, eraLife, colorApplication, relationship)].join('\n');
+  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile, professional, council, eraLife, colorApplication, identityGeometry, relationship)].join('\n');
   return [
     '# Yoru no Shirube — Resolved Character Asset Prompt',
     '',
@@ -266,6 +298,7 @@ function renderMarkdown(options: CliOptions) {
     `Design Council: ${COUNCIL_DOC}`,
     `Relationship Embodiment Master: ${RELATIONSHIP_DOC}`,
     ...(eraLife ? [`Core5 Era Life Profile: ${ERA_LIFE_JSON}#${options.characterId}`] : []),
+    ...(identityGeometry ? [`Core5 Identity Geometry Profile: ${CORE5_GEOMETRY_JSON}#${options.characterId}`] : []),
     ...(colorApplication ? [`Core5 Color Application Profile: ${CORE5_COLOR_JSON}#${options.characterId}`] : []),
     '',
     '## Mandatory authority order',
@@ -295,6 +328,13 @@ function renderMarkdown(options: CliOptions) {
           '- generic period costume / generic future fashionへ落ちていない',
         ]
       : []),
+    ...(identityGeometry
+      ? [
+          '- Core5 face signature / nearest-face difference / forbidden driftが維持されている',
+          '- color / hair / propを隠してもface geometryとneutral silhouetteで本人性が残る',
+          '- candidate surface marksやbody modificationを生成画像が勝手に確定していない',
+        ]
+      : []),
     ...(colorApplication
       ? [
           '- Core5 canonical theme/accent HEXが維持され、identity/support/accent/lightの役割が分離されている',
@@ -318,11 +358,12 @@ function renderJson(options: CliOptions) {
   const living = loadProfile(options.characterId);
   const eraLife = loadEraLifeProfile(options.characterId);
   const colorApplication = loadColorApplicationProfile(options.characterId);
+  const identityGeometry = loadIdentityGeometryProfile(options.characterId);
   const professional = loadProfessionalStandard();
   const council = loadCouncil();
   const relationship = loadRelationshipMaster();
   return `${JSON.stringify({
-    schemaVersion: 6,
+    schemaVersion: 7,
     generatedBy: 'tools/asset-factory/scripts/export-character-asset-prompt.ts',
     characterId: options.characterId,
     kind: options.kind,
@@ -339,6 +380,8 @@ function renderJson(options: CliOptions) {
     relationshipUnknownPairPolicy: relationship.unknownPairPolicy,
     eraLifeMasterPath: eraLife ? ERA_LIFE_JSON : null,
     eraLifeProfile: eraLife,
+    core5IdentityGeometryMasterPath: identityGeometry ? CORE5_GEOMETRY_JSON : null,
+    core5IdentityGeometryProfile: identityGeometry,
     core5ColorApplicationMasterPath: colorApplication ? CORE5_COLOR_JSON : null,
     core5ColorApplicationProfile: colorApplication,
     livingVisualProfilePath: living.path,
@@ -349,8 +392,9 @@ function renderJson(options: CliOptions) {
     unknownLifePreferenceMayBeInventedByImageModel: false,
     unknownRelationshipPreferenceMayBeInventedByImageModel: false,
     unknownColorMayBeInventedByImageModel: false,
+    unknownIdentityGeometryMayBeInventedByImageModel: false,
     authorityOrder: authorityOrder(options.characterId, living.path),
-    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile, professional, council, eraLife, colorApplication, relationship)}`,
+    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile, professional, council, eraLife, colorApplication, identityGeometry, relationship)}`,
     negativePrompt: prompt.negativePrompt,
     reviewChecklist: [
       'Professional Master Standardのcertainty / OPEN / generation readiness gateを満たす',
@@ -360,6 +404,13 @@ function renderJson(options: CliOptions) {
         ? [
             'Core5のEra差が衣装だけでなく収納・修繕・持ち物・移動・所作へ反映されている',
             'generic period costume / generic future fashionへ落ちていない',
+          ]
+        : []),
+      ...(identityGeometry
+        ? [
+            'Core5 face signature / nearest-face difference / forbidden driftが維持されている',
+            'color / hair / propを隠してもface geometryとneutral silhouetteで本人性が残る',
+            'candidate surface marksやbody modificationを生成画像が勝手に確定していない',
           ]
         : []),
       ...(colorApplication
