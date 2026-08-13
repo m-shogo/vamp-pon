@@ -1,0 +1,54 @@
+{
+  "id": "yoru-no-shirube-all-character-garment-material-drape-fold-memory-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.md",
+  "unknownMaterialMechanicsDefault": "SOURCE_CONSTRAINED_NEUTRAL_MATERIAL_MECHANICS_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedMaterialMechanicsCreatesCanon": false
+  },
+  "mechanicsAxes": [
+    "materialFamilyConfidence", "nominalThicknessFamily", "localThicknessVariation", "layerCountContribution", "bendingStiffness", "foldRadiusFamily", "creaseSharpness", "creaseMemory", "wrinkleMemory", "recoverySpeed", "gravityDrapeAmplitude", "hangingWeightResponse", "inPlaneStretch", "crossGrainStretch", "biasStretch", "elasticRecovery", "shearCompliance", "compressionCompliance", "localBucklingTendency", "surfaceFriction", "layerOnLayerFriction", "bodyContactFriction", "seatContactFriction", "strapContactFriction", "edgeCurlTendency", "rawEdgeBehavior", "hemEdgeMass", "seamBulk", "seamStiffness", "topstitchStiffnessContribution", "facingStiffnessContribution", "liningSlipBehavior", "paddingLoft", "paddingCompression", "insulationBulk", "knitRibRecovery", "wovenGrainStability", "leatherLikeBendMemory", "rigidPanelFlexLimit", "translucentBehavior", "opacityStability", "moistureAbsorptionResponse", "wetWeightIncrease", "wetClingLimit", "dryingRecovery", "windLiftThreshold", "windFlutterFrequencyFamily", "motionInertia", "delayedFollowThrough", "sleeveSwingBehavior", "hemSwingBehavior", "hoodCollarStability", "pleatRetention", "gatherCollapseRecovery", "pocketLoadSag", "bagStrapDeformation", "jointCreaseAccumulation", "seatedCreaseAccumulation", "longTermFoldMemory", "storageFoldMemory", "repairZoneStiffnessChange", "abrasionSoftnessChange", "ageWearStiffnessChange", "footwearUpperFlex", "soleStiffnessRelation", "smallScaleFoldSimplification", "effectLightingIndependence"
+  ],
+  "mechanicsInvariants": [
+    "material mechanics remain coherent with garment construction", "thickness remains finite", "multiple layers accumulate believable bulk", "fold radius follows stiffness", "fold density follows material and load", "major folds require physical causes", "crease memory is temporally coherent", "viewpoint does not reset material mechanics", "premium does not change material class", "premium does not increase cling automatically", "premium does not erase ordinary wrinkle history", "premium does not increase transparency", "wetness follows material authority", "wetness does not reveal unsupported anatomy", "wind follows mass area stiffness and anchors", "wind does not redesign garment topology", "motion preserves inertia and follow through", "seat contact compresses material plausibly", "wheelchair contact remains physically coherent", "assistive equipment contact remains physically coherent", "layers retain thickness and friction", "pocket loads deform material locally", "strap loads deform through anchored paths", "rigid material does not behave like silk", "soft knit does not behave like armor", "nonstretch woven does not stretch without limit", "surface lighting describes rather than replaces mechanics", "LOD removes micro wrinkles before material identity", "chibi preserves major material mechanics", "sprite preserves major material mechanics", "generated mechanics remain candidate only", "generated mechanics never create canon"
+  ],
+  "preservationPriority": [
+    "existingCanonMaterialClass", "garmentConstructionTopology", "authorizedBodyAndFit", "layerThicknessAndBulk", "stiffnessAndFoldRadiusFamily", "stretchRecoveryAndCompression", "contactAndSeatBehavior", "windWetnessAndMotionResponse", "loadAndPocketDeformation", "creaseAndFoldMemory", "maintenanceAndWearContinuity", "surfacePolishAndMicroWrinkles"
+  ],
+  "forbiddenShortcuts": [
+    "universalSilkCling", "universalSatinGloss", "universalWeightlessCloth", "universalPaperThinEdges", "universalCardboardStiffness", "universalMicroWrinkleNoise", "universalPerfectFlatness", "premiumAutomaticGloss", "premiumAutomaticCling", "premiumAutomaticWindLift", "premiumAutomaticWrinkleRemoval", "premiumAutomaticTransparency", "premiumAutomaticSharpBodyFolds", "thickClothRenderedZeroThickness", "multilayerStackRenderedSingleLayer", "seamBulkErasedForCleanliness", "paddingBulkErasedForSlimness", "liningBulkInventsOrErasesBodyShape", "wetnessMakesOpaqueClothTransparent", "wetnessRevealsUnsupportedAnatomy", "wetnessMakesEveryMaterialGlossy", "windTurnsHeavyClothIntoRibbon", "windBreaksClosureAnchors", "windMovesSeamsOrPockets", "motionResetsFoldMemoryEveryFrame", "viewpointResetsMaterialMechanics", "viewpointChangesThicknessFamily", "stateChangesStiffnessWithoutAuthority", "stateChangesMaterialClassWithoutAuthority", "foldUsedToInventMusculature", "foldUsedToNarrowWaist", "foldUsedToIncreaseChestOrHipVolume", "shadowUsedToEraseLayerBulk", "highlightUsedToEraseBodyMass", "contactIgnoredAtSeat", "wheelchairClothFloatsAboveSeat", "assistiveEquipmentClippingHiddenByFold", "pocketLoadWithoutSagOrAnchorResponse", "pocketLoadUsedToInventBodyContour", "strapLoadWithoutMaterialDeformation", "rigidPanelBendsLikeSilk", "softKnitBehavesLikeArmor", "nonStretchWovenStretchesWithoutLimit", "fragileMaterialCarriesUnsupportedLoad", "thickIntersectionBecomesInfinitelyThin", "hemMassIgnored", "collarStiffnessRandomizedByView", "hoodStabilityRandomizedByView", "creaseMemoryBecomesCanonFromGenerationAccident", "wearSofteningInventsPersonality", "repairZoneStiffnessInventedWithoutRepairAuthority", "lodFlattensAllMaterialClasses", "chibiFlattensAllMaterialClasses", "spriteFlattensAllMaterialClasses", "effectGlowReplacesMaterialReadability", "rimLightHidesLayerIntersection", "generatedMaterialMechanicsCreatesCanon", "materialClassInferredFromRarity", "materialClassInferredFromGenderPresentation", "materialClassInferredFromAttractiveness", "materialClassInferredFromCombatRole", "materialClassInferredFromWealth", "thinnessUsedToSolveClipping", "stiffnessUsedToHideBodyMismatch", "softnessUsedToHideConstructionMismatch"
+  ],
+  "rules": {
+    "unknownMaterialMechanicsMayBeInventedByImageModel": false,
+    "viewpointMayResetMaterialMechanics": false,
+    "viewpointMayChangeThicknessFamily": false,
+    "premiumMayChangeMaterialClass": false,
+    "premiumMayIncreaseCling": false,
+    "premiumMayIncreaseGloss": false,
+    "premiumMayEraseWrinkleHistory": false,
+    "premiumMayIncreaseTransparency": false,
+    "wetnessMayRevealUnsupportedAnatomy": false,
+    "wetnessMayUniversalizeGloss": false,
+    "windMayRedesignGarmentTopology": false,
+    "windMayBreakClosureAnchors": false,
+    "motionMayResetFoldMemory": false,
+    "foldsMayInventBodyGeometry": false,
+    "lightingMayEraseLayerBulk": false,
+    "lightingMayReplaceMaterialMechanics": false,
+    "seatContactMayBeIgnored": false,
+    "wheelchairContactMayBeIgnoredForDrape": false,
+    "assistiveEquipmentContactMayBeIgnoredForDrape": false,
+    "layerThicknessMayCollapseForCleanSilhouette": false,
+    "pocketLoadMayIgnoreMaterialResponse": false,
+    "strapLoadMayIgnoreMaterialResponse": false,
+    "lodMayFlattenMaterialClassDifferences": false,
+    "chibiMayFlattenMaterialClassDifferences": false,
+    "spriteMayFlattenMaterialClassDifferences": false,
+    "generatedMaterialMechanicsCreatesCanon": false
+  }
+}
