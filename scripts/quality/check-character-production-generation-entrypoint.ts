@@ -9,6 +9,8 @@ const bodyPolicyPath = 'data/visual/all-character-body-mass-posture-construction
 const bodyAuthorityPath = 'docs/visual/all-character-body-mass-posture-construction-fidelity-master-v1.md';
 const garmentFitPolicyPath = 'data/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.json';
 const garmentFitAuthorityPath = 'docs/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.md';
+const garmentConstructionPolicyPath = 'data/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.json';
+const garmentConstructionAuthorityPath = 'docs/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.md';
 const profilePaths = [
   'data/visual/core5-living-visual-profiles-v1.json',
   'data/visual/current21-extended-living-visual-profiles-v1.json',
@@ -22,6 +24,7 @@ function fail(message: string): never {
 const policy = JSON.parse(readFileSync(resolve(root, policyPath), 'utf8'));
 const bodyPolicy = JSON.parse(readFileSync(resolve(root, bodyPolicyPath), 'utf8'));
 const garmentFitPolicy = JSON.parse(readFileSync(resolve(root, garmentFitPolicyPath), 'utf8'));
+const garmentConstructionPolicy = JSON.parse(readFileSync(resolve(root, garmentConstructionPolicyPath), 'utf8'));
 if (policy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT') fail('policy status invalid');
 if (policy.scopeCount !== 36) fail('scopeCount must be 36');
 if (policy.productionExporter !== CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.exporter) fail('code/policy exporter mismatch');
@@ -32,6 +35,7 @@ if (CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.lowerExporterOutputIsProductionRea
 if (CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.handWrittenPromptIsProductionReady !== false) fail('code hand-prompt guard weakened');
 if (bodyPolicy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY' || bodyPolicy.scopeCount !== 36 || bodyPolicy.assetKindCount !== 9) fail('body authority invalid');
 if (garmentFitPolicy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY' || garmentFitPolicy.scopeCount !== 36 || garmentFitPolicy.assetKindCount !== 9) fail('garment/body fit authority invalid');
+if (garmentConstructionPolicy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY' || garmentConstructionPolicy.scopeCount !== 36 || garmentConstructionPolicy.assetKindCount !== 9) fail('garment construction authority invalid');
 
 for (const [groupName, requiredField] of [
   ['hairTerminalWrapperRequiredFlags', 'allCharacterHairGroomingConstructionFidelityRequired'],
@@ -68,13 +72,14 @@ const bodyFalseFields = [
 const garmentFitFalseFields = [
   'unknownGarmentFitMayBeInventedByImageModel','garmentMayRedesignAuthorizedBody','looseGarmentMayImplyThinnerBody','tightGarmentMayInventUnsupportedAnatomy','premiumMayIncreaseBodyCling','premiumMaySuppressWaist','premiumMayIncreaseExposureForFit','poseMayChangeGarmentConstruction','seatedPoseMaySlimBodyForClearance','crouchMaySlimBodyForOverlap','wetnessMayIncreaseAnatomicalRevelation','damageMayChangeFitOrExposureWithoutAuthority','foldsMayInventMusculature','strapsMayReshapeBodyBeyondLocalizedPressure','beltsMayManufactureNarrowerWaist','layersMayEraseAuthorizedBodyMass','mobilityEquipmentMayBeHiddenToSimplifyFit','wheelchairContactMayBeIgnored','assistiveDeviceClearanceMayBeIgnored','lodMayConvergeToGenericSlimFit','chibiMayConvergeToGenericSlimFit','spriteMayConvergeToGenericSlimFit','identityTraitsMayBeGuessedFromFitStereotype','generatedGarmentFitCreatesCanon',
 ];
+const garmentConstructionFalseFields = Object.keys(garmentConstructionPolicy.rules ?? {});
 
 for (const id of ids) {
   const stdout = execFileSync(process.execPath, [
     '--experimental-strip-types', resolve(root, policy.productionExporter),
     '--character', id,
     '--kind', 'character_reference',
-  ], { cwd: root, encoding: 'utf8', maxBuffer: 192 * 1024 * 1024 });
+  ], { cwd: root, encoding: 'utf8', maxBuffer: 224 * 1024 * 1024 });
   const exported = JSON.parse(stdout);
   if (exported.productionImageGenerationEntrypoint !== true) fail(`${id}: production entrypoint flag missing`);
   if (exported.productionCharacterPromptReady !== true) fail(`${id}: production ready flag missing`);
@@ -93,25 +98,30 @@ for (const id of ids) {
   if (exported.allCharacterFaceSkullLandmarkConstructionFidelityRequired !== true) fail(`${id}: face terminal chain missing`);
   if (exported.allCharacterBodyMassPostureConstructionFidelityRequired !== true) fail(`${id}: body construction chain missing`);
   if (exported.allCharacterGarmentBodyFitTensionCompressionFidelityRequired !== true) fail(`${id}: garment/body fit chain missing`);
+  if (exported.allCharacterGarmentPatternSeamClosureLoadFidelityRequired !== true) fail(`${id}: garment construction chain missing`);
   for (const field of hairFalseFields) if (exported[field] !== false) fail(`${id}: hair guard weakened: ${field}`);
   for (const field of faceFalseFields) if (exported[field] !== false) fail(`${id}: face guard weakened: ${field}`);
   for (const field of bodyFalseFields) if (exported[field] !== false) fail(`${id}: body guard weakened: ${field}`);
   for (const field of garmentFitFalseFields) if (exported[field] !== false) fail(`${id}: garment/body fit guard weakened: ${field}`);
+  for (const field of garmentConstructionFalseFields) if (exported[field] !== false) fail(`${id}: garment construction guard weakened: ${field}`);
   if ((exported.faceConstructionAxes ?? []).length < 46) fail(`${id}: face construction axes missing`);
   if ((exported.faceLandmarkPreservationPriority ?? []).length < 15) fail(`${id}: face preservation priority missing`);
   if ((exported.bodyConstructionAxes ?? []).length < 52) fail(`${id}: body construction axes missing`);
   if ((exported.bodyPreservationPriority ?? []).length < 12) fail(`${id}: body preservation priority missing`);
   if ((exported.garmentFitConstructionAxes ?? []).length < 55) fail(`${id}: garment/body fit construction axes missing`);
   if ((exported.garmentFitPreservationPriority ?? []).length < 12) fail(`${id}: garment/body fit preservation priority missing`);
+  if ((exported.garmentConstructionAxes ?? []).length < 60) fail(`${id}: garment construction axes missing`);
+  if ((exported.garmentConstructionPreservationPriority ?? []).length < 12) fail(`${id}: garment construction preservation priority missing`);
   if (!exported.prompt.includes('CHARACTER PRODUCTION GENERATION ENTRYPOINT — FINAL AUTHORITY LOCK.')) fail(`${id}: final production prompt block missing`);
   if (!exported.prompt.includes('HAIR / GROOMING CONSTRUCTION FIDELITY — FINAL HAIR TOPOLOGY LOCK.')) fail(`${id}: final hair prompt block missing`);
   if (!exported.prompt.includes('FACE / SKULL LANDMARK CONSTRUCTION FIDELITY — FINAL CRANIOFACIAL IDENTITY LOCK.')) fail(`${id}: final face prompt block missing`);
   if (!exported.prompt.includes('BODY / MASS DISTRIBUTION / POSTURE CONSTRUCTION FIDELITY — FINAL EMBODIED IDENTITY LOCK.')) fail(`${id}: final body prompt block missing`);
   if (!exported.prompt.includes('GARMENT-TO-BODY FIT / TENSION / COMPRESSION FIDELITY — FINAL CLOTH-BODY MECHANICS LOCK.')) fail(`${id}: final garment/body fit prompt block missing`);
+  if (!exported.prompt.includes('GARMENT PATTERN / SEAM / CLOSURE / LOAD FIDELITY — FINAL CONSTRUCTION TOPOLOGY LOCK.')) fail(`${id}: final garment construction prompt block missing`);
   for (const path of policy.requiredAuthorityPaths) if (!exported.authorityOrder.includes(path)) fail(`${id}: required authority missing: ${path}`);
-  for (const path of [bodyAuthorityPath, bodyPolicyPath, garmentFitAuthorityPath, garmentFitPolicyPath]) if (!exported.authorityOrder.includes(path)) fail(`${id}: terminal authority missing: ${path}`);
+  for (const path of [bodyAuthorityPath, bodyPolicyPath, garmentFitAuthorityPath, garmentFitPolicyPath, garmentConstructionAuthorityPath, garmentConstructionPolicyPath]) if (!exported.authorityOrder.includes(path)) fail(`${id}: terminal authority missing: ${path}`);
   if (!exported.authorityOrder.includes(policy.authorityDocument)) fail(`${id}: production entrypoint authority missing`);
   if (!exported.authorityOrder.includes(policyPath)) fail(`${id}: production entrypoint policy missing`);
 }
 
-console.log(`[character-production-entrypoint] OK: ${ids.length}/36 production prompts preserve face, body and garment/body fit construction through ${policy.productionExporter}`);
+console.log(`[character-production-entrypoint] OK: ${ids.length}/36 production prompts preserve face, body, garment fit and garment construction through ${policy.productionExporter}`);
