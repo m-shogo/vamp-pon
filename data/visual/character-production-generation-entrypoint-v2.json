@@ -1,0 +1,29 @@
+{
+  "id": "yoru-no-shirube-character-production-generation-entrypoint-v2",
+  "date": "2026-08-13",
+  "status": "TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT",
+  "scopeCount": 36,
+  "authorityDocument": "docs/visual/character-production-generation-entrypoint-v2.md",
+  "productionExporter": "tools/asset-factory/scripts/export-dressing-workflow-locked-character-design-prompt.ts",
+  "wrappedExporter": "tools/asset-factory/scripts/export-face-skull-landmark-locked-character-design-prompt.ts",
+  "basePolicy": "data/visual/character-production-generation-entrypoint-v1.json",
+  "terminalAuthorityDocument": "docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md",
+  "terminalPolicy": "data/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.json",
+  "requiredOutputFlags": {
+    "productionImageGenerationEntrypoint": true,
+    "productionCharacterPromptReady": true,
+    "productionPromptAuthorityLocked": true,
+    "imageGenerationReadinessState": "READY_FOR_CANDIDATE_GENERATION",
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "allCharacterGarmentDonDoffDressingWorkflowFidelityRequired": true,
+    "lowerExporterOutputIsProductionReady": false,
+    "handWrittenPromptIsProductionReady": false,
+    "generatedImageCreatesCanon": false,
+    "generatedImageCreatesFeedbackRule": false,
+    "generatedDressingWorkflowCreatesCanon": false
+  },
+  "lowerExportersAreProductionEntrypoints": false,
+  "handWrittenPromptIsProductionReady": false,
+  "generatedImageCreatesCanon": false,
+  "generatedArtStartsAs": "CANDIDATE_REVIEW_REQUIRED"
+}
