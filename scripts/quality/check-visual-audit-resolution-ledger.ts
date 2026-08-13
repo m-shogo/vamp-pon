@@ -26,6 +26,7 @@ assert(ledger.currentBoundary?.yuiHold === true, 'Yui HOLD must remain preserved
 for (const state of [
   'STRUCTURED_MASTER_SPEC_IMPLEMENTED_HUMAN_REVIEW_REQUIRED',
   'SOURCE_GROUNDED_AUTHORING_BRIEF_IMPLEMENTED_VISUAL_BOARD_PENDING',
+  'STRUCTURED_SETTING_BOARD_SPECS_AUTHORED_HUMAN_REVIEW_PENDING',
   'VECTOR_SYSTEM_SPEC_IMPLEMENTED_GEOMETRY_PENDING',
 ]) {
   assert(typeof ledger.stateDefinitions?.[state] === 'string', `resolution state definition missing: ${state}`);
@@ -61,14 +62,17 @@ for (const id of [
 
 for (const id of ['CORE5_REALITY_ERA_ENVIRONMENT_REFERENCE_MASTERS', 'CORE5_ERA_POPULATION_HOUSEHOLD_REFERENCE_MASTERS']) {
   const entry = fixed.get(id) as any;
-  assert(entry?.state === 'SOURCE_GROUNDED_AUTHORING_BRIEF_IMPLEMENTED_VISUAL_BOARD_PENDING', `${id}: authoring brief state missing`);
-  assert(entry?.rowCount === 5, `${id}: planned board count must remain 5`);
-  assert(entry?.visualBoardsAuthored === false, `${id}: authoring brief may not claim visual boards authored`);
-  assert(entry?.imageGenerationAuthorized === false, `${id}: authoring brief may not authorize image generation`);
-  assert(Array.isArray(entry?.files) && entry.files.length === 1, `${id}: authoring brief evidence path missing`);
+  assert(entry?.state === 'STRUCTURED_SETTING_BOARD_SPECS_AUTHORED_HUMAN_REVIEW_PENDING', `${id}: authored setting-board spec state missing`);
+  assert(entry?.rowCount === 5, `${id}: board count must remain 5`);
+  assert(entry?.editableBoardSpecsAuthored === 5, `${id}: all five editable board specs must be authored`);
+  assert(entry?.humanApproved === 0, `${id}: Human approval must remain zero until review`);
+  assert(entry?.rasterAuthority === 0, `${id}: raster authority must remain zero`);
+  assert(entry?.imageGenerationAuthorized === false, `${id}: authored specs may not authorize image generation`);
+  assert(typeof entry?.authoringBrief === 'string' && entry.authoringBrief.endsWith('.json'), `${id}: authoring brief reference missing`);
+  assert(entry?.boardDirectory === 'data/visual/setting-boards', `${id}: board directory drift`);
 }
 const household = fixed.get('CORE5_ERA_POPULATION_HOUSEHOLD_REFERENCE_MASTERS') as any;
-assert(household?.exactFamilyMembersFrozen === false, 'Core5 population/household brief may not freeze literal family members');
+assert(household?.exactFamilyMembersFrozen === false, 'Core5 population/household boards may not freeze literal family members');
 
 const iau88 = fixed.get('MODERN_IAU88_CONSTELLATION_LINE_ART_VECTOR_MASTER') as any;
 assert(iau88?.state === 'VECTOR_SYSTEM_SPEC_IMPLEMENTED_GEOMETRY_PENDING', 'Modern IAU88 system must remain geometry-pending');
@@ -159,7 +163,7 @@ console.log(JSON.stringify({
     'DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER',
     'SKY_MOON_RESOLUTION_COLOR_SCRIPT_MASTER',
   ],
-  core5AuthoringBriefs: { environment: 5, populationHousehold: 5, visualBoardsAuthored: false },
+  core5SettingBoards: { environmentSpecsAuthored: 5, populationHouseholdSpecsAuthored: 5, humanApproved: 0, rasterAuthority: 0 },
   iau88VectorSystem: { systemSpecImplemented: true, all88LinePathsAuthored: false, exactStarCoordinateDatasetBound: false },
   sourceDerivedFamiliesTracked: sourceDerived.size,
   itemCollisionReview: { groups: item.exactLabelCollisionGroups, collapsesAuthorized: item.collisionRowsAuthorizedToCollapse },
