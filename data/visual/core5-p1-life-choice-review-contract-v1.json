@@ -1,0 +1,17 @@
+{
+  "id":"yoru-no-shirube-core5-p1-life-choice-review-contract-v1",
+  "date":"2026-08-14",
+  "status":"DERIVED_REVIEW_CONTRACT_NON_CANON",
+  "sourceProfile":"data/visual/core5-living-visual-profiles-v1.json",
+  "sourceProfileSha256":"519465641e03d1cbc2e4530c1e53f3367fe0e79b65b30bac0dc1f4ba24560a86",
+  "sourceQueue":"data/visual/all-character-life-choice-author-review-queue-v1.json",
+  "scope":{"characterCount":5,"domainCount":2,"reviewItemCount":10},
+  "policy":{"noNewCharacterFactsAuthored":true,"requiresHumanDecision":true,"canonPromotionBlocked":true,"imageModelFreedom":false,"generatedImageMayCloseItem":false,"openAuthorDecisionPreserved":true,"pendingReviewPreserved":true},
+  "characters":[
+    {"id":"yui","name":"ユイ","personalGrooming":{"makeupPolicy":{"value":"light-or-none","source":"AUTHOR_CANDIDATE"},"nailPolicy":{"value":"practical-short-cared-but-not-showpiece","source":"AUTHOR_CANDIDATE"},"hairGroomingBehavior":{"value":"practical daily care; asymmetric hair may loosen naturally; not salon-perfect every scene","source":"AUTHOR_CANDIDATE"}},"footwearGroundInterface":{"value":"practical-flat-or-soft-boot","heelTolerance":"low","source":"AUTHOR_CANDIDATE"},"openAuthorDecisionPaths":[],"pendingReviewPaths":[]},
+    {"id":"asa","name":"アサ","personalGrooming":{"makeupPolicy":{"value":"intentional-light-if-used","source":"AUTHOR_CANDIDATE"},"nailPolicy":{"value":"practical-short-or-intentional-minimal","source":"AUTHOR_CANDIDATE"},"hairGroomingBehavior":{"value":"intentionally asymmetric but low-maintenance; fixes obstruction rather than chasing perfection","source":"AUTHOR_CANDIDATE"}},"footwearGroundInterface":{"value":"fast-flat-or-compact-boot","heelTolerance":"very-low-for-daily-use","source":"AUTHOR_CANDIDATE"},"openAuthorDecisionPaths":[],"pendingReviewPaths":[]},
+    {"id":"nagi","name":"ナギ","personalGrooming":{"makeupPolicy":{"value":"none-or-very-light","source":"AUTHOR_CANDIDATE"},"nailPolicy":{"value":"cared-unpainted","source":"AUTHOR_CANDIDATE"},"hairGroomingBehavior":{"value":"keeps hair controlled and out of task path; low tolerance for chaotic ornament","source":"AUTHOR_CANDIDATE"}},"footwearGroundInterface":{"value":"closed-flat-or-stable-boot","heelTolerance":"low","source":"AUTHOR_CANDIDATE"},"openAuthorDecisionPaths":[],"pendingReviewPaths":[]},
+    {"id":"michiru","name":"ミチル","personalGrooming":{"makeupPolicy":{"value":"minimal-or-none","source":"AUTHOR_CANDIDATE"},"nailPolicy":{"value":"practical-short-with-travel-wear","source":"AUTHOR_CANDIDATE"},"hairGroomingBehavior":{"value":"ties hair to move; wind and travel can disturb it without breaking identity","source":"AUTHOR_CANDIDATE"}},"footwearGroundInterface":{"value":"walkable-flat-travel-shoe-or-boot","heelTolerance":"none-for-daily-use","source":"AUTHOR_CANDIDATE"},"openAuthorDecisionPaths":[],"pendingReviewPaths":[]},
+    {"id":"tomori","name":"トモリ","personalGrooming":{"makeupPolicy":{"value":"minimal-or-none-during-work","source":"AUTHOR_CANDIDATE"},"nailPolicy":{"value":"practical-short-work-damaged","source":"AUTHOR_CANDIDATE"},"hairGroomingBehavior":{"value":"work clip and practical tying; soot/stray hair can remain after tasks","source":"AUTHOR_CANDIDATE"}},"footwearGroundInterface":{"value":"stable-work-boot-or-flat-protective-shoe","heelTolerance":"none-for-work","source":"AUTHOR_CANDIDATE"},"openAuthorDecisionPaths":[],"pendingReviewPaths":[]}
+  ]
+}
