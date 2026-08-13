@@ -1,0 +1,90 @@
+{
+  "id": "yoru-no-shirube-all-character-expression-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION",
+  "scopeCount": 36,
+  "doesNotCreateNewStoryCanon": true,
+  "doesNotCreateSignatureExpressionCanon": true,
+  "generatedExpressionCreatesCanon": false,
+  "unknownExpressionHabitMayBeInventedByImageModel": false,
+  "baseFaceInvariant": [
+    "head-width-length-impression",
+    "forehead-hairline-relationship",
+    "brow-baseline-and-brow-eye-spacing",
+    "eye-socket-placement-and-inter-eye-spacing",
+    "eye-and-eyelid-construction",
+    "nose-length-width-projection-impression",
+    "cheek-mass",
+    "mouth-width-and-rest-placement",
+    "philtrum-chin-relationship",
+    "jaw-width-taper-mass",
+    "age-coding",
+    "source-backed-asymmetry-and-permanent-marks"
+  ],
+  "allowedDeformation": [
+    "brow-angle-height-within-existing-architecture",
+    "eyelid-openness-and-compression",
+    "cheek-lift-compression",
+    "age-appropriate-soft-tissue-folds",
+    "mouth-corner-position",
+    "lip-opening-compression",
+    "jaw-opening",
+    "head-tilt-neck-engagement",
+    "gaze-direction",
+    "context-authorized-tears-moisture-temporary-flush",
+    "motion-or-environment-caused-hair-movement"
+  ],
+  "forbiddenExpressionShortcuts": [
+    "common-anime-eye-enlargement",
+    "jaw-sharpening-for-anger",
+    "jaw-rounding-for-cuteness",
+    "nose-shrinking-for-beauty",
+    "face-width-change-for-drama",
+    "smile-de-aging",
+    "emotion-driven-anatomical-gender-correction",
+    "automatic-romance-or-femininity-blush",
+    "new-freckle-beauty-mark-scar-piercing-tattoo",
+    "wrinkle-softness-fullness-removal",
+    "mobility-equipment-removal",
+    "body-identity-recolor",
+    "unauthorized-fang-cat-mouth-chibi-symbol"
+  ],
+  "assetKinds": {
+    "character_reference":{"faceVisible":true,"defaultIntensity":"neutral-or-mild","baseGeometryLocked":true},
+    "sprite_sheet_180":{"faceVisible":true,"expressionPixelsMaySimplify":true,"sharedChibiExpressionTemplateAllowed":false,"basePlacementLocked":true},
+    "normal_cutin":{"faceVisible":true,"intensityMayIncrease":true,"baseGeometryLocked":true},
+    "dawn_cutin":{"faceVisible":true,"intensityMayIncrease":true,"stateMayRedesignFace":false,"beautyDeagingWhiteningAllowed":false},
+    "kokuyou_cutin":{"faceVisible":true,"intensityMayIncrease":true,"stateMayRedesignFace":false,"sharpenSlimMonsterFaceAllowed":false},
+    "emblem_blank":{"expressionFidelityNotApplicable":true},
+    "emblem_normal":{"expressionFidelityNotApplicable":true},
+    "emblem_dawn":{"expressionFidelityNotApplicable":true},
+    "emblem_kokuyou":{"expressionFidelityNotApplicable":true}
+  },
+  "reviewOrder": [
+    "neutralized-head-silhouette",
+    "eye-socket-and-inter-eye-placement",
+    "brow-eye-spacing",
+    "nose-placement-proportion",
+    "mouth-width-rest-center",
+    "cheek-jaw-mass",
+    "age-coding",
+    "source-backed-asymmetry-marks",
+    "expression-deformation"
+  ],
+  "hardBlockers": [
+    "base-eye-architecture-changed",
+    "jaw-or-face-width-identity-changed",
+    "emotion-deages-or-beautifies-away-source-traits",
+    "emotion-resolves-gender-ambiguity",
+    "unauthorized-blush-tears-marks-used-as-shorthand",
+    "dawn-or-kokuyou-redesigns-face",
+    "cutins-converge-to-one-premium-gacha-face",
+    "generated-expression-accident-promoted-without-human-review"
+  ],
+  "authorityRule": {
+    "subordinateToIdentityProductionMaster": true,
+    "subordinateToAppearanceGenerationContract": true,
+    "requiredBeforeFaceVisibleProductionRendering": true,
+    "unknownSignatureExpressionMeansModelFreedom": false
+  }
+}
