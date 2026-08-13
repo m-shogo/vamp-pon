@@ -1,0 +1,34 @@
+name: All Character Personal Grooming Cosmetics Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-personal-grooming-cosmetics-fidelity-master-v1.md'
+      - 'data/visual/all-character-personal-grooming-cosmetics-fidelity-master-v1.json'
+      - 'docs/visual/character-production-generation-entrypoint-v8.md'
+      - 'data/visual/character-production-generation-entrypoint-v8.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-personal-grooming-locked-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-personal-grooming-cosmetics-fidelity.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/all-character-personal-grooming-cosmetics-fidelity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-personal-grooming-cosmetics-fidelity-master-v1.md'
+      - 'data/visual/all-character-personal-grooming-cosmetics-fidelity-master-v1.json'
+      - 'docs/visual/character-production-generation-entrypoint-v8.md'
+      - 'data/visual/character-production-generation-entrypoint-v8.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-personal-grooming-locked-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-personal-grooming-cosmetics-fidelity.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/all-character-personal-grooming-cosmetics-fidelity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate personal grooming and cosmetics authority for all 36 characters
+        run: node --experimental-strip-types scripts/quality/check-all-character-personal-grooming-cosmetics-fidelity.ts
