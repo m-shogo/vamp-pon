@@ -7,6 +7,8 @@ const POLICY_PATH = 'data/visual/all-character-face-skull-landmark-construction-
 const AUTHORITY_PATH = 'docs/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.md';
 const BODY_POLICY_PATH = 'data/visual/all-character-body-mass-posture-construction-fidelity-master-v1.json';
 const BODY_AUTHORITY_PATH = 'docs/visual/all-character-body-mass-posture-construction-fidelity-master-v1.md';
+const GARMENT_FIT_POLICY_PATH = 'data/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.json';
+const GARMENT_FIT_AUTHORITY_PATH = 'docs/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.md';
 
 type Options = { characterId: string; kind: string };
 
@@ -29,10 +31,14 @@ const policy = JSON.parse(readFileSync(resolve(process.cwd(), POLICY_PATH), 'utf
 const authority = readFileSync(resolve(process.cwd(), AUTHORITY_PATH), 'utf8');
 const bodyPolicy = JSON.parse(readFileSync(resolve(process.cwd(), BODY_POLICY_PATH), 'utf8'));
 const bodyAuthority = readFileSync(resolve(process.cwd(), BODY_AUTHORITY_PATH), 'utf8');
+const garmentFitPolicy = JSON.parse(readFileSync(resolve(process.cwd(), GARMENT_FIT_POLICY_PATH), 'utf8'));
+const garmentFitAuthority = readFileSync(resolve(process.cwd(), GARMENT_FIT_AUTHORITY_PATH), 'utf8');
 if (policy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') throw new Error('face/skull landmark authority status invalid');
 if (policy.scopeCount !== 36 || policy.assetKindCount !== 9 || policy.production?.requiredForCandidateGeneration !== true) throw new Error('face/skull landmark scope weakened');
 if (bodyPolicy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') throw new Error('body/mass/posture authority status invalid');
 if (bodyPolicy.scopeCount !== 36 || bodyPolicy.assetKindCount !== 9 || bodyPolicy.production?.requiredForCandidateGeneration !== true) throw new Error('body/mass/posture scope weakened');
+if (garmentFitPolicy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') throw new Error('garment/body fit authority status invalid');
+if (garmentFitPolicy.scopeCount !== 36 || garmentFitPolicy.assetKindCount !== 9 || garmentFitPolicy.production?.requiredForCandidateGeneration !== true) throw new Error('garment/body fit scope weakened');
 
 const stdout = execFileSync(process.execPath, [
   '--experimental-strip-types', resolve(process.cwd(), BASE_EXPORTER),
@@ -45,7 +51,7 @@ if (base.allCharacterHairGroomingConstructionFidelityRequired !== true) throw ne
 
 const result = {
   ...base,
-  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 36),
+  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 37),
   generatedBy: 'tools/asset-factory/scripts/export-face-skull-landmark-locked-character-design-prompt.ts',
   allCharacterFaceSkullLandmarkConstructionFidelityRequired: true,
   unknownFaceGeometryMayBeInventedByImageModel: policy.rules?.unknownFaceGeometryMayBeInventedByImageModel,
@@ -98,6 +104,35 @@ const result = {
   bodyPreservationPriority: bodyPolicy.preservationPriority,
   bodyMassPosturePolicyPath: BODY_POLICY_PATH,
   bodyMassPostureAuthorityPath: BODY_AUTHORITY_PATH,
+  allCharacterGarmentBodyFitTensionCompressionFidelityRequired: true,
+  unknownGarmentFitMayBeInventedByImageModel: garmentFitPolicy.rules?.unknownGarmentFitMayBeInventedByImageModel,
+  garmentMayRedesignAuthorizedBody: garmentFitPolicy.rules?.garmentMayRedesignAuthorizedBody,
+  looseGarmentMayImplyThinnerBody: garmentFitPolicy.rules?.looseGarmentMayImplyThinnerBody,
+  tightGarmentMayInventUnsupportedAnatomy: garmentFitPolicy.rules?.tightGarmentMayInventUnsupportedAnatomy,
+  premiumMayIncreaseBodyCling: garmentFitPolicy.rules?.premiumMayIncreaseBodyCling,
+  premiumMaySuppressWaist: garmentFitPolicy.rules?.premiumMaySuppressWaist,
+  premiumMayIncreaseExposureForFit: garmentFitPolicy.rules?.premiumMayIncreaseExposureForFit,
+  poseMayChangeGarmentConstruction: garmentFitPolicy.rules?.poseMayChangeGarmentConstruction,
+  seatedPoseMaySlimBodyForClearance: garmentFitPolicy.rules?.seatedPoseMaySlimBodyForClearance,
+  crouchMaySlimBodyForOverlap: garmentFitPolicy.rules?.crouchMaySlimBodyForOverlap,
+  wetnessMayIncreaseAnatomicalRevelation: garmentFitPolicy.rules?.wetnessMayIncreaseAnatomicalRevelation,
+  damageMayChangeFitOrExposureWithoutAuthority: garmentFitPolicy.rules?.damageMayChangeFitOrExposureWithoutAuthority,
+  foldsMayInventMusculature: garmentFitPolicy.rules?.foldsMayInventMusculature,
+  strapsMayReshapeBodyBeyondLocalizedPressure: garmentFitPolicy.rules?.strapsMayReshapeBodyBeyondLocalizedPressure,
+  beltsMayManufactureNarrowerWaist: garmentFitPolicy.rules?.beltsMayManufactureNarrowerWaist,
+  layersMayEraseAuthorizedBodyMass: garmentFitPolicy.rules?.layersMayEraseAuthorizedBodyMass,
+  mobilityEquipmentMayBeHiddenToSimplifyFit: garmentFitPolicy.rules?.mobilityEquipmentMayBeHiddenToSimplifyFit,
+  wheelchairContactMayBeIgnored: garmentFitPolicy.rules?.wheelchairContactMayBeIgnored,
+  assistiveDeviceClearanceMayBeIgnored: garmentFitPolicy.rules?.assistiveDeviceClearanceMayBeIgnored,
+  lodMayConvergeToGenericSlimFit: garmentFitPolicy.rules?.lodMayConvergeToGenericSlimFit,
+  chibiMayConvergeToGenericSlimFit: garmentFitPolicy.rules?.chibiMayConvergeToGenericSlimFit,
+  spriteMayConvergeToGenericSlimFit: garmentFitPolicy.rules?.spriteMayConvergeToGenericSlimFit,
+  identityTraitsMayBeGuessedFromFitStereotype: garmentFitPolicy.rules?.identityTraitsMayBeGuessedFromFitStereotype,
+  generatedGarmentFitCreatesCanon: garmentFitPolicy.rules?.generatedGarmentFitCreatesCanon,
+  garmentFitConstructionAxes: garmentFitPolicy.constructionAxes,
+  garmentFitPreservationPriority: garmentFitPolicy.preservationPriority,
+  garmentBodyFitPolicyPath: GARMENT_FIT_POLICY_PATH,
+  garmentBodyFitAuthorityPath: GARMENT_FIT_AUTHORITY_PATH,
   generatedOutputState: 'CANDIDATE_REVIEW_REQUIRED',
 };
 
@@ -113,12 +148,20 @@ for (const field of [
   'wetClothingMayIncreaseBodySexualization', 'damageMayRevealUnsupportedAnatomy', 'lodMayConvergeToGenericBody', 'chibiMayConvergeToGenericBody',
   'spriteMayConvergeToGenericBody', 'cropMayHideBodyMismatch', 'effectsMayHideBodyMismatch', 'hairMayHideShoulderMismatch',
   'mobilityEquipmentMayBeRescaledForBodyBeautification', 'identityTraitsMayBeGuessedFromBodyStereotype', 'generatedBodyTreatmentCreatesCanon',
+  'unknownGarmentFitMayBeInventedByImageModel', 'garmentMayRedesignAuthorizedBody', 'looseGarmentMayImplyThinnerBody',
+  'tightGarmentMayInventUnsupportedAnatomy', 'premiumMayIncreaseBodyCling', 'premiumMaySuppressWaist', 'premiumMayIncreaseExposureForFit',
+  'poseMayChangeGarmentConstruction', 'seatedPoseMaySlimBodyForClearance', 'crouchMaySlimBodyForOverlap',
+  'wetnessMayIncreaseAnatomicalRevelation', 'damageMayChangeFitOrExposureWithoutAuthority', 'foldsMayInventMusculature',
+  'strapsMayReshapeBodyBeyondLocalizedPressure', 'beltsMayManufactureNarrowerWaist', 'layersMayEraseAuthorizedBodyMass',
+  'mobilityEquipmentMayBeHiddenToSimplifyFit', 'wheelchairContactMayBeIgnored', 'assistiveDeviceClearanceMayBeIgnored',
+  'lodMayConvergeToGenericSlimFit', 'chibiMayConvergeToGenericSlimFit', 'spriteMayConvergeToGenericSlimFit',
+  'identityTraitsMayBeGuessedFromFitStereotype', 'generatedGarmentFitCreatesCanon',
 ]) {
   if (result[field] !== false) throw new Error(`${options.characterId}: identity construction guard weakened: ${field}`);
 }
 
 const authorityOrder = Array.isArray(base.authorityOrder) ? [...base.authorityOrder] : [];
-for (const path of [AUTHORITY_PATH, POLICY_PATH, BODY_AUTHORITY_PATH, BODY_POLICY_PATH]) if (!authorityOrder.includes(path)) authorityOrder.push(path);
+for (const path of [AUTHORITY_PATH, POLICY_PATH, BODY_AUTHORITY_PATH, BODY_POLICY_PATH, GARMENT_FIT_AUTHORITY_PATH, GARMENT_FIT_POLICY_PATH]) if (!authorityOrder.includes(path)) authorityOrder.push(path);
 
 const faceBlock = [
   'FACE / SKULL LANDMARK CONSTRUCTION FIDELITY — FINAL CRANIOFACIAL IDENTITY LOCK.',
@@ -136,9 +179,17 @@ const bodyBlock = [
   'Clothing, wetness, damage, premium rendering, state variants, LOD, chibi and sprite treatment may not redesign the baseline body. Generated body geometry remains CANDIDATE_REVIEW_REQUIRED and never creates canon.',
   bodyAuthority,
 ].join('\n');
+const garmentFitBlock = [
+  'GARMENT-TO-BODY FIT / TENSION / COMPRESSION FIDELITY — FINAL CLOTH-BODY MECHANICS LOCK.',
+  `Authority: ${GARMENT_FIT_AUTHORITY_PATH}.`, `Machine policy: ${GARMENT_FIT_POLICY_PATH}.`,
+  'Garment fit follows the authorized body rather than replacing it. Resolve cloth as constructed material with authored seams, closures, grain, weight, stretch limits, ease, layering allowance, movement clearance and localized pressure. Preserve the same body underneath loose, close, layered, seated, crouched and moving clothing.',
+  'Unknown fit uses SOURCE_CONSTRAINED_MECHANICALLY_PLAUSIBLE_FIT_COMPLETION. Do not tailor every character toward a slim fashion body, manufacture a narrow waist with belts or folds, invent anatomy through tight cloth, hide body mismatch beneath oversized clothing, increase body cling or exposure for premium art, or use wetness/damage as anatomical revelation.',
+  'Every tension line needs a load path; every compression zone needs a contact cause. Seated and wheelchair cloth must preserve body mass, seat/back contact, layer thickness and assistive-equipment clearance. LOD/chibi/sprite remove secondary folds before fit identity. Generated fit remains CANDIDATE_REVIEW_REQUIRED and never creates canon.',
+  garmentFitAuthority,
+].join('\n');
 
 result.authorityOrder = authorityOrder;
-result.prompt = `${base.prompt}\n\n${faceBlock}\n\n${bodyBlock}`;
+result.prompt = `${base.prompt}\n\n${faceBlock}\n\n${bodyBlock}\n\n${garmentFitBlock}`;
 result.reviewChecklist = [
   '髪色・髪型・服・アクセ・照明を外しても顔だけで本人差が残る',
   'front/3-4/profileが同一のskull/nose/jaw/chinを説明している',
@@ -149,7 +200,13 @@ result.reviewChecklist = [
   '立位・座位・crouchでcenter of gravityとmass compressionが同じ人物を説明している',
   'mobility equipmentを身体美化や構図のため縮小・除去しない',
   'clothing/crop/hair/shadow/effectsでbody mismatchを隠さない',
-  'LOD/chibi/spriteではmicro-detailを先に落としsame-face/same-body convergenceを防ぐ',
+  '服のease/clearanceがauthorized bodyとgarment constructionの両方に整合する',
+  'loose clothingで細身を捏造せず、tight clothingで未承認anatomyを捏造しない',
+  'fold/tension/compressionはgravity/contact/motion/closureの因果を持つ',
+  'belt/strap/harnessは局所圧力だけを作りbody categoryを再設計しない',
+  '座位・wheelchairでbody mass/seat contact/layer thickness/clearanceを保持する',
+  'premium化でbody cling/waist suppression/exposureを増やさない',
+  'LOD/chibi/spriteではsecondary foldsを先に落としfit familyを保持する',
   ...(Array.isArray(base.reviewChecklist) ? base.reviewChecklist : []),
 ];
 
