@@ -1,0 +1,71 @@
+{
+  "id": "yoru-no-shirube-all-character-life-choice-visual-gap-audit-v1",
+  "date": "2026-08-13",
+  "status": "DERIVED_REVIEW_ARTIFACT_NON_CANON",
+  "scopeCount": 36,
+  "domainCount": 6,
+  "domains": ["bodyAdornment", "skinCoverage", "personalGrooming", "accessoryPropInventory", "footwearGroundInterface", "materialWearMaintenance"],
+  "sourceProfileHashes": {
+    "data/visual/core5-living-visual-profiles-v1.json": "519465641e03d1cbc2e4530c1e53f3367fe0e79b65b30bac0dc1f4ba24560a86",
+    "data/visual/current21-extended-living-visual-profiles-v1.json": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+    "data/visual/future15-living-visual-profiles-v1.json": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df"
+  },
+  "safety": {
+    "imageModelFreedom": false,
+    "generatedImageMayResolveGap": false,
+    "missingEvidenceMeansAbsence": false,
+    "authorCandidateCreatesCanon": false,
+    "genericPolicyMayServeAsCharacterEvidence": false
+  },
+  "summary": {
+    "totalDomainDecisions": 216,
+    "countsByState": {
+      "SOURCE_BACKED_LOCKED": 0,
+      "SOURCE_BACKED_ABSENCE": 0,
+      "SOURCE_CONSTRAINED_UNRESOLVED": 186,
+      "AUTHOR_CANDIDATE_REVIEW_REQUIRED": 30
+    },
+    "reviewRequiredCount": 216
+  },
+  "core5AuthorCandidates": [
+    {"id":"yui","name":"ユイ"},
+    {"id":"asa","name":"アサ"},
+    {"id":"nagi","name":"ナギ"},
+    {"id":"michiru","name":"ミチル"},
+    {"id":"tomori","name":"トモリ"}
+  ],
+  "core5EvidenceSelectors": {
+    "bodyAdornment": ["piercingPolicy", "tattooPolicy", "jewelryPolicy"],
+    "skinCoverage": ["exposurePreference"],
+    "personalGrooming": ["makeupPolicy", "nailPolicy", "hairGroomingBehavior"],
+    "accessoryPropInventory": ["bagPocketBehavior", "acquisitionPreference"],
+    "footwearGroundInterface": ["footwearPreference"],
+    "materialWearMaintenance": ["materialPreference", "maintenanceBehavior", "clothingWearHabits"]
+  },
+  "sourceConstrainedUnresolvedGroups": [
+    {
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "state": "SOURCE_CONSTRAINED_UNRESOLVED",
+      "domains": ["bodyAdornment", "skinCoverage", "personalGrooming", "accessoryPropInventory", "footwearGroundInterface", "materialWearMaintenance"],
+      "evidencePaths": [],
+      "characters": [
+        {"id":"sen","name":"セン"}, {"id":"ritsu","name":"リツ"}, {"id":"koyori","name":"コヨリ"}, {"id":"gen","name":"ゲン"},
+        {"id":"hana","name":"ハナ"}, {"id":"yubi","name":"ユウビ"}, {"id":"madoka","name":"マドカ"}, {"id":"shiro","name":"シロ"},
+        {"id":"tobari","name":"トバリ"}, {"id":"nemu","name":"ネム"}, {"id":"kuroori","name":"クロオリ"}, {"id":"kage1","name":"カナメ"},
+        {"id":"kage2","name":"カスミ"}, {"id":"kage3","name":"トキ"}, {"id":"kage4","name":"ツムギ"}, {"id":"ren","name":"レン"}
+      ]
+    },
+    {
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "state": "SOURCE_CONSTRAINED_UNRESOLVED",
+      "domains": ["bodyAdornment", "skinCoverage", "personalGrooming", "accessoryPropInventory", "footwearGroundInterface", "materialWearMaintenance"],
+      "evidencePaths": [],
+      "characters": [
+        {"id":"hiyori","name":"ヒヨリ"}, {"id":"serika","name":"セリカ"}, {"id":"chloe","name":"クロエ"}, {"id":"renji","name":"レンジ"},
+        {"id":"touma","name":"トウマ"}, {"id":"kuu","name":"クウ"}, {"id":"yomo","name":"ヨモ"}, {"id":"noa","name":"ノア"},
+        {"id":"rum","name":"ルム"}, {"id":"maki","name":"マキ"}, {"id":"suzu","name":"スズ"}, {"id":"io","name":"イオ"},
+        {"id":"kai","name":"カイ"}, {"id":"nao","name":"ナオ"}, {"id":"amane","name":"アマネ"}
+      ]
+    }
+  ]
+}
