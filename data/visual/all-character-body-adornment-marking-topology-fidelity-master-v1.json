@@ -1,0 +1,57 @@
+{
+  "id": "yoru-no-shirube-all-character-body-adornment-marking-topology-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-body-adornment-marking-topology-fidelity-master-v1.md",
+  "unknownAdornmentDefault": "SOURCE_CONSTRAINED_NO_INVENTION_BODY_ADORNMENT_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedAdornmentCreatesCanon": false
+  },
+  "topologyAxes": [
+    "featureExistenceAuthority", "featureAbsenceAuthority", "featureClass", "anatomicalRegion", "anatomicalSubregion", "anatomicalSide", "countFamily", "multiFeatureOrdering", "repeatedElementSpacing", "primaryAnchorPoint", "secondaryAnchorPoint", "tissueThroughStatus", "attachmentDirection", "frontBackSurfaceRelation", "radialOrientation", "verticalPosition", "horizontalPosition", "anatomicalLandmarkDistance", "majorSizeFamily", "majorShapeFamily", "thicknessFamily", "bodyProjection", "contactPressure", "danglingLength", "connectorLength", "visibleClosureType", "materialClass", "colorFamily", "reflectiveEmissiveStatus", "symmetryAsymmetryStatus", "canonicalAsymmetryDirection", "tattooMarkOutlineTopology", "tattooMarkInteriorTopology", "tattooMarkCoverageBoundary", "tattooMarkSurfaceWrap", "scarPathTopology", "scarWidthFamily", "scarDepthRaisedFamily", "birthmarkOutlineTopology", "bodyPaintEdgeTopology", "hairOverlap", "clothingOverlap", "eyewearHeadwearOverlap", "mobilityAssistiveEquipmentOverlap", "otherAdornmentOverlap", "hiddenSideContinuation", "partialOcclusionSurvival", "frontViewVisibility", "threeQuarterVisibility", "profileVisibility", "rearViewVisibility", "seatedVisibility", "motionVisibility", "facialExpressionInteraction", "earDeformationInteraction", "neckShoulderMovementInteraction", "handArmFlexInteraction", "skinStretchInteraction", "wetnessResponseBoundary", "lightingIndependence", "cropIndependence", "lodSurvivalPriority", "chibiPreservationClass", "spritePreservationClass", "stateVariantInheritance", "authorizedTemporaryRemovalStatus", "authorizedPermanentChangeStatus", "maintenanceMeaningBoundary", "injuryMeaningBoundary", "relationshipEvidenceBoundary", "culturalMeaningBoundary", "generatedAccidentRejectionStatus", "topologyUncertaintyClass"
+  ],
+  "topologyInvariants": [
+    "unsupported body adornments are never invented", "source backed absence remains authoritative", "source backed features preserve anatomical region", "source backed features preserve anatomical side", "source backed features preserve count family", "canonical asymmetry is not mirrored", "viewpoint does not relocate body attached features", "occlusion hides rather than relocates features", "piercing sites require source authority", "jewelry does not imply additional piercing sites", "tattoo coverage does not expand from exposure", "tattoo geometry remains a body surface map", "scar existence requires source authority", "generated damage does not create scars", "birthmarks are not beautified away", "body paint requires explicit state authority", "feature classes do not convert into each other", "jewelry retains finite physical attachment", "dangling elements retain anatomical anchors", "hair and clothing overlap do not delete topology", "state variants inherit baseline features without authorized delta", "premium does not add adornment inventory", "premium does not symmetrize canonical asymmetry", "premium does not add gems or glow", "exposure does not authorize new markings", "wetness does not authorize new markings", "LOD preserves existence and side before micro detail", "chibi preserves anatomical region before ornament detail", "sprite preserves canonical asymmetry when readable", "cultural meaning is not inferred", "relationship evidence is not inferred from jewelry", "generated placement remains candidate only", "generated hidden continuation remains candidate only", "generated adornment never creates canon"
+  ],
+  "preservationPriority": [
+    "sourceBackedExistenceAndAbsence", "featureClass", "anatomicalAnchorAndRegion", "leftRightAndCanonicalAsymmetry", "countAndInventory", "majorGeometryAndCoverage", "hairClothingEquipmentOcclusion", "stateVariantInheritance", "physicalAttachmentAndContact", "lodIdentitySurvival", "candidateOnlyMeaningBoundary", "materialShineAndMicroDetail"
+  ],
+  "forbiddenShortcuts": [
+    "inventPiercingBecauseDesignFeelsEmpty", "inventTattooBecauseDesignFeelsEmpty", "inventScarBecauseCharacterLooksBattleWorn", "inventJewelryBecauseCharacterIsPremium", "inferPiercingFromGenderPresentation", "inferPiercingFromSexuality", "inferTattooFromPersonality", "inferTattooFromAntagonistRole", "inferScarFromCombatRole", "inferAdornmentFromSkinToneOrEthnicity", "inferCulturalMarkingWithoutAuthority", "mirrorOneSidedPiercing", "mirrorOneSidedTattoo", "mirrorOneSidedScar", "movePiercingForVisibility", "moveTattooForVisibility", "moveScarForVisibility", "duplicateFeatureOnVisibleSide", "enlargeFeatureForVisibility", "shrinkFeatureForBeauty", "relocateEarPiercingRegion", "addExtraEarStackForPremium", "addFacialPiercingForEdginess", "addBodyPiercingFromExposure", "addNecklaceForImportance", "addChokerForSexualization", "addRingForRomanceEvidence", "addMatchingJewelryForRelationshipEvidence", "addGemstoneForRarity", "addGoldChainForPremium", "extendTattooBeyondSourceBoundary", "completePartialTattooIntoFullSleeve", "inventTattooMeaning", "turnTattooIntoFactionEmblem", "makeTattooGlowWithoutAuthority", "makeScarGlowWithoutAuthority", "enlargeScarForDrama", "eraseScarForBeauty", "eraseBirthmarkForBeauty", "convertBirthmarkToFreckles", "inventFrecklesAsHighResDetail", "inventBeautyMarkAsHighResDetail", "inventBodyPaintFromFestivalScene", "inventWarPaintFromBattleScene", "inventRitualMarkFromWorldSetting", "generatedDamageCreatesScar", "clothingSeamCreatesScar", "shadowCreatesTattoo", "dirtCreatesBirthmark", "hairOcclusionDeletesEarring", "sleeveOcclusionDeletesTattoo", "collarOcclusionDeletesNeckMark", "cropHidesPlacementMismatch", "glowHidesPlacementMismatch", "premiumAddsAdornmentCount", "premiumSymmetrizesAdornment", "premiumEnlargesJewelry", "premiumMakesMarkingEmissive", "stateAddsBodyModificationWithoutDelta", "stateRemovesAdornmentWithoutDelta", "wetnessRevealsInventedTattoo", "exposureRevealsInventedScar", "lodMovesFeatureToReadableArea", "chibiEnlargesAdornmentToIcon", "spriteMirrorsCanonicalAsymmetry", "generatedAdornmentCreatesCanon", "generatedMarkingCreatesCanon", "jewelryImpliesNewPiercingSite", "tattooConvertedToBodyPaint", "scarConvertedToTattoo", "birthmarkConvertedToMakeup", "bodyPaintConvertedToPermanentTattoo", "highResolutionInventsSkinMarkings", "premiumAddsBodyChain", "premiumAddsDecorativeRings", "premiumAddsChoker", "premiumAddsSymmetricPair"
+  ],
+  "rules": {
+    "unknownAdornmentMayBeInventedByImageModel": false,
+    "unspecifiedPiercingMayBeAdded": false,
+    "unspecifiedJewelryMayBeAdded": false,
+    "unspecifiedTattooMayBeAdded": false,
+    "unspecifiedScarMayBeAdded": false,
+    "unspecifiedBirthmarkMayBeAdded": false,
+    "unspecifiedBodyPaintMayBeAdded": false,
+    "viewpointMayRelocateBodyAttachedFeature": false,
+    "viewpointMayMirrorCanonicalAsymmetry": false,
+    "occlusionMayDeleteOrDuplicateFeature": false,
+    "exposureMayAuthorizeNewBodyMarking": false,
+    "wetnessMayAuthorizeNewBodyMarking": false,
+    "generatedDamageMayCreateScar": false,
+    "premiumMayIncreaseAdornmentCount": false,
+    "premiumMayAddGemstonesOrGoldJewelry": false,
+    "premiumMayMakeMarkingEmissive": false,
+    "stateMayAddBodyModificationWithoutDelta": false,
+    "stateMayRemoveAdornmentWithoutDelta": false,
+    "tattooMayExpandBeyondSourceBoundary": false,
+    "scarMayBeErasedForBeauty": false,
+    "birthmarkMayBeErasedForBeauty": false,
+    "featureClassMayBeConvertedByImageModel": false,
+    "identityTraitsMayBeInferredFromAdornment": false,
+    "culturalMeaningMayBeInferredFromAdornment": false,
+    "relationshipEvidenceMayBeInferredFromJewelry": false,
+    "lodMayMoveFeatureForReadability": false,
+    "chibiMayEnlargeAdornmentIntoIcon": false,
+    "spriteMayMirrorCanonicalAdornmentAsymmetry": false,
+    "generatedAdornmentCreatesCanon": false
+  }
+}

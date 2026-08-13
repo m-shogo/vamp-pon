@@ -20,6 +20,7 @@ const layeredPolicies = [
   ['dressingWorkflow', 'data/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.json', 'docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md', 'preservationPriority', 'dressingWorkflowPreservationPriority', 12],
   ['longWearComfort', 'data/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.json', 'docs/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.md', 'preservationPriority', 'longWearComfortPreservationPriority', 12],
   ['operationalAccess', 'data/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.json', 'docs/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.md', 'preservationPriority', 'operationalAccessPreservationPriority', 12],
+  ['bodyAdornment', 'data/visual/all-character-body-adornment-marking-topology-fidelity-master-v1.json', 'docs/visual/all-character-body-adornment-marking-topology-fidelity-master-v1.md', 'preservationPriority', 'bodyAdornmentPreservationPriority', 12],
 ] as const;
 
 function fail(message: string): never {
@@ -100,6 +101,7 @@ const promptMarkers = [
   'GARMENT DON / DOFF / DRESSING WORKFLOW FIDELITY — FINAL WEARABILITY LOCK.',
   'GARMENT COMFORT / PRESSURE / CHAFING / THERMAL / LONG-WEAR FIDELITY — FINAL LIVED-USE LOCK.',
   'FASTENER / OPERATIONAL ACCESS / SERVICEABILITY FIDELITY — FINAL USABILITY LOCK.',
+  'BODY ADORNMENT / PIERCING / JEWELRY / SKIN-MARKING TOPOLOGY FIDELITY — FINAL BODY-ATTACHED IDENTITY LOCK.',
 ];
 
 for (const id of ids) {
@@ -107,7 +109,7 @@ for (const id of ids) {
     '--experimental-strip-types', resolve(root, terminalPolicy.productionExporter),
     '--character', id,
     '--kind', 'character_reference',
-  ], { cwd: root, encoding: 'utf8', maxBuffer: 440 * 1024 * 1024 });
+  ], { cwd: root, encoding: 'utf8', maxBuffer: 520 * 1024 * 1024 });
   const exported = JSON.parse(stdout);
 
   for (const { path, policy } of policyLineage) {
@@ -143,6 +145,7 @@ for (const id of ids) {
   if ((exported.dressingWorkflowAxes ?? []).length < 65) fail(`${id}: dressing workflow axes missing`);
   if ((exported.longWearComfortAxes ?? []).length < 80) fail(`${id}: long-wear comfort axes missing`);
   if ((exported.operationalAccessAxes ?? []).length < 80) fail(`${id}: operational access axes missing`);
+  if ((exported.bodyAdornmentTopologyAxes ?? []).length < 70) fail(`${id}: body adornment topology axes missing`);
 
   for (const marker of promptMarkers) if (!exported.prompt?.includes(marker)) fail(`${id}: prompt marker missing: ${marker}`);
   for (const path of rootPolicy.requiredAuthorityPaths ?? []) if (!exported.authorityOrder?.includes(path)) fail(`${id}: inherited root authority missing: ${path}`);
