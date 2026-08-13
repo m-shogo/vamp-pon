@@ -1,7 +1,7 @@
 export const CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT = {
-  exporter: 'tools/asset-factory/scripts/export-long-wear-comfort-locked-character-design-prompt.ts',
-  policy: 'data/visual/character-production-generation-entrypoint-v3.json',
-  authority: 'docs/visual/character-production-generation-entrypoint-v3.md',
+  exporter: 'tools/asset-factory/scripts/export-operational-access-locked-character-design-prompt.ts',
+  policy: 'data/visual/character-production-generation-entrypoint-v4.json',
+  authority: 'docs/visual/character-production-generation-entrypoint-v4.md',
   requiredOutputFlags: {
     productionImageGenerationEntrypoint: true,
     productionCharacterPromptReady: true,
@@ -10,6 +10,7 @@ export const CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT = {
     generatedOutputState: 'CANDIDATE_REVIEW_REQUIRED',
     allCharacterGarmentDonDoffDressingWorkflowFidelityRequired: true,
     allCharacterGarmentLongWearComfortFidelityRequired: true,
+    allCharacterFastenerOperationalAccessServiceabilityFidelityRequired: true,
   },
   lowerExporterOutputIsProductionReady: false,
   handWrittenPromptIsProductionReady: false,
