@@ -60,6 +60,7 @@ on:
       - 'scripts/quality/check-visual-existing-top-loading-reuse-audit.ts'
       - 'scripts/quality/check-visual-guide-db-reuse-policy.ts'
       - 'scripts/quality/check-visual-existing-contract-output-audit.ts'
+      - 'scripts/quality/check-visual-audit-resolution-ledger.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
   push:
@@ -122,6 +123,7 @@ on:
       - 'scripts/quality/check-visual-existing-top-loading-reuse-audit.ts'
       - 'scripts/quality/check-visual-guide-db-reuse-policy.ts'
       - 'scripts/quality/check-visual-existing-contract-output-audit.ts'
+      - 'scripts/quality/check-visual-audit-resolution-ledger.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
 
@@ -164,3 +166,5 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-visual-gunjo-subject-admission.ts
       - name: Validate Story authority visual coverage gaps
         run: node --experimental-strip-types scripts/quality/check-visual-story-authority-coverage-audit.ts
+      - name: Validate visual gap resolution ledger
+        run: node --experimental-strip-types scripts/quality/check-visual-audit-resolution-ledger.ts
