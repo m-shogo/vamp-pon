@@ -15,6 +15,7 @@
   "stateDefinitions": {
     "RESOLVED_SYNCED": "The contradiction/gap has a concrete branch implementation, is based on the recorded latest-main synchronization baseline, and has CI coverage. A newer main must still be rechecked before merge/generation.",
     "MATERIALIZED_PLANNED_NOT_AUTHORED": "A first-class deterministic row/ID exists, but the actual editable/vector/image Master is not authored/approved yet.",
+    "STRUCTURED_MASTER_SPEC_IMPLEMENTED_HUMAN_REVIEW_REQUIRED": "A source-grounded editable structured Master spec now exists and is CI-checkable, but it has not received Human visual/content approval and does not authorize raster/image production.",
     "SOURCE_DERIVED_INVENTORY_IMPLEMENTED": "Membership/rows are derived from source DB arrays so additions/removals automatically change inventory; generation remains blocked.",
     "POLICY_IMPLEMENTED_NOT_CONTENT_ADMITTED": "A safe future admission model exists; concrete content remains OPEN or not yet admitted.",
     "REUSE_AUDIT_IMPLEMENTED": "Existing assets are classified for reuse/review rather than blindly regenerated.",
@@ -32,11 +33,11 @@
   ],
   "fixedMasterFamilies": [
     {"findingId":"SAKUYAZA_TEAM_COMPARISON_MASTER","state":"MATERIALIZED_PLANNED_NOT_AUTHORED","rowIds":["sakuyaza-s1-team-comparison-master-v1"]},
-    {"findingId":"GUNJO_FOUNDATION_MASTERS","state":"MATERIALIZED_PLANNED_NOT_AUTHORED","rowIds":["gunjo-record-taxonomy-system-master-v1","gunjo-record-medium-evidence-master-v1"]},
+    {"findingId":"GUNJO_FOUNDATION_MASTERS","state":"STRUCTURED_MASTER_SPEC_IMPLEMENTED_HUMAN_REVIEW_REQUIRED","rowIds":["gunjo-record-taxonomy-system-master-v1","gunjo-record-medium-evidence-master-v1"],"files":["data/visual/gunjo-record-taxonomy-system-master-v1.json","data/visual/gunjo-record-medium-evidence-master-v1.json"],"imageGenerationAuthorized":false},
     {"findingId":"CORE5_REALITY_ERA_ENVIRONMENT_REFERENCE_MASTERS","state":"MATERIALIZED_PLANNED_NOT_AUTHORED","rowCount":5},
     {"findingId":"CORE5_ERA_POPULATION_HOUSEHOLD_REFERENCE_MASTERS","state":"MATERIALIZED_PLANNED_NOT_AUTHORED","rowCount":5},
-    {"findingId":"DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER","state":"MATERIALIZED_PLANNED_NOT_AUTHORED","rowIds":["dream-common-daily-life-infrastructure-master-v1"]},
-    {"findingId":"SKY_MOON_RESOLUTION_COLOR_SCRIPT_MASTER","state":"MATERIALIZED_PLANNED_NOT_AUTHORED","rowIds":["world-sky-moon-resolution-color-script-master-v1"]},
+    {"findingId":"DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER","state":"STRUCTURED_MASTER_SPEC_IMPLEMENTED_HUMAN_REVIEW_REQUIRED","rowIds":["dream-common-daily-life-infrastructure-master-v1"],"files":["data/visual/dream-common-daily-life-infrastructure-master-v1.json"],"imageGenerationAuthorized":false},
+    {"findingId":"SKY_MOON_RESOLUTION_COLOR_SCRIPT_MASTER","state":"STRUCTURED_MASTER_SPEC_IMPLEMENTED_HUMAN_REVIEW_REQUIRED","rowIds":["world-sky-moon-resolution-color-script-master-v1"],"files":["data/visual/world-sky-moon-resolution-color-script-master-v1.json"],"imageGenerationAuthorized":false},
     {"findingId":"MODERN_IAU88_CONSTELLATION_LINE_ART_VECTOR_MASTER","state":"MATERIALIZED_PLANNED_NOT_AUTHORED","rowIds":["modern-iau88-project-line-art-vector-master-v1"]},
     {"findingId":"ERA_INCIDENT_VISUAL_ADMISSION_POLICY","state":"POLICY_IMPLEMENTED_NOT_CONTENT_ADMITTED","rowIds":["era-incident-visual-admission-policy-v1"]},
     {"findingId":"SEASON_ANTAGONIST_VISUAL_ADMISSION_POLICY","state":"POLICY_IMPLEMENTED_NOT_CONTENT_ADMITTED","rowIds":["season-antagonist-visual-admission-policy-v1"]},
@@ -88,7 +89,8 @@
     "require Item exact-label collision queue CI; do not collapse any of the 11 groups without explicit physical-lineage authority",
     "use the v2 execution view where 142 legacy Lorebook baked rows are non-image compositions and the v1 image list is not direct generation authority",
     "re-run 977 output-path audit on the current head before any gameplay generation decision",
-    "author/review fixed Masters that are only planned rows today",
+    "keep structured foundation Masters source-grounded and Human-review-required; their existence does not authorize raster output",
+    "author/review remaining fixed Masters that are only planned rows today",
     "keep conditional Story/incident/IF/logo/archive counts authority-dependent rather than inventing exact counts",
     "keep Yui HOLD until user changes direction and Human gate is satisfied",
     "run full CI green after migrations before any merge or image execution"
