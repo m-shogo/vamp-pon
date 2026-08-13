@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "id": "yoruno-shirube-core5-reality-era-environment-authoring-brief-v1",
+  "status": "SOURCE_GROUNDED_AUTHORING_BRIEF_VISUAL_BOARD_PENDING",
+  "purpose": "Define five Reality-era environment setting-board briefs from Current Story/World, era-life and Reality-root sources without inventing exact years, addresses, incidents or household details.",
+  "authoritySources": [
+    "src/game/data/storyWorldMasterSource.ts",
+    "src/game/data/characterRealityRootRegistry.ts",
+    "data/visual/core5-era-life-design-master-v1.json"
+  ],
+  "targetMasterFamily": "CORE5_REALITY_ERA_ENVIRONMENT_REFERENCE_MASTERS",
+  "expectedVisualBoardCount": 5,
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "globalRules": {
+    "realityWorld": "REAL_JAPAN",
+    "modernMustReadAsPresentJapan": true,
+    "realPlaceNamesAllowed": true,
+    "realHistoricalIncidentsAreResearchEvidenceNotRenameCopyMaterial": true,
+    "fictionalMajorIncidentsRequired": true,
+    "eraDifferenceMustNotBeClothingOnly": true,
+    "oneCharacterDoesNotRepresentWholeEra": true,
+    "exactYearsFrozen": false,
+    "minimumDistinctOrdinaryLifeAxesPerBoard": 5,
+    "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING"
+  },
+  "globalAntiShortcuts": [
+    "postwar_is_not_constant_starvation_or_rags",
+    "late_high_growth_is_not_retro_costume_or_activist_uniform",
+    "early_mobile_internet_is_not_phone_as_accessory",
+    "present_is_not_defined_only_by_smartphone",
+    "future_is_not_neon_hologram_bodysuit_chrome",
+    "era_difference_must_not_be_clothing_only",
+    "dream_must_not_erase_reality_life_habits",
+    "historical_character_is_not_archaic_speech_only",
+    "future_character_is_not_tech_jargon_only"
+  ],
+  "boards": [
+    {
+      "characterId": "tomori",
+      "name": "トモリ",
+      "eraBand": "postwar_reconstruction_scarcity",
+      "exactYear": "OPEN",
+      "realityRoot": {"value": "長野県諏訪・中信文化圏", "status": "CURRENT_DERIVED"},
+      "incidentArea": "戦後東京圏repair/reconstruction現場",
+      "mobility": "APPRENTICESHIP_OR_HOUSEHOLD_MOVE",
+      "mustShowAxes": ["communication","shoppingAvailability","repairReplacement","transportNavigation","privacyRecords","workInstitution","weatherHouseholdComfort","carriedObjects"],
+      "environmentEvidenceTargets": [
+        "paper records, handwritten notes and in-person coordination are normal",
+        "supply can be delayed or missing without reducing all life to starvation",
+        "repair, reuse, parts salvage and container/string reuse visibly shape ordinary space",
+        "shopping and movement have meaningful time cost and infrastructure can be incomplete",
+        "distribution, informal mutual aid and repair work leave practical traces in the environment",
+        "retained hardware/materials have repair or continued-use reasons"
+      ],
+      "researchRequiredBeforeVisualBoardApproval": [
+        "source-backed postwar Tokyo-area repair/reconstruction streetscape and interiors appropriate to the chosen still-open exact year",
+        "era-appropriate household/workshop materials, packaging, signage, lighting and transport without poverty cosplay",
+        "mobility plausibility from Suwa/Chushin cultural root to the still-broad postwar Tokyo incident area"
+      ],
+      "openFields": ["exact year","exact Tokyo locality","exact residence/workshop","exact incident","exact household","exact employer/apprenticeship route"],
+      "forbiddenShortcuts": ["poverty_cosplay","constant_rags","random_military_surplus","decorative_patch_overload","toolbelt_overload","one_person_represents_postwar_Japan"],
+      "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "characterId": "michiru",
+      "name": "ミチル",
+      "eraBand": "late_high_growth_pollution_oil_shock",
+      "exactYear": "OPEN",
+      "realityRoot": {"value": "静岡県西部", "status": "CURRENT_DERIVED"},
+      "incidentArea": "京浜圏の開発地域",
+      "mobility": "SCHOOL_MOVE_OR_HOUSEHOLD_MOVE",
+      "mustShowAxes": ["communication","transportNavigation","shoppingAvailability","foodPackaging","workInstitution","weatherHouseholdComfort","carriedObjects","paymentMoney"],
+      "environmentEvidenceTargets": [
+        "printed information, public signage, maps and timetables are active navigation tools",
+        "expanding roads, rail, new towns and older paths coexist rather than one replacing all others",
+        "new products and processed foods expand while energy/price pressure can coexist with prosperity",
+        "factory, urban-planning, development and resident-complaint systems leave visible ordinary-life traces",
+        "pollution and energy use affect daily comfort without turning every frame into disaster imagery",
+        "maps, tickets, notebooks and route choices belong naturally in lived space"
+      ],
+      "researchRequiredBeforeVisualBoardApproval": [
+        "source-backed Keihin development-area streetscape/interiors appropriate to a still-open exact year within the established era band",
+        "period-correct rail, road, signage, household goods, processed-food packaging and energy/pollution evidence",
+        "plausible mobility from western Shizuoka root to the broad Keihin development incident area"
+      ],
+      "openFields": ["exact year","exact Keihin locality","exact school/household move","exact incident","exact household","exact development project"],
+      "forbiddenShortcuts": ["1970s_catalog_cosplay","activist_uniform_as_era_shorthand","generic_adventurer_shorts","thigh_straps","activity_equals_exposure","one_person_represents_high_growth_Japan"],
+      "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "characterId": "nagi",
+      "name": "ナギ",
+      "eraBand": "post_bubble_early_mobile_internet",
+      "exactYear": "OPEN",
+      "realityRoot": {"value": "宮城県仙台圏", "status": "CURRENT_DERIVED"},
+      "incidentArea": "首都圏",
+      "mobility": "SCHOOL_MOVE_OR_EMPLOYMENT",
+      "mustShowAxes": ["communication","transportNavigation","shoppingAvailability","waitingBoredom","privacyRecords","workInstitution","weatherHouseholdComfort","carriedObjects"],
+      "environmentEvidenceTargets": [
+        "feature phone/PHS/mobile mail/PC mail/BBS/personal-site culture exists without modern smartphone assumptions",
+        "printed maps and digital information coexist",
+        "cash and physical transactions remain normal while convenience/abundance is normalizing",
+        "not-always-connected life and reply delay are ordinary rather than failure states",
+        "handle names, forwarding/copying, shared family PCs and forming privacy norms affect room and device layouts",
+        "screen privacy and dedicated storage for phone/key/printed directions/cable are physically plausible"
+      ],
+      "researchRequiredBeforeVisualBoardApproval": [
+        "source-backed early-mobile-internet domestic/device environment appropriate to the still-open exact year",
+        "period-correct feature-phone/PHS/PC/network access, printed directions, charging and shared-space practices",
+        "plausible school/employment mobility from Sendai-area root to the broad metropolitan incident area"
+      ],
+      "openFields": ["exact year","exact metropolitan locality","school versus employment move","exact incident","exact household","exact device model/provider"],
+      "forbiddenShortcuts": ["modern_smartphone","cyberpunk_accessory","phone_as_only_era_marker","permanent_shadow_hood","mysterious_tattoo","one_person_represents_early_internet_Japan"],
+      "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "characterId": "yui",
+      "name": "ユイ",
+      "eraBand": "1990s_born_2026_tokyo_arakawa",
+      "exactYear": 2026,
+      "realityRoot": {"value": "東京都荒川区", "status": "DECIDED"},
+      "incidentArea": "荒川区〜東京東側生活圏",
+      "mobility": "BORN_AND_LIVES_THERE",
+      "mustShowAxes": ["communication","paymentMoney","transportNavigation","shoppingAvailability","waitingBoredom","privacyRecords","workInstitution","weatherHouseholdComfort","carriedObjects"],
+      "environmentEvidenceTargets": [
+        "2026 Tokyo rail, smartphone navigation and local landmarks coexist as ordinary infrastructure",
+        "cash, IC and QR/app payment can coexist without making payment UI the scene identity",
+        "convenience stores, delivery, online shopping and local shopping coexist",
+        "cloud photos, group logs, recommendations, edited/fake images, deepfakes and generative AI are ordinary information pressures",
+        "modern urban comfort can coexist with old-neighborhood traces without making Yui retro",
+        "paper-memory and older personal objects can remain meaningful beside current digital systems"
+      ],
+      "researchRequiredBeforeVisualBoardApproval": [
+        "current 2026 Arakawa/east-Tokyo ordinary streetscape, rail, housing and shopping references without exposing private addresses",
+        "plausible present-day device/payment/storage behavior",
+        "local-history traces that exist in ordinary life but do not turn Yui into a retro-character stereotype"
+      ],
+      "openFields": ["exact home address","exact workplace/school","exact incident","exact household","exact frequently used shops/businesses","exact personal long-used object"],
+      "forbiddenShortcuts": ["retro_girl_because_Arakawa","generic_hoodie_heroine","phone_as_permanent_symbol","protagonist_gold_trim","smartphone_only_present_day","one_person_represents_2026_Tokyo"],
+      "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "characterId": "asa",
+      "name": "アサ",
+      "eraBand": "far_future_human_android_robot_avatar_coexistence",
+      "exactYear": "OPEN",
+      "realityRoot": {"value": "Far Future首都圏Human household", "status": "CURRENT_DERIVED"},
+      "incidentArea": "Future metropolitan identity/body-transfer service圏",
+      "mobility": "FUTURE_NETWORK_BODY_OR_AVATAR_ACCESS",
+      "mustShowAxes": ["communication","paymentMoney","transportNavigation","shoppingAvailability","repairReplacement","privacyRecords","workInstitution","weatherHouseholdComfort","carriedObjects"],
+      "environmentEvidenceTargets": [
+        "identity-aware networks and multiple embodiment channels have ordinary offline/failure cases",
+        "access and ownership rules matter more than decorative future currency",
+        "mobility infrastructure accommodates multiple body types and devices",
+        "maintenance, hardware generations and attachment to older body/device choices are normal practical issues",
+        "body/account/person history can differ and authentication/personhood rules appear in daily infrastructure",
+        "different bodies can have different environmental needs without hierarchy or humanization pressure"
+      ],
+      "researchRequiredBeforeVisualBoardApproval": [
+        "future-system precedent research for accessible multi-body mobility, maintenance and identity/authentication without copying a franchise-specific interface",
+        "credible material/repair/access infrastructure rather than neon/chrome shorthand",
+        "ordinary human household and nonhuman/human coexistence scenarios that do not treat humanization as the goal"
+      ],
+      "openFields": ["exact year","exact future locality","exact household composition","exact identity/body-transfer system","exact incident","exact political side","exact hardware/access device"],
+      "forbiddenShortcuts": ["random_glowing_circuits","cyberpunk_tattoos","chrome_overload","future_equals_skin_exposure","everyone_bodysuit","hologram_everywhere","one_person_represents_future_society"],
+      "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    }
+  ],
+  "completionBoundary": {
+    "authoringBriefImplemented": true,
+    "visualBoardsAuthored": false,
+    "visualBoardsHumanApproved": false,
+    "rasterMastersGenerated": false,
+    "mayPromoteStoryCanon": false,
+    "mayPromoteRuntime": false
+  }
+}
