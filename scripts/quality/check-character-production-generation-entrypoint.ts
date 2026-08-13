@@ -110,7 +110,7 @@ for (const id of ids) {
 
   for (const marker of promptMarkers) if (!exported.prompt?.includes(marker)) fail(`${id}: prompt marker missing: ${marker}`);
   for (const path of basePolicy.requiredAuthorityPaths ?? []) if (!exported.authorityOrder?.includes(path)) fail(`${id}: inherited required authority missing: ${path}`);
-  for (const path of [terminalPolicy.authorityDocument, terminalPolicyPath, terminalPolicy.terminalAuthorityDocument, terminalPolicy.terminalPolicy]) if (!exported.authorityOrder?.includes(path) && path !== terminalPolicy.authorityDocument && path !== terminalPolicyPath) fail(`${id}: terminal authority missing: ${path}`);
+  for (const path of [terminalPolicy.authorityDocument, terminalPolicyPath, terminalPolicy.terminalAuthorityDocument, terminalPolicy.terminalPolicy]) if (!exported.authorityOrder?.includes(path)) fail(`${id}: terminal authority missing: ${path}`);
 }
 
 console.log(`[character-production-entrypoint] OK: ${ids.length}/36 production prompts preserve inherited v1 authority plus dressing workflow terminal lock through ${terminalPolicy.productionExporter}`);
