@@ -9,6 +9,9 @@ const IDENTITY_DOC = 'docs/visual/all-character-identity-production-master-v1.md
 const IDENTITY_JSON = 'data/visual/all-character-identity-production-master-v1.json';
 const EMBODIED_DOC = 'docs/visual/all-character-embodied-acting-production-master-v1.md';
 const EMBODIED_JSON = 'data/visual/all-character-embodied-acting-production-master-v1.json';
+const READINESS_DOC = 'docs/visual/character-image-generation-readiness-master-v1.md';
+const READINESS_JSON = 'data/visual/character-image-generation-readiness-master-v1.json';
+const CORE5_IDS = new Set(['yui', 'asa', 'nagi', 'michiru', 'tomori']);
 
 type Options = { characterId: string; kind: string; output: string | null };
 
@@ -51,6 +54,17 @@ function loadEmbodiedMaster() {
   return master;
 }
 
+function loadReadinessMaster() {
+  const master = JSON.parse(readFileSync(resolve(process.cwd(), READINESS_JSON), 'utf8'));
+  if (master.status !== 'TOP_LEVEL_IMAGE_GENERATION_GATE') throw new Error(`Image readiness Master is not top-level gate: ${READINESS_JSON}`);
+  if (master.scopeCount !== 36) throw new Error(`Image readiness Master scope must remain 36: ${READINESS_JSON}`);
+  if (master.generatedImageCreatesCanon !== false || master.openMeansModelFreedom !== false || master.highResolutionMayAddConcepts !== false) {
+    throw new Error(`Image readiness anti-invention policy weakened: ${READINESS_JSON}`);
+  }
+  if (!Array.isArray(master.imageGenerationGate) || master.imageGenerationGate.length < 14) throw new Error(`Image readiness gate incomplete: ${READINESS_JSON}`);
+  return master;
+}
+
 function runBaseExporter(characterId: string, kind: string) {
   const stdout = execFileSync(process.execPath, [
     '--experimental-strip-types', resolve(process.cwd(), BASE_EXPORTER),
@@ -63,9 +77,7 @@ function runBaseExporter(characterId: string, kind: string) {
 function resolveIdentityContract(characterId: string, base: any, master: any) {
   const livingName = base?.livingVisualProfile?.name ?? base?.livingVisualProfile?.displayName ?? null;
   const byId = characterAppearanceGenerationContracts.find((entry) => entry.id === characterId);
-  const byDisplayName = livingName
-    ? characterAppearanceGenerationContracts.filter((entry) => entry.displayName === livingName)
-    : [];
+  const byDisplayName = livingName ? characterAppearanceGenerationContracts.filter((entry) => entry.displayName === livingName) : [];
   if (byDisplayName.length > 1) throw new Error(`${characterId}: ambiguous Appearance Generation Contract displayName match: ${livingName}`);
   const contract = byId ?? byDisplayName[0] ?? null;
   if (!contract) throw new Error(`Appearance Generation Contract missing for ${characterId}${livingName ? ` / ${livingName}` : ''}; final production export blocked.`);
@@ -83,18 +95,12 @@ function resolveEmbodiedProfile(characterId: string, base: any, master: any) {
     for (const field of master.current21RequiredFields ?? []) {
       if (!(field in exact) || !String((exact as any)[field] ?? '').trim()) throw new Error(`${characterId}: exact Current21 embodied field missing: ${field}`);
     }
-    return {
-      authorityClass: 'EXISTING_CANON_SOURCE_LOCKED',
-      resolution: 'CURRENT21_EXACT_SILHOUETTE_MATRIX',
-      source: master.current21Source,
-      profile: exact,
-    };
+    return { authorityClass: 'EXISTING_CANON_SOURCE_LOCKED', resolution: 'CURRENT21_EXACT_SILHOUETTE_MATRIX', source: master.current21Source, profile: exact };
   }
 
   const living = base?.livingVisualProfile;
   if (!living) throw new Error(`${characterId}: Living Visual Profile missing; Future15 embodied derivation blocked.`);
-  const required = master.future15DerivedFields ?? [];
-  for (const field of required) {
+  for (const field of master.future15DerivedFields ?? []) {
     if (!(field in living)) throw new Error(`${characterId}: Future15 embodied derivation source missing: ${field}`);
   }
   return {
@@ -161,9 +167,47 @@ function embodiedPromptBlock(master: any, resolved: any) {
   ].join('\n');
 }
 
+function assessImageReadiness(characterId: string, result: any, master: any) {
+  const failures: string[] = [];
+  for (const [field, expected] of Object.entries(master.requiredOutputFlags ?? {})) {
+    if (result[field] !== expected) failures.push(`${field}: expected ${String(expected)}, got ${String(result[field])}`);
+  }
+  for (const field of master.requiredObjects ?? []) {
+    if (result[field] === null || result[field] === undefined) failures.push(`${field}: missing`);
+  }
+  if (CORE5_IDS.has(characterId)) {
+    if (result.core5GarmentConstructionRequired !== true) failures.push('core5GarmentConstructionRequired: expected true');
+    if (!result.core5GarmentConstructionProfile) failures.push('core5GarmentConstructionProfile: missing');
+  }
+  return {
+    state: failures.length === 0 ? master.passingState : 'BLOCK',
+    failures,
+    generatedOutputState: master.generatedOutputState,
+    openMeansModelFreedom: false,
+    generatedImageCreatesCanon: false,
+  };
+}
+
+function readinessPromptBlock(master: any, readiness: any) {
+  return [
+    'CHARACTER IMAGE GENERATION READINESS MASTER — TOP-LEVEL FINAL GATE.',
+    `Authority: ${READINESS_DOC}.`,
+    `Machine policy: ${READINESS_JSON}.`,
+    `Readiness state: ${readiness.state}.`,
+    'Passing means READY_FOR_CANDIDATE_GENERATION only. It is not design approval and not canon approval.',
+    'OPEN / candidate / unresolved optional detail never means model freedom. Omit unsupported piercing, tattoo, jewelry, marks, exposure, pockets, straps, repair, glow, handedness or exact gesture rather than inventing them.',
+    'High resolution may describe existing material/seams/wear/light response but may not add concepts.',
+    `Generic-gacha drift prohibitions: ${JSON.stringify(master.genericGachaDrift)}.`,
+    `Detail density budget: ${JSON.stringify(master.detailDensityBudget)}.`,
+    `Post-generation review taxonomy: ${JSON.stringify(master.postGenerationReviewTaxonomy)}.`,
+    `Final readiness gate: ${JSON.stringify(master.imageGenerationGate)}.`,
+  ].join('\n');
+}
+
 const options = parseArgs(process.argv.slice(2));
 const identityMaster = loadIdentityMaster();
 const embodiedMaster = loadEmbodiedMaster();
+const readinessMaster = loadReadinessMaster();
 const base = runBaseExporter(options.characterId, options.kind);
 if (base.generationReadyProductionEntrypoint !== true) throw new Error(`${options.characterId}: base exporter is not generation-ready`);
 const resolvedIdentity = resolveIdentityContract(options.characterId, base, identityMaster);
@@ -172,18 +216,11 @@ const identityBlock = identityPromptBlock(identityMaster, resolvedIdentity.contr
 const embodiedBlock = embodiedPromptBlock(embodiedMaster, resolvedEmbodied);
 const authorityOrder = Array.isArray(base.authorityOrder) ? [...base.authorityOrder] : [];
 const insertAt = Math.min(3, authorityOrder.length);
-authorityOrder.splice(insertAt, 0,
-  IDENTITY_DOC,
-  IDENTITY_JSON,
-  identityMaster.canonicalMachineSource,
-  EMBODIED_DOC,
-  EMBODIED_JSON,
-  resolvedEmbodied.source,
-);
+authorityOrder.splice(insertAt, 0, IDENTITY_DOC, IDENTITY_JSON, identityMaster.canonicalMachineSource, EMBODIED_DOC, EMBODIED_JSON, resolvedEmbodied.source, READINESS_DOC, READINESS_JSON);
 
-const result = {
+const preReadinessResult = {
   ...base,
-  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 15),
+  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 16),
   generatedBy: 'tools/asset-factory/scripts/export-final-character-design-prompt.ts',
   finalCharacterDesignProductionEntrypoint: true,
   allCharacterIdentityProductionMasterPath: IDENTITY_JSON,
@@ -205,8 +242,27 @@ const result = {
   unknownEmbodiedDetailMayBeInventedByImageModel: false,
   generatedPoseCreatesCanon: false,
   authorityOrder,
-  prompt: `${base.prompt}\n\n${identityBlock}\n\n${embodiedBlock}`,
+};
+const readiness = assessImageReadiness(options.characterId, preReadinessResult, readinessMaster);
+if (readiness.state === 'BLOCK') throw new Error(`${options.characterId}: image generation readiness BLOCK — ${readiness.failures.join('; ')}`);
+const readinessBlock = readinessPromptBlock(readinessMaster, readiness);
+
+const result = {
+  ...preReadinessResult,
+  characterImageGenerationReadinessMasterPath: READINESS_JSON,
+  characterImageGenerationReadinessAuthorityDocument: READINESS_DOC,
+  characterImageGenerationReadinessRequired: true,
+  imageGenerationReadinessState: readiness.state,
+  imageGenerationReadinessFailures: readiness.failures,
+  generatedOutputState: readiness.generatedOutputState,
+  openMeansModelFreedom: false,
+  generatedImageCreatesCanon: false,
+  prompt: `${base.prompt}\n\n${identityBlock}\n\n${embodiedBlock}\n\n${readinessBlock}`,
   reviewChecklist: [
+    'Character Image Generation Readiness MasterがREADY_FOR_CANDIDATE_GENERATIONを返していることを確認する',
+    'OPEN / AUTHOR_CANDIDATE / unresolved optional detailをimage-model自由枠にしない',
+    'high resolutionで新しい装飾・body mark・strap・pocket・glow・exposureを足さない',
+    '生成後はKEEP / REMOVE / REPLACE / BAN / AUTHOR_CANDIDATE_FOR_REVIEWへ分類する',
     'All Character Identity Production Masterとexact Appearance Generation Contractを読む',
     'All Character Embodied Acting Production Masterとcharacter-specific embodied profileを読む',
     'Current21はcurrent21SilhouetteMatrixのposture/object/motionをそのまま維持する',
