@@ -1,0 +1,34 @@
+name: All Character Identity Production Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-identity-production-master-v1.md'
+      - 'data/visual/all-character-identity-production-master-v1.json'
+      - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'tools/asset-factory/scripts/export-final-character-design-prompt.ts'
+      - 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts'
+      - 'scripts/quality/check-all-character-identity-production-master.ts'
+      - '.github/workflows/all-character-identity-production-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-identity-production-master-v1.md'
+      - 'data/visual/all-character-identity-production-master-v1.json'
+      - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'tools/asset-factory/scripts/export-final-character-design-prompt.ts'
+      - 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts'
+      - 'scripts/quality/check-all-character-identity-production-master.ts'
+      - '.github/workflows/all-character-identity-production-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all 36 exact identity production contracts
+        run: node --experimental-strip-types scripts/quality/check-all-character-identity-production-master.ts
