@@ -83,6 +83,12 @@
     "exactIncidentsFrozen": false,
     "exactYearsFrozen": false,
     "generationAllowed": false,
+    "foundationMasterIdMigration": {
+      "canonicalRecordMediumMasterId": "gunjo-record-medium-evidence-master-v1",
+      "supersededPlanningId": "gunjo-record-medium-material-master-v1",
+      "supersededPlanningIdMayReceiveNewAssets": false,
+      "reason": "Fixed pre-game registry, expansion queue and resolution ledger already use the evidence ID. No approved/generated binary exists under the superseded planning ID, so normalize before authoring."
+    },
     "foundationMasters": [
       {
         "masterId": "gunjo-record-taxonomy-system-master-v1",
@@ -109,7 +115,7 @@
         ]
       },
       {
-        "masterId": "gunjo-record-medium-material-master-v1",
+        "masterId": "gunjo-record-medium-evidence-master-v1",
         "kind": "RECORD_MEDIUM_AND_EVIDENCE_VISUAL_REFERENCE_MASTER",
         "preferredFormat": "EDITABLE_REFERENCE_BOARD_WITH_SOURCE_BACKED_RASTER_ONLY_WHEN_NEEDED",
         "mandatoryRasterImage": false,
