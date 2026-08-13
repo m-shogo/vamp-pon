@@ -1,0 +1,28 @@
+name: Character Fidelity Review Packet
+
+on:
+  pull_request:
+    paths:
+      - 'tools/asset-factory/scripts/create-character-fidelity-review-packet.ts'
+      - 'tools/asset-factory/scripts/evaluate-character-fidelity-review-packet.ts'
+      - 'scripts/quality/check-character-fidelity-review-packet.ts'
+      - 'data/visual/cross-asset-fidelity-review-master-v1.json'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
+      - '.github/workflows/character-fidelity-review-packet.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/asset-factory/scripts/create-character-fidelity-review-packet.ts'
+      - 'tools/asset-factory/scripts/evaluate-character-fidelity-review-packet.ts'
+      - 'scripts/quality/check-character-fidelity-review-packet.ts'
+      - 'data/visual/cross-asset-fidelity-review-master-v1.json'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
+      - '.github/workflows/character-fidelity-review-packet.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate fidelity packet generator and evaluator
+        run: node --experimental-strip-types scripts/quality/check-character-fidelity-review-packet.ts
