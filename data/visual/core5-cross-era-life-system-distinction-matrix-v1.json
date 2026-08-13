@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "id": "yoruno-shirube-core5-cross-era-life-system-distinction-matrix-v1",
+  "status": "PROFESSIONAL_PRE_HUMAN_REVIEW_DISTINCTION_CONTROL",
+  "purpose": "Make the five Core5 Reality-era boards visibly distinct through ordinary-life systems rather than clothing, nostalgia, device or genre shorthand. This matrix is review support only and does not create Story Canon, exact historical years or literal family members.",
+  "authoritySources": [
+    "data/visual/core5-reality-era-environment-authoring-brief-v1.json",
+    "data/visual/core5-era-population-household-authoring-brief-v1.json",
+    "data/visual/core5-era-setting-board-production-contract-v1.json",
+    "data/character-assets/reviews/core5-era-setting-board-professional-pre-review.v1.json"
+  ],
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "promotion": {
+    "createsStoryCanon": false,
+    "createsLiteralFamilyCanon": false,
+    "createsHistoricalFactAuthority": false,
+    "createsVisualMasterApproval": false
+  },
+  "reviewAxes": [
+    "communication",
+    "movementNavigation",
+    "shoppingAvailability",
+    "repairReplacement",
+    "paymentExchange",
+    "privacyRecords",
+    "householdAccess",
+    "ordinaryTaskFriction",
+    "materialInfrastructure"
+  ],
+  "eras": [
+    {
+      "characterId": "tomori",
+      "eraBand": "postwar_reconstruction_scarcity",
+      "exactYearState": "OPEN",
+      "distinctionSignature": "paper-coordination__supply-friction__repair-reuse__movement-time-cost__uneven-access",
+      "communication": "paper records, handwritten notes and in-person coordination are ordinary system behavior",
+      "movementNavigation": "movement and shopping consume visible time; damaged or incomplete infrastructure can shape route choice",
+      "shoppingAvailability": "formal distribution, delayed supply and alternate acquisition routes can coexist without universal starvation imagery",
+      "repairReplacement": "repair, parts salvage, container reuse and continued use are default practical pressures before easy replacement",
+      "paymentExchange": "cash, coupons, ledgers or distribution access may matter, but exact system and exact year stay OPEN",
+      "privacyRecords": "paper records and local knowledge create access/privacy friction without modern-account assumptions",
+      "householdAccess": "different ages and household forms can have materially different food, transport, repair and distribution access",
+      "ordinaryTaskFriction": "waiting for people or supply, carrying goods, mending and maintaining tools materially change the day",
+      "materialInfrastructure": "repairable hardware, reused containers, paper systems and practical workshop/domestic traces must have use reasons",
+      "antiShortcut": ["poverty_cosplay", "constant_rags", "random_military_surplus", "one_household_represents_postwar_Japan"]
+    },
+    {
+      "characterId": "michiru",
+      "eraBand": "late_high_growth_pollution_oil_shock",
+      "exactYearState": "OPEN",
+      "distinctionSignature": "printed-navigation__old-new-route-coexistence__consumption-expansion__energy-pressure__development-friction",
+      "communication": "printed information, public signage, maps, timetables and institutional notices actively structure ordinary decisions",
+      "movementNavigation": "new roads, rail and development coexist with older paths; generations experience the changing network differently",
+      "shoppingAvailability": "processed foods and new household goods expand unevenly while price or energy pressure can remain visible",
+      "repairReplacement": "replacement availability grows but retained goods, maintenance and repair remain plausible and access-dependent",
+      "paymentExchange": "cash and physical transactions remain ordinary; exact payment details depend on the still-open exact year",
+      "privacyRecords": "school, workplace, civic and complaint systems leave paper/institutional traces rather than early-internet behavior",
+      "householdAccess": "prosperity, housing quality, pollution burden, transport and consumption differ across household and generation lenses",
+      "ordinaryTaskFriction": "route changes, price/energy constraints, environmental discomfort and institutional procedures affect daily planning",
+      "materialInfrastructure": "new-town, factory, road/rail, packaging and household-goods evidence must coexist with older built traces",
+      "antiShortcut": ["1970s_catalog_cosplay", "activist_uniform_as_era_shorthand", "all_households_equally_affluent", "one_person_represents_high_growth_Japan"]
+    },
+    {
+      "characterId": "nagi",
+      "eraBand": "post_bubble_early_mobile_internet",
+      "exactYearState": "OPEN",
+      "distinctionSignature": "feature-phone-PC-coexistence__reply-delay__printed-digital-navigation__shared-screen-privacy__cash-normal",
+      "communication": "feature phone, PHS, mobile mail, PC mail, BBS or personal-site culture may coexist without smartphone assumptions",
+      "movementNavigation": "printed directions and maps coexist with limited digital information; exact device/provider remains OPEN",
+      "shoppingAvailability": "cash, convenience-store access and growing abundance coexist without present-day delivery/app assumptions",
+      "repairReplacement": "chargers, cables, batteries, shared devices and dedicated storage create practical maintenance and access friction",
+      "paymentExchange": "cash and physical transactions remain normal; present-day QR/app payment must not leak backward",
+      "privacyRecords": "shared family PCs, handle names, forwarding/copying and screen privacy create household negotiation",
+      "householdAccess": "device ownership, connectivity and private screen access differ by age, income and household arrangement",
+      "ordinaryTaskFriction": "reply delay, waiting, finding printed directions, charging and shared-device scheduling are ordinary rather than failures",
+      "materialInfrastructure": "phone/key/cable/printed-direction storage and shared-PC layout must be physically plausible, not cyberpunk decoration",
+      "antiShortcut": ["modern_smartphone", "cyberpunk_accessory", "phone_as_only_era_marker", "one_person_represents_early_internet_Japan"]
+    },
+    {
+      "characterId": "yui",
+      "eraBand": "1990s_born_2026_tokyo_arakawa",
+      "exactYearState": "2026_CURRENT",
+      "distinctionSignature": "rail-smartphone-local-landmark__multi-payment__local-online-delivery__cloud-provenance__mixed-age-access",
+      "communication": "smartphone, group chat, cloud records and paper/legacy contact traces coexist as ordinary present-day behavior",
+      "movementNavigation": "2026 Tokyo rail, smartphone navigation and local landmarks coexist without turning the board into UI screenshots",
+      "shoppingAvailability": "local shops, convenience, delivery and online purchasing coexist and remain uneven by household or mobility",
+      "repairReplacement": "easy replacement exists beside long-used personal objects, repair choices and attachment to familiar items",
+      "paymentExchange": "cash, IC and QR/app payment may coexist without implying universal cashlessness",
+      "privacyRecords": "cloud photos, group logs, recommendations, edited/fake images and provenance checking create ordinary information friction",
+      "householdAccess": "older and younger residents can use different mixtures of paper, cash, IC, apps and local support without caricature",
+      "ordinaryTaskFriction": "verification, delivery timing, account/device access, caregiving and mobility differences shape routine choices",
+      "materialInfrastructure": "current east-Tokyo streetscape and housing can retain older neighborhood traces without making Yui a retro character",
+      "antiShortcut": ["smartphone_only_present_day", "everyone_is_cashless", "retro_girl_because_Arakawa", "generic_neon_Tokyo"]
+    },
+    {
+      "characterId": "asa",
+      "eraBand": "far_future_human_android_robot_avatar_coexistence",
+      "exactYearState": "OPEN",
+      "distinctionSignature": "identity-body-access__multi-embodiment-mobility__maintenance-generation__authentication-personhood__offline-failure",
+      "communication": "identity-aware networks and multiple embodiment channels include ordinary offline, failure and access cases",
+      "movementNavigation": "mobility infrastructure must accommodate different body/device needs rather than assume one ideal human body",
+      "shoppingAvailability": "access and ownership rules matter more than decorative future storefront or hologram shorthand",
+      "repairReplacement": "maintenance, hardware generations, attachment to older body/device choices and replacement tradeoffs are normal life",
+      "paymentExchange": "service access, ownership and authorization rules are the meaningful axis; decorative future currency is not the era marker",
+      "privacyRecords": "body/account/person history can diverge, making authentication, continuity and personhood records daily infrastructure concerns",
+      "householdAccess": "human, Android/Robot/avatar and other embodiment needs can coexist within varied households without hierarchy or humanization pressure",
+      "ordinaryTaskFriction": "authentication failure, maintenance windows, access permissions and embodiment-specific environmental needs affect routine planning",
+      "materialInfrastructure": "credible service, repair, charging/interface and accessibility systems replace neon/chrome/circuit-body shorthand",
+      "antiShortcut": ["random_glowing_circuits", "chrome_overload", "hologram_everywhere", "everyone_bodysuit", "future_equals_skin_exposure"]
+    }
+  ],
+  "humanReviewQuestions": [
+    "Can each era be identified with clothing and character faces hidden?",
+    "Does each era use at least five ordinary-life systems rather than one hero prop or device?",
+    "Are generation and household differences visible without defining a Core5 literal family?",
+    "Are exact historical years still OPEN for Tomori, Michiru, Nagi and Asa?",
+    "Does Yui read as ordinary 2026 east-Tokyo life rather than smartphone-only or retro-Arakawa shorthand?",
+    "Does Asa read as a plausible social/maintenance/access system rather than generic cyberpunk future?"
+  ]
+}
