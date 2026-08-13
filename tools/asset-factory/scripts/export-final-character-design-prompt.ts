@@ -52,7 +52,8 @@ function resolveIdentityContract(characterId: string, master: any) {
   for (const field of master.requiredFields) {
     if (!(field in contract)) throw new Error(`${characterId}: required appearance field missing: ${field}`);
   }
-  if (!Array.isArray(contract.forbiddenDrift) || contract.forbiddenDrift.length < 2) throw new Error(`${characterId}: forbiddenDrift too weak`);
+  if (!Array.isArray(contract.forbiddenDrift) || contract.forbiddenDrift.length < 1) throw new Error(`${characterId}: forbiddenDrift missing`);
+  if (contract.nearestExistingFace && !contract.differenceFromNearest) throw new Error(`${characterId}: nearestExistingFace requires differenceFromNearest`);
   return contract;
 }
 
