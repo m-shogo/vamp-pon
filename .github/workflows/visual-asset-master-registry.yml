@@ -65,6 +65,7 @@ on:
       - 'scripts/quality/check-core5-era-setting-board-evidence-packets.ts'
       - 'scripts/quality/check-core5-era-setting-board-execution-queue.ts'
       - 'scripts/quality/check-core5-era-setting-board-specs.ts'
+      - 'scripts/quality/check-core5-era-setting-board-human-review-packet.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
@@ -144,6 +145,7 @@ on:
       - 'scripts/quality/check-core5-era-setting-board-evidence-packets.ts'
       - 'scripts/quality/check-core5-era-setting-board-execution-queue.ts'
       - 'scripts/quality/check-core5-era-setting-board-specs.ts'
+      - 'scripts/quality/check-core5-era-setting-board-human-review-packet.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
@@ -202,6 +204,8 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-execution-queue.ts
       - name: Validate authored Core5 era setting-board specs
         run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-specs.ts
+      - name: Validate Core5 era setting-board Human review packet
+        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-human-review-packet.ts
       - name: Validate Sakuyaza Current naming and Gunjo record-taxonomy visual masters
         run: node --experimental-strip-types scripts/quality/check-visual-current-group-record-master.ts
       - name: Validate Sakuyaza legacy-ID migration facade
