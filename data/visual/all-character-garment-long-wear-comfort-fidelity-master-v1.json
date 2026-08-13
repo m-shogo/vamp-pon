@@ -1,0 +1,58 @@
+{
+  "id": "yoru-no-shirube-all-character-garment-long-wear-comfort-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.md",
+  "unknownComfortDefault": "SOURCE_CONSTRAINED_NEUTRAL_LONG_WEAR_COMFORT_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedLongWearBehaviorCreatesCanon": false
+  },
+  "comfortAxes": [
+    "wearDurationContext", "standingContactDistribution", "walkingContactDistribution", "seatedContactDistribution", "crouchedContactDistribution", "repeatedMotionContactDistribution", "neckOpeningPressure", "collarPressure", "shoulderSeamPressure", "armholePressure", "upperArmPressure", "elbowCreaseFriction", "cuffPressure", "chestRibcagePressure", "waistPressure", "waistbandPressure", "abdominalContact", "pelvisHipPressure", "seatPressure", "crotchSeamPressure", "thighFriction", "kneeCreaseFriction", "calfPressure", "anklePressure", "sockStockingPressure", "footwearToeBoxPressure", "footwearInstepPressure", "footwearHeelPressure", "footwearEdgePressure", "soleStiffnessComfortRelation", "strapPressure", "beltPressure", "bagHarnessPressure", "pocketLoadPressure", "closureHardwareContact", "zipperEdgeContact", "buttonSnapHardwareContact", "buckleHardwareContact", "seamAllowanceContact", "seamBulkContact", "liningContact", "labelTagContact", "repairZoneContact", "materialSurfaceFriction", "skinGarmentFrictionBoundary", "garmentGarmentFrictionBoundary", "hairCollarFrictionBoundary", "mobilityEquipmentContact", "wheelchairSeatContact", "wheelchairBackContact", "wheelchairSideFrameClearance", "prostheticOrthoticGarmentContact", "assistiveDeviceContactClearance", "pressureDuration", "pressureRedistributionOpportunity", "motionRepetitionFrequencyFamily", "chafingRiskMechanics", "heatRetentionFamily", "insulationStack", "ventilationOpeningAvailability", "airFlowObstruction", "moistureAbsorption", "moistureTransport", "evaporationOpportunity", "neutralSweatZoneAccumulation", "wetFrictionIncrease", "dryingRateConsequence", "seasonalLayerCompatibility", "indoorOutdoorTransitionCompatibility", "longWearCreaseAccumulation", "longWearMaterialSoftening", "repeatedStrapSettling", "repeatedWaistbandSettling", "footwearFlexAccumulation", "ordinaryAdjustmentFrequencyClass", "closureReadjustmentNeed", "strapReadjustmentNeed", "hemCuffReadjustmentNeed", "pocketLoadReadjustmentNeed", "doffingRecoveryBehavior", "storageRecoveryBehavior", "maintenanceAccessConsequence", "comfortUncertaintyClass"
+  ],
+  "comfortInvariants": [
+    "pressure requires a physical source and load path", "body mass is not reduced to solve pressure", "load bearing straps retain body contact", "hardware retains finite thickness and contact", "seam bulk remains finite at pressure zones", "layers retain bulk at seated contact", "chafing risk is not rendered as automatic injury", "medical conditions are not inferred from clothing", "sensory sensitivity is not inferred", "pain tolerance is not inferred", "cold sensitivity is not inferred", "heat sensitivity is not inferred", "disability accommodation is not invented from comfort guess", "moisture follows material and environment authority", "wetness does not reveal unsupported anatomy", "thermal behavior follows coverage layering and ventilation", "ventilation does not invent openings", "seasonal context does not replace baseline clothing without delta", "wheelchair seat contact remains physical", "wheelchair back contact remains physical", "prosthetic orthotic contact remains source constrained", "assistive equipment contact remains source constrained", "footwear preserves authorized foot scale", "footwear does not gain unsupported cushioning or support", "ordinary adjustment does not become a personality habit", "long wear crease accumulation remains candidate state", "maintenance adaptation requires separate authority", "premium does not increase compression", "premium does not increase exposure for comfort", "premium does not erase layer bulk", "LOD preserves major load bearing contact", "chibi preserves footwear and equipment scale", "sprite preserves seated mobility contact", "generated pressure marks never create canon", "generated comfort behavior never creates canon"
+  ],
+  "preservationPriority": [
+    "authorizedBodyAndMobility", "garmentConstructionAndMaterial", "fitLayeringAndDressingWorkflow", "loadBearingContact", "seatedWheelchairEquipmentContact", "footwearVolumeAndEntry", "pressureAndFrictionCausality", "thermalAndVentilationCausality", "moistureAndWetFriction", "longWearTemporalContinuity", "maintenanceCanonBoundary", "surfacePolishAndMicroComfortCues"
+  ],
+  "forbiddenShortcuts": [
+    "arbitraryPressureMarksForDrama", "arbitraryRedSkinForDrama", "inventedChafingInjury", "inventedBlister", "inventedBandageForComfort", "inventedPaddingForComfort", "inventedLinerForComfort", "inventedCompressionWear", "inventedOrthopedicSupport", "inventedCoolingSystem", "inventedVentForComfort", "inventedCutoutForVentilation", "openingClosureToCoolCharacter", "removingLayerToCoolCharacter", "shrinkingBodyToReducePressure", "slimmingWaistToReduceWaistbandPressure", "shrinkingFeetToFitShoes", "shrinkingMobilityEquipmentForClearance", "strapFloatsToAvoidBodyContact", "beltFloatsToAvoidBodyContact", "hardwareFloatsToAvoidBodyContact", "hardwareBuriedIntoBody", "seamBulkErasedAtPressureZone", "layerBulkErasedAtSeat", "wheelchairSeatContactIgnored", "wheelchairBackContactIgnored", "wheelchairPocketPressureIgnored", "prostheticPainInvented", "orthoticPainInvented", "assistiveDeviceInjuryInvented", "disabilityAccommodationInventedFromComfortGuess", "sensorySensitivityInvented", "painToleranceInvented", "coldSensitivityInvented", "heatSensitivityInvented", "sweatPatternInventsPersonality", "sweatPatternUsedForSexualization", "wetnessCreatesTransparency", "wetnessRevealsUnsupportedAnatomy", "moistureCreatesCanonicalStain", "premiumIncreasesCompression", "premiumIncreasesStrapIndentation", "premiumAddsCorsetry", "premiumAddsHighHeels", "premiumOpensClothingForVentilation", "premiumErasesLayerBulk", "premiumErasesSeatContact", "universalComfortableFit", "universalUncomfortableFit", "universalZeroFriction", "universalHighFriction", "universalPerfectVentilation", "universalNoSweatBehavior", "universalCoolingGlow", "generatedPressureMarkCreatesCanon", "generatedComfortAdjustmentCreatesHabit", "generatedChafingCreatesScar", "generatedLongWearBehaviorCreatesCanon", "lodHidesLoadBearingStrap", "chibiShrinksFootwearForReadability", "spriteErasesWheelchairContact", "effectGlowHidesPressureIntersection", "shadowHidesLayerBulk", "repairInventedFromComfortProblem", "closureReplacedFromComfortProblem", "strapAddedFromComfortProblem", "cutoutAddedFromComfortProblem", "permanentStretchInventedFromComfortProblem", "helperRoutineInventedFromComfortProblem"
+  ],
+  "rules": {
+    "unknownComfortBehaviorMayBeInventedByImageModel": false,
+    "bodyMayBeResizedToReducePressure": false,
+    "pressureMarksMayBeInventedForDrama": false,
+    "chafingInjuryMayBeInvented": false,
+    "medicalConditionMayBeInferredFromComfort": false,
+    "sensorySensitivityMayBeInferred": false,
+    "painToleranceMayBeInferred": false,
+    "thermalSensitivityMayBeInferred": false,
+    "disabilityAccommodationMayBeInventedFromComfort": false,
+    "paddingOrLinerMayBeInventedForComfort": false,
+    "compressionWearMayBeInventedForComfort": false,
+    "ventOrCutoutMayBeInventedForComfort": false,
+    "closureMayOpenForCoolingWithoutAuthority": false,
+    "layerMayBeRemovedForCoolingWithoutAuthority": false,
+    "wetnessMayIncreaseExposureForComfortRendering": false,
+    "sweatPatternMayEncodePersonality": false,
+    "wheelchairSeatContactMayBeIgnoredForComfort": false,
+    "wheelchairBackContactMayBeIgnoredForComfort": false,
+    "prostheticOrthoticPainMayBeInvented": false,
+    "assistiveDeviceInjuryMayBeInvented": false,
+    "footwearSupportMayBeInvented": false,
+    "premiumMayIncreaseCompression": false,
+    "premiumMayIncreaseExposureForVentilation": false,
+    "premiumMayEraseLayerBulkForBeauty": false,
+    "comfortAdjustmentMayBecomeCharacterHabit": false,
+    "maintenanceChangeMayBeCreatedFromComfortGuess": false,
+    "lodMayEraseMajorContactLogic": false,
+    "chibiMayRescaleFootwearOrEquipmentForComfort": false,
+    "spriteMayEraseSeatedMobilityContact": false,
+    "generatedLongWearBehaviorCreatesCanon": false
+  }
+}
