@@ -19,12 +19,28 @@ function fail(message: string): never {
 }
 
 function declaredRequiredFlagGroups(policy: Record<string, unknown>): Array<[string, Record<string, unknown>]> {
-  return Object.entries(policy).filter(([key, value]) => (
+  const groups = Object.entries(policy).filter(([key, value]) => (
     key.endsWith('RequiredFlags')
     && value !== null
     && typeof value === 'object'
     && !Array.isArray(value)
   )) as Array<[string, Record<string, unknown>]>;
+
+  // Production Entrypoint v5+ consolidates terminal inheritance under
+  // `requiredOutputFlags` rather than adding another `*RequiredFlags` group.
+  // Treat that Current field as the canonical dynamic group while retaining
+  // compatibility with older parent policies that expose `*RequiredFlags`.
+  const requiredOutputFlags = policy.requiredOutputFlags;
+  if (
+    requiredOutputFlags !== null
+    && typeof requiredOutputFlags === 'object'
+    && !Array.isArray(requiredOutputFlags)
+    && !groups.some(([name]) => name === 'requiredOutputFlags')
+  ) {
+    groups.push(['requiredOutputFlags', requiredOutputFlags as Record<string, unknown>]);
+  }
+
+  return groups;
 }
 
 const bridge = JSON.parse(readFileSync(resolve(root, bridgePath), 'utf8'));
@@ -52,7 +68,7 @@ if (parentPolicy.productionExporter !== CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYP
   fail(`code/policy parent exporter drift: code=${CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentExporter}, policy=${parentPolicy.productionExporter}`);
 }
 if (parentPolicy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT' || parentPolicy.scopeCount !== 36) fail('parent production policy top-level scope/status drift');
-if (requiredFlagGroups.length < 1) fail('parent policy declares no *RequiredFlags groups');
+if (requiredFlagGroups.length < 1) fail('parent policy declares no dynamic required output flag groups');
 
 const ids: string[] = [];
 for (const path of profilePaths) {
