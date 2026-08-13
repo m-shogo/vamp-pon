@@ -6,7 +6,10 @@ on:
       - 'data/visual/core5-living-visual-profiles-v1.json'
       - 'data/visual/current21-extended-living-visual-profiles-v1.json'
       - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/all-character-life-choice-visual-gap-audit-v1.json'
+      - 'docs/visual/all-character-life-choice-visual-gap-audit-v1.md'
       - 'scripts/quality/build-all-character-life-choice-visual-gap-audit.ts'
+      - 'scripts/quality/check-all-character-life-choice-visual-gap-audit.ts'
       - 'docs/visual/all-character-life-choice-visual-gap-audit-generator-v1.md'
       - '.github/workflows/all-character-life-choice-visual-gap-audit.yml'
   push:
@@ -15,7 +18,10 @@ on:
       - 'data/visual/core5-living-visual-profiles-v1.json'
       - 'data/visual/current21-extended-living-visual-profiles-v1.json'
       - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/all-character-life-choice-visual-gap-audit-v1.json'
+      - 'docs/visual/all-character-life-choice-visual-gap-audit-v1.md'
       - 'scripts/quality/build-all-character-life-choice-visual-gap-audit.ts'
+      - 'scripts/quality/check-all-character-life-choice-visual-gap-audit.ts'
       - 'docs/visual/all-character-life-choice-visual-gap-audit-generator-v1.md'
       - '.github/workflows/all-character-life-choice-visual-gap-audit.yml'
 
@@ -24,5 +30,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Derive 36-character life-choice visual gap audit
-        run: node --experimental-strip-types scripts/quality/build-all-character-life-choice-visual-gap-audit.ts --emit
+      - name: Derive compact 36-character life-choice visual gap audit
+        run: node --experimental-strip-types scripts/quality/build-all-character-life-choice-visual-gap-audit.ts --emit-compact
+      - name: Validate materialized audit when present
+        run: |
+          if [ -f scripts/quality/check-all-character-life-choice-visual-gap-audit.ts ]; then
+            node --experimental-strip-types scripts/quality/check-all-character-life-choice-visual-gap-audit.ts
+          fi
