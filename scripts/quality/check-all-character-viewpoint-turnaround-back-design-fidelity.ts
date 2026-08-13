@@ -6,7 +6,6 @@ const root = process.cwd();
 const policyPath = 'data/visual/all-character-viewpoint-turnaround-back-design-fidelity-master-v1.json';
 const authorityPath = 'docs/visual/all-character-viewpoint-turnaround-back-design-fidelity-master-v1.md';
 const productionPolicyPath = 'data/visual/character-production-generation-entrypoint-v1.json';
-const exporterPath = 'tools/asset-factory/scripts/export-viewpoint-turnaround-character-design-prompt.ts';
 const profilePaths = [
   'data/visual/core5-living-visual-profiles-v1.json',
   'data/visual/current21-extended-living-visual-profiles-v1.json',
@@ -17,6 +16,7 @@ const fail = (m: string): never => { throw new Error(`[viewpoint-turnaround] ${m
 const policy = JSON.parse(readFileSync(resolve(root, policyPath), 'utf8'));
 const authority = readFileSync(resolve(root, authorityPath), 'utf8');
 const productionPolicy = JSON.parse(readFileSync(resolve(root, productionPolicyPath), 'utf8'));
+const productionExporterPath = productionPolicy.productionExporter;
 
 if (policy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') fail('status invalid');
 if (policy.scopeCount !== 36 || policy.assetKindCount !== 9) fail('scope must remain 36/9');
@@ -30,8 +30,15 @@ if (policy.unknownHiddenSurfaceDefault !== 'SOURCE_CONSTRAINED_NEUTRAL_COMPLETIO
 for (const [field, value] of Object.entries(policy.rules ?? {})) if (value !== false) fail(`rule must remain false: ${field}`);
 if (!authority.includes('CANDIDATE_REVIEW_REQUIRED')) fail('authority must preserve candidate-only output');
 if (!authority.includes('SOURCE_CONSTRAINED_NEUTRAL_COMPLETION')) fail('neutral hidden-surface default missing');
-if (productionPolicy.productionExporter !== exporterPath) fail('production exporter not routed through turnaround wrapper');
+if (typeof productionExporterPath !== 'string' || productionExporterPath.length === 0) fail('production exporter missing');
 if (productionPolicy.terminalWrapperRequiredFlags?.allCharacterViewpointTurnaroundBackDesignFidelityRequired !== true) fail('terminal turnaround requirement missing');
+for (const [field, expected] of Object.entries(productionPolicy.terminalWrapperRequiredFlags ?? {})) {
+  if (field === 'allCharacterViewpointTurnaroundBackDesignFidelityRequired') {
+    if (expected !== true) fail(`turnaround terminal flag must remain true: ${field}`);
+  } else if (expected !== false) {
+    fail(`turnaround terminal guard must remain false: ${field}`);
+  }
+}
 for (const path of [authorityPath, policyPath]) if (!productionPolicy.requiredAuthorityPaths?.includes(path)) fail(`required authority path missing: ${path}`);
 
 const ids: string[] = [];
@@ -43,11 +50,12 @@ if (ids.length !== 36 || new Set(ids).size !== 36) fail(`expected 36 unique ids,
 
 for (const id of ids) {
   const stdout = execFileSync(process.execPath, [
-    '--experimental-strip-types', resolve(root, exporterPath),
+    '--experimental-strip-types', resolve(root, productionExporterPath),
     '--character', id,
     '--kind', 'character_reference',
-  ], { cwd: root, encoding: 'utf8', maxBuffer: 104 * 1024 * 1024 });
+  ], { cwd: root, encoding: 'utf8', maxBuffer: 128 * 1024 * 1024 });
   const output = JSON.parse(stdout);
+  if (output.productionImageGenerationEntrypoint !== true || output.productionPromptAuthorityLocked !== true) fail(`${id}: production lock missing`);
   if (output.allCharacterViewpointTurnaroundBackDesignFidelityRequired !== true) fail(`${id}: turnaround flag missing`);
   for (const field of [
     'unknownHiddenSurfaceMayBeInventedByImageModel',
@@ -71,4 +79,4 @@ for (const id of ids) {
   if (output.allCharacterVariantDeltaStateTransformationFidelityRequired !== true) fail(`${id}: variant delta chain missing below turnaround`);
 }
 
-console.log(`[viewpoint-turnaround] OK: ${ids.length}/36 final production prompts validated`);
+console.log(`[viewpoint-turnaround] OK: ${ids.length}/36 final production prompts preserve turnaround/back-design authority`);
