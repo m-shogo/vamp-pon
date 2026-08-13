@@ -9,8 +9,8 @@ function assert(condition: unknown, message: string): asserts condition {
 
 assert(ledger.schemaVersion === 2, 'resolution ledger schemaVersion must be 2 after latest-main sync/migrations');
 assert(ledger.status === 'ACTIVE_RESOLUTION_TRACKING_NO_AUTOMATIC_GENERATION', 'resolution ledger may not authorize generation');
-assert(ledger.currentBoundary?.latestMainSyncBaseline === '4e6b49bdf02208ffd9637a2d3a8904baee8365b9', 'latest-main sync baseline drift');
-assert(ledger.currentBoundary?.latestMainSyncThroughPullRequest === 329, 'latest-main sync PR boundary drift');
+assert(ledger.currentBoundary?.latestMainSyncBaseline === '029a834aed8287cd3d6155c2516d6c98b7818566', 'latest-main sync baseline drift');
+assert(ledger.currentBoundary?.latestMainSyncThroughPullRequest === 330, 'latest-main sync PR boundary drift');
 assert(ledger.currentBoundary?.latestMainBaselineMergedIntoBranchWithoutForce === true, 'latest-main baseline must be integrated without force rewrite');
 assert(ledger.currentBoundary?.latestMainMustBeRecheckedBeforeImageGenerationOrMerge === true, 'latest main must still be rechecked before generation/merge');
 assert(ledger.currentBoundary?.imageGenerationAllowed === false, 'resolution ledger may not authorize image generation');
@@ -95,14 +95,11 @@ const sheets = ledger.characterSheetExecution;
 assert(sheets?.state === 'LIVE_ADAPTER_IMPLEMENTED', 'Character Sheet live adapter state missing');
 assert(sheets?.parentEntrypointSource === 'src/game/data/characterReferenceProductionEntrypoint.ts', 'Character Sheet parent entrypoint source drift');
 assert(sheets?.parentExporterResolution === 'LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT', 'Character Sheet parent exporter must resolve live');
-assert(sheets?.latestMainSyncBaselineThrough === 329, 'Character Sheet latest-main baseline must include PR #329');
-assert(
-  Array.isArray(sheets?.latestInheritedAuthorityAdditions)
-    && sheets.latestInheritedAuthorityAdditions.includes('occlusion-layering-fidelity')
-    && sheets.latestInheritedAuthorityAdditions.includes('crop-silhouette-readability')
-    && sheets.latestInheritedAuthorityAdditions.includes('focus-depth-effects-fidelity'),
-  'Character Sheet latest authority additions missing',
-);
+assert(sheets?.latestMainSyncBaselineThrough === 330, 'Character Sheet latest-main baseline must include PR #330');
+assert(sheets?.requiredFlagValidation === 'ALL_PARENT_DECLARED_STAR_REQUIRED_FLAGS_GROUPS', 'Character Sheet must validate all parent *RequiredFlags groups dynamically');
+for (const required of ['occlusion-layering-fidelity', 'crop-silhouette-readability', 'focus-depth-effects-fidelity', 'surface-tone-mapping-fidelity']) {
+  assert(Array.isArray(sheets?.latestInheritedAuthorityAdditions) && sheets.latestInheritedAuthorityAdditions.includes(required), `Character Sheet latest authority addition missing: ${required}`);
+}
 assert(sheets?.oldPromptPacketDirectGenerationAllowed === false, 'old prompt packets may not be used directly');
 assert(sheets?.staticPacketReexportRequiredForProduction === false, 'static packet re-export must not be mistaken for the live production path');
 assert(sheets?.activeCharacters === 35, 'active Character Sheet character count drift');
@@ -125,6 +122,7 @@ console.log(JSON.stringify({
     activePrompts: sheets.activeLiveSheetPrompts,
     heldSlots: sheets.heldSheetSlots,
     parentExporterResolution: sheets.parentExporterResolution,
+    requiredFlagValidation: sheets.requiredFlagValidation,
     latestAuthorityAdditions: sheets.latestInheritedAuthorityAdditions,
   },
   assetFactorySnapshot: { existing: assetFactory.existingOutputPathsObserved, missing: assetFactory.missingOutputPathsObserved },
