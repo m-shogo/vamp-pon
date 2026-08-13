@@ -1,0 +1,28 @@
+name: All Character Material Aging Maintenance Continuity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-material-aging-maintenance-continuity-master-v1.md'
+      - 'data/visual/all-character-material-aging-maintenance-continuity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-material-aging-maintenance-continuity.mjs'
+      - '.github/workflows/all-character-material-aging-maintenance-continuity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-material-aging-maintenance-continuity-master-v1.md'
+      - 'data/visual/all-character-material-aging-maintenance-continuity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-material-aging-maintenance-continuity.mjs'
+      - '.github/workflows/all-character-material-aging-maintenance-continuity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character material aging maintenance continuity authority
+        run: node scripts/quality/check-all-character-material-aging-maintenance-continuity.mjs
