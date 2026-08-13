@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "backlogId": "yoruno-shirube-visual-image-generation-backlog-v1",
+  "status": "ACTIVE_LISTING_NO_AUTOMATIC_GENERATION",
+  "purpose": "Separate actual image-bearing production work from logical pack/read-model rows, keep Yui on hold without losing lineage, and expose what still needs definition before image generation can begin.",
+  "sourceOfTruth": {
+    "inventorySource": "src/game/data/visualAssetGenerationInventory.ts",
+    "productionList": "data/character-assets/manifests/visual-image-production-list.v1.json",
+    "generationBatches": "data/character-assets/manifests/visual-generation-batches.v1.json",
+    "assetFactoryPolicy": "src/game/data/assetGenerationPolicy.ts"
+  },
+  "authorityBoundary": {
+    "thisFileIsAuthority": false,
+    "thisFileIsProductionBacklogReadModel": true,
+    "mayPromoteStoryCanon": false,
+    "mayPromoteFinalOrRuntime": false,
+    "automaticGenerationAllowed": false,
+    "humanReviewRequiredBeforeGeneration": true,
+    "unlistedImageGenerationForbidden": true
+  },
+  "summary": {
+    "managedPlanRows": 480,
+    "nonImageLogicalRows": 72,
+    "imageBearingPlannedRows": 408,
+    "characterDesignMasterPackLogicalRows": 36,
+    "characterDesignOverviewReadModelRows": 36,
+    "characterDesignSourceSheetImages": 144,
+    "sakuyazaMasterImages": 8,
+    "starBeastMasterImages": 21,
+    "namedObjectMasterImages": 21,
+    "lorebookDerivativeImages": 142,
+    "gameplayDerivativeImages": 72,
+    "existingAssetFactoryContractsIndexed": 977,
+    "existingAssetFactoryContractsRequiringGeneration": "UNVERIFIED_REQUIRES_EXISTENCE_AND_REPLACEMENT_AUDIT"
+  },
+  "yuiHold": {
+    "subjectId": "yui",
+    "status": "HOLD_DO_NOT_REGENERATE_NOW",
+    "scope": "character-design-source-sheets-and-dependent-derivatives",
+    "reason": "Sheet 01 attempt 01 has four hard-veto rejects and no Human identity/construction approval candidate. User requested Yui be set aside while the remaining image backlog is listed.",
+    "sheet01": {
+      "assetId": "char-yui-design-sheet-01-identity-turnaround-v1",
+      "state": "REJECTED_ATTEMPT_RECORDED_PROMPT_REVISION_DEFERRED"
+    },
+    "dependentSheets": [
+      "char-yui-design-sheet-02-face-expression-acting-v1",
+      "char-yui-design-sheet-03-costume-equipment-material-v1",
+      "char-yui-design-sheet-04-silhouette-motion-derivation-v1"
+    ],
+    "generationAllowed": false,
+    "mayParentDerivatives": false
+  },
+  "queues": [
+    {
+      "queueId": "Q01_NON_YUI_CHARACTER_TURNAROUND",
+      "category": "character-design-source-sheet",
+      "sheetRole": "identity-turnaround",
+      "imageCount": 35,
+      "priority": "P0_REFERENCE_AND_IDENTITY",
+      "state": "BLOCKED_AUTHORING_REQUIRED",
+      "nextWork": "Author per-character Sheet 01 prompt packets from current authority. Do not generate until each prompt/authority packet is reviewed.",
+      "dependency": "none beyond per-character authority/prompt review",
+      "notes": "36 total Sheet 01 rows minus Yui hold = 35 active listing targets."
+    },
+    {
+      "queueId": "Q02_NON_YUI_CHARACTER_DEPENDENT_SHEETS",
+      "category": "character-design-source-sheet",
+      "sheetRoles": [
+        "face-expression-acting",
+        "costume-equipment-material",
+        "silhouette-motion-derivation"
+      ],
+      "imageCount": 105,
+      "priority": "P1_AFTER_TURNAROUND_APPROVAL",
+      "state": "BLOCKED_TURNAROUND_HUMAN_APPROVAL",
+      "nextWork": "Keep listed, but do not author/generate as an execution target until each character Sheet 01 identity/construction is Human-approved.",
+      "dependency": "approved Sheet 01 for the same character",
+      "notes": "35 non-Yui characters x 3 dependent sheets. Yui's three dependent sheets remain in yuiHold."
+    },
+    {
+      "queueId": "Q03_SAKUYAZA_MASTERS",
+      "category": "sakuyaza-character-master",
+      "imageCount": 8,
+      "priority": "P1_SAKUYAZA",
+      "state": "BLOCKED_AUTHORING_REQUIRED",
+      "subjects": [
+        "ナシロ",
+        "アサトジ",
+        "ミチグレ",
+        "オリネ",
+        "ハクマ",
+        "ツグリ",
+        "ユラネ",
+        "ペタ"
+      ],
+      "nextWork": "Create dedicated appearance/prompt packets from Story World Master and Sakuyaza identity source, then Human-review before generation.",
+      "dependency": "dedicated appearance/prompt authority"
+    },
+    {
+      "queueId": "Q04_STAR_BEAST_MASTERS",
+      "category": "star-beast-master",
+      "imageCount": 21,
+      "priority": "P4_STAR_BEAST",
+      "state": "READY_FOR_PROMPT_REVIEW_NOT_IMAGE_EXECUTION",
+      "nextWork": "Extract individual Star Beast IDs/species and author/review the image prompts. Generation remains disabled until Human prompt/authority review.",
+      "dependency": "Human prompt/authority review",
+      "notes": "Star Beast authority is separate from Character Master approval; constellation-history inference is forbidden."
+    },
+    {
+      "queueId": "Q05_NAMED_OBJECT_MASTERS",
+      "category": "named-object-master",
+      "imageCount": 21,
+      "priority": "P5_ARTIFACT",
+      "state": "BLOCKED_OBJECT_GEOMETRY_AUTHORING",
+      "nextWork": "List individual named objects and finish/reference-review object geometry before prompt execution.",
+      "dependency": "referenceGenerationReady must become explicitly approved",
+      "notes": "Current Named Object shared-source contract fixes referenceGenerationReady=false; do not generate from candidate geometry as if approved."
+    },
+    {
+      "queueId": "Q06_LOREBOOK_DERIVATIVES",
+      "category": "lorebook-derived",
+      "imageCount": 142,
+      "priority": "P6_LOREBOOK",
+      "state": "BLOCKED_PARENT_PACK",
+      "nextWork": "Keep individual production rows listed; generate only after complete approved Character Design Master Pack parent IDs/hashes and used Sheet IDs are fixed.",
+      "dependency": "approved complete Character Design Master Pack(s)",
+      "notes": "Includes character profile, era, reality-root, relationship and foreshadow cards. Lorebook is never a Gameplay parent."
+    },
+    {
+      "queueId": "Q07_GAMEPLAY_CHARACTER_DERIVATIVES",
+      "category": "gameplay-derived-character",
+      "imageCount": 72,
+      "priority": "P7_GAMEPLAY",
+      "state": "BLOCKED_PARENT_PACK",
+      "nextWork": "Keep 36 icons + 36 portraits listed; generate directly from approved Character Design Master Packs, not from Lorebook art.",
+      "dependency": "approved complete Character Design Master Pack",
+      "notes": "This 72-row managed set does not replace the broader Asset Factory gameplay contract catalog."
+    },
+    {
+      "queueId": "Q08_EXISTING_ASSET_FACTORY_CONTRACT_AUDIT",
+      "category": "existing-asset-factory-contract-index",
+      "contractCount": 977,
+      "priority": "P0_LIST_COMPLETENESS",
+      "state": "INDEXED_BUT_REGENERATION_NEED_UNCLASSIFIED",
+      "nextWork": "For each indexed contract classify output as EXISTS_REUSE, MISSING_GENERATE, REPLACE_REQUIRED, BLOCKED_AUTHORITY, or NOT_IMAGE_OUTPUT/NOT_APPLICABLE before adding it to an execution queue.",
+      "dependency": "repository output existence + current replacement policy audit",
+      "notes": "Do not count all 977 contracts as missing images. They are reference-indexed to avoid duplicate production items."
+    }
+  ],
+  "notYetNormalizedIntoProductionItems": [
+    {
+      "category": "constellation-historical-archive-master",
+      "state": "AUTHORITY_DEFINITION_REQUIRED",
+      "reason": "Research/Candidate constellation clues need per-object archive asset definitions before generation."
+    },
+    {
+      "category": "key-art",
+      "state": "BLOCKED_MASTER_APPROVAL_AND_SCOPE_DEFINITION",
+      "reason": "Character/Sakuyaza Masters must be approved and each key-art surface/composition must be explicitly enumerated."
+    },
+    {
+      "category": "full-gameplay-catalog",
+      "state": "OWNED_BY_EXISTING_ASSET_FACTORY_CONTRACTS",
+      "reason": "Weapon/item/enemy/UI and other gameplay generation remains in the 977-contract Asset Factory index until existence/replacement audit determines actual generation need."
+    },
+    {
+      "category": "top-loading-story-and-other-surface-key-art",
+      "state": "CROSS_CHECK_REQUIRED",
+      "reason": "Existing runtime/reference assets and Asset Factory contracts must be cross-checked before new production rows are created; avoid duplicate replacement work."
+    }
+  ],
+  "classificationStates": [
+    "HOLD_DO_NOT_REGENERATE_NOW",
+    "BLOCKED_AUTHORING_REQUIRED",
+    "BLOCKED_TURNAROUND_HUMAN_APPROVAL",
+    "READY_FOR_PROMPT_REVIEW_NOT_IMAGE_EXECUTION",
+    "BLOCKED_OBJECT_GEOMETRY_AUTHORING",
+    "BLOCKED_PARENT_PACK",
+    "INDEXED_BUT_REGENERATION_NEED_UNCLASSIFIED",
+    "AUTHORITY_DEFINITION_REQUIRED",
+    "BLOCKED_MASTER_APPROVAL_AND_SCOPE_DEFINITION",
+    "OWNED_BY_EXISTING_ASSET_FACTORY_CONTRACTS",
+    "CROSS_CHECK_REQUIRED"
+  ],
+  "nextListingPasses": [
+    {
+      "order": 1,
+      "work": "Enumerate the 21 Star Beast masters by ID/display name/species and bind each to its source record."
+    },
+    {
+      "order": 2,
+      "work": "Enumerate the 21 Named Object masters by owner/object ID/display name and preserve referenceGenerationReady=false until reviewed."
+    },
+    {
+      "order": 3,
+      "work": "Audit all 977 existing Asset Factory contract outputPathHint targets for existence and replacement need; produce explicit missing/reuse/replace counts."
+    },
+    {
+      "order": 4,
+      "work": "Cross-check TOP, Loading, Story, Lorebook, Gameplay, key art and runtime surfaces against the managed 408 rows and 977 existing contracts to find truly unlisted image needs."
+    },
+    {
+      "order": 5,
+      "work": "Only after listing is complete, create/extend production rows for genuinely missing categories. Do not generate images during this pass."
+    }
+  ]
+}
