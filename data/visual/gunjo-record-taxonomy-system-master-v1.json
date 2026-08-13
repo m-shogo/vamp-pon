@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "masterId": "gunjo-record-taxonomy-system-master-v1",
+  "displayName": "群青残響録 Record Taxonomy System Master",
+  "status": "CURRENT_EDITABLE_MASTER_SPEC_HUMAN_REVIEW_REQUIRED",
+  "format": "SVG_HTML_EDITABLE_SYSTEM_SPEC",
+  "mandatoryRasterImage": false,
+  "authority": {
+    "primary": "docs/00-current-story-world-master.md",
+    "definition": "docs/gunjo-zankyoroku-current-v1.md",
+    "overlay": "data/character-assets/manifests/visual-current-group-record-master.v1.json"
+  },
+  "purpose": "Define how 群青残響録 is indexed and presented as a retrospective record taxonomy without turning it into an in-world organization, a fixed antagonist roster, a fixed boss ladder, or a source of new incident canon.",
+  "currentDefinition": {
+    "formalName": "群青残響録",
+    "reading": "ぐんじょうざんきょうろく",
+    "isOrganization": false,
+    "isAntagonistTeam": false,
+    "isFixedBossRoster": false,
+    "fixedMemberCount": null,
+    "formalMembersFrozen": false,
+    "exactIncidentsFrozen": false,
+    "exactYearsFrozen": false,
+    "recordPerspective": "RETROSPECTIVE_MULTI_SOURCE_TAXONOMY"
+  },
+  "taxonomy": {
+    "root": {
+      "id": "gunjo-zankyoroku",
+      "label": "群青残響録",
+      "children": ["era", "incident"]
+    },
+    "eraNode": {
+      "id": "era",
+      "label": "Era",
+      "exactYearRequired": false,
+      "mayUseRelativeEra": true,
+      "themeSeedIsNotIncidentCanon": true
+    },
+    "incidentNode": {
+      "id": "incident",
+      "label": "Incident",
+      "requiresFormalAdmissionBeforeMaterialization": true,
+      "mayContainMultipleCentralSubjects": true,
+      "combatBossIsSeparateField": true
+    },
+    "centralSubjectCategories": [
+      {"id":"central-person","label":"central person","fixedToEnemy":false},
+      {"id":"central-people","label":"central people","fixedToEnemy":false},
+      {"id":"institution-system","label":"institution / system","requiresHumanPortrait":false},
+      {"id":"social-pressure","label":"social pressure","requiresHumanPortrait":false}
+    ],
+    "sakuyazaRelation": {
+      "separateAxis": true,
+      "doesNotImplyHierarchy": true,
+      "values": [
+        "COOPERATED",
+        "USED_SAKUYAZA",
+        "WAS_USED_BY_SAKUYAZA",
+        "OPPOSED",
+        "WAS_STOPPED_BY",
+        "TRIED_TO_STOP",
+        "TEMPORARY_ALIGNMENT",
+        "NO_DIRECT_CONTACT",
+        "UNKNOWN"
+      ]
+    }
+  },
+  "recordAmbiguity": {
+    "allowed": true,
+    "mustRemainSourceVisible": true,
+    "sourceDisagreementMayBeShown": true,
+    "laterReevaluationMayBeShown": true,
+    "mayHideAllFactsBehindAmbiguity": false,
+    "titleGradeFactsMustStillPayOff": true
+  },
+  "revealProgression": {
+    "steps": [
+      "dream-call-name",
+      "surname-clue",
+      "kanji-name",
+      "full-name",
+      "era-incident-context"
+    ],
+    "automaticFullNameAtFirstAppearance": false,
+    "unapprovedFullNameMayBeInvented": false,
+    "recordSourceMustSupportReveal": true
+  },
+  "combatBoundary": {
+    "incidentCentralSubjectEqualsCombatBossByDefault": false,
+    "allowedCombatSources": [
+      "sakuyaza-member",
+      "dream-phenomenon",
+      "enemy48-upper-form",
+      "incident-symbolic-threat",
+      "central-person-when-authorized"
+    ],
+    "defeatingBossMayImplySocialProblemSolved": false
+  },
+  "formalAdmissionGate": [
+    "era-or-incident-defined",
+    "desire-or-goal-defined",
+    "fear-or-pressure-defined",
+    "choice-or-non-choice-defined",
+    "not-reduced-to-one-person-evil",
+    "black-youka-theme-mirror-defined",
+    "sakuyaza-relation-defined-or-explicitly-none-unknown",
+    "combat-boss-need-decided-separately",
+    "reality-full-name-reveal-value-reviewed",
+    "happy-end-rechoice-reviewed"
+  ],
+  "presentationSystem": {
+    "preferredPrimitives": [
+      "editable-svg-lines",
+      "html-data-panels",
+      "source-status-badges",
+      "era-incident-index",
+      "record-ambiguity-comparison",
+      "spoiler-tier-marker"
+    ],
+    "rasterPortraitGridRequired": false,
+    "uniformMemberCardRequired": false,
+    "fixedSlotCountRequired": false,
+    "readableTextMustRemainNative": true
+  },
+  "forbiddenPresentation": [
+    "organization-emblem-that-implies-membership",
+    "fixed-member-roster-layout",
+    "one-era-one-boss-grid",
+    "five-era-fixed-boss-slots",
+    "shared-uniform-system",
+    "headquarters-identity",
+    "all-central-subjects-as-villains",
+    "all-central-subjects-as-combat-bosses",
+    "invented-readable-names-dates-places-casualties",
+    "generic-secret-society-styling"
+  ],
+  "openFields": [
+    "formal-member-count",
+    "formal-members",
+    "full-names",
+    "exact-years",
+    "exact-incidents",
+    "exact-victim-counts",
+    "exact-places",
+    "combat-boss-assignments",
+    "final-salvation-or-ending-per-subject"
+  ],
+  "authorityBoundary": {
+    "thisMasterCreatesIncidentCanon": false,
+    "thisMasterCreatesMembers": false,
+    "thisMasterCreatesFullNames": false,
+    "thisMasterCreatesExactYears": false,
+    "thisMasterCreatesCombatBossAssignments": false,
+    "generatedGraphicsCreateCanon": false,
+    "humanReviewRequired": true,
+    "imageGenerationAuthorized": false
+  }
+}
