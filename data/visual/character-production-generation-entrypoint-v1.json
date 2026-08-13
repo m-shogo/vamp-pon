@@ -137,7 +137,21 @@
     "spacingMayDetachPropFromUseRelation": false,
     "spacingMayHideMobilityEquipment": false,
     "relationshipMayForceTouchingSilhouette": false,
-    "generatedSpacingTreatmentCreatesCanon": false
+    "generatedSpacingTreatmentCreatesCanon": false,
+    "allCharacterFeatureScaleProportionLodFidelityRequired": true,
+    "unknownLodMayBeInventedByImageModel": false,
+    "lodMayEnlargeEyesForReadability": false,
+    "lodMayDeleteIdentityFaceLandmark": false,
+    "lodMayBeautifyJawOrChin": false,
+    "lodMayChangeHeadBodyRatio": false,
+    "lodMayLengthenLegs": false,
+    "lodMaySlimBodyCategory": false,
+    "lodMayDeAgeCharacter": false,
+    "lodMayShrinkMobilityEquipment": false,
+    "lodMayMascotifyAnimal": false,
+    "lodMayHumanizeRobot": false,
+    "premiumAssetMayBeautifyProportionAutomatically": false,
+    "generatedLodTreatmentCreatesCanon": false
   },
   "lowerExportersAreProductionEntrypoints": false,
   "handWrittenPromptIsProductionReady": false,
@@ -193,7 +207,9 @@
     "docs/visual/all-character-detail-density-ornament-budget-fidelity-master-v1.md",
     "data/visual/all-character-detail-density-ornament-budget-fidelity-master-v1.json",
     "docs/visual/all-character-negative-space-cluster-separation-fidelity-master-v1.md",
-    "data/visual/all-character-negative-space-cluster-separation-fidelity-master-v1.json"
+    "data/visual/all-character-negative-space-cluster-separation-fidelity-master-v1.json",
+    "docs/visual/all-character-feature-scale-proportion-lod-fidelity-master-v1.md",
+    "data/visual/all-character-feature-scale-proportion-lod-fidelity-master-v1.json"
   ],
   "candidateBoundary": [
     "not-final-art-approval",
