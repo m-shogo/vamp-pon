@@ -1,0 +1,53 @@
+{
+  "id": "yoru-no-shirube-all-character-footwear-ground-interface-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-footwear-ground-interface-fidelity-master-v1.md",
+  "unknownFootwearDefault": "SOURCE_CONSTRAINED_MINIMUM_FUNCTIONAL_FOOTWEAR_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedFootwearCreatesCanon": false
+  },
+  "footwearAxes": [
+    "footwearExistenceAuthority", "barefootNoFootwearAuthority", "footwearClass", "leftRightPairLogic", "footScaleCompatibility", "footLengthAllowance", "forefootWidthAllowance", "toeBoxWidth", "toeBoxHeight", "toeBoxShapeFamily", "instepVolume", "midfootVolume", "heelCupVolume", "heelCounterHeight", "heelCounterStiffness", "ankleOpeningCircumference", "ankleCollarHeight", "shaftHeight", "shaftCircumference", "shaftStiffness", "tongueExistence", "tongueLengthWidth", "gussetRelation", "vampTopology", "quarterTopology", "upperPanelTopology", "seamTopology", "liningThickness", "insoleThickness", "sockStockingLayerAllowance", "sourceBackedOrthoticProstheticInterface", "closureType", "laceEyeletCountFamily", "laceRouting", "laceEndState", "zipperRoute", "buckleRoute", "strapRoute", "sourceBackedElasticHookLoopStatus", "closureReachAccess", "soleThickness", "outsoleThickness", "sourceBackedMidsoleThickness", "heelHeight", "heelBaseWidth", "heelGeometry", "forefootStackHeight", "soleRockerFamily", "toeSpring", "flexPointLocation", "torsionalStiffnessFamily", "treadExistence", "treadMajorTopology", "treadDepthFamily", "outsoleEdgeProfile", "soleUpperAttachment", "sourceBackedWeltStitchBondRelation", "groundContactPatch", "heelStrikeContact", "forefootContactRegion", "toeOffRelation", "standingLoadDistribution", "walkingLoadDistribution", "runningLoadDistribution", "crouchFlex", "seatedFootPosture", "stairSlopeContact", "wetSurfaceResponse", "mudDirtContact", "sceneRelevantSnowSoftGroundContact", "wearZoneContinuity", "scuffZoneContinuity", "soleCompression", "upperCreasing", "toeCreaseLocation", "ankleCreaseLocation", "footwearGarmentOverlap", "footwearPantHemInteraction", "footwearSockStockingBoundary", "footwearMobilityEquipmentClearance", "wheelchairFootplateContact", "sourceBackedProstheticOrthoticClearance", "viewpointContinuity", "canonicalAsymmetry", "stateVariantInheritance", "premiumStateInheritance", "seasonalStateInheritance", "lodSurvivalPriority", "chibiPreservationClass", "spritePreservationClass", "footwearUncertaintyClass"
+  ],
+  "footwearInvariants": [
+    "footwear follows authorized foot scale", "source backed barefoot states remain barefoot", "foot scale is not reduced for elegance", "toe box retains finite internal volume", "instep retains finite internal volume", "boots do not erase ankle or calf volume", "heel height is not inferred from gender or premium", "sole thickness remains coherent across views", "tread is not invented for action shorthand", "ground contact remains physical", "footwear does not hover or clip through ground", "closures remain source constrained", "convenience zippers straps or elastic are not invented", "movement preserves footwear class", "crouching preserves sole and heel geometry", "seated poses preserve footwear volume", "wheelchair footplate interaction preserves foot and shoe scale", "weather does not replace footwear without delta", "generated mud or scuff does not create canon", "premium does not beautify feet through footwear", "premium does not add heels gems gold straps or glow", "barefoot does not invent nail cosmetics or jewelry", "state variants inherit baseline footwear without delta", "LOD preserves footwear class and scale", "chibi preserves foot shoe relation", "sprite preserves heel sole and closure family", "generated hidden construction remains candidate only", "generated footwear remains candidate only", "generated wear remains candidate only", "generated footwear never creates canon"
+  ],
+  "preservationPriority": [
+    "sourceBackedFootwearOrBarefootState", "authorizedFootScale", "internalVolumeAndLast", "upperAndClosureConstruction", "soleHeelAndGroundContact", "ankleShaftAndGarmentInterface", "mobilityEquipmentAndFootplateClearance", "movementFlexAndLoad", "weatherWearContinuity", "stateVariantInheritance", "lodIdentitySurvival", "surfaceTreadMicroDetail"
+  ],
+  "forbiddenShortcuts": [
+    "shrinkFeetForElegance", "narrowForefootForBeauty", "shortenToesToFitShoe", "lengthenLegsByReducingFootVolume", "slimAnkleToFitBoot", "hideFootMismatchWithCrop", "hideFootMismatchWithShadow", "addHighHeelForFemalePresentation", "addHeelForPremium", "addPlatformForPremium", "addHiddenHeelLift", "pointedToeBeautification", "zeroVolumeToeBox", "zeroVolumeInstep", "bootErasesCalfVolume", "footwearReshapesWholeFoot", "soleThicknessChangesByView", "soleErasedForElegance", "tacticalTreadInventedForAction", "treadInventedForRarity", "glowingSoleInventedForPremium", "shoeFloatsAboveGround", "soleClipsThroughGround", "soleClipsThroughWheelchairFootplate", "footShrunkForWheelchairComposition", "sideZipperInventedForConvenience", "elasticPanelInventedForConvenience", "extraStrapInventedForStyle", "quickReleaseInventedForAction", "barefootReplacedWithShoes", "footwearAddedForCompleteness", "barefootFootShrunkForBeauty", "barefootToeShapeBeautified", "barefootInventsAnklet", "barefootInventsToeRing", "barefootInventsNailPolish", "dressShoeBecomesAthleticInAction", "runningChangesFootwearClass", "crouchChangesHeelGeometry", "rigidSoleBendsLikeCloth", "bootShaftCollapsesWithoutMaterialCause", "seasonReplacesFootwearWithoutDelta", "rainInventsDifferentFootwear", "snowInventsBootsWithoutDelta", "mudCreatesCanonicalWear", "scuffCreatesPersonalityEvidence", "premiumRaisesHeel", "premiumNarrowsToeBox", "premiumAddsGoldBuckle", "premiumAddsGemstone", "premiumAddsExtraStrap", "premiumAddsPatentGloss", "premiumThinsSole", "premiumOversizesTacticalSole", "lodShrinksFootwear", "lodDeletesSole", "chibiCreatesMascotBoots", "spriteErasesHeelFamily", "spriteMirrorsOneSidedClosure", "generatedFootwearCreatesCanon", "generatedWearCreatesCanon", "heelHeightInferredFromFemininity", "flatSoleInferredFromMasculinity", "athleticShoeInferredFromAction", "bootInferredFromAntagonistRole", "dressShoeInferredFromAuthorityRole", "barefootInferredFromPoverty", "barefootInferredFromNatureRole", "footwearInfersCultureWithoutAuthority", "footwearInfersOccupationWithoutAuthority", "orthoticSupportInvented", "insoleInventedForComfort", "sockInventedForFit", "stockingInventedForFit", "footwearRemovedForPose", "footwearChangedForWeather", "premiumPolishesAwayWearHistory"
+  ],
+  "rules": {
+    "unknownFootwearMayBeInventedByImageModel": false,
+    "sourceBackedBarefootMayBeReplacedWithFootwear": false,
+    "footScaleMayBeReducedForFootwearBeauty": false,
+    "toeBoxOrInstepMayLoseRequiredVolume": false,
+    "heelHeightMayBeInferredFromGenderRoleOrPremium": false,
+    "soleThicknessMayChangeByViewpoint": false,
+    "treadMayBeInventedForActionOrRarity": false,
+    "groundContactMayBeIgnored": false,
+    "closureMayBeInventedForConvenience": false,
+    "movementMayChangeFootwearClass": false,
+    "seatedPoseMayResizeFootwear": false,
+    "wheelchairFootplateMayBeIgnored": false,
+    "weatherMayReplaceFootwearWithoutDelta": false,
+    "wearMayCreatePersonalityEvidence": false,
+    "barefootMayInventJewelryOrNailCosmetics": false,
+    "premiumMayRaiseHeelOrNarrowToeBox": false,
+    "premiumMayAddGoldGemsStrapsOrGlow": false,
+    "premiumMayEraseWearHistory": false,
+    "stateMayChangeFootwearWithoutDelta": false,
+    "orthoticOrSupportFeatureMayBeInvented": false,
+    "footwearMayInferCultureOccupationOrWealth": false,
+    "lodMayShrinkOrDeleteIdentityFootwear": false,
+    "chibiMayCreateMascotFootwear": false,
+    "spriteMayEraseHeelSoleClosureIdentity": false,
+    "generatedFootwearCreatesCanon": false
+  }
+}
