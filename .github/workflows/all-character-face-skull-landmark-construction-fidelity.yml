@@ -1,0 +1,32 @@
+name: All Character Face Skull Landmark Construction Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.md'
+      - 'data/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.json'
+      - 'tools/asset-factory/scripts/export-face-skull-locked-character-design-prompt.ts'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'scripts/quality/check-all-character-face-skull-landmark-construction-fidelity.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/all-character-face-skull-landmark-construction-fidelity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.md'
+      - 'data/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.json'
+      - 'tools/asset-factory/scripts/export-face-skull-locked-character-design-prompt.ts'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'scripts/quality/check-all-character-face-skull-landmark-construction-fidelity.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/all-character-face-skull-landmark-construction-fidelity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character face skull landmark construction fidelity authority
+        run: node --experimental-strip-types scripts/quality/check-all-character-face-skull-landmark-construction-fidelity.ts
