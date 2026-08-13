@@ -1,0 +1,26 @@
+name: All Character Motion Perspective Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-motion-perspective-fidelity-master-v1.md'
+      - 'data/visual/all-character-motion-perspective-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'scripts/quality/check-all-character-motion-perspective-fidelity-master.ts'
+      - '.github/workflows/all-character-motion-perspective-fidelity-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-motion-perspective-fidelity-master-v1.md'
+      - 'data/visual/all-character-motion-perspective-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'scripts/quality/check-all-character-motion-perspective-fidelity-master.ts'
+      - '.github/workflows/all-character-motion-perspective-fidelity-master.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character motion perspective fidelity authority
+        run: node --experimental-strip-types scripts/quality/check-all-character-motion-perspective-fidelity-master.ts
