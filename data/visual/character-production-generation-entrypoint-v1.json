@@ -4,7 +4,7 @@
   "status": "TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT",
   "scopeCount": 36,
   "authorityDocument": "docs/visual/character-production-generation-entrypoint-v1.md",
-  "productionExporter": "tools/asset-factory/scripts/export-hair-grooming-locked-character-design-prompt.ts",
+  "productionExporter": "tools/asset-factory/scripts/export-face-skull-landmark-locked-character-design-prompt.ts",
   "wrappedExporter": "tools/asset-factory/scripts/export-cross-asset-consistent-character-design-prompt.ts",
   "requiredFlags": {
     "feedbackRecurrenceGenerationEntrypoint": true,
@@ -203,6 +203,27 @@
     "skinToneMayInferHairTextureOrCulturalStyle": false,
     "generatedHairTreatmentCreatesCanon": false
   },
+  "faceTerminalWrapperRequiredFlags": {
+    "allCharacterFaceSkullLandmarkConstructionFidelityRequired": true,
+    "unknownFaceGeometryMayBeInventedByImageModel": false,
+    "viewpointMayRedesignCraniofacialLandmarks": false,
+    "expressionMayRedesignSkullGeometry": false,
+    "premiumMayBeautifyFaceRatios": false,
+    "premiumMayIncreaseEyeSize": false,
+    "premiumMayNarrowJaw": false,
+    "premiumMaySharpenChin": false,
+    "premiumMayShrinkNose": false,
+    "lodMayConvergeToGenericFace": false,
+    "chibiMayConvergeToGenericFace": false,
+    "spriteMayConvergeToGenericFace": false,
+    "stateMayChangeBaselineFaceWithoutTransformationAuthority": false,
+    "lightingMayHideFaceMismatch": false,
+    "hairMayHideFaceMismatch": false,
+    "cropMayHideFaceMismatch": false,
+    "effectsMayHideFaceMismatch": false,
+    "identityTraitsMayBeGuessedFromFacialStereotype": false,
+    "generatedFaceTreatmentCreatesCanon": false
+  },
   "lowerExportersAreProductionEntrypoints": false,
   "handWrittenPromptIsProductionReady": false,
   "generatedImageCreatesCanon": false,
@@ -265,7 +286,9 @@
     "docs/visual/all-character-viewpoint-turnaround-back-design-fidelity-master-v1.md",
     "data/visual/all-character-viewpoint-turnaround-back-design-fidelity-master-v1.json",
     "docs/visual/all-character-hair-grooming-construction-fidelity-master-v1.md",
-    "data/visual/all-character-hair-grooming-construction-fidelity-master-v1.json"
+    "data/visual/all-character-hair-grooming-construction-fidelity-master-v1.json",
+    "docs/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.md",
+    "data/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.json"
   ],
   "candidateBoundary": [
     "not-final-art-approval",
