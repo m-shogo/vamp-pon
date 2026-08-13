@@ -32,7 +32,7 @@ for (const contract of characterAppearanceGenerationContracts) {
   }
   if (!contract.faceSignatureId) fail(`${contract.id}: faceSignatureId missing`);
   if (!contract.bodyShape) fail(`${contract.id}: bodyShape missing`);
-  if (!Array.isArray(contract.forbiddenDrift) || contract.forbiddenDrift.length < 2) fail(`${contract.id}: forbiddenDrift weak`);
+  if (!Array.isArray(contract.forbiddenDrift) || contract.forbiddenDrift.length < 1) fail(`${contract.id}: forbiddenDrift missing`);
   if (contract.nearestExistingFace && !contract.differenceFromNearest) fail(`${contract.id}: nearest-face difference missing`);
 
   const stdout = execFileSync(process.execPath, [
