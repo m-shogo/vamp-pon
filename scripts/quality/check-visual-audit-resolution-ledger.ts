@@ -15,6 +15,7 @@ assert(ledger.currentBoundary?.latestMainBaselineMergedIntoBranchWithoutForce ==
 assert(ledger.currentBoundary?.latestMainMustBeRecheckedBeforeImageGenerationOrMerge === true, 'latest main must still be rechecked before generation/merge');
 assert(ledger.currentBoundary?.imageGenerationAllowed === false, 'resolution ledger may not authorize image generation');
 assert(ledger.currentBoundary?.yuiHold === true, 'Yui HOLD must remain preserved');
+assert(typeof ledger.stateDefinitions?.STRUCTURED_MASTER_SPEC_IMPLEMENTED_HUMAN_REVIEW_REQUIRED === 'string', 'structured Master state definition missing');
 
 const legacy = new Map((ledger.legacySakuyazaMigration ?? []).map((entry: any) => [entry.findingId, entry]));
 for (const id of [
@@ -32,15 +33,22 @@ for (const id of [
 const fixed = new Map((ledger.fixedMasterFamilies ?? []).map((entry: any) => [entry.findingId, entry]));
 for (const id of [
   'SAKUYAZA_TEAM_COMPARISON_MASTER',
-  'GUNJO_FOUNDATION_MASTERS',
   'CORE5_REALITY_ERA_ENVIRONMENT_REFERENCE_MASTERS',
   'CORE5_ERA_POPULATION_HOUSEHOLD_REFERENCE_MASTERS',
-  'DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER',
-  'SKY_MOON_RESOLUTION_COLOR_SCRIPT_MASTER',
   'MODERN_IAU88_CONSTELLATION_LINE_ART_VECTOR_MASTER',
 ]) {
   const entry = fixed.get(id) as any;
   assert(entry?.state === 'MATERIALIZED_PLANNED_NOT_AUTHORED', `${id}: must remain materialized-but-not-authored`);
+}
+for (const id of [
+  'GUNJO_FOUNDATION_MASTERS',
+  'DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER',
+  'SKY_MOON_RESOLUTION_COLOR_SCRIPT_MASTER',
+]) {
+  const entry = fixed.get(id) as any;
+  assert(entry?.state === 'STRUCTURED_MASTER_SPEC_IMPLEMENTED_HUMAN_REVIEW_REQUIRED', `${id}: structured Master spec authoring state missing`);
+  assert(entry?.imageGenerationAuthorized === false, `${id}: structured Master may not authorize image generation`);
+  assert(Array.isArray(entry?.files) && entry.files.length >= 1, `${id}: structured Master file evidence missing`);
 }
 for (const id of ['ERA_INCIDENT_VISUAL_ADMISSION_POLICY', 'SEASON_ANTAGONIST_VISUAL_ADMISSION_POLICY']) {
   const entry = fixed.get(id) as any;
@@ -115,6 +123,7 @@ console.log(JSON.stringify({
   latestMainSyncThroughPullRequest: ledger.currentBoundary.latestMainSyncThroughPullRequest,
   legacyFindingsResolvedSynced: legacy.size,
   fixedMasterFindingsTracked: fixed.size,
+  structuredMasterFamilies: ['GUNJO_FOUNDATION_MASTERS','DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER','SKY_MOON_RESOLUTION_COLOR_SCRIPT_MASTER'],
   sourceDerivedFamiliesTracked: sourceDerived.size,
   itemCollisionReview: { groups: item.exactLabelCollisionGroups, collapsesAuthorized: item.collisionRowsAuthorizedToCollapse },
   guideExecution: { imageBearing: guide.currentExecutionImageBearingRows, nonImage: guide.currentExecutionLogicalNonImageRows, migratedLorebook: guide.legacyBakedRowsMigrated },
