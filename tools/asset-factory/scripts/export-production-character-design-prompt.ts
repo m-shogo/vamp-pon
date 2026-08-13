@@ -5,6 +5,7 @@ import { characterReferenceGenerationHandoff } from '../../../src/game/data/char
 
 const POLICY_PATH = 'data/visual/character-production-generation-entrypoint-v1.json';
 const AUTHORITY_DOC = 'docs/visual/character-production-generation-entrypoint-v1.md';
+const ENVIRONMENT_POLICY_PATH = 'data/visual/all-character-environment-weather-fidelity-master-v1.json';
 
 type Options = { characterId: string; kind: string; output: string | null };
 
@@ -32,6 +33,10 @@ if (policy.scopeCount !== 36) throw new Error(`Production entrypoint scope must 
 if (policy.lowerExportersAreProductionEntrypoints !== false || policy.handWrittenPromptIsProductionReady !== false) throw new Error('Production bypass guards weakened');
 if (policy.generatedImageCreatesCanon !== false || policy.generatedArtStartsAs !== 'CANDIDATE_REVIEW_REQUIRED') throw new Error('Candidate boundary weakened');
 
+const environmentPolicy = JSON.parse(readFileSync(resolve(process.cwd(), ENVIRONMENT_POLICY_PATH), 'utf8'));
+if (environmentPolicy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') throw new Error(`Environment/weather production authority invalid: ${ENVIRONMENT_POLICY_PATH}`);
+if (environmentPolicy.scopeCount !== 36 || environmentPolicy.production?.requiredForCandidateGeneration !== true) throw new Error('Environment/weather production scope or requirement weakened');
+
 const handoff = characterReferenceGenerationHandoff.find((entry) => entry.characterId === options.characterId) ?? null;
 const handoffAuthoritySet = new Set(handoff?.visualAuthorityPaths ?? []);
 
@@ -42,15 +47,25 @@ const stdout = execFileSync(process.execPath, [
 ], { cwd: process.cwd(), encoding: 'utf8', maxBuffer: 36 * 1024 * 1024 });
 const base = JSON.parse(stdout);
 
+const effectiveBase = {
+  ...base,
+  allCharacterEnvironmentWeatherFidelityRequired: environmentPolicy.production.requiredForCandidateGeneration === true,
+  unknownEnvironmentMayBeInventedByImageModel: environmentPolicy.rules?.unknownEnvironmentMayBeInventedByImageModel,
+  environmentMayRedesignCharacter: environmentPolicy.rules?.environmentMayRedesignCharacter,
+  weatherMayIncreaseExposure: environmentPolicy.rules?.weatherMayIncreaseExposure,
+  weatherMayInventWardrobe: environmentPolicy.rules?.weatherMayInventWardrobe,
+  generatedEnvironmentalReactionCreatesCanon: environmentPolicy.rules?.generatedEnvironmentalReactionCreatesCanon,
+};
+
 const failures: string[] = [];
 for (const [field, expected] of Object.entries(policy.requiredFlags ?? {})) {
-  if (base[field] !== expected) failures.push(`${field}: expected ${String(expected)}, got ${String(base[field])}`);
+  if (effectiveBase[field] !== expected) failures.push(`${field}: expected ${String(expected)}, got ${String(effectiveBase[field])}`);
 }
-if (Array.isArray(base.imageGenerationReadinessFailures) && base.imageGenerationReadinessFailures.length > 0) {
-  failures.push(`imageGenerationReadinessFailures: ${base.imageGenerationReadinessFailures.join(' | ')}`);
+if (Array.isArray(effectiveBase.imageGenerationReadinessFailures) && effectiveBase.imageGenerationReadinessFailures.length > 0) {
+  failures.push(`imageGenerationReadinessFailures: ${effectiveBase.imageGenerationReadinessFailures.join(' | ')}`);
 }
 
-const baseAuthorityOrder: string[] = Array.isArray(base.authorityOrder) ? [...base.authorityOrder] : [];
+const baseAuthorityOrder: string[] = Array.isArray(effectiveBase.authorityOrder) ? [...effectiveBase.authorityOrder] : [];
 const supplementedAuthorityPaths: string[] = [];
 const supplementedAuthorityBlocks: string[] = [];
 
@@ -86,23 +101,26 @@ const promptBlock = [
   'CHARACTER PRODUCTION GENERATION ENTRYPOINT — FINAL AUTHORITY LOCK.',
   `Authority: ${AUTHORITY_DOC}.`,
   `Machine policy: ${POLICY_PATH}.`,
+  `Environment/weather machine authority: ${ENVIRONMENT_POLICY_PATH}.`,
   `Character Reference Generation Handoff present: ${handoff ? 'yes' : 'no — top-level production policy remains authoritative for this roster member'}.`,
   `Production authority supplement count: ${supplementedAuthorityPaths.length}.`,
   'This output is the only production-ready character-image prompt export. Lower exporters and hand-written prompts are diagnostic/drafting inputs only.',
   'Every required production authority missing from the wrapped resolved chain has had its actual file content read and appended before this final lock. A legacy queue/handoff omission does not reduce the 36-character production authority set.',
+  'Environment/weather rules are resolved by this top-level entrypoint from their current machine authority; weather and environment may affect authorized materials physically but may not invent wardrobe, exposure, identity or canon.',
   'productionCharacterPromptReady means ready to request a CANDIDATE image only. It is not final-art approval, Character Master approval, legal/commercial clearance, runtime registration, or canon promotion.',
   'Do not remove or bypass earlier Master blocks. Do not reinterpret OPEN as model freedom. Generated images remain CANDIDATE_REVIEW_REQUIRED.',
 ].join('\n');
 
 const result = {
-  ...base,
-  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 18),
+  ...effectiveBase,
+  schemaVersion: Math.max(Number(effectiveBase.schemaVersion ?? 0), 19),
   generatedBy: 'tools/asset-factory/scripts/export-production-character-design-prompt.ts',
   productionImageGenerationEntrypoint: true,
   productionCharacterPromptReady: true,
   productionPromptAuthorityLocked: true,
   productionGenerationEntrypointPolicyPath: POLICY_PATH,
   productionGenerationEntrypointAuthorityDocument: AUTHORITY_DOC,
+  environmentWeatherFidelityPolicyPath: ENVIRONMENT_POLICY_PATH,
   characterReferenceGenerationHandoffPresent: handoff !== null,
   handoffDeclaredAuthorityPaths: handoff?.visualAuthorityPaths ?? [],
   productionAuthoritySupplementPaths: supplementedAuthorityPaths,
@@ -110,14 +128,15 @@ const result = {
   handWrittenPromptIsProductionReady: false,
   generatedOutputState: 'CANDIDATE_REVIEW_REQUIRED',
   authorityOrder,
-  prompt: `${base.prompt}${supplementBlock}\n\n${promptBlock}`,
+  prompt: `${effectiveBase.prompt}${supplementBlock}\n\n${promptBlock}`,
   reviewChecklist: [
     'productionImageGenerationEntrypoint=trueの出力だけを本番画像生成へ渡す',
     '下位exporter直出力・手打ちpromptをproduction-readyとして扱わない',
     'resolved chainに無いproduction必須Authorityは実ファイル本文を読んだsupplementで補完されていることを確認する',
+    '環境・天候は素材へ物理的に作用しても、服・露出・体型・色Authority・canonを追加しない',
     'legacy handoff/queueに未列挙のcharacterでも36-character production policyを弱めない',
     'READYはcandidate generation許可でありfinal approvalではない',
-    ...(Array.isArray(base.reviewChecklist) ? base.reviewChecklist : []),
+    ...(Array.isArray(effectiveBase.reviewChecklist) ? effectiveBase.reviewChecklist : []),
   ],
 };
 
