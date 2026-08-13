@@ -13,6 +13,8 @@ const DETAIL_POLICY_PATH = 'data/visual/all-character-detail-density-ornament-bu
 const DETAIL_AUTHORITY_PATH = 'docs/visual/all-character-detail-density-ornament-budget-fidelity-master-v1.md';
 const SPACE_POLICY_PATH = 'data/visual/all-character-negative-space-cluster-separation-fidelity-master-v1.json';
 const SPACE_AUTHORITY_PATH = 'docs/visual/all-character-negative-space-cluster-separation-fidelity-master-v1.md';
+const LOD_POLICY_PATH = 'data/visual/all-character-feature-scale-proportion-lod-fidelity-master-v1.json';
+const LOD_AUTHORITY_PATH = 'docs/visual/all-character-feature-scale-proportion-lod-fidelity-master-v1.md';
 
 type Options = { characterId: string; kind: string };
 
@@ -44,19 +46,20 @@ const value = loadAuthority(VALUE_POLICY_PATH, VALUE_AUTHORITY_PATH, 'contrast/v
 const edge = loadAuthority(EDGE_POLICY_PATH, EDGE_AUTHORITY_PATH, 'edge/line/shape-boundary');
 const detail = loadAuthority(DETAIL_POLICY_PATH, DETAIL_AUTHORITY_PATH, 'detail-density/ornament-budget');
 const space = loadAuthority(SPACE_POLICY_PATH, SPACE_AUTHORITY_PATH, 'negative-space/cluster-separation');
+const lod = loadAuthority(LOD_POLICY_PATH, LOD_AUTHORITY_PATH, 'feature-scale/proportion/lod');
 
 const stdout = execFileSync(process.execPath, [
   '--experimental-strip-types', resolve(process.cwd(), BASE_EXPORTER),
   '--character', options.characterId,
   '--kind', options.kind,
-], { cwd: process.cwd(), encoding: 'utf8', maxBuffer: 68 * 1024 * 1024 });
+], { cwd: process.cwd(), encoding: 'utf8', maxBuffer: 72 * 1024 * 1024 });
 const base = JSON.parse(stdout);
 if (base.productionImageGenerationEntrypoint !== true || base.productionCharacterPromptReady !== true || base.productionPromptAuthorityLocked !== true) throw new Error(`${options.characterId}: lower production chain not ready`);
 if (base.allCharacterFocusDepthEffectsFidelityRequired !== true) throw new Error(`${options.characterId}: focus/depth/effects chain missing`);
 
 const result = {
   ...base,
-  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 30),
+  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 31),
   generatedBy: 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts',
   allCharacterSurfaceToneMappingFidelityRequired: true,
   unknownSurfaceMayBeInventedByImageModel: surface.policy.rules?.unknownSurfaceMayBeInventedByImageModel,
@@ -110,6 +113,20 @@ const result = {
   spacingMayHideMobilityEquipment: space.policy.rules?.spacingMayHideMobilityEquipment,
   relationshipMayForceTouchingSilhouette: space.policy.rules?.relationshipMayForceTouchingSilhouette,
   generatedSpacingTreatmentCreatesCanon: space.policy.rules?.generatedSpacingTreatmentCreatesCanon,
+  allCharacterFeatureScaleProportionLodFidelityRequired: true,
+  unknownLodMayBeInventedByImageModel: lod.policy.rules?.unknownLodMayBeInventedByImageModel,
+  lodMayEnlargeEyesForReadability: lod.policy.rules?.lodMayEnlargeEyesForReadability,
+  lodMayDeleteIdentityFaceLandmark: lod.policy.rules?.lodMayDeleteIdentityFaceLandmark,
+  lodMayBeautifyJawOrChin: lod.policy.rules?.lodMayBeautifyJawOrChin,
+  lodMayChangeHeadBodyRatio: lod.policy.rules?.lodMayChangeHeadBodyRatio,
+  lodMayLengthenLegs: lod.policy.rules?.lodMayLengthenLegs,
+  lodMaySlimBodyCategory: lod.policy.rules?.lodMaySlimBodyCategory,
+  lodMayDeAgeCharacter: lod.policy.rules?.lodMayDeAgeCharacter,
+  lodMayShrinkMobilityEquipment: lod.policy.rules?.lodMayShrinkMobilityEquipment,
+  lodMayMascotifyAnimal: lod.policy.rules?.lodMayMascotifyAnimal,
+  lodMayHumanizeRobot: lod.policy.rules?.lodMayHumanizeRobot,
+  premiumAssetMayBeautifyProportionAutomatically: lod.policy.rules?.premiumAssetMayBeautifyProportionAutomatically,
+  generatedLodTreatmentCreatesCanon: lod.policy.rules?.generatedLodTreatmentCreatesCanon,
   surfaceToneMappingPolicyPath: POLICY_PATH,
   surfaceToneMappingAuthorityPath: AUTHORITY_PATH,
   contrastValueHierarchyPolicyPath: VALUE_POLICY_PATH,
@@ -120,6 +137,8 @@ const result = {
   detailDensityOrnamentBudgetAuthorityPath: DETAIL_AUTHORITY_PATH,
   negativeSpaceClusterSeparationPolicyPath: SPACE_POLICY_PATH,
   negativeSpaceClusterSeparationAuthorityPath: SPACE_AUTHORITY_PATH,
+  featureScaleProportionLodPolicyPath: LOD_POLICY_PATH,
+  featureScaleProportionLodAuthorityPath: LOD_AUTHORITY_PATH,
   generatedOutputState: 'CANDIDATE_REVIEW_REQUIRED',
 };
 
@@ -140,13 +159,19 @@ for (const field of [
   'premiumAssetMayReduceNegativeSpaceAutomatically', 'effectsMayFillIdentityCriticalNegativeSpace',
   'ornamentMayFillIdentityCriticalNegativeSpace', 'spacingMayIncreaseExposure', 'spacingMayInventGarmentCutout',
   'spacingMayDetachPropFromUseRelation', 'spacingMayHideMobilityEquipment', 'relationshipMayForceTouchingSilhouette',
-  'generatedSpacingTreatmentCreatesCanon',
+  'generatedSpacingTreatmentCreatesCanon', 'unknownLodMayBeInventedByImageModel', 'lodMayEnlargeEyesForReadability',
+  'lodMayDeleteIdentityFaceLandmark', 'lodMayBeautifyJawOrChin', 'lodMayChangeHeadBodyRatio', 'lodMayLengthenLegs',
+  'lodMaySlimBodyCategory', 'lodMayDeAgeCharacter', 'lodMayShrinkMobilityEquipment', 'lodMayMascotifyAnimal',
+  'lodMayHumanizeRobot', 'premiumAssetMayBeautifyProportionAutomatically', 'generatedLodTreatmentCreatesCanon',
 ]) {
   if (result[field] !== false) throw new Error(`${options.characterId}: final rendering guard weakened: ${field}`);
 }
 
 const authorityOrder = Array.isArray(base.authorityOrder) ? [...base.authorityOrder] : [];
-for (const path of [AUTHORITY_PATH, POLICY_PATH, VALUE_AUTHORITY_PATH, VALUE_POLICY_PATH, EDGE_AUTHORITY_PATH, EDGE_POLICY_PATH, DETAIL_AUTHORITY_PATH, DETAIL_POLICY_PATH, SPACE_AUTHORITY_PATH, SPACE_POLICY_PATH]) if (!authorityOrder.includes(path)) authorityOrder.push(path);
+for (const path of [
+  AUTHORITY_PATH, POLICY_PATH, VALUE_AUTHORITY_PATH, VALUE_POLICY_PATH, EDGE_AUTHORITY_PATH, EDGE_POLICY_PATH,
+  DETAIL_AUTHORITY_PATH, DETAIL_POLICY_PATH, SPACE_AUTHORITY_PATH, SPACE_POLICY_PATH, LOD_AUTHORITY_PATH, LOD_POLICY_PATH,
+]) if (!authorityOrder.includes(path)) authorityOrder.push(path);
 
 const surfaceBlock = [
   'SURFACE / TONE-MAPPING FIDELITY — FINAL MATERIAL LOCK.',
@@ -200,8 +225,18 @@ const spaceBlock = [
   space.authority,
 ].join('\n');
 
+const lodBlock = [
+  'FEATURE SCALE / PROPORTION / LOD FIDELITY — FINAL PROPORTION LOCK.',
+  `Authority: ${LOD_AUTHORITY_PATH}.`,
+  `Machine policy: ${LOD_POLICY_PATH}.`,
+  'LOD is information reduction, not character redesign. Preserve age read, face landmark ratios, body category, head/body and limb proportion family, stance, mobility-equipment relative scale, garment silhouette and prop-use scale.',
+  'Unknown LOD uses PROPORTION_PRESERVING_MINIMUM_SUFFICIENT_LOD. Do not enlarge eyes, erase identity landmarks, beautify jaw/chin, lengthen legs, slim bodies, de-age, shrink mobility equipment, mascotify animals or humanize robots for readability.',
+  'Remove microdetail before changing proportions. If identity still fails, adjust pose/crop/value/edge or escalate to human review. Generated LOD solutions remain CANDIDATE_REVIEW_REQUIRED and never create canon.',
+  lod.authority,
+].join('\n');
+
 result.authorityOrder = authorityOrder;
-result.prompt = `${base.prompt}\n\n${surfaceBlock}\n\n${valueBlock}\n\n${edgeBlock}\n\n${detailBlock}\n\n${spaceBlock}`;
+result.prompt = `${base.prompt}\n\n${surfaceBlock}\n\n${valueBlock}\n\n${edgeBlock}\n\n${detailBlock}\n\n${spaceBlock}\n\n${lodBlock}`;
 result.reviewChecklist = [
   '肌色・年齢・体格をtone mappingやbeauty smoothingで変えない',
   'fur/shell/cloth/leather/paper/wood/metalを同一glossにしない',
@@ -210,6 +245,8 @@ result.reviewChecklist = [
   'premium/重要/rare/high-resを理由にgold trim・gem・belt・harness・floating cloth・glow nodeを増やさない',
   '顔・手/prop・脚/衣服・mobility equipmentのidentity-criticalな空白をeffect/ornamentで埋めない',
   'spacingのために露出・cutout・浮遊prop・白縁・relationship接触を発明しない',
+  'sprite/chibi/portrait間で目拡大・顎縮小・脚長化・体型細化・頭身美化をしない',
+  'LODではmicrodetailを先に落とし、顔比率・体型・年齢・mobility equipment相対サイズを保持する',
   ...(Array.isArray(base.reviewChecklist) ? base.reviewChecklist : []),
 ];
 
