@@ -1,0 +1,30 @@
+name: Character Design Feedback Recurrence Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/character-design-feedback-recurrence-master-v1.md'
+      - 'data/visual/character-design-feedback-recurrence-master-v1.json'
+      - 'data/visual/character-design-feedback-ledger.json'
+      - 'tools/asset-factory/scripts/export-feedback-aware-character-design-prompt.ts'
+      - 'tools/asset-factory/scripts/export-final-character-design-prompt.ts'
+      - 'scripts/quality/check-character-design-feedback-recurrence-master.ts'
+      - '.github/workflows/character-design-feedback-recurrence-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/character-design-feedback-recurrence-master-v1.md'
+      - 'data/visual/character-design-feedback-recurrence-master-v1.json'
+      - 'data/visual/character-design-feedback-ledger.json'
+      - 'tools/asset-factory/scripts/export-feedback-aware-character-design-prompt.ts'
+      - 'tools/asset-factory/scripts/export-final-character-design-prompt.ts'
+      - 'scripts/quality/check-character-design-feedback-recurrence-master.ts'
+      - '.github/workflows/character-design-feedback-recurrence-master.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate 36/36 feedback-aware character prompts
+        run: node --experimental-strip-types scripts/quality/check-character-design-feedback-recurrence-master.ts

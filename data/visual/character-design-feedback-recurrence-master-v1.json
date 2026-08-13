@@ -1,0 +1,73 @@
+{
+  "id": "yoru-no-shirube-character-design-feedback-recurrence-master-v1",
+  "date": "2026-08-13",
+  "status": "TOP_LEVEL_POST_REVIEW_GENERATION_GOVERNANCE",
+  "scopeCount": 36,
+  "authorityDocument": "docs/visual/character-design-feedback-recurrence-master-v1.md",
+  "feedbackLedger": "data/visual/character-design-feedback-ledger.json",
+  "baseExporter": "tools/asset-factory/scripts/export-final-character-design-prompt.ts",
+  "requiredReadinessState": "READY_FOR_CANDIDATE_GENERATION",
+  "generatedImageCreatesFeedbackRule": false,
+  "candidateReviewAutomaticallyChangesGeneration": false,
+  "assistantDiagnosisAutomaticallyChangesGeneration": false,
+  "singleReactionCreatesGlobalRule": false,
+  "activeDirectiveRequired": true,
+  "allowedActions": ["KEEP", "BAN", "REPLACE", "WARN"],
+  "allowedStates": ["ACTIVE", "PROPOSED", "RETIRED"],
+  "allowedAuthorities": ["USER_DECIDED", "HUMAN_APPROVED_DESIGN_RULE", "CANDIDATE_LEARNING"],
+  "allowedDimensions": ["identity", "rendering", "costume", "composition", "world-fit", "acting", "derivation", "association"],
+  "globalDirectiveAuthorities": ["USER_DECIDED", "HUMAN_APPROVED_DESIGN_RULE"],
+  "characterDirectiveAuthorities": ["USER_DECIDED", "HUMAN_APPROVED_DESIGN_RULE", "CANDIDATE_LEARNING"],
+  "directiveValidation": {
+    "activeOnly": true,
+    "generatedImageAloneForbidden": true,
+    "characterScopeRequiresCharacterId": true,
+    "globalScopeRequiresNullCharacterId": true,
+    "replaceRequiresPositiveReplacement": true,
+    "statementRequired": true,
+    "evidenceRequired": true,
+    "sourceCandidateIdsRequiredForCandidateLearning": true,
+    "candidateLearningGlobalForbidden": true
+  },
+  "antiOverlearning": [
+    "single-rejected-candidate-becomes-global-ban",
+    "reject-verdict-becomes-automatic-permanent-rule",
+    "assistant-diagnosis-promoted-without-human-approval",
+    "generated-piercing-tattoo-exposure-jewelry-scar-glow-prop-becomes-rule",
+    "generated-face-mutation-becomes-face-signature",
+    "accepted-rendering-artifact-normalizes-age-body-disability-species",
+    "ban-authorizes-random-replacement",
+    "user-feedback-merged-with-assistant-interpretation",
+    "feedback-rule-overrides-higher-authority-master"
+  ],
+  "recurringDriftClasses": [
+    "same-face-base",
+    "unsupported-gold-gem-belt-harness-filler",
+    "unsupported-exposure-increase",
+    "piercing-or-tattoo-invention",
+    "age-or-body-normalization",
+    "floating-prop-or-impossible-storage",
+    "generic-hero-pose",
+    "universal-rim-or-bloom",
+    "world-motif-as-pasted-decoration",
+    "relationship-intimacy-invented-by-composition"
+  ],
+  "authorityPriority": [
+    "USER_DECIDED",
+    "CURRENT_WORLD_CHARACTER_RELATION_CANON",
+    "LIVING_VISUAL_APPEARANCE_IDENTITY_EMBODIED_GARMENT_LIGHT_WORLD_MASTERS",
+    "CHARACTER_IMAGE_GENERATION_READINESS_MASTER",
+    "HUMAN_APPROVED_DESIGN_RULE_FEEDBACK",
+    "CHARACTER_SCOPED_CANDIDATE_LEARNING",
+    "GENERATION_PROMPT",
+    "GENERATED_IMAGE"
+  ],
+  "outputFlags": {
+    "feedbackRecurrenceGenerationEntrypoint": true,
+    "feedbackRecurrenceRequired": true,
+    "generatedImageCreatesFeedbackRule": false,
+    "candidateReviewAutomaticallyChangesGeneration": false,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED"
+  },
+  "reviewTaxonomy": ["KEEP", "REMOVE", "REPLACE", "BAN_NEXT_GENERATION", "AUTHOR_CANDIDATE_FOR_REVIEW"]
+}
