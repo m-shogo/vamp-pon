@@ -14,6 +14,8 @@ const PROFESSIONAL_MASTER_DOC = 'docs/visual/master-authoring-professional-stand
 const PROFESSIONAL_MASTER_DATA = 'data/visual/master-authoring-professional-standard-v1.json';
 const VISUAL_DESIGN_MASTER_DOC = 'docs/visual/visual-design-production-master-v1.md';
 const VISUAL_DESIGN_MASTER_DATA = 'data/visual/visual-design-production-master-v1.json';
+const CORE5_IDENTITY_GEOMETRY_DOC = 'docs/visual/core5-identity-geometry-master-v1.md';
+const CORE5_IDENTITY_GEOMETRY_DATA = 'data/visual/core5-identity-geometry-master-v1.json';
 const CORE5_COLOR_APPLICATION_DOC = 'docs/visual/core5-color-application-master-v1.md';
 const CORE5_COLOR_APPLICATION_DATA = 'data/visual/core5-color-application-master-v1.json';
 const CORE5_ERA_LIFE_MASTER_PATH = 'data/visual/core5-era-life-design-master-v1.json';
@@ -48,6 +50,7 @@ export type CharacterReferenceGenerationHandoffItem = {
   eraLifeMasterRequired: boolean;
   professionalMasterRequired: true;
   visualDesignProductionMasterRequired: true;
+  core5IdentityGeometryRequired: boolean;
   core5ColorApplicationRequired: boolean;
   designerPhilosophyRequired: true;
   designerCraftRequired: true;
@@ -75,6 +78,7 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
   const eraLifeMasterPath = resolveEraLifeMasterPath(entry.characterId);
   const isCore5 = CORE5_IDS.has(entry.characterId);
   const eraAuthorityPaths = eraLifeMasterPath ? ['docs/visual/core5-era-life-design-master-v1.md', eraLifeMasterPath] : [];
+  const geometryAuthorityPaths = isCore5 ? [CORE5_IDENTITY_GEOMETRY_DOC, CORE5_IDENTITY_GEOMETRY_DATA] : [];
   const colorAuthorityPaths = isCore5 ? [CORE5_COLOR_APPLICATION_DOC, CORE5_COLOR_APPLICATION_DATA] : [];
 
   return {
@@ -95,6 +99,7 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
       VISUAL_DESIGN_MASTER_DATA,
       'docs/00-current-story-world-master.md',
       ...eraAuthorityPaths,
+      ...geometryAuthorityPaths,
       ...colorAuthorityPaths,
       'docs/visual/character-living-visual-master-v1.md',
       livingVisualProfilePath,
@@ -118,6 +123,7 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     eraLifeMasterRequired: eraLifeMasterPath !== null,
     professionalMasterRequired: true,
     visualDesignProductionMasterRequired: true,
+    core5IdentityGeometryRequired: isCore5,
     core5ColorApplicationRequired: isCore5,
     designerPhilosophyRequired: true,
     designerCraftRequired: true,
@@ -131,6 +137,8 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
           'Professional Master Standardを読み、USER_DECIDED / EXISTING_CANON / RESEARCH_BACKED_CURRENT / AUTHOR_CANDIDATE / OPENを混同しない',
           'OPENをimage-model freedomとして扱わず、重要visual項目が未解決ならproduction Character Master生成を止める',
           ...(isCore5 ? [
+            'Core5 Identity Geometry Masterを読み、face signature / nearest-face difference / forbidden driftを髪色・光・hero poseより先に固定する',
+            'candidateのbeauty mark / scar / piercing / tattoo等を画像生成で勝手に確定しない',
             'Core5 Color Application Masterを読み、既存theme/accent HEXを変更せず、identity/support/accent/lightの役割と面積disciplineを守る',
             'Star Beast colorを第三の衣装主色・金属装飾・常時発光へ転用しない',
           ] : []),
@@ -147,6 +155,8 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
       : [
           'Visual Design Production MasterのFinal Design QAで既存masterを再評価する',
           ...(isCore5 ? [
+            'Core5 Identity Geometry Masterでface signature / nearest-face difference / forbidden driftを再評価する',
+            '髪・色・propを隠したface close-upでもCore5が別人として読めるか確認する',
             'Core5 Color Application Masterでtheme/accent placementとStar Beast color separationを再評価する',
             'accent / emitted lightを消しても本人性と衣装構造が残るか確認する',
           ] : []),
@@ -175,6 +185,7 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   referenceFirst: true,
   professionalMasterRequired: true,
   visualDesignProductionMasterRequired: true,
+  core5IdentityGeometryMasterRequired: true,
   core5ColorApplicationMasterRequired: true,
   livingVisualMasterRequired: true,
   core5EraLifeMasterRequired: true,
@@ -190,5 +201,5 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   generatedArtStartsAs: 'candidate review required',
   noAutomaticRuntimePromotion: true,
   noAutomaticFinalApproval: true,
-  rule: 'For character image work, load Professional Governance then Visual Design Production Master as the primary production lens; Core5 additionally requires the Color Application Master with canonical theme/accent HEX and explicit placement rules. Resolve Living Visual, Appearance, Era and world visual grammar before rendering. Missing visual decisions are never filled by generic genre defaults or by the image model.',
+  rule: 'For character image work, load Professional Governance then Visual Design Production Master as the primary production lens; Core5 additionally requires Identity Geometry and Color Application masters before rendering. Resolve Living Visual, Appearance, Era and world visual grammar before rendering. Missing visual decisions are never filled by generic genre defaults or by the image model.',
 } as const;
