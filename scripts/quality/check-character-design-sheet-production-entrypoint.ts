@@ -7,6 +7,7 @@ const root = process.cwd();
 const bridgePath = CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.bridgePolicy;
 const parentPolicyPath = CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentPolicy;
 const adapterPath = CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.exporter;
+const parentEntrypointSource = 'src/game/data/characterReferenceProductionEntrypoint.ts';
 const profilePaths = [
   'data/visual/core5-living-visual-profiles-v1.json',
   'data/visual/current21-extended-living-visual-profiles-v1.json',
@@ -20,16 +21,26 @@ function fail(message: string): never {
 const bridge = JSON.parse(readFileSync(resolve(root, bridgePath), 'utf8'));
 const parentPolicy = JSON.parse(readFileSync(resolve(root, parentPolicyPath), 'utf8'));
 
+if (bridge.schemaVersion !== 3) fail(`bridge schemaVersion must be 3, got ${bridge.schemaVersion}`);
 if (bridge.status !== 'ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION') fail(`bridge status invalid: ${bridge.status}`);
-if (bridge.parentProductionExporter !== CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentExporter) fail('parent exporter code/bridge mismatch');
+if (bridge.parentProductionEntrypointSource !== parentEntrypointSource) fail('parent production entrypoint source drift');
+if (bridge.parentExporterResolution !== 'LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT') fail('parent exporter must resolve live from Character Reference Production Entrypoint');
+if (bridge.parentPolicyResolution !== 'LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT') fail('parent policy must resolve live from Character Reference Production Entrypoint');
 if (bridge.sheetAdapter !== adapterPath) fail('sheet adapter code/bridge mismatch');
 if (bridge.directLegacyPacketProductionAllowed !== false) fail('legacy packet production bypass enabled');
 if (bridge.handWrittenSheetPromptProductionAllowed !== false) fail('hand-written sheet prompt bypass enabled');
 if (bridge.generatedSheetMayCreateCanon !== false) fail('generated sheet canon guard weakened');
 if (bridge.humanReviewRequired !== true) fail('Human review gate weakened');
 if (bridge.validationGate?.imageGenerationAuthorizedByThisBridge !== false) fail('bridge may not authorize image generation');
+if (bridge.validationGate?.parentExporterMustResolveLive !== true) fail('live parent exporter validation gate missing');
+if (bridge.validationGate?.allParentRequiredFlagsMustPass !== true || bridge.validationGate?.allParentWrapperRequiredFlagsMustPass !== true || bridge.validationGate?.allParentRequiredAuthorityPathsMustPass !== true) fail('parent authority validation gates weakened');
 if (bridge.roster?.totalCharacters !== 36 || bridge.roster?.totalLogicalSheetSlots !== 144) fail('bridge roster/sheet slot count drift');
 if (bridge.roster?.activeLiveAdapterSheetPrompts !== 140 || bridge.roster?.heldSheetSlots !== 4) fail('bridge active/held sheet counts drift');
+
+if (parentPolicy.productionExporter !== CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentExporter) {
+  fail(`code/policy parent exporter drift: code=${CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentExporter}, policy=${parentPolicy.productionExporter}`);
+}
+if (parentPolicy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT' || parentPolicy.scopeCount !== 36) fail('parent production policy top-level scope/status drift');
 
 const ids: string[] = [];
 for (const path of profilePaths) {
@@ -57,6 +68,8 @@ for (const id of ids) {
     const blocked = JSON.parse(inspected);
     if (blocked.productionReady !== false || blocked.state !== 'BLOCKED_BY_EXPLICIT_CHARACTER_HOLD') fail(`${id}: inspection did not preserve HOLD`);
     if (blocked.imageGenerationAuthorized !== false || blocked.holdMustNotBeBypassedByAdapter !== true) fail(`${id}: HOLD generation guard weakened`);
+    if (blocked.parentProductionEntrypointSource !== parentEntrypointSource) fail(`${id}: held inspection parent entrypoint source drift`);
+    if (blocked.parentProductionExporter !== CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentExporter) fail(`${id}: held inspection did not resolve current parent exporter`);
     if ('prompt' in blocked) fail(`${id}: held inspection payload must not emit a production prompt`);
 
     const direct = spawnSync(process.execPath, [
@@ -77,6 +90,7 @@ for (const id of ids) {
   ], { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
   const exported = JSON.parse(stdout);
   if (exported.productionReady !== true) fail(`${id}: adapter aggregate is not production-ready for candidate prompt export`);
+  if (exported.parentProductionEntrypointSource !== parentEntrypointSource) fail(`${id}: parent entrypoint source drift`);
   if (exported.parentProductionExporter !== CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentExporter) fail(`${id}: parent exporter drift`);
   if (exported.generatedOutputState !== 'CANDIDATE_REVIEW_REQUIRED') fail(`${id}: candidate boundary weakened`);
 
@@ -88,6 +102,8 @@ for (const id of ids) {
     const expectedRole = CHARACTER_DESIGN_SHEET_ROLES[sheetNumber as keyof typeof CHARACTER_DESIGN_SHEET_ROLES];
     if (sheet.sheetRole !== expectedRole) fail(`${id}/${sheetNumber}: role mismatch`);
     if (sheet.characterDesignSheetAdapterEntrypoint !== true) fail(`${id}/${sheetNumber}: adapter flag missing`);
+    if (sheet.parentProductionEntrypointSource !== parentEntrypointSource) fail(`${id}/${sheetNumber}: live parent entrypoint source missing`);
+    if (sheet.parentProductionExporter !== CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentExporter) fail(`${id}/${sheetNumber}: live parent exporter not preserved`);
     if (sheet.productionImageGenerationEntrypoint !== true || sheet.productionCharacterPromptReady !== true || sheet.productionPromptAuthorityLocked !== true) fail(`${id}/${sheetNumber}: parent production flags missing`);
     if (sheet.imageGenerationReadinessState !== 'READY_FOR_CANDIDATE_GENERATION') fail(`${id}/${sheetNumber}: parent readiness not READY`);
     if (Array.isArray(sheet.imageGenerationReadinessFailures) && sheet.imageGenerationReadinessFailures.length > 0) fail(`${id}/${sheetNumber}: readiness failures present`);
@@ -95,7 +111,7 @@ for (const id of ids) {
     if (sheet.directLegacyPromptPacketProductionAllowed !== false || sheet.handWrittenSheetPromptProductionAllowed !== false) fail(`${id}/${sheetNumber}: prompt bypass guard weakened`);
     if (sheet.sheetSpecificPromptMayCreateCanon !== false || sheet.generatedSheetMayCreateCharacterMasterApproval !== false || sheet.generatedSheetMayCreateRuntimeApproval !== false || sheet.generatedSheetMayCreateFeedbackRule !== false) fail(`${id}/${sheetNumber}: promotion/canon guard weakened`);
     if (sheet.humanReviewRequired !== true) fail(`${id}/${sheetNumber}: Human review flag missing`);
-    if (!String(sheet.prompt).includes('CHARACTER PRODUCTION GENERATION ENTRYPOINT — FINAL AUTHORITY LOCK.')) fail(`${id}/${sheetNumber}: parent final authority block missing`);
+    if (!String(sheet.prompt).includes('CHARACTER PRODUCTION GENERATION ENTRYPOINT — FINAL AUTHORITY LOCK.')) fail(`${id}/${sheetNumber}: lower parent final authority block missing`);
     if (!String(sheet.prompt).includes('CHARACTER DESIGN SHEET ADAPTER — ROLE-SPECIFIC PRODUCTION CONSTRAINTS.')) fail(`${id}/${sheetNumber}: Sheet adapter block missing`);
     if (!String(sheet.prompt).includes(`Sheet ${sheetNumber}: ${expectedRole}.`)) fail(`${id}/${sheetNumber}: Sheet role prompt marker missing`);
     for (const path of parentPolicy.requiredAuthorityPaths ?? []) {
@@ -103,6 +119,9 @@ for (const id of ids) {
     }
     for (const [field, expected] of Object.entries(parentPolicy.requiredFlags ?? {})) {
       if (sheet[field] !== expected) fail(`${id}/${sheetNumber}: inherited required flag ${field} expected ${String(expected)}, got ${String(sheet[field])}`);
+    }
+    for (const [field, expected] of Object.entries(parentPolicy.wrapperRequiredFlags ?? {})) {
+      if (sheet[field] !== expected) fail(`${id}/${sheetNumber}: inherited wrapper flag ${field} expected ${String(expected)}, got ${String(sheet[field])}`);
     }
     activeSheetPromptCount += 1;
   }
@@ -119,7 +138,11 @@ console.log(JSON.stringify({
   activeLiveSheetPrompts: activeSheetPromptCount,
   heldCharacterIds: [...heldIds],
   heldSheetSlots: heldSheetSlotCount,
+  parentProductionEntrypointSource: parentEntrypointSource,
   parentProductionExporter: CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentExporter,
+  parentRequiredFlags: Object.keys(parentPolicy.requiredFlags ?? {}).length,
+  parentWrapperRequiredFlags: Object.keys(parentPolicy.wrapperRequiredFlags ?? {}).length,
+  parentAuthorityPaths: (parentPolicy.requiredAuthorityPaths ?? []).length,
   adapter: adapterPath,
   generatedImageCount: 0,
 }, null, 2));
