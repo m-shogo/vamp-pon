@@ -1,23 +1,27 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "bridgeId": "yoruno-shirube-character-sheet-production-entrypoint-bridge-v1",
   "status": "ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION",
-  "purpose": "Make Character Design Sheet 01-04 composition a strict child of the single production character prompt exporter so a sheet can never bypass current identity, garment, color, world, acting, fidelity, spatial, layout, maintenance, occlusion or crop-readability authority.",
+  "purpose": "Make Character Design Sheet 01-04 composition a strict child of the current Character Reference Production Entrypoint so wrapper changes on main are inherited live instead of requiring a stale parent script name in this bridge.",
   "observedLatestMain": {
-    "sha": "84cef6537ccd7875335bf4d2a1d8dee95c6ee4e4",
-    "throughPullRequest": 328,
+    "sha": "4e6b49bdf02208ffd9637a2d3a8904baee8365b9",
+    "throughPullRequest": 329,
     "syncedIntoInventoryBranch": true,
     "mustRecheckImmediatelyBeforeAnyImageGenerationOrMerge": true,
     "note": "This SHA records the synchronization baseline, not a permanent authority freeze. A newer main must be rechecked before generation or merge."
   },
-  "parentProductionExporter": "tools/asset-factory/scripts/export-production-character-design-prompt.ts",
+  "parentProductionEntrypointSource": "src/game/data/characterReferenceProductionEntrypoint.ts",
+  "parentExporterResolution": "LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT",
+  "observedResolvedParentExporter": "tools/asset-factory/scripts/export-focus-depth-effects-character-design-prompt.ts",
+  "parentPolicyResolution": "LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT",
+  "observedResolvedParentPolicy": "data/visual/character-production-generation-entrypoint-v1.json",
   "sheetAdapter": "tools/asset-factory/scripts/export-character-design-sheet-prompt.ts",
   "codeEntrypoint": "src/game/data/characterDesignSheetProductionEntrypoint.ts",
   "existingInventoryPacket": {
     "path": "data/character-assets/manifests/visual-character-prompt-packets.v1.json",
     "state": "LEGACY_DRAFT_SNAPSHOT_NOT_PRODUCTION_READY",
     "mayBeUsedDirectlyForProductionImageGeneration": false,
-    "reason": "Static packets can become stale whenever main adds production authority. The live Sheet Adapter resolves the current top-level Production Exporter on every export."
+    "reason": "Static packets can become stale whenever main adds production authority. The live Sheet Adapter resolves the current top-level Character Reference Production Entrypoint on every export."
   },
   "directLegacyPacketProductionAllowed": false,
   "handWrittenSheetPromptProductionAllowed": false,
@@ -71,7 +75,8 @@
     "world-use-interaction-layout",
     "material-aging-maintenance-continuity",
     "occlusion-layering-fidelity",
-    "crop-silhouette-readability"
+    "crop-silhouette-readability",
+    "focus-depth-effects-fidelity"
   ],
   "latestInheritedAuthorities": [
     {
@@ -83,6 +88,11 @@
       "source": "PR #328",
       "id": "crop-silhouette-readability",
       "rule": "Adapt composition before sacrificing identity-bearing silhouette, species, prop, mobility, ground-contact or construction information."
+    },
+    {
+      "source": "PR #329",
+      "id": "focus-depth-effects-fidelity",
+      "rule": "Focus, depth of field and effects may support presentation but may not hide identity-critical errors, invent aura/emission, erase mobility equipment or replace identity palette."
     }
   ],
   "sheetRoleBoundaries": {
@@ -92,14 +102,14 @@
       "no mirror substitution for asymmetric construction",
       "same face/body/clothing/equipment topology across views",
       "neutral inspection pose does not create signature pose",
-      "do not hide unresolved overlap or construction behind crop"
+      "do not hide unresolved overlap or construction behind crop, blur, foreground effects or depth of field"
     ],
     "face-expression-acting": [
       "neutral base face remains parent geometry",
       "expression deforms soft tissue rather than identity geometry",
       "diagnostic acting does not create signature emotional canon",
       "no generic premium-anime face convergence",
-      "crop/effects may not erase identity-bearing face/head construction"
+      "crop/focus/effects may not erase identity-bearing face/head construction"
     ],
     "costume-equipment-material": [
       "authorized garment construction and storage only",
@@ -107,14 +117,15 @@
       "authorized material/weather/maintenance continuity",
       "no invented accessory or exposure",
       "Named Object geometry remains separate authority",
-      "solve layer collisions without deleting or rerouting garment/equipment construction"
+      "solve layer collisions without deleting or rerouting garment/equipment construction",
+      "effects may not conceal clipping, contact or storage errors"
     ],
     "silhouette-motion-derivation": [
       "body mass/species/age/mobility identity survives motion and perspective",
       "prop scale/contact continuity",
       "world adapts around the character rather than resizing the character",
       "OPEN motion uses neutral diagnostic placeholders rather than signature choreography",
-      "crop and effects preserve identity-bearing silhouette information"
+      "crop, blur and effects preserve identity-bearing silhouette information"
     ]
   },
   "yuiReferenceOnlyHardConstraintsPreservedForFutureResume": [
@@ -129,13 +140,15 @@
   "validationGate": {
     "syncLatestMainSatisfiedForObservedBaseline": true,
     "sheetAdapterImplemented": true,
+    "parentExporterMustResolveLive": true,
     "liveExportValidationRequired": true,
     "expectedActiveLiveExports": 140,
     "expectedHeldSlots": 4,
     "legacyStaticPromptHashesMayAuthorizeGeneration": false,
     "visualCIRequired": true,
-    "crossAssetAuthorityMustRemainPresent": true,
-    "latestParentAuthorityMustRemainPresent": true,
+    "allParentRequiredFlagsMustPass": true,
+    "allParentWrapperRequiredFlagsMustPass": true,
+    "allParentRequiredAuthorityPathsMustPass": true,
     "imageGenerationAuthorizedByThisBridge": false
   }
 }
