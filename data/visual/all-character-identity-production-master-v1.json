@@ -1,0 +1,73 @@
+{
+  "id": "yoru-no-shirube-all-character-identity-production-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION",
+  "authorityDocument": "docs/visual/all-character-identity-production-master-v1.md",
+  "canonicalMachineSource": "src/game/data/characterAppearanceGenerationContracts.ts",
+  "scopeCount": 36,
+  "doesNotCreateNewStoryCanon": true,
+  "doesNotPromoteCandidates": true,
+  "unknownIdentityGeometryMayBeInventedByImageModel": false,
+  "requiredFields": [
+    "id","displayName","rosterScope","species","ageCoding","faceSignatureId","intentionalResemblanceGroup","faceShape","eyeShape","eyelid","brow","lashes","nose","mouth","cheekOrSurfaceMark","hairOrHeadStructure","bodyShape","bodyModification","accessoryLanguage","clothingConstruction","restingExpression","nearestExistingFace","differenceFromNearest","forbiddenDrift"
+  ],
+  "sharedRules": {
+    "sameAttractiveFaceBaseAllowed": false,
+    "hairColorMayCarryIdentityAlone": false,
+    "propMayCarryIdentityAlone": false,
+    "candidateSurfaceDetailMayCarryIdentityAlone": false,
+    "renderingMayChangeFaceAnatomy": false,
+    "renderingMayNormalizeBody": false,
+    "ageMayBeNormalized": false,
+    "speciesMayBeNormalized": false,
+    "disabilityMayBeRemovedForAesthetics": false,
+    "genderAmbiguityMayBeResolvedByModel": false
+  },
+  "neutralRecognitionTests": [
+    "hair_color_removed_identity_survives",
+    "theme_color_removed_identity_survives",
+    "accessories_hidden_identity_survives",
+    "glow_removed_identity_survives",
+    "neutral_expression_identity_survives",
+    "nearest_face_difference_survives",
+    "candidate_marks_removed_core_identity_survives"
+  ],
+  "nonHumanRules": {
+    "DOG": "preserve canine species/body/head geometry; no humanoid or mascot normalization",
+    "CAT": "preserve feline species/body/head geometry; no humanoid or mascot normalization",
+    "ARTIFICIAL_PERSON": "preserve personhood and source surface/head/body geometry; artificiality is not robot-face shorthand",
+    "MAINTENANCE_ROBOT": "preserve machine shell/head/panel/body geometry; do not humanize unless source-backed"
+  },
+  "hardProhibitions": [
+    "same_face_base_hair_swap",
+    "generic_v_jaw",
+    "giant_eye_normalization",
+    "nose_mouth_homogenization",
+    "body_shape_normalization",
+    "de_aging",
+    "plus_size_slimming",
+    "disability_removal",
+    "child_adultification",
+    "nonhuman_humanoidization",
+    "gender_guessing_redesign",
+    "candidate_mark_as_sole_identity",
+    "prop_accessory_replacing_face_body_identity",
+    "lighting_hiding_geometry_difference"
+  ],
+  "imageGenerationGate": [
+    "appearance_contract_source_loaded",
+    "exact_character_contract_found",
+    "all_required_fields_present",
+    "candidate_status_preserved",
+    "species_age_body_geometry_loaded",
+    "face_signature_loaded",
+    "eye_lid_brow_lash_loaded",
+    "nose_mouth_loaded",
+    "hair_head_structure_loaded",
+    "body_shape_loaded",
+    "nearest_face_difference_loaded",
+    "forbidden_drift_loaded",
+    "neutral_recognition_tests_loaded",
+    "unknown_identity_geometry_not_delegated_to_model"
+  ]
+}
