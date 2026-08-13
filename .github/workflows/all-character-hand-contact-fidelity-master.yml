@@ -1,0 +1,26 @@
+name: All Character Hand Contact Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-hand-contact-fidelity-master-v1.md'
+      - 'data/visual/all-character-hand-contact-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'scripts/quality/check-all-character-hand-contact-fidelity-master.ts'
+      - '.github/workflows/all-character-hand-contact-fidelity-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-hand-contact-fidelity-master-v1.md'
+      - 'data/visual/all-character-hand-contact-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'scripts/quality/check-all-character-hand-contact-fidelity-master.ts'
+      - '.github/workflows/all-character-hand-contact-fidelity-master.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character hand contact fidelity authority
+        run: node --experimental-strip-types scripts/quality/check-all-character-hand-contact-fidelity-master.ts
