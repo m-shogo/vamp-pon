@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "queueId": "yoruno-shirube-pre-game-master-expansion-queue-v1",
+  "status": "LIST_ONLY_NO_AUTOMATIC_GENERATION",
+  "purpose": "Define every missing pre-game visual master family that must be normalized before guide/TOP/gameplay image execution, without duplicating existing 480 production rows or current main visual authorities.",
+  "dependsOn": [
+    "data/character-assets/manifests/visual-generation-count-baseline.v1.json",
+    "data/character-assets/manifests/visual-image-production-list.v1.json",
+    "docs/visual/visual-generation-master-backlog-v1.md"
+  ],
+  "branchSyncBoundary": {
+    "mustRebaseOrReconstructOnCurrentMainBeforeMerge": true,
+    "reason": "main contains newer all-character identity/garment/night-light and world-material visual authorities that this branch must reuse rather than duplicate"
+  },
+  "families": [
+    {
+      "order": 1,
+      "familyId": "character-state-transformation-master",
+      "layer": "master",
+      "source": "src/game/data/characterDatabase.ts",
+      "supportingSources": [
+        "src/game/data/kokuyouForms.ts",
+        "src/game/data/characterProductionPlans.ts",
+        "src/game/data/characterAppearanceGenerationContracts.ts"
+      ],
+      "enumeration": "characterDefinitions",
+      "sourceCount": 20,
+      "logicalMasterCount": 20,
+      "masterIdTemplate": "char-{characterId}-state-transformation-master-v1",
+      "contains": [
+        "normal-baseline-link",
+        "kokuyou-state",
+        "akatsuki-dawn-state",
+        "before-after-identity-lock",
+        "lighting-material-vfx-boundary"
+      ],
+      "productionState": "BLOCKED_BASE_CHARACTER_MASTER_AND_STATE_VISUAL_AUTHORING",
+      "generationAllowed": false,
+      "dedupeRule": "Normal/Kokuyou/Dawn are states of one character identity and must be reviewed in one logical comparison master before separate gameplay cut-ins/sprites are produced."
+    },
+    {
+      "order": 2,
+      "familyId": "enemy-reference-master",
+      "layer": "master",
+      "source": "src/game/data/enemyProductionDatabase.ts",
+      "enumeration": "enemyProductionEntries",
+      "sourceCount": 48,
+      "logicalMasterCount": 48,
+      "masterIdTemplate": "enemy-{enemyId}-reference-master-v1",
+      "existingGameplayKinds": [
+        "sprite_sheet_180",
+        "reference",
+        "attack_sheet",
+        "collection_icon"
+      ],
+      "masterPromotionRule": "existing `reference` intent is normalized as pre-game visual master evidence; sprite/attack/icon remain derivatives",
+      "yatsukageSubset": {
+        "count": 8,
+        "source": "src/game/data/yatsukageIdentitySource.ts",
+        "enemyIds": [
+          "boss_name_without_owner",
+          "boss_closed_morning_box",
+          "boss_night_without_route",
+          "omburo_black_origami",
+          "omburo_blank_card",
+          "omburo_repair_seam",
+          "omburo_dream_wave",
+          "omburo_nameplate"
+        ],
+        "countedAsAdditionalEnemyMasters": false
+      },
+      "productionState": "REFERENCE_MASTER_MODEL_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 3,
+      "familyId": "item-object-design-master",
+      "layer": "master",
+      "source": "src/game/data/itemAssetProductionDatabase.ts",
+      "supportingSource": "src/game/data/characterProductionPlans.ts",
+      "enumeration": "itemAssetProductionEntries",
+      "rawSourceCount": 105,
+      "characterLinkedRawCount": 100,
+      "fieldDropCount": 5,
+      "exactDistinctLabelCount": 94,
+      "logicalPhysicalMasterCount": "TBD_AFTER_LINEAGE_REVIEW",
+      "masterIdTemplateBeforeLineageResolution": "item-{itemId}-design-master-candidate-v1",
+      "existingGameplayKinds": [
+        "icon_64",
+        "card_512",
+        "pickup_32",
+        "evolution_burst",
+        "ui_slot"
+      ],
+      "productionState": "BLOCKED_PHYSICAL_OBJECT_LINEAGE_RESOLUTION",
+      "generationAllowed": false,
+      "dedupeRules": [
+        "same textual label creates a lineage review candidate but does not prove physical identity",
+        "starter/passive/rare/evolved/final phases may be states of one object and must not be independently generated before lineage review",
+        "Named Object luminous possessions remain a separate 21-record source until an explicit cross-lineage relation is authorized"
+      ]
+    },
+    {
+      "order": 4,
+      "familyId": "location-environment-setting-master",
+      "layer": "master",
+      "source": "src/game/data/stageProductionDatabase.ts",
+      "enumeration": "stageProductionEntries",
+      "sourceCount": 20,
+      "logicalMasterCount": 20,
+      "masterIdTemplate": "location-{stageId}-environment-setting-master-v1",
+      "existingGameplayKinds": [
+        "background_390x844",
+        "parallax_layer_pack",
+        "stage_thumbnail",
+        "battle_tile_patch"
+      ],
+      "masterRequiredFields": [
+        "establishing-view",
+        "landmark-and-architecture",
+        "foreground-midground-background",
+        "material-aging",
+        "lighting-color-script",
+        "character-scale-reference",
+        "spatial-plan-when-needed",
+        "signage-text-authority-boundary"
+      ],
+      "productionState": "MASTER_ROW_MODEL_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 5,
+      "familyId": "toumon-sigil-vector-master",
+      "layer": "master-vector",
+      "source": "src/game/data/toumonSimpleSigilCanon.ts",
+      "enumeration": "toumonSigils",
+      "sourceCount": 21,
+      "current20Count": 20,
+      "officialReserveCount": 1,
+      "officialReserveIds": ["ren"],
+      "logicalMasterCount": 21,
+      "masterIdTemplate": "toumon-{characterId}-vector-master-v1",
+      "preferredOutput": "SVG",
+      "imageGenerationAllowedForAuthority": false,
+      "explorationRasterMayBeUsed": true,
+      "productionState": "VECTOR_AUTHORING_REQUIRED"
+    },
+    {
+      "order": 6,
+      "familyId": "constellation-historical-archive-master",
+      "layer": "master-lore",
+      "source": "src/game/data/constellationStoryClueReservoir.ts",
+      "enumeration": "CONSTELLATION_STORY_CLUE_CANDIDATES",
+      "sourceCandidateCount": 8,
+      "logicalMasterCount": "TBD_AFTER_PER_OBJECT_ARCHIVE_AUTHORITY",
+      "productionState": "BLOCKED_RESEARCH_OBJECT_AUTHORITY",
+      "generationAllowed": false,
+      "rule": "candidate clues may define archive needs but may not auto-create final constellation objects, Character assignments, Star Beast assignments, enemy roles, or Story Canon"
+    },
+    {
+      "order": 7,
+      "familyId": "world-effect-reference-plates",
+      "layer": "master-reference",
+      "sources": [
+        "data/visual/visual-design-production-master-v1.json",
+        "data/visual/world-material-translation-master-v1.json",
+        "data/visual/all-character-night-light-rendering-master-v1.json"
+      ],
+      "topicCount": 12,
+      "logicalMasterCount": "TBD_COMBINE_TOPICS_WHEN_ONE_PLATE_CAN_SERVE_MULTIPLE_RULES",
+      "productionState": "REFERENCE_PLATE_AUTHORING_REQUIRED",
+      "generationAllowed": false,
+      "rule": "these are visual examples/evidence under current world/material/light authorities, never a competing world authority"
+    }
+  ],
+  "downstreamBlockedUntilNormalized": {
+    "guideLorebookDb": true,
+    "topLoadingNewReplacementWork": true,
+    "gameplayDerivatives": true
+  },
+  "explicitlyNotDuplicatedHere": [
+    {
+      "family": "character-design-master-pack",
+      "reason": "already modeled as 36 logical packs / 144 source sheets in visual-image-production-list"
+    },
+    {
+      "family": "star-beast-master",
+      "reason": "already modeled as 21 production rows"
+    },
+    {
+      "family": "named-object-master",
+      "reason": "already modeled as 21 production rows"
+    },
+    {
+      "family": "all-character-identity-authority",
+      "reason": "current main already provides all-character-identity-production-master-v1"
+    },
+    {
+      "family": "all-character-garment-authority",
+      "reason": "current main already provides all-character-garment-production-master-v1"
+    },
+    {
+      "family": "all-character-night-light-authority",
+      "reason": "current main already provides all-character-night-light-rendering-master-v1"
+    },
+    {
+      "family": "world-material-authority",
+      "reason": "current main already provides world-material-translation-master-v1"
+    }
+  ],
+  "nextImplementationPass": [
+    "after branch sync, generate deterministic explicit rows from the source arrays rather than hand-copying 48 enemy IDs / 105 item IDs / 20 stage IDs",
+    "add checker rules for source counts and Yatsukage subset non-duplication",
+    "add item-lineage review records for the 11 exact-label duplicate groups",
+    "only after the pre-game master rows exist, audit TOP/Loading and the 977 Asset Factory output paths for actual missing images"
+  ]
+}
