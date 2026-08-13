@@ -2,13 +2,13 @@
   "schemaVersion": 2,
   "bridgeId": "yoruno-shirube-character-sheet-production-entrypoint-bridge-v1",
   "status": "ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION",
-  "purpose": "Make Character Design Sheet 01-04 composition a strict child of the single production character prompt exporter so a sheet can never bypass current identity, garment, color, world, acting, fidelity, spatial, layout or maintenance authority.",
+  "purpose": "Make Character Design Sheet 01-04 composition a strict child of the single production character prompt exporter so a sheet can never bypass current identity, garment, color, world, acting, fidelity, spatial, layout, maintenance, occlusion or crop-readability authority.",
   "observedLatestMain": {
-    "sha": "18ad29ef740c52eaa6bd893d0e7e656154641300",
-    "throughPullRequest": 326,
+    "sha": "84cef6537ccd7875335bf4d2a1d8dee95c6ee4e4",
+    "throughPullRequest": 328,
     "syncedIntoInventoryBranch": true,
-    "mustRecheckImmediatelyBeforeAnyImageGeneration": true,
-    "note": "This SHA records the synchronization baseline, not a permanent authority freeze. A newer main must be rechecked before generation."
+    "mustRecheckImmediatelyBeforeAnyImageGenerationOrMerge": true,
+    "note": "This SHA records the synchronization baseline, not a permanent authority freeze. A newer main must be rechecked before generation or merge."
   },
   "parentProductionExporter": "tools/asset-factory/scripts/export-production-character-design-prompt.ts",
   "sheetAdapter": "tools/asset-factory/scripts/export-character-design-sheet-prompt.ts",
@@ -17,7 +17,7 @@
     "path": "data/character-assets/manifests/visual-character-prompt-packets.v1.json",
     "state": "LEGACY_DRAFT_SNAPSHOT_NOT_PRODUCTION_READY",
     "mayBeUsedDirectlyForProductionImageGeneration": false,
-    "reason": "Static packets can become stale whenever main adds production authority. The live Sheet Adapter now resolves the current top-level Production Exporter on every export."
+    "reason": "Static packets can become stale whenever main adds production authority. The live Sheet Adapter resolves the current top-level Production Exporter on every export."
   },
   "directLegacyPacketProductionAllowed": false,
   "handWrittenSheetPromptProductionAllowed": false,
@@ -69,7 +69,21 @@
     "environment-weather-fidelity",
     "spatial-world-scale-fidelity",
     "world-use-interaction-layout",
-    "material-aging-maintenance-continuity"
+    "material-aging-maintenance-continuity",
+    "occlusion-layering-fidelity",
+    "crop-silhouette-readability"
+  ],
+  "latestInheritedAuthorities": [
+    {
+      "source": "PR #327",
+      "id": "occlusion-layering-fidelity",
+      "rule": "Solve overlap by camera/crop, authorized placement, physical deformation, omission of hidden micro-detail or Human review; never redesign construction to remove collisions."
+    },
+    {
+      "source": "PR #328",
+      "id": "crop-silhouette-readability",
+      "rule": "Adapt composition before sacrificing identity-bearing silhouette, species, prop, mobility, ground-contact or construction information."
+    }
   ],
   "sheetRoleBoundaries": {
     "identity-turnaround": [
@@ -77,26 +91,30 @@
       "single anatomical coordinate system",
       "no mirror substitution for asymmetric construction",
       "same face/body/clothing/equipment topology across views",
-      "neutral inspection pose does not create signature pose"
+      "neutral inspection pose does not create signature pose",
+      "do not hide unresolved overlap or construction behind crop"
     ],
     "face-expression-acting": [
       "neutral base face remains parent geometry",
       "expression deforms soft tissue rather than identity geometry",
       "diagnostic acting does not create signature emotional canon",
-      "no generic premium-anime face convergence"
+      "no generic premium-anime face convergence",
+      "crop/effects may not erase identity-bearing face/head construction"
     ],
     "costume-equipment-material": [
       "authorized garment construction and storage only",
       "physically coherent contact/load/retrieve-use-return paths",
       "authorized material/weather/maintenance continuity",
       "no invented accessory or exposure",
-      "Named Object geometry remains separate authority"
+      "Named Object geometry remains separate authority",
+      "solve layer collisions without deleting or rerouting garment/equipment construction"
     ],
     "silhouette-motion-derivation": [
       "body mass/species/age/mobility identity survives motion and perspective",
       "prop scale/contact continuity",
       "world adapts around the character rather than resizing the character",
-      "OPEN motion uses neutral diagnostic placeholders rather than signature choreography"
+      "OPEN motion uses neutral diagnostic placeholders rather than signature choreography",
+      "crop and effects preserve identity-bearing silhouette information"
     ]
   },
   "yuiReferenceOnlyHardConstraintsPreservedForFutureResume": [
@@ -117,6 +135,7 @@
     "legacyStaticPromptHashesMayAuthorizeGeneration": false,
     "visualCIRequired": true,
     "crossAssetAuthorityMustRemainPresent": true,
+    "latestParentAuthorityMustRemainPresent": true,
     "imageGenerationAuthorizedByThisBridge": false
   }
 }
