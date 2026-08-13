@@ -7,6 +7,8 @@ const POLICY_PATH = 'data/visual/all-character-surface-tone-mapping-fidelity-mas
 const AUTHORITY_PATH = 'docs/visual/all-character-surface-tone-mapping-fidelity-master-v1.md';
 const VALUE_POLICY_PATH = 'data/visual/all-character-contrast-value-hierarchy-fidelity-master-v1.json';
 const VALUE_AUTHORITY_PATH = 'docs/visual/all-character-contrast-value-hierarchy-fidelity-master-v1.md';
+const EDGE_POLICY_PATH = 'data/visual/all-character-edge-line-shape-boundary-fidelity-master-v1.json';
+const EDGE_AUTHORITY_PATH = 'docs/visual/all-character-edge-line-shape-boundary-fidelity-master-v1.md';
 
 type Options = { characterId: string; kind: string };
 
@@ -35,19 +37,20 @@ function loadAuthority(policyPath: string, authorityPath: string, label: string)
 const options = parseArgs(process.argv.slice(2));
 const surface = loadAuthority(POLICY_PATH, AUTHORITY_PATH, 'surface/tone-mapping');
 const value = loadAuthority(VALUE_POLICY_PATH, VALUE_AUTHORITY_PATH, 'contrast/value-hierarchy');
+const edge = loadAuthority(EDGE_POLICY_PATH, EDGE_AUTHORITY_PATH, 'edge/line/shape-boundary');
 
 const stdout = execFileSync(process.execPath, [
   '--experimental-strip-types', resolve(process.cwd(), BASE_EXPORTER),
   '--character', options.characterId,
   '--kind', options.kind,
-], { cwd: process.cwd(), encoding: 'utf8', maxBuffer: 56 * 1024 * 1024 });
+], { cwd: process.cwd(), encoding: 'utf8', maxBuffer: 60 * 1024 * 1024 });
 const base = JSON.parse(stdout);
 if (base.productionImageGenerationEntrypoint !== true || base.productionCharacterPromptReady !== true || base.productionPromptAuthorityLocked !== true) throw new Error(`${options.characterId}: lower production chain not ready`);
 if (base.allCharacterFocusDepthEffectsFidelityRequired !== true) throw new Error(`${options.characterId}: focus/depth/effects chain missing`);
 
 const result = {
   ...base,
-  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 27),
+  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 28),
   generatedBy: 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts',
   allCharacterSurfaceToneMappingFidelityRequired: true,
   unknownSurfaceMayBeInventedByImageModel: surface.policy.rules?.unknownSurfaceMayBeInventedByImageModel,
@@ -67,10 +70,23 @@ const result = {
   premiumAssetMayIncreaseContrastAutomatically: value.policy.rules?.premiumAssetMayIncreaseContrastAutomatically,
   nightMayCrushIdentityMidtones: value.policy.rules?.nightMayCrushIdentityMidtones,
   generatedValueTreatmentCreatesCanon: value.policy.rules?.generatedValueTreatmentCreatesCanon,
+  allCharacterEdgeLineShapeBoundaryFidelityRequired: true,
+  unknownEdgeMayBeInventedByImageModel: edge.policy.rules?.unknownEdgeMayBeInventedByImageModel,
+  lineWeightMayRedesignFace: edge.policy.rules?.lineWeightMayRedesignFace,
+  lineWeightMayRedesignBodyCategory: edge.policy.rules?.lineWeightMayRedesignBodyCategory,
+  smallScaleMayEnlargeEyesForReadability: edge.policy.rules?.smallScaleMayEnlargeEyesForReadability,
+  smallScaleMayInventOutlineForReadability: edge.policy.rules?.smallScaleMayInventOutlineForReadability,
+  premiumAssetMayBeautifyContourAutomatically: edge.policy.rules?.premiumAssetMayBeautifyContourAutomatically,
+  lineCleanupMayHideMobilityEquipment: edge.policy.rules?.lineCleanupMayHideMobilityEquipment,
+  lineCleanupMayInventExposure: edge.policy.rules?.lineCleanupMayInventExposure,
+  nonHumanBoundaryMayHumanize: edge.policy.rules?.nonHumanBoundaryMayHumanize,
+  generatedEdgeTreatmentCreatesCanon: edge.policy.rules?.generatedEdgeTreatmentCreatesCanon,
   surfaceToneMappingPolicyPath: POLICY_PATH,
   surfaceToneMappingAuthorityPath: AUTHORITY_PATH,
   contrastValueHierarchyPolicyPath: VALUE_POLICY_PATH,
   contrastValueHierarchyAuthorityPath: VALUE_AUTHORITY_PATH,
+  edgeLineShapeBoundaryPolicyPath: EDGE_POLICY_PATH,
+  edgeLineShapeBoundaryAuthorityPath: EDGE_AUTHORITY_PATH,
   generatedOutputState: 'CANDIDATE_REVIEW_REQUIRED',
 };
 
@@ -80,13 +96,16 @@ for (const field of [
   'nonHumanSurfaceMayHumanize', 'generatedMicrotextureCreatesCanon', 'unknownValueHierarchyMayBeInventedByImageModel',
   'contrastMayChangeSkinIdentity', 'contrastMayHideBodyCategory', 'contrastMayHideMobilityEquipment',
   'contrastMayInventOutlineOrGlow', 'premiumAssetMayIncreaseContrastAutomatically', 'nightMayCrushIdentityMidtones',
-  'generatedValueTreatmentCreatesCanon',
+  'generatedValueTreatmentCreatesCanon', 'unknownEdgeMayBeInventedByImageModel', 'lineWeightMayRedesignFace',
+  'lineWeightMayRedesignBodyCategory', 'smallScaleMayEnlargeEyesForReadability', 'smallScaleMayInventOutlineForReadability',
+  'premiumAssetMayBeautifyContourAutomatically', 'lineCleanupMayHideMobilityEquipment', 'lineCleanupMayInventExposure',
+  'nonHumanBoundaryMayHumanize', 'generatedEdgeTreatmentCreatesCanon',
 ]) {
   if (result[field] !== false) throw new Error(`${options.characterId}: final rendering guard weakened: ${field}`);
 }
 
 const authorityOrder = Array.isArray(base.authorityOrder) ? [...base.authorityOrder] : [];
-for (const path of [AUTHORITY_PATH, POLICY_PATH, VALUE_AUTHORITY_PATH, VALUE_POLICY_PATH]) if (!authorityOrder.includes(path)) authorityOrder.push(path);
+for (const path of [AUTHORITY_PATH, POLICY_PATH, VALUE_AUTHORITY_PATH, VALUE_POLICY_PATH, EDGE_AUTHORITY_PATH, EDGE_POLICY_PATH]) if (!authorityOrder.includes(path)) authorityOrder.push(path);
 
 const surfaceBlock = [
   'SURFACE / TONE-MAPPING FIDELITY — FINAL MATERIAL LOCK.',
@@ -109,8 +128,18 @@ const valueBlock = [
   value.authority,
 ].join('\n');
 
+const edgeBlock = [
+  'EDGE / LINE-WEIGHT / SHAPE BOUNDARY FIDELITY — FINAL CONTOUR LOCK.',
+  `Authority: ${EDGE_AUTHORITY_PATH}.`,
+  `Machine policy: ${EDGE_POLICY_PATH}.`,
+  'Edges describe authorized shape; they do not redesign it. Preserve face contour, eye/brow geometry, age, body category, garment construction, hand/contact, prop and mobility-equipment boundaries.',
+  'Unknown edge treatment uses IDENTITY_PRESERVING_NEUTRAL_BOUNDARY. Do not enlarge eyes, sharpen or soften jaws, slim bodies, invent exposure, hide mobility equipment, humanize animal/robot contours, or add white/neon outlines for readability.',
+  'For small-scale assets, remove non-identity edge information before adding anything. Generated edge treatments remain CANDIDATE_REVIEW_REQUIRED and never create canon.',
+  edge.authority,
+].join('\n');
+
 result.authorityOrder = authorityOrder;
-result.prompt = `${base.prompt}\n\n${surfaceBlock}\n\n${valueBlock}`;
+result.prompt = `${base.prompt}\n\n${surfaceBlock}\n\n${valueBlock}\n\n${edgeBlock}`;
 result.reviewChecklist = [
   '肌色・年齢・体格をtone mappingやbeauty smoothingで変えない',
   'fur/shell/cloth/leather/paper/wood/metalを同一glossにしない',
@@ -118,6 +147,8 @@ result.reviewChecklist = [
   '高解像度化でfreckles/scars/scratches/poresを発明しない',
   '夜でもmidtoneを残し、顔の白化・黒潰れ・万能rim lightで本人性を作らない',
   'premium/Dawn/Kokuyouを理由にglobal contrastやaccent luminanceを自動増加しない',
+  '線幅・輪郭整理・小型化で顔形、目、年齢、体型、服構造を別物にしない',
+  'sprite/chibiの可読性を目拡大・白縁・体型細化・mobility equipment省略で作らない',
   ...(Array.isArray(base.reviewChecklist) ? base.reviewChecklist : []),
 ];
 
