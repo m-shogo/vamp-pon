@@ -23,7 +23,13 @@ assert(ledger.currentBoundary?.latestMainBaselineMergedIntoBranchWithoutForce ==
 assert(ledger.currentBoundary?.latestMainMustBeRecheckedBeforeImageGenerationOrMerge === true, 'latest main must still be rechecked before generation/merge');
 assert(ledger.currentBoundary?.imageGenerationAllowed === false, 'resolution ledger may not authorize image generation');
 assert(ledger.currentBoundary?.yuiHold === true, 'Yui HOLD must remain preserved');
-assert(typeof ledger.stateDefinitions?.STRUCTURED_MASTER_SPEC_IMPLEMENTED_HUMAN_REVIEW_REQUIRED === 'string', 'structured Master state definition missing');
+for (const state of [
+  'STRUCTURED_MASTER_SPEC_IMPLEMENTED_HUMAN_REVIEW_REQUIRED',
+  'SOURCE_GROUNDED_AUTHORING_BRIEF_IMPLEMENTED_VISUAL_BOARD_PENDING',
+  'VECTOR_SYSTEM_SPEC_IMPLEMENTED_GEOMETRY_PENDING',
+]) {
+  assert(typeof ledger.stateDefinitions?.[state] === 'string', `resolution state definition missing: ${state}`);
+}
 
 const legacy = new Map((ledger.legacySakuyazaMigration ?? []).map((entry: any) => [entry.findingId, entry]));
 for (const id of [
@@ -39,15 +45,9 @@ for (const id of [
 }
 
 const fixed = new Map((ledger.fixedMasterFamilies ?? []).map((entry: any) => [entry.findingId, entry]));
-for (const id of [
-  'SAKUYAZA_TEAM_COMPARISON_MASTER',
-  'CORE5_REALITY_ERA_ENVIRONMENT_REFERENCE_MASTERS',
-  'CORE5_ERA_POPULATION_HOUSEHOLD_REFERENCE_MASTERS',
-  'MODERN_IAU88_CONSTELLATION_LINE_ART_VECTOR_MASTER',
-]) {
-  const entry = fixed.get(id) as any;
-  assert(entry?.state === 'MATERIALIZED_PLANNED_NOT_AUTHORED', `${id}: must remain materialized-but-not-authored`);
-}
+const sakuyaza = fixed.get('SAKUYAZA_TEAM_COMPARISON_MASTER') as any;
+assert(sakuyaza?.state === 'MATERIALIZED_PLANNED_NOT_AUTHORED', 'Sakuyaza team comparison must remain planned until individual Masters are approved');
+
 for (const id of [
   'GUNJO_FOUNDATION_MASTERS',
   'DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER',
@@ -58,6 +58,25 @@ for (const id of [
   assert(entry?.imageGenerationAuthorized === false, `${id}: structured Master may not authorize image generation`);
   assert(Array.isArray(entry?.files) && entry.files.length >= 1, `${id}: structured Master file evidence missing`);
 }
+
+for (const id of ['CORE5_REALITY_ERA_ENVIRONMENT_REFERENCE_MASTERS', 'CORE5_ERA_POPULATION_HOUSEHOLD_REFERENCE_MASTERS']) {
+  const entry = fixed.get(id) as any;
+  assert(entry?.state === 'SOURCE_GROUNDED_AUTHORING_BRIEF_IMPLEMENTED_VISUAL_BOARD_PENDING', `${id}: authoring brief state missing`);
+  assert(entry?.rowCount === 5, `${id}: planned board count must remain 5`);
+  assert(entry?.visualBoardsAuthored === false, `${id}: authoring brief may not claim visual boards authored`);
+  assert(entry?.imageGenerationAuthorized === false, `${id}: authoring brief may not authorize image generation`);
+  assert(Array.isArray(entry?.files) && entry.files.length === 1, `${id}: authoring brief evidence path missing`);
+}
+const household = fixed.get('CORE5_ERA_POPULATION_HOUSEHOLD_REFERENCE_MASTERS') as any;
+assert(household?.exactFamilyMembersFrozen === false, 'Core5 population/household brief may not freeze literal family members');
+
+const iau88 = fixed.get('MODERN_IAU88_CONSTELLATION_LINE_ART_VECTOR_MASTER') as any;
+assert(iau88?.state === 'VECTOR_SYSTEM_SPEC_IMPLEMENTED_GEOMETRY_PENDING', 'Modern IAU88 system must remain geometry-pending');
+assert(iau88?.all88LinePathsAuthored === false, 'Modern IAU88 may not claim all 88 line paths authored');
+assert(iau88?.exactStarCoordinateDatasetBound === false, 'Modern IAU88 exact star-coordinate dataset must remain unbound until explicit work');
+assert(iau88?.imageGenerationAuthorized === false, 'Modern IAU88 system spec may not authorize raster/image generation');
+assert(Array.isArray(iau88?.files) && iau88.files.includes('data/visual/modern-iau88-project-line-art-vector-master-v1.json'), 'Modern IAU88 system spec evidence missing');
+
 for (const id of ['ERA_INCIDENT_VISUAL_ADMISSION_POLICY', 'SEASON_ANTAGONIST_VISUAL_ADMISSION_POLICY']) {
   const entry = fixed.get(id) as any;
   assert(entry?.state === 'POLICY_IMPLEMENTED_NOT_CONTENT_ADMITTED', `${id}: admission policy state drift`);
@@ -135,7 +154,13 @@ console.log(JSON.stringify({
   latestMainSyncThroughPullRequest: ledger.currentBoundary.latestMainSyncThroughPullRequest,
   legacyFindingsResolvedSynced: legacy.size,
   fixedMasterFindingsTracked: fixed.size,
-  structuredMasterFamilies: ['GUNJO_FOUNDATION_MASTERS','DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER','SKY_MOON_RESOLUTION_COLOR_SCRIPT_MASTER'],
+  structuredMasterFamilies: [
+    'GUNJO_FOUNDATION_MASTERS',
+    'DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER',
+    'SKY_MOON_RESOLUTION_COLOR_SCRIPT_MASTER',
+  ],
+  core5AuthoringBriefs: { environment: 5, populationHousehold: 5, visualBoardsAuthored: false },
+  iau88VectorSystem: { systemSpecImplemented: true, all88LinePathsAuthored: false, exactStarCoordinateDatasetBound: false },
   sourceDerivedFamiliesTracked: sourceDerived.size,
   itemCollisionReview: { groups: item.exactLabelCollisionGroups, collapsesAuthorized: item.collisionRowsAuthorizedToCollapse },
   guideExecution: { imageBearing: guide.currentExecutionImageBearingRows, nonImage: guide.currentExecutionLogicalNonImageRows, migratedLorebook: guide.legacyBakedRowsMigrated },
