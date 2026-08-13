@@ -1,0 +1,53 @@
+{
+  "id": "yoru-no-shirube-all-character-personal-grooming-cosmetics-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-personal-grooming-cosmetics-fidelity-master-v1.md",
+  "unknownGroomingDefault": "SOURCE_CONSTRAINED_NO_INVENTION_PERSONAL_GROOMING_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedGroomingCreatesCanon": false
+  },
+  "groomingAxes": [
+    "cosmeticsExistenceAuthority", "cosmeticsAbsenceAuthority", "cosmeticRegionInventory", "eyeMakeupExistence", "eyelinerTopology", "eyeshadowCoverage", "mascaraLashTreatmentStatus", "falseLashStatus", "browCosmeticTreatment", "cheekCosmeticTreatment", "lipCosmeticTreatment", "lipColorFamily", "lipFinishFamily", "foundationPowderVisibility", "decorativeCosmeticMotif", "temporaryCosmeticMarkingBoundary", "nailGroomingExistenceAuthority", "nailLengthFamily", "nailShapeFamily", "nailPolishExistence", "nailColorFamily", "nailFinishFamily", "nailDecorationInventory", "leftRightNailTreatmentConsistency", "handFootNailDistinction", "sourceBackedChippedWornPolishStatus", "facialHairExistenceAuthority", "facialHairAbsenceAuthority", "moustacheRegion", "beardRegion", "sideburnRegion", "chinHairRegion", "jawCheekHairRegion", "stubbleExistence", "facialHairDensityFamily", "facialHairLengthFamily", "facialHairEdgeTopology", "facialHairColorRelation", "sourceBackedFacialHairAsymmetry", "shavedFacialHairBoundary", "eyebrowHairDensityFamily", "eyebrowGroomingShape", "sourceBackedEyebrowNotch", "visibleBodyHairExistenceAuthority", "bodyHairRegion", "bodyHairDensityFamily", "bodyHairLengthFamily", "sourceBackedBodyHairRemovalBoundary", "sourceBackedShavedPatternBoundary", "sourceBackedVisibleRegionalHairStatus", "skinHairTransition", "wetnessResponse", "sweatResponseBoundary", "ageBearingGroomingContinuity", "viewpointContinuity", "canonicalLeftRightAsymmetry", "expressionContinuity", "motionContinuity", "lightingIndependence", "cropIndependence", "occlusionSurvival", "stateVariantInheritance", "premiumStateInheritance", "seasonalStateInheritance", "temporaryRemovalChangeAuthority", "battleDamageIndependence", "lodSurvivalPriority", "chibiPreservationClass", "spritePreservationClass", "groomingUncertaintyClass"
+  ],
+  "groomingInvariants": [
+    "unknown grooming is never an empty styling slot", "source backed absence remains authoritative", "cosmetics are not inferred from gender presentation", "nail treatment is not inferred from gender presentation", "facial hair is not inferred from masculinity age authority or fatigue", "body hair is not inferred from ethnicity or exposure", "source backed cosmetics persist across viewpoints", "source backed facial hair preserves anatomical topology", "source backed eyebrow grooming preserves face construction", "nail length and shape do not beautify hand anatomy", "weather does not invent cosmetic smearing", "wear does not invent nail damage", "time passage does not invent stubble", "grooming does not imply hygiene routine", "grooming does not imply wealth or vanity", "grooming does not imply sexuality or culture", "premium does not increase grooming inventory", "premium does not erase source backed facial hair", "premium does not erase age bearing grooming cues", "battle does not add stubble or remove cosmetics", "state variants inherit baseline grooming without delta", "high resolution does not invent body hair", "exposure does not invent body hair", "LOD preserves existence before micro detail", "chibi preserves grooming family", "sprite preserves source backed facial hair", "generated weather effects do not create grooming canon", "generated grooming remains candidate only", "generated routine remains candidate only", "generated grooming never creates canon"
+  ],
+  "preservationPriority": [
+    "sourceBackedPresenceAndAbsence", "facialHairAndBrowTopology", "cosmeticRegionInventory", "nailLengthShapeAndTreatment", "visibleBodyHairAuthority", "anatomicalAttachmentAndViewContinuity", "ageBearingGroomingContinuity", "stateVariantInheritance", "weatherWearBoundary", "meaningRoutineInferenceBoundary", "lodIdentitySurvival", "finishTextureMicroDetail"
+  ],
+  "forbiddenShortcuts": [
+    "makeupAddedForFemalePresentation", "makeupRemovedForMalePresentation", "eyelinerAddedForPremium", "lashesLengthenedForBeauty", "blushAddedForCuteness", "lipGlossAddedForPremium", "lipstickAddedForGlamour", "contourAddedForBeauty", "faceGlitterAddedForRarity", "cosmeticsRemovedForBattle", "cosmeticsRemovedForChibi", "nailPolishAddedForFemininity", "blackNailPolishAddedForEdginess", "longNailsAddedForElegance", "nailGemsAddedForPremium", "nailArtAddedForRarity", "handAnatomyHiddenByLongNails", "beardRemovedForYouthfulness", "moustacheRemovedForBeauty", "stubbleAddedForMasculinity", "stubbleAddedForFatigue", "beardAddedForAuthority", "beardDensityIncreasedForAge", "facialHairBoundaryMovesByView", "shadowConvertedToStubble", "eyebrowThinnedForFemininity", "eyebrowThickenedForMasculinity", "eyebrowArchAddedForAttitude", "eyebrowNotchAddedForEdginess", "bodyHairRemovedForBeauty", "bodyHairAddedForMasculinity", "bodyHairInferredFromEthnicity", "bodyHairInferredFromAge", "bodyHairInventedFromExposure", "highResolutionInventsBodyHair", "groomingInfersSexuality", "groomingInfersCulture", "groomingInfersWealth", "groomingInfersHygieneRoutine", "groomingInfersVanity", "groomingInfersRelationshipMeaning", "rainInventsMascaraRun", "sweatInventsMakeupSmear", "wearInventsNailChips", "timePassageInventsStubble", "premiumIncreasesGroomingInventory", "premiumSmoothsAwayFacialHair", "premiumSmoothsAwayAgeGroomingCues", "stateChangesGroomingWithoutDelta", "seasonalAddsCosmeticsWithoutDelta", "battleAddsStubbleWithoutDelta", "lodMovesGroomingFeatureForReadability", "chibiEnlargesMakeupIntoIcon", "spriteErasesSourceBackedFacialHair", "generatedGroomingCreatesCanon", "generatedRoutineCreatesCanon", "falseLashesInventedForPremium", "foundationInventedForSkinSmoothing", "lipColorNormalizedToGenericBeauty", "facialHairSymmetrizedForBeauty", "browGroomingSymmetrizedForBeauty", "nailLengthChangesAcrossHands", "bodyHairUsedForSexualization", "cosmeticsUsedForAgeErasure", "cosmeticsUsedToHideFaceMismatch", "facialHairUsedToHideJawMismatch", "groomingChangeCreatesRelationshipEvidence", "battleDamageCreatesShavedPattern", "wetnessDeletesCosmeticsWithoutAuthority", "premiumAddsMetallicNailFinish", "premiumAddsCosmeticGem"
+  ],
+  "rules": {
+    "unknownGroomingMayBeInventedByImageModel": false,
+    "cosmeticsMayBeInferredFromGenderPresentation": false,
+    "nailTreatmentMayBeInferredFromGenderPresentation": false,
+    "facialHairMayBeInferredFromMasculinityAgeOrRole": false,
+    "bodyHairMayBeInferredFromEthnicityAgeOrExposure": false,
+    "sourceBackedCosmeticsMayBeRemovedForSimplification": false,
+    "sourceBackedFacialHairMayBeRemovedForBeauty": false,
+    "browGroomingMayRedesignFaceConstruction": false,
+    "nailLengthMayChangeForHandBeauty": false,
+    "weatherMayInventCosmeticSmearing": false,
+    "wearMayInventNailDamage": false,
+    "timePassageMayInventStubble": false,
+    "groomingMayInferHygieneRoutine": false,
+    "groomingMayInferWealthVanityOrSexuality": false,
+    "groomingMayInferCultureOrRelationshipMeaning": false,
+    "premiumMayIncreaseGroomingInventory": false,
+    "premiumMayEraseAgeBearingGroomingCues": false,
+    "stateMayChangeGroomingWithoutDelta": false,
+    "battleMayAddStubbleOrRemoveCosmetics": false,
+    "highResolutionMayInventBodyHair": false,
+    "exposureMayInventBodyHair": false,
+    "lodMayMoveOrDeleteIdentityGrooming": false,
+    "chibiMayEnlargeGroomingIntoIcon": false,
+    "spriteMayEraseSourceBackedFacialHair": false,
+    "generatedGroomingCreatesCanon": false
+  }
+}
