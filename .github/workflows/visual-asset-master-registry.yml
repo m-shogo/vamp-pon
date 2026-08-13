@@ -28,6 +28,7 @@ on:
       - 'src/game/data/characterThemeColorReservoir.ts'
       - 'src/game/data/characterDatabase.ts'
       - 'src/game/data/characterProductionPlans.ts'
+      - 'src/game/data/characterDesignSheetProductionEntrypoint.ts'
       - 'src/game/data/itemProductionCanon.ts'
       - 'src/game/data/itemAssetProductionDatabase.ts'
       - 'src/game/data/enemyProductionDatabase.ts'
@@ -48,7 +49,10 @@ on:
       - 'src/game/data/assetGenerationPolicy.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/visualAssetGenerationInventory.ts'
+      - 'tools/asset-factory/scripts/export-character-design-sheet-prompt.ts'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
       - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
+      - 'scripts/quality/check-character-design-sheet-production-entrypoint.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
@@ -91,6 +95,7 @@ on:
       - 'src/game/data/characterThemeColorReservoir.ts'
       - 'src/game/data/characterDatabase.ts'
       - 'src/game/data/characterProductionPlans.ts'
+      - 'src/game/data/characterDesignSheetProductionEntrypoint.ts'
       - 'src/game/data/itemProductionCanon.ts'
       - 'src/game/data/itemAssetProductionDatabase.ts'
       - 'src/game/data/enemyProductionDatabase.ts'
@@ -111,7 +116,10 @@ on:
       - 'src/game/data/assetGenerationPolicy.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/visualAssetGenerationInventory.ts'
+      - 'tools/asset-factory/scripts/export-character-design-sheet-prompt.ts'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
       - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
+      - 'scripts/quality/check-character-design-sheet-production-entrypoint.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
@@ -148,6 +156,8 @@ jobs:
         run: pnpm visual-assets:check
       - name: Validate generation backlog governance, counts, and duplicate binaries
         run: node --experimental-strip-types scripts/quality/check-visual-generation-governance.ts
+      - name: Validate live Character Design Sheet production adapter
+        run: node --experimental-strip-types scripts/quality/check-character-design-sheet-production-entrypoint.ts
       - name: Validate Sakuyaza Current naming and Gunjo record-taxonomy visual masters
         run: node --experimental-strip-types scripts/quality/check-visual-current-group-record-master.ts
       - name: Validate Sakuyaza legacy-ID migration facade
