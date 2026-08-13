@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "admissionId": "yoruno-shirube-gunjo-subject-master-admission-v1",
+  "status": "CURRENT_ROLE_BOUNDARY_DYNAMIC_COUNT_NO_AUTOMATIC_GENERATION",
+  "source": "docs/gunjo-zankyoroku-current-v1.md",
+  "purpose": "Allow future Gunjo Zankyoroku subjects to enter the visual master backlog according to their authorized incident role without assuming a fixed member count, humanoid boss roster, or organization.",
+  "fixedSubjectCount": null,
+  "automaticSubjectCreationAllowed": false,
+  "automaticImageGenerationAllowed": false,
+  "subjectTypes": [
+    {
+      "type": "CENTRAL_PERSON",
+      "masterPolicy": "Create or reuse one individual Character/Person setting Master after formal Gunjo admission. If the same person already has an approved Character Master, reference that lineage instead of copying the image.",
+      "idTemplate": "gunjo-person-{subjectId}-master-v1",
+      "duplicateExistingCharacterMaster": false
+    },
+    {
+      "type": "CENTRAL_PEOPLE_GROUP",
+      "masterPolicy": "Create a group comparison/staging Master only after group composition is authoritative; individual member Masters are created/reused only for authoritative members.",
+      "idTemplate": "gunjo-group-{subjectId}-master-v1",
+      "fixedGroupSizeAllowedWithoutAuthority": false
+    },
+    {
+      "type": "INSTITUTION_OR_SYSTEM",
+      "masterPolicy": "Create system/process/environment/interface/record-setting Masters as appropriate. Do not personify the system into a humanoid boss unless Story authority separately defines one.",
+      "idTemplate": "gunjo-system-{subjectId}-visual-master-v1",
+      "automaticHumanoidBossAllowed": false
+    },
+    {
+      "type": "SOCIAL_PRESSURE",
+      "masterPolicy": "Use information-flow, crowd/environment, media, signage-free diagram, color/light and record-reference plates as appropriate. Do not invent one mascot villain to stand for the social pressure.",
+      "idTemplate": "gunjo-social-pressure-{subjectId}-visual-master-v1",
+      "automaticSingleVillainAllowed": false
+    },
+    {
+      "type": "SAKUYAZA_ENTANGLEMENT",
+      "masterPolicy": "Reuse the approved Sakuyaza member Master and add only incident-specific staging/reference evidence when needed. Never duplicate the same Sakuyaza character image under a Gunjo asset ID.",
+      "idTemplate": "gunjo-incident-{incidentId}-sakuyaza-{sakuyazaMemberId}-staging-v1",
+      "duplicateSakuyazaMaster": false
+    }
+  ],
+  "formalAdmissionGate": [
+    "Era / Incident identified",
+    "subject type identified",
+    "what the subject wanted is defined",
+    "what the subject feared is defined when person/group based",
+    "choice / non-choice or system pressure role is defined",
+    "role is not reduced to one evil-person shortcut",
+    "Kokuyou/social wrong-arrival thematic mirror is defined where applicable",
+    "Sakuyaza relation is defined or explicitly NO_DIRECT_CONTACT / UNKNOWN",
+    "combat Boss role is independently decided",
+    "Reality full-name reveal relevance is defined for person subjects",
+    "Happy End / re-choice boundary is defined where applicable",
+    "source and spoiler authority are attached"
+  ],
+  "dedupeRules": [
+    "existing Character Master wins over a duplicate Gunjo portrait",
+    "existing Sakuyaza Master wins over a duplicate Gunjo portrait",
+    "same physical archive source is referenced, not copied per Incident",
+    "one Incident may reference multiple subject Masters",
+    "one subject may appear in multiple Incident boards without duplicating its Master binary"
+  ],
+  "forbidden": [
+    "fixed five-person Gunjo roster",
+    "Gunjo common uniform",
+    "Gunjo headquarters",
+    "Gunjo membership badge or faction emblem without separate authority",
+    "every Gunjo subject as enemy",
+    "every Gunjo subject as combat boss",
+    "八影 or 朔夜座 treated as another name for Gunjo",
+    "generated image creating a new Gunjo member or Incident"
+  ]
+}
