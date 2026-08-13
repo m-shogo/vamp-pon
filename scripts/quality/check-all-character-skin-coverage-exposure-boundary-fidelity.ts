@@ -29,16 +29,27 @@ if ((policy.forbiddenShortcuts ?? []).length < 70) fail('70+ forbidden shortcuts
 if (policy.unknownCoverageDefault !== 'SOURCE_CONSTRAINED_BASELINE_COVERAGE_PRESERVATION') fail('unknown coverage default weakened');
 for (const [field, value] of Object.entries(policy.rules ?? {})) if (value !== false) fail(`rule must remain false: ${field}`);
 if (!authority.includes('CANDIDATE_REVIEW_REQUIRED') || !authority.includes('SOURCE_CONSTRAINED_BASELINE_COVERAGE_PRESERVATION')) fail('authority boundary missing');
-if (entrypointPolicy.productionExporter !== CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.exporter || CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.policy !== entrypointPolicyPath) fail('official production entrypoint not promoted to v7 skin-coverage wrapper');
 if (entrypointPolicy.basePolicy !== parentEntrypointPolicyPath) fail('v7 parent policy mismatch');
 if (entrypointPolicy.terminalPolicy !== policyPath || entrypointPolicy.terminalAuthorityDocument !== authorityPath) fail('v7 terminal authority mismatch');
+
+let lineagePath = CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.policy;
+const seen = new Set<string>();
+let foundV7 = false;
+while (typeof lineagePath === 'string') {
+  if (seen.has(lineagePath)) fail(`entrypoint lineage cycle: ${lineagePath}`);
+  seen.add(lineagePath);
+  if (lineagePath === entrypointPolicyPath) { foundV7 = true; break; }
+  const lineagePolicy = loadJson(lineagePath);
+  lineagePath = lineagePolicy.basePolicy;
+}
+if (!foundV7) fail('official production lineage no longer contains v7 skin-coverage layer');
 
 const ids: string[] = [];
 for (const path of profilePaths) for (const c of loadJson(path).characters ?? []) ids.push(c.id);
 if (ids.length !== 36 || new Set(ids).size !== 36) fail(`expected 36 unique ids, got ${ids.length}/${new Set(ids).size}`);
 
 for (const id of ids) {
-  const stdout = execFileSync(process.execPath, ['--experimental-strip-types', resolve(root, CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.exporter), '--character', id, '--kind', 'character_reference'], { cwd: root, encoding: 'utf8', maxBuffer: 760 * 1024 * 1024 });
+  const stdout = execFileSync(process.execPath, ['--experimental-strip-types', resolve(root, CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.exporter), '--character', id, '--kind', 'character_reference'], { cwd: root, encoding: 'utf8', maxBuffer: 900 * 1024 * 1024 });
   const output = JSON.parse(stdout);
   if (output.allCharacterSkinCoverageExposureBoundaryFidelityRequired !== true) fail(`${id}: coverage flag missing`);
   for (const field of Object.keys(policy.rules ?? {})) if (output[field] !== false) fail(`${id}: guard weakened: ${field}`);
