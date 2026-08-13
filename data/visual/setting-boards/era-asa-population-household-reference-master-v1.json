@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "assetId": "era-asa-population-household-reference-master-v1",
+  "status": "EDITABLE_SETTING_BOARD_SPEC_AUTHORED_HUMAN_REVIEW_REQUIRED_NO_RASTER",
+  "characterId": "asa",
+  "boardType": "POPULATION_HOUSEHOLD",
+  "eraBand": "far_future_human_android_robot_avatar_coexistence",
+  "exactYearState": "OPEN",
+  "literalFamilyCanonCreated": false,
+  "authoritySources": ["data/visual/core5-era-life-design-master-v1.json","data/visual/core5-era-population-household-authoring-brief-v1.json","data/visual/core5-era-setting-board-production-contract-v1.json","data/visual/core5-era-setting-board-evidence-packets-v1.json","src/game/data/characterRealityRootRegistry.ts"],
+  "panels": [
+    {"id":"P01-six-population-lenses","content":["child","teen-or-young-adult","parent-age adult","older adult","non-parent aunt/uncle-like adult","non-nuclear household example"]},
+    {"id":"P02-household-system-variation","content":["human-only household with ordinary future infrastructure","mixed human/android/robot/avatar-access household candidate","non-nuclear/shared-care household where person/body/account/device access are not one-to-one"]},
+    {"id":"P03-ordinary-task-distribution","content":["care/support","maintenance/repair","identity/access administration","work/study","mobility planning","social participation/provisioning"]},
+    {"id":"P04-system-access-differences","content":["different body/environment needs","identity credential and account access","repair/maintenance ownership","network vs offline access","food/nutrition need differences without hierarchy","mobility accommodation"]},
+    {"id":"P05-not-literal-family-boundary","content":"These are population-study and future-design composites. They do not define Asa's literal parents, siblings, partner, children, exact household, legal status or exact future society."}
+  ],
+  "forbiddenShortcuts": ["android_must_humanize","everyone_has_body_replacement","everyone_uses_holograms","everyone_wears_bodysuits","father_equals_work_only","mother_equals_housework_only","one_household_is_whole_era","family_photo_implies_literal_character_family"],
+  "openFields": ["exact future year","exact legal personhood system","exact household composition","exact body-transfer technology","exact authentication UI","exact political side","exact incident"],
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "masterApproval": false,
+  "runtimeApproval": false
+}
