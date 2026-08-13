@@ -1,0 +1,51 @@
+{
+  "id": "yoru-no-shirube-all-character-body-mass-posture-construction-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-body-mass-posture-construction-fidelity-master-v1.md",
+  "unknownBodyDefault": "SOURCE_CONSTRAINED_EMBODIED_NEUTRAL_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedBodyCreatesCanon": false
+  },
+  "constructionAxes": [
+    "statureFamily", "headBodyRatio", "cranialNeckTransition", "neckLength", "neckThickness", "shoulderBreadth", "shoulderSlope", "clavicleSpan", "upperTrunkWidth", "ribcageDepth", "chestPlaneFamily", "torsoLength", "waistVerticalPlacement", "waistCompressionFamily", "pelvisBreadth", "pelvisDepth", "pelvisTilt", "shoulderPelvisWidthRelationship", "upperArmLength", "forearmLength", "armThicknessFamily", "elbowProminenceFamily", "handScale", "fingerLengthFamily", "thighLength", "lowerLegLength", "thighMassFamily", "calfMassFamily", "kneeProminenceFamily", "ankleThicknessFamily", "footScale", "overallSoftTissueDistribution", "upperBodyMassDistribution", "lowerBodyMassDistribution", "abdominalSoftnessFamily", "muscularityFamily", "ageBearingBodyCues", "sourceBackedBodyAsymmetry", "centerOfGravityHeight", "weightBearingLegHabit", "stanceWidth", "shoulderCarriage", "spinalCarriage", "headNeckCarriage", "armRestingHabit", "handRestingHabit", "seatedBaseOfSupportHabit", "crouchSquatBaseHabit", "movementInitiationTendency", "mobilityEquipmentBodyClearance", "clothingBodyClearance", "contactPressureBehavior"
+  ],
+  "bodyInvariants": [
+    "one coherent body construction across viewpoints", "premium art preserves stature family", "premium art preserves body mass category", "perspective foreshortens without changing ratios", "action redistributes weight without redesigning body", "expression does not redesign torso or pelvis", "clothing does not authorize a new body beneath it", "loose clothing does not imply thinness", "tight clothing does not exaggerate anatomy", "wet clothing does not sexualize body revelation", "damage does not increase exposure", "lighting does not remove authorized body volume", "highlights do not invent musculature", "chibi preserves body-category identity", "sprite preserves body-category identity", "LOD removes micro detail before gross proportion", "seated pose preserves compression and mass", "crouch preserves joint clearance and volume", "hand scale remains identity-consistent", "foot scale remains identity-consistent", "age-bearing body cues remain unless authority changes them", "plus-size and broad bodies are not normalized", "soft bodies are not rigidified", "child bodies are not adultized", "adult chibi is not converted to child anatomy", "mobility equipment remains structurally integrated", "nonhuman bodies are not humanized by default", "posture remains identity-bearing", "center of gravity remains character-specific", "generated body geometry never creates canon"
+  ],
+  "preservationPriority": [
+    "existingCanonBodyCategoryAndAge", "sourceBackedStatureAndHeadBodyRatio", "shoulderRibcagePelvisRelationship", "torsoLimbProportion", "bodyMassSoftTissueDistribution", "mobilityEquipmentRelationship", "habitualCenterOfGravityAndPosture", "handFootScale", "clothingClearanceAndContact", "poseReadability", "lightingPolish", "cosmeticAnatomyDetail"
+  ],
+  "forbiddenShortcuts": [
+    "automaticLongLegBeautification", "automaticNarrowWaist", "automaticSlimTorso", "automaticBroadShouldersForMalePresentation", "automaticHourglassForFemalePresentation", "automaticChestEnlargement", "automaticHipEnlargement", "automaticHandShrinking", "automaticFootShrinking", "automaticNeckLengthening", "automaticHeightIncreaseForPremiumArt", "automaticMuscularDefinitionForActionArt", "automaticFatReductionThroughLighting", "automaticAgeSmoothingOfPosture", "automaticSymmetryCorrection", "normalizeBodyTowardMedianSlimness", "normalizeBodyTowardAthleticism", "inferSexualDimorphismFromPresentation", "inferBodyStereotypeFromEthnicity", "inferBodyStereotypeFromSexuality", "inferBodyStereotypeFromPersonality", "inferBodyExaggerationFromRarity", "inferHeroicProportionFromProtagonistStatus", "inferLargerMassFromAntagonistStatus", "adultizeChildProportions", "convertAdultChibiToChildAnatomy", "hidePlusSizeBodyUnderImpossibleCloth", "narrowBroadBodyToFitCostume", "rigidifySoftBodyWithHighlights", "shrinkMobilityEquipmentForHeight", "stretchSeatedBodyForElegance", "thinCrouchedBodyToAvoidOverlap", "eraseBodyCategoryWithForeshortening", "hideProportionMismatchWithCameraAngle", "hideLowerBodyMismatchWithCrop", "hideShoulderMismatchWithHair", "hideTorsoMismatchWithCoat", "hideSilhouetteMismatchWithEffects", "eraseAuthorizedMassWithShadow", "revealUnsupportedAnatomyWithWetClothing", "createUnsupportedExposureWithDamage", "addSupportStrapsToJustifyInventedAnatomy", "addBodyMarkingAsMismatchDistraction", "addBodyModificationAsIdentityFiller", "universalContrappostoNeutralPose", "universalCuteInwardKneePose", "universalHeroicWideStance", "universalMilitaryStraightPosture", "universalElegantElongatedNeck", "generatedBodyGeometryCreatesCanon"
+  ],
+  "rules": {
+    "unknownBodyGeometryMayBeInventedByImageModel": false,
+    "premiumMayBeautifyBodyProportions": false,
+    "premiumMayLengthenLegs": false,
+    "premiumMayNarrowWaist": false,
+    "premiumMaySlimBodyCategory": false,
+    "premiumMayIncreaseMuscularity": false,
+    "viewpointMayRedesignBodyProportions": false,
+    "perspectiveMayChangeBodyCategory": false,
+    "poseMayChangeBaselineBodyConstruction": false,
+    "lightingMaySlimAuthorizedBodyMass": false,
+    "surfaceMayInventMusculature": false,
+    "clothingMayImplyUnsupportedBodyShape": false,
+    "wetClothingMayIncreaseBodySexualization": false,
+    "damageMayRevealUnsupportedAnatomy": false,
+    "lodMayConvergeToGenericBody": false,
+    "chibiMayConvergeToGenericBody": false,
+    "spriteMayConvergeToGenericBody": false,
+    "cropMayHideBodyMismatch": false,
+    "effectsMayHideBodyMismatch": false,
+    "hairMayHideShoulderMismatch": false,
+    "mobilityEquipmentMayBeRescaledForBodyBeautification": false,
+    "identityTraitsMayBeGuessedFromBodyStereotype": false,
+    "generatedBodyTreatmentCreatesCanon": false
+  }
+}
