@@ -4,8 +4,8 @@
   "status": "BLOCKED_UNTIL_LATEST_MAIN_SYNC_AND_ADAPTER_IMPLEMENTATION",
   "purpose": "Prevent Character Design Sheet 01-04 generation from bypassing the single production character prompt exporter and every later readiness/review/fidelity authority added on main after this inventory branch diverged.",
   "observedLatestMain": {
-    "sha": "6a67d967a2658b2cc411c16cd24ad61b4b5fe8a9",
-    "throughPullRequest": 323,
+    "sha": "8b35e3e06bc608f8c5a206abd0d9c4e8b889994d",
+    "throughPullRequest": 325,
     "mustRecheckImmediatelyBeforeSyncOrGeneration": true
   },
   "existingInventoryPacket": {
@@ -15,61 +15,25 @@
     "reason": "Its authority snapshots predate the mandatory single production exporter and later fidelity authorities now present on main."
   },
   "latestMainRequirementsToIntegrate": [
-    {
-      "source": "PR #313",
-      "requirement": "Character image readiness must be READY_FOR_CANDIDATE_GENERATION with zero readiness failures; OPEN is never model freedom."
-    },
-    {
-      "source": "PR #314",
-      "requirement": "Only ACTIVE reviewed recurrence directives may affect later generation; candidate rejection does not automatically become global design law."
-    },
-    {
-      "source": "PR #315",
-      "requirement": "The single production-ready character exporter is tools/asset-factory/scripts/export-production-character-design-prompt.ts; handwritten/lower exporter outputs are not production-ready."
-    },
-    {
-      "source": "PR #316",
-      "requirement": "All 36 characters must use the full color-production boundary; Current21 exact HEX and Future15 unresolved exact palette must not be invented."
-    },
-    {
-      "source": "PR #317",
-      "requirement": "Character identity must remain stable across reference, sprite, cut-in, Dawn/Kokuyou and emblem-adjacent asset kinds under a simplification hierarchy."
-    },
-    {
-      "source": "PR #318",
-      "requirement": "Cross-asset fidelity review is fail-closed: identity-critical species/age/body, face, mass/proportion/mobility equipment, head/hair, silhouette/posture and clothing/exposure axes cannot be rescued by a high weighted score."
-    },
-    {
-      "source": "PR #319",
-      "requirement": "Candidate fidelity review packets/evaluation produce system recommendations only; automation may not impersonate reviewer verdict or create authority/recurrence directives."
-    },
-    {
-      "source": "PR #320",
-      "requirement": "Expression, cut-in intensity and state changes must preserve base face geometry and age coding; Dawn/Kokuyou may not rebuild the face."
-    },
-    {
-      "source": "PR #321",
-      "requirement": "Perspective/foreshortening/motion may not redesign body mass, limb thickness, head/body proportions, clothing anchors, exposure, prop scale or mobility equipment."
-    },
-    {
-      "source": "PR #322",
-      "requirement": "Hands/paws/manipulators, props, storage and mobility equipment require physically coherent contact/load paths; unknown dominant hand stays OPEN_DO_NOT_INVENT."
-    },
-    {
-      "source": "PR #323",
-      "requirement": "Weather/environment effects must act causally on authorized materials/body/props without inventing wardrobe, exposure or magical decoration; unknown environment defaults to neutral physically plausible minimal effect."
-    }
+    {"source":"PR #313","requirement":"Character image readiness must be READY_FOR_CANDIDATE_GENERATION with zero readiness failures; OPEN is never model freedom."},
+    {"source":"PR #314","requirement":"Only ACTIVE reviewed recurrence directives may affect later generation; candidate rejection does not automatically become global design law."},
+    {"source":"PR #315","requirement":"The single production-ready character exporter is tools/asset-factory/scripts/export-production-character-design-prompt.ts; handwritten/lower exporter outputs are not production-ready."},
+    {"source":"PR #316","requirement":"All 36 characters must use the full color-production boundary; Current21 exact HEX and Future15 unresolved exact palette must not be invented."},
+    {"source":"PR #317","requirement":"Character identity must remain stable across reference, sprite, cut-in, Dawn/Kokuyou and emblem-adjacent asset kinds under a simplification hierarchy."},
+    {"source":"PR #318","requirement":"Cross-asset fidelity review is fail-closed: identity-critical species/age/body, face, mass/proportion/mobility equipment, head/hair, silhouette/posture and clothing/exposure axes cannot be rescued by a high weighted score."},
+    {"source":"PR #319","requirement":"Candidate fidelity review packets/evaluation produce system recommendations only; automation may not impersonate reviewer verdict or create authority/recurrence directives."},
+    {"source":"PR #320","requirement":"Expression, cut-in intensity and state changes must preserve base face geometry and age coding; Dawn/Kokuyou may not rebuild the face."},
+    {"source":"PR #321","requirement":"Perspective/foreshortening/motion may not redesign body mass, limb thickness, head/body proportions, clothing anchors, exposure, prop scale or mobility equipment."},
+    {"source":"PR #322","requirement":"Hands/paws/manipulators, props, storage and mobility equipment require physically coherent contact/load paths; unknown dominant hand stays OPEN_DO_NOT_INVENT."},
+    {"source":"PR #323","requirement":"Weather/environment effects must act causally on authorized materials/body/props without inventing wardrobe, exposure or magical decoration; unknown environment defaults to neutral physically plausible minimal effect."},
+    {"source":"PR #324","requirement":"Built-world scale and perspective must adapt around the authorized character rather than resize/slim/age-shift the character; unknown exact dimensions preserve relative categories without invented measurements."},
+    {"source":"PR #325","requirement":"Visible space/objects/storage/routes must be physically usable by the character without inventing routines, relationships, locations or lifestyle Canon; world-use layout is now required by the top-level production entrypoint."}
   ],
   "requiredPostSyncArchitecture": {
     "productionCharacterPromptExporter": "tools/asset-factory/scripts/export-production-character-design-prompt.ts",
     "sheetAdapterRequired": true,
-    "sheetAdapterPurpose": "Start from the latest production-ready resolved character prompt/authority chain, then add only Sheet-role-specific composition and QA constraints without replacing or weakening upstream identity/color/garment/light/world/acting/feedback/readiness/expression/motion/contact/environment guards.",
-    "sheetRoles": [
-      "identity-turnaround",
-      "face-expression-acting",
-      "costume-equipment-material",
-      "silhouette-motion-derivation"
-    ],
+    "sheetAdapterPurpose": "Start from the latest production-ready resolved character prompt/authority chain, then add only Sheet-role-specific composition and QA constraints without replacing or weakening upstream identity/color/garment/light/world/acting/feedback/readiness/expression/motion/contact/environment/spatial/world-use guards.",
+    "sheetRoles": ["identity-turnaround","face-expression-acting","costume-equipment-material","silhouette-motion-derivation"],
     "requiredFidelityLayers": [
       "identity",
       "garment",
@@ -84,7 +48,9 @@
       "expression-fidelity",
       "motion-perspective-fidelity",
       "hand-contact-fidelity",
-      "environment-weather-fidelity"
+      "environment-weather-fidelity",
+      "spatial-world-scale-fidelity",
+      "world-use-interaction-layout"
     ],
     "handWrittenPromptMayBeProductionReady": false,
     "lowerExporterMayBeProductionReady": false,
@@ -100,7 +66,8 @@
       "same-face-body-clothing-equipment-topology-across-views",
       "anatomical-coordinate-system-not-viewer-side-substitution",
       "no-uncorrected-mirror-for-asymmetric-assets",
-      "neutral-inspection-pose-does-not-create-signature-pose"
+      "neutral-inspection-pose-does-not-create-signature-pose",
+      "environment-scale-reference-may-not-resize-character"
     ],
     "face-expression-acting": [
       "base-face-invariant-from-expression-fidelity",
@@ -112,12 +79,16 @@
       "garment-construction-and-storage-authority",
       "hand-contact-and-load-path-proof",
       "weather-material-response-reference",
+      "spatial-reach-and-storage-route-consistency",
+      "world-use-layout-may-demonstrate-use-but-not-invent-routine",
       "no-invented-pocket-strap-closure-jewelry-or-exposure",
       "named-object-geometry-remains-separate-authority"
     ],
     "silhouette-motion-derivation": [
       "motion-perspective-fidelity",
       "embodied-posture-boundary",
+      "spatial-world-scale-fidelity",
+      "world-use-interaction-layout",
       "prop-scale-and-contact-continuity",
       "no-dynamic-pose-body-redesign",
       "derived-motion-does-not-create-new-identity"
