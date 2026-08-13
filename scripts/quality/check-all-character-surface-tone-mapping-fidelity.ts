@@ -6,7 +6,6 @@ const root = process.cwd();
 const policyPath = 'data/visual/all-character-surface-tone-mapping-fidelity-master-v1.json';
 const authorityPath = 'docs/visual/all-character-surface-tone-mapping-fidelity-master-v1.md';
 const productionPolicyPath = 'data/visual/character-production-generation-entrypoint-v1.json';
-const exporterPath = 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts';
 const profilePaths = [
   'data/visual/core5-living-visual-profiles-v1.json',
   'data/visual/current21-extended-living-visual-profiles-v1.json',
@@ -17,6 +16,7 @@ const fail = (m: string): never => { throw new Error(`[surface-tone-mapping] ${m
 const policy = JSON.parse(readFileSync(resolve(root, policyPath), 'utf8'));
 const authority = readFileSync(resolve(root, authorityPath), 'utf8');
 const productionPolicy = JSON.parse(readFileSync(resolve(root, productionPolicyPath), 'utf8'));
+const exporterPath = productionPolicy.productionExporter;
 
 if (policy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') fail('status invalid');
 if (policy.scopeCount !== 36 || policy.assetKindCount !== 9) fail('scope must remain 36/9');
@@ -29,7 +29,7 @@ if (policy.unknownSurfaceDefault !== 'MATERIAL_APPROPRIATE_NEUTRAL_SURFACE') fai
 for (const [field, value] of Object.entries(policy.rules ?? {})) if (value !== false) fail(`rule must remain false: ${field}`);
 if (!authority.includes('CANDIDATE_REVIEW_REQUIRED')) fail('authority candidate boundary missing');
 if (!authority.includes('MATERIAL_APPROPRIATE_NEUTRAL_SURFACE')) fail('authority unknown surface default missing');
-if (productionPolicy.productionExporter !== exporterPath) fail('surface wrapper must be top-level exporter');
+if (typeof exporterPath !== 'string' || !exporterPath.startsWith('tools/asset-factory/scripts/export-')) fail('production exporter invalid');
 if (productionPolicy.finalWrapperRequiredFlags?.allCharacterSurfaceToneMappingFidelityRequired !== true) fail('final surface wrapper requirement missing');
 for (const path of [authorityPath, policyPath]) if (!productionPolicy.requiredAuthorityPaths?.includes(path)) fail(`required authority missing: ${path}`);
 
@@ -45,7 +45,7 @@ for (const id of ids) {
     '--experimental-strip-types', resolve(root, exporterPath),
     '--character', id,
     '--kind', 'character_reference',
-  ], { cwd: root, encoding: 'utf8', maxBuffer: 56 * 1024 * 1024 });
+  ], { cwd: root, encoding: 'utf8', maxBuffer: 104 * 1024 * 1024 });
   const output = JSON.parse(stdout);
   if (output.allCharacterFocusDepthEffectsFidelityRequired !== true) fail(`${id}: focus chain missing`);
   if (output.allCharacterSurfaceToneMappingFidelityRequired !== true) fail(`${id}: surface/tone flag missing`);
@@ -62,4 +62,4 @@ for (const id of ids) {
   if (!output.prompt?.includes('SURFACE / TONE-MAPPING FIDELITY — FINAL MATERIAL LOCK.')) fail(`${id}: surface prompt block missing`);
 }
 
-console.log(`[surface-tone-mapping] OK: ${ids.length}/36 surface/tone-mapping production prompts validated`);
+console.log(`[surface-tone-mapping] OK: ${ids.length}/36 surface/tone-mapping production prompts validated through ${exporterPath}`);
