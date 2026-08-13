@@ -13,6 +13,8 @@ This Master is subordinate to source-backed body, hair/head, garment constructio
 
 Unknown overlap details use the least redesigning physically plausible route. `OPEN` does not allow the image model to add a hidden fastener, hole, strap or exposed skin patch.
 
+Every generated overlap solution starts as `CANDIDATE_REVIEW_REQUIRED`. It is rendering evidence only. It cannot promote a tuck, hidden route, attachment, rear construction, pocket path or exposure state into canon without explicit human review.
+
 ## Occlusion invariants
 
 1. **attachment continuity** — straps, sleeves, collars, hoods, pockets and equipment must connect to authorized anchor points.
@@ -99,4 +101,4 @@ If exact layer order cannot be inferred safely, keep the contested area visually
 
 ## Production rule
 
-Production candidate generation must load this Master. A generated tuck, strap path, rear garment construction, pocket route or overlap solution remains candidate rendering evidence only and never creates canon by itself.
+Production candidate generation must load this Master. A generated tuck, strap path, rear garment construction, pocket route or overlap solution remains `CANDIDATE_REVIEW_REQUIRED` rendering evidence only and never creates canon by itself.
