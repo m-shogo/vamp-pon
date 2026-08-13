@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "auditId": "yoruno-shirube-story-authority-visual-coverage-audit-v1",
+  "status": "ACTIVE_BLOCKING_GAPS_IDENTIFIED_NO_AUTOMATIC_GENERATION",
+  "purpose": "Cross-check Current Story/World authority against the visual master inventory so a complete 36-character roster cannot be mistaken for complete world/season/lorebook visual production coverage.",
+  "authoritySources": [
+    "docs/00-current-story-world-master.md",
+    "docs/sakuyaza-current-identity-v1.md",
+    "docs/gunjo-zankyoroku-current-v1.md",
+    "data/visual/core5-era-life-design-master-v1.json",
+    "data/visual/world-material-translation-master-v1.json",
+    "data/visual/all-character-identity-production-master-v1.json",
+    "data/visual/all-character-garment-production-master-v1.json",
+    "data/visual/all-character-night-light-rendering-master-v1.json"
+  ],
+  "branchBoundary": {
+    "currentWorkingBranch": "agent/visual-asset-inventory",
+    "mustSyncOrReconstructOnLatestMainBeforeMerge": true,
+    "reason": "main has continued to add mandatory character-generation authorities and cross-asset consistency after this inventory branch diverged",
+    "countsMustBeReexportedAfterSync": true,
+    "doNotMergeOnOldAuthoritySnapshot": true
+  },
+  "currentFormalNames": {
+    "season1AntagonistTeam": "朔夜座",
+    "gunjoRecordTaxonomy": "群青残響録",
+    "legacyObserverLabelOnly": "八影"
+  },
+  "legacyCurrentContradictions": [
+    {
+      "id": "LEGACY-YATSUKAGE-IDENTITY-DOC-CURRENT",
+      "severity": "P0_BLOCKING_CORRECTION",
+      "path": "docs/yatsukage-identity-v1.md",
+      "problem": "The legacy document still declares 夜綴りの八影 as CURRENT and as the formal collective name, while Current highest authority defines 朔夜座 as the S1 formal team and 八影 only as an early observer label.",
+      "requiredResolution": "Reclassify as SUPERSEDED/LEGACY identity material, preserve IDs/content lineage, and point to docs/sakuyaza-current-identity-v1.md as Current authority."
+    },
+    {
+      "id": "LEGACY-YATSUKAGE-MACHINE-AUTHORITY-CURRENT",
+      "severity": "P0_BLOCKING_CORRECTION",
+      "path": "src/game/data/yatsukageIdentitySource.ts",
+      "problem": "YATSUKAGE_GROUP_IDENTITY still carries authority=CURRENT_CONTENT_IDENTITY and player-facing formal/short group names.",
+      "requiredResolution": "Keep call-name/enemy-ID compatibility data but mark group identity as superseded legacy observer taxonomy with supersededBy=朔夜座; it must not be a Current naming authority."
+    },
+    {
+      "id": "LEGACY-YATSUKAGE-PAIR-CURRENT",
+      "severity": "P0_MIGRATION_REVIEW",
+      "path": "docs/yatsukage-pair-dynamics-v1.md",
+      "problem": "Document status is CURRENT CONTENT SOURCE and states 八影=factionではない, while Current S1 defines the same eight as the formal antagonist team 朔夜座. The 28-pair ideas may be valuable but their organization semantics are no longer Current by default.",
+      "requiredResolution": "Reclassify as Sakuyaza legacy operational candidate/reservoir and review pair assumptions before any scene/visual promotion."
+    },
+    {
+      "id": "LEGACY-YATSUKAGE-RELATIONSHIP-CURRENT",
+      "severity": "P0_MIGRATION_REVIEW",
+      "path": "docs/yatsukage-current21-relationship-matrix-v1.md",
+      "problem": "Document status is CURRENT CONTENT SOURCE under the old 八影 identity.",
+      "requiredResolution": "Preserve 168 relation ideas as migration reservoir, rename/reclassify under Sakuyaza authority, and do not infer Canon relationships from the old label."
+    },
+    {
+      "id": "LEGACY-YATSUKAGE-PLAYER-PRESENTATION",
+      "severity": "P0_PLAYER_FACING_REVIEW",
+      "path": "src/game/data/yatsukageCollectionPresentationSource.ts",
+      "problem": "PAST_FRAGMENT_FOUND/REINTERPRETED presentation composes player-facing labels from YATSUKAGE_GROUP_IDENTITY.shortName/formalName.",
+      "requiredResolution": "Review reveal timing and migrate the player-facing group label to Sakuyaza where appropriate; do not blindly replace before story reveal semantics are checked."
+    }
+  ],
+  "missingOrUnderModeledMasterFamilies": [
+    {
+      "id": "SAKUYAZA_TEAM_COMPARISON_MASTER",
+      "priority": "P0_MASTER",
+      "count": 1,
+      "state": "MISSING_FROM_DETERMINISTIC_PRODUCTION_LIST",
+      "why": "Eight individual Sakuyaza masters do not by themselves define group-scale rhythm, shared-vs-individual grammar, pair contrast, color/material overlap, or symbol boundary.",
+      "generationAllowedNow": false
+    },
+    {
+      "id": "GUNJO_FOUNDATION_MASTERS",
+      "priority": "P0_MASTER_EDITABLE",
+      "count": 2,
+      "state": "DEFINED_IN_OVERLAY_NOT_IN_DETERMINISTIC_PRODUCTION_LIST",
+      "why": "The record-taxonomy system master and record-medium/evidence master exist in the Current overlay but are not yet first-class deterministic production-list rows.",
+      "generationAllowedNow": false
+    },
+    {
+      "id": "CORE5_REALITY_ERA_ENVIRONMENT_REFERENCE_MASTERS",
+      "priority": "P0_WORLD_MASTER",
+      "count": 5,
+      "state": "SEMANTIC_ERA_LIFE_MASTER_EXISTS_VISUAL_SETTING_BOARDS_MISSING",
+      "why": "Core5 era distinction is Current and must not collapse into costume. The semantic Era Life Master covers systems/habits, but the visual inventory lacks one source-backed environment/life reference board per Core5 era band.",
+      "rules": [
+        "Do not invent exact city/school/work/household when OPEN.",
+        "Yui may use Current Arakawa/Tokyo direction without inventing exact neighborhood or address.",
+        "Historical/future visual detail must be source-backed rather than genre shorthand."
+      ],
+      "generationAllowedNow": false
+    },
+    {
+      "id": "DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER",
+      "priority": "P0_WORLD_MASTER",
+      "count": 1,
+      "state": "MISSING",
+      "why": "Dream provisioning, pantry/refrigerator/cupboard/kitchen, rest, bathing/washing, changing clothes, storage and post-boss social life are Current world rules but have no shared setting master. Stage backgrounds must not invent these rules independently.",
+      "generationAllowedNow": false
+    },
+    {
+      "id": "SKY_MOON_RESOLUTION_COLOR_SCRIPT_MASTER",
+      "priority": "P0_WORLD_MASTER",
+      "count": 1,
+      "state": "UNDER_MODELED_INSIDE_GENERIC_EFFECT_TOPICS",
+      "why": "Moon phase represents incident depth, Saku is moonless, stars remain, unresolved/boss scenes stay dark, and resolution may brighten the sky without a physical sunrise. This needs an explicit sky/moon/resolution color-script master so legacy dawn asset names cannot imply ordinary sunrise.",
+      "generationAllowedNow": false
+    },
+    {
+      "id": "DREAM_REALITY_FORM_COMPARISON_MASTERS",
+      "priority": "P0_CHARACTER_CONDITIONAL",
+      "count": "TBD_FROM_AUTHORIZED_CROSS_FORM_CHARACTERS",
+      "state": "CONDITIONAL_MASTER_MODEL_MISSING",
+      "why": "Current Story allows Reality and Dream species/body/gender-presentation/age/voice differences. A normal turnaround is insufficient when the two forms differ materially.",
+      "rules": [
+        "Only create for characters whose cross-form difference is authoritative.",
+        "Never infer a Reality body from Dream appearance.",
+        "Never use Dream form as a gender-identity or soul-truth detector."
+      ],
+      "generationAllowedNow": false
+    },
+    {
+      "id": "SUNNY_IF_REWARD_ENSEMBLE_MASTER_FAMILY",
+      "priority": "P1_NON_CANON_REWARD",
+      "count": "TBD_AFTER_EVENT_AND_COMPOSITION_REVIEW",
+      "state": "CURRENT_DIRECTION_NOT_IN_PRODUCTION_BACKLOG",
+      "why": "Sunny non-canon IF reward art (hanami, sea/pool, BBQ, optional outdoor event) and the approximately-24-piece Clear Getter direction are Current/high-value but absent from the production family inventory.",
+      "generationAllowedNow": false
+    },
+    {
+      "id": "SEASON_ANTAGONIST_VISUAL_ADMISSION_POLICY",
+      "priority": "P1_DYNAMIC_POLICY",
+      "count": 1,
+      "state": "MISSING",
+      "why": "S2/S3 team name, roster, count and visual identity remain OPEN. A dynamic admission policy is needed so the existing eight-person S2 candidate cannot silently become final visual production scope.",
+      "generationAllowedNow": false
+    },
+    {
+      "id": "TITLE_LOGO_LOCKUP_MASTER",
+      "priority": "P1_BRAND_MASTER",
+      "count": "TBD_AFTER_EXISTING_ASSET_AUDIT",
+      "state": "COUNT_STILL_AUTHORITY_DEPENDENT",
+      "why": "The generation-count baseline already marks logo lockup variants unresolved; title/brand presentation must be audited before TOP/guide replacements.",
+      "generationAllowedNow": false
+    },
+    {
+      "id": "MATERIAL_REFERENCE_PLATES",
+      "priority": "P1_WORLD_REFERENCE",
+      "count": "TBD_COMBINE_WITH_WORLD_EFFECT_WHERE_POSSIBLE",
+      "state": "COUNT_STILL_AUTHORITY_DEPENDENT",
+      "why": "World-material authority exists, but editable/example reference plates remain under-modeled. They should demonstrate seams, paper, ink, repair, metal, glass and light response without becoming a competing authority.",
+      "generationAllowedNow": false
+    }
+  ],
+  "alreadyKnownPreGameFamiliesStillNotMaterialized": [
+    "ITEM_OBJECT_DESIGN_MASTERS",
+    "ENEMY_CREATURE_REFERENCE_MASTERS",
+    "LOCATION_ENVIRONMENT_SETTING_MASTERS",
+    "CHARACTER_STATE_TRANSFORMATION_MASTERS",
+    "WORLD_VISUAL_EFFECT_LANGUAGE_MASTER",
+    "CHARACTER_SCALE_ENSEMBLE_MASTERS",
+    "TOUMON_SIGIL_AND_SYMBOL_MASTERS",
+    "CONSTELLATION_HISTORICAL_ARCHIVE_MASTERS",
+    "GROUP_FACTION_VISUAL_MASTERS",
+    "STORY_SCENE_KEYFRAME_MASTERS"
+  ],
+  "lorebookCoverageMismatch": {
+    "currentDeterministicProductionKinds": [
+      "lorebook-profile",
+      "lorebook-era",
+      "lorebook-reality-root",
+      "lorebook-relationship",
+      "lorebook-foreshadow"
+    ],
+    "declaredCoverageKindsNotYetMaterialized": [
+      "lorebook-constellation",
+      "lorebook-glossary",
+      "lorebook-group",
+      "lorebook-star-beast",
+      "lorebook-artifact"
+    ],
+    "additionalGuideFamiliesFromGapAudit": [
+      "item-object-catalog",
+      "enemy-reference-catalog",
+      "location-stage-guide",
+      "gunjo-record-index-and-dossier"
+    ],
+    "rule": "Prefer data/HTML/CSS/SVG for networks, taxonomy, tables, badges, timelines and long copy. Do not convert every Lorebook row into a baked raster image."
+  },
+  "notSeparateStyleMasterByDefault": [
+    {
+      "scope": "robots/androids/animals",
+      "reason": "Individual Character Masters and species/body-specific production rules already own identity; a shared subgroup style would risk homogenization. Use comparison/scale references only when composition requires them."
+    },
+    {
+      "scope": "sexuality/gender/disability/skin-tone groups",
+      "reason": "These are person attributes, not visual factions. Never create a common style/emblem master from them."
+    },
+    {
+      "scope": "Current21/Future15",
+      "reason": "These are authoring roster layers, not in-world factions. Do not create faction branding from roster taxonomy."
+    }
+  ],
+  "mergeGate": {
+    "automaticImageGenerationAllowed": false,
+    "allBlockingLegacyNameContradictionsMustBeResolved": true,
+    "latestMainAuthorityMustBeIntegrated": true,
+    "deterministicInventoryMustBeReexported": true,
+    "visualChecksMustPassAfterReexport": true,
+    "humanVisualApprovalStillRequiredForFinalAssets": true
+  }
+}
