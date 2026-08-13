@@ -18,8 +18,18 @@ function fail(message: string): never {
   throw new Error(`[character-design-sheet-entrypoint] ${message}`);
 }
 
+function declaredRequiredFlagGroups(policy: Record<string, unknown>): Array<[string, Record<string, unknown>]> {
+  return Object.entries(policy).filter(([key, value]) => (
+    key.endsWith('RequiredFlags')
+    && value !== null
+    && typeof value === 'object'
+    && !Array.isArray(value)
+  )) as Array<[string, Record<string, unknown>]>;
+}
+
 const bridge = JSON.parse(readFileSync(resolve(root, bridgePath), 'utf8'));
 const parentPolicy = JSON.parse(readFileSync(resolve(root, parentPolicyPath), 'utf8'));
+const requiredFlagGroups = declaredRequiredFlagGroups(parentPolicy);
 
 if (bridge.schemaVersion !== 3) fail(`bridge schemaVersion must be 3, got ${bridge.schemaVersion}`);
 if (bridge.status !== 'ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION') fail(`bridge status invalid: ${bridge.status}`);
@@ -33,7 +43,8 @@ if (bridge.generatedSheetMayCreateCanon !== false) fail('generated sheet canon g
 if (bridge.humanReviewRequired !== true) fail('Human review gate weakened');
 if (bridge.validationGate?.imageGenerationAuthorizedByThisBridge !== false) fail('bridge may not authorize image generation');
 if (bridge.validationGate?.parentExporterMustResolveLive !== true) fail('live parent exporter validation gate missing');
-if (bridge.validationGate?.allParentRequiredFlagsMustPass !== true || bridge.validationGate?.allParentWrapperRequiredFlagsMustPass !== true || bridge.validationGate?.allParentRequiredAuthorityPathsMustPass !== true) fail('parent authority validation gates weakened');
+if (bridge.validationGate?.allParentRequiredAuthorityPathsMustPass !== true) fail('parent authority path validation gate weakened');
+if (bridge.validationGate?.allParentDeclaredRequiredFlagGroupsMustPass !== true) fail('dynamic parent required-flag-group validation gate missing');
 if (bridge.roster?.totalCharacters !== 36 || bridge.roster?.totalLogicalSheetSlots !== 144) fail('bridge roster/sheet slot count drift');
 if (bridge.roster?.activeLiveAdapterSheetPrompts !== 140 || bridge.roster?.heldSheetSlots !== 4) fail('bridge active/held sheet counts drift');
 
@@ -41,6 +52,7 @@ if (parentPolicy.productionExporter !== CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYP
   fail(`code/policy parent exporter drift: code=${CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentExporter}, policy=${parentPolicy.productionExporter}`);
 }
 if (parentPolicy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT' || parentPolicy.scopeCount !== 36) fail('parent production policy top-level scope/status drift');
+if (requiredFlagGroups.length < 1) fail('parent policy declares no *RequiredFlags groups');
 
 const ids: string[] = [];
 for (const path of profilePaths) {
@@ -117,11 +129,10 @@ for (const id of ids) {
     for (const path of parentPolicy.requiredAuthorityPaths ?? []) {
       if (!Array.isArray(sheet.authorityOrder) || !sheet.authorityOrder.includes(path)) fail(`${id}/${sheetNumber}: required parent authority missing: ${path}`);
     }
-    for (const [field, expected] of Object.entries(parentPolicy.requiredFlags ?? {})) {
-      if (sheet[field] !== expected) fail(`${id}/${sheetNumber}: inherited required flag ${field} expected ${String(expected)}, got ${String(sheet[field])}`);
-    }
-    for (const [field, expected] of Object.entries(parentPolicy.wrapperRequiredFlags ?? {})) {
-      if (sheet[field] !== expected) fail(`${id}/${sheetNumber}: inherited wrapper flag ${field} expected ${String(expected)}, got ${String(sheet[field])}`);
+    for (const [groupName, fields] of requiredFlagGroups) {
+      for (const [field, expected] of Object.entries(fields)) {
+        if (sheet[field] !== expected) fail(`${id}/${sheetNumber}: inherited ${groupName}.${field} expected ${String(expected)}, got ${String(sheet[field])}`);
+      }
     }
     activeSheetPromptCount += 1;
   }
@@ -140,8 +151,7 @@ console.log(JSON.stringify({
   heldSheetSlots: heldSheetSlotCount,
   parentProductionEntrypointSource: parentEntrypointSource,
   parentProductionExporter: CHARACTER_DESIGN_SHEET_PRODUCTION_ENTRYPOINT.parentExporter,
-  parentRequiredFlags: Object.keys(parentPolicy.requiredFlags ?? {}).length,
-  parentWrapperRequiredFlags: Object.keys(parentPolicy.wrapperRequiredFlags ?? {}).length,
+  declaredRequiredFlagGroups: Object.fromEntries(requiredFlagGroups.map(([name, fields]) => [name, Object.keys(fields).length])),
   parentAuthorityPaths: (parentPolicy.requiredAuthorityPaths ?? []).length,
   adapter: adapterPath,
   generatedImageCount: 0,
