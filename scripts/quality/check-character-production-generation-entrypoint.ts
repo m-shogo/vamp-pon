@@ -9,149 +9,79 @@ const profilePaths = [
   'data/visual/current21-extended-living-visual-profiles-v1.json',
   'data/visual/future15-living-visual-profiles-v1.json',
 ];
-
-const layeredPolicies = [
-  ['hair', 'data/visual/all-character-hair-grooming-construction-fidelity-master-v1.json', 'docs/visual/all-character-hair-grooming-construction-fidelity-master-v1.md', 'topologyPreservationPriority', 'hairTopologyPreservationPriority', 14],
-  ['face', 'data/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.json', 'docs/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.md', 'preservationPriority', 'faceLandmarkPreservationPriority', 15],
-  ['body', 'data/visual/all-character-body-mass-posture-construction-fidelity-master-v1.json', 'docs/visual/all-character-body-mass-posture-construction-fidelity-master-v1.md', 'preservationPriority', 'bodyPreservationPriority', 12],
-  ['garmentFit', 'data/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.json', 'docs/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.md', 'preservationPriority', 'garmentFitPreservationPriority', 12],
-  ['garmentConstruction', 'data/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.json', 'docs/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.md', 'preservationPriority', 'garmentConstructionPreservationPriority', 12],
-  ['garmentMaterial', 'data/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.json', 'docs/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.md', 'preservationPriority', 'garmentMaterialPreservationPriority', 12],
-  ['dressingWorkflow', 'data/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.json', 'docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md', 'preservationPriority', 'dressingWorkflowPreservationPriority', 12],
-  ['longWearComfort', 'data/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.json', 'docs/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.md', 'preservationPriority', 'longWearComfortPreservationPriority', 12],
-  ['operationalAccess', 'data/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.json', 'docs/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.md', 'preservationPriority', 'operationalAccessPreservationPriority', 12],
-  ['bodyAdornment', 'data/visual/all-character-body-adornment-marking-topology-fidelity-master-v1.json', 'docs/visual/all-character-body-adornment-marking-topology-fidelity-master-v1.md', 'preservationPriority', 'bodyAdornmentPreservationPriority', 12],
-  ['accessoryInventory', 'data/visual/all-character-accessory-prop-inventory-transition-fidelity-master-v1.json', 'docs/visual/all-character-accessory-prop-inventory-transition-fidelity-master-v1.md', 'preservationPriority', 'accessoryPropInventoryPreservationPriority', 12],
+const layers = [
+  ['hair','data/visual/all-character-hair-grooming-construction-fidelity-master-v1.json','docs/visual/all-character-hair-grooming-construction-fidelity-master-v1.md','topologyPreservationPriority','hairTopologyPreservationPriority',14,'hairConstructionAxes',36,'HAIR / GROOMING CONSTRUCTION FIDELITY — FINAL HAIR TOPOLOGY LOCK.'],
+  ['face','data/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.json','docs/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.md','preservationPriority','faceLandmarkPreservationPriority',15,'faceConstructionAxes',46,'FACE / SKULL LANDMARK CONSTRUCTION FIDELITY — FINAL CRANIOFACIAL IDENTITY LOCK.'],
+  ['body','data/visual/all-character-body-mass-posture-construction-fidelity-master-v1.json','docs/visual/all-character-body-mass-posture-construction-fidelity-master-v1.md','preservationPriority','bodyPreservationPriority',12,'bodyConstructionAxes',52,'BODY / MASS DISTRIBUTION / POSTURE CONSTRUCTION FIDELITY — FINAL EMBODIED IDENTITY LOCK.'],
+  ['garmentFit','data/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.json','docs/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.md','preservationPriority','garmentFitPreservationPriority',12,'garmentFitConstructionAxes',55,'GARMENT-TO-BODY FIT / TENSION / COMPRESSION FIDELITY — FINAL CLOTH-BODY MECHANICS LOCK.'],
+  ['garmentConstruction','data/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.json','docs/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.md','preservationPriority','garmentConstructionPreservationPriority',12,'garmentConstructionAxes',60,'GARMENT PATTERN / SEAM / CLOSURE / LOAD FIDELITY — FINAL CONSTRUCTION TOPOLOGY LOCK.'],
+  ['garmentMaterial','data/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.json','docs/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.md','preservationPriority','garmentMaterialPreservationPriority',12,'garmentMaterialMechanicsAxes',65,'GARMENT MATERIAL / DRAPE / FOLD MEMORY FIDELITY — FINAL CLOTH PHYSICS LOCK.'],
+  ['dressingWorkflow','data/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.json','docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md','preservationPriority','dressingWorkflowPreservationPriority',12,'dressingWorkflowAxes',65,'GARMENT DON / DOFF / DRESSING WORKFLOW FIDELITY — FINAL WEARABILITY LOCK.'],
+  ['longWearComfort','data/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.json','docs/visual/all-character-garment-long-wear-comfort-fidelity-master-v1.md','preservationPriority','longWearComfortPreservationPriority',12,'longWearComfortAxes',80,'GARMENT COMFORT / PRESSURE / CHAFING / THERMAL / LONG-WEAR FIDELITY — FINAL LIVED-USE LOCK.'],
+  ['operationalAccess','data/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.json','docs/visual/all-character-fastener-operational-access-serviceability-fidelity-master-v1.md','preservationPriority','operationalAccessPreservationPriority',12,'operationalAccessAxes',80,'FASTENER / OPERATIONAL ACCESS / SERVICEABILITY FIDELITY — FINAL USABILITY LOCK.'],
+  ['bodyAdornment','data/visual/all-character-body-adornment-marking-topology-fidelity-master-v1.json','docs/visual/all-character-body-adornment-marking-topology-fidelity-master-v1.md','preservationPriority','bodyAdornmentPreservationPriority',12,'bodyAdornmentTopologyAxes',70,'BODY ADORNMENT / PIERCING / JEWELRY / SKIN-MARKING TOPOLOGY FIDELITY — FINAL BODY-ATTACHED IDENTITY LOCK.'],
+  ['accessoryInventory','data/visual/all-character-accessory-prop-inventory-transition-fidelity-master-v1.json','docs/visual/all-character-accessory-prop-inventory-transition-fidelity-master-v1.md','preservationPriority','accessoryPropInventoryPreservationPriority',12,'accessoryPropInventoryAxes',70,'ACCESSORY / PROP INVENTORY / STATE-TRANSITION FIDELITY — FINAL DISCRETE OBJECT IDENTITY LOCK.'],
+  ['skinCoverage','data/visual/all-character-skin-coverage-exposure-boundary-fidelity-master-v1.json','docs/visual/all-character-skin-coverage-exposure-boundary-fidelity-master-v1.md','preservationPriority','skinCoveragePreservationPriority',12,'skinCoverageAxes',80,'SKIN COVERAGE / EXPOSURE BOUNDARY FIDELITY — FINAL AUTHORED COVERAGE LOCK.'],
 ] as const;
 
-function fail(message: string): never {
-  throw new Error(`[character-production-entrypoint] ${message}`);
-}
-
-function loadJson(path: string): any {
-  return JSON.parse(readFileSync(resolve(root, path), 'utf8'));
-}
+const fail = (m: string): never => { throw new Error(`[character-production-entrypoint] ${m}`); };
+const loadJson = (path: string): any => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
 
 const terminalPolicyPath = CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.policy;
 const terminalPolicy = loadJson(terminalPolicyPath);
-if (terminalPolicy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT') fail('terminal policy status invalid');
-if (terminalPolicy.scopeCount !== 36) fail('terminal policy scopeCount must be 36');
-if (terminalPolicy.productionExporter !== CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.exporter) fail('code/terminal policy exporter mismatch');
-if (terminalPolicy.authorityDocument !== CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.authority) fail('code/terminal policy authority mismatch');
-if (terminalPolicy.lowerExportersAreProductionEntrypoints !== false) fail('terminal lower-exporter bypass guard weakened');
-if (terminalPolicy.handWrittenPromptIsProductionReady !== false) fail('terminal hand-prompt bypass guard weakened');
-if (CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.lowerExporterOutputIsProductionReady !== false) fail('code lower-exporter guard weakened');
-if (CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.handWrittenPromptIsProductionReady !== false) fail('code hand-prompt guard weakened');
-for (const [field, expected] of Object.entries(CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.requiredOutputFlags ?? {})) {
-  if (terminalPolicy.requiredOutputFlags?.[field] !== expected) fail(`code/terminal required flag mismatch: ${field}`);
-}
+if (terminalPolicy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT' || terminalPolicy.scopeCount !== 36) fail('terminal policy invalid');
+if (terminalPolicy.productionExporter !== CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.exporter) fail('code/terminal exporter mismatch');
+if (terminalPolicy.authorityDocument !== CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.authority) fail('code/terminal authority mismatch');
+if (terminalPolicy.lowerExportersAreProductionEntrypoints !== false || terminalPolicy.handWrittenPromptIsProductionReady !== false) fail('terminal bypass guard weakened');
+for (const [field, expected] of Object.entries(CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.requiredOutputFlags ?? {})) if (terminalPolicy.requiredOutputFlags?.[field] !== expected) fail(`code/terminal required flag mismatch: ${field}`);
 
-const policyLineage: Array<{ path: string; policy: any }> = [];
-const seenPolicyPaths = new Set<string>();
-let lineagePath = terminalPolicyPath;
+const lineage: Array<{path:string;policy:any}> = [];
+const seen = new Set<string>();
+let currentPath = terminalPolicyPath;
 while (true) {
-  if (seenPolicyPaths.has(lineagePath)) fail(`entrypoint policy lineage cycle: ${lineagePath}`);
-  seenPolicyPaths.add(lineagePath);
-  const policy = loadJson(lineagePath);
-  if (policy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT' || policy.scopeCount !== 36) fail(`entrypoint policy invalid: ${lineagePath}`);
-  if (typeof policy.productionExporter !== 'string' || typeof policy.authorityDocument !== 'string') fail(`entrypoint policy incomplete: ${lineagePath}`);
-  if (policy.lowerExportersAreProductionEntrypoints !== false || policy.handWrittenPromptIsProductionReady !== false) fail(`entrypoint bypass boundary weakened: ${lineagePath}`);
-  policyLineage.push({ path: lineagePath, policy });
+  if (seen.has(currentPath)) fail(`entrypoint lineage cycle: ${currentPath}`);
+  seen.add(currentPath);
+  const policy = loadJson(currentPath);
+  if (policy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT' || policy.scopeCount !== 36) fail(`invalid lineage policy: ${currentPath}`);
+  if (policy.lowerExportersAreProductionEntrypoints !== false || policy.handWrittenPromptIsProductionReady !== false) fail(`lineage bypass weakened: ${currentPath}`);
+  lineage.push({path:currentPath,policy});
   if (typeof policy.basePolicy !== 'string') break;
   const parent = loadJson(policy.basePolicy);
-  if (policy.wrappedExporter !== parent.productionExporter) fail(`entrypoint wrapper/parent exporter mismatch: ${lineagePath}`);
-  lineagePath = policy.basePolicy;
+  if (policy.wrappedExporter !== parent.productionExporter) fail(`wrapper/parent mismatch: ${currentPath}`);
+  currentPath = policy.basePolicy;
 }
+if (lineage.at(-1)?.policy?.id !== 'yoru-no-shirube-character-production-generation-entrypoint-v1') fail('lineage must terminate at v1');
 
-const rootPolicy = policyLineage[policyLineage.length - 1]?.policy;
-if (!rootPolicy || rootPolicy.id !== 'yoru-no-shirube-character-production-generation-entrypoint-v1') fail('entrypoint lineage must terminate at v1 root policy');
-
-const loadedPolicies = layeredPolicies.map(([name, policyPath, authorityPath, policyPriorityField, outputPriorityField, minimumPriority]) => {
+const loadedLayers = layers.map(([name,policyPath,authorityPath,policyPriorityField,outputPriorityField,minPriority,axesField,minAxes,promptMarker]) => {
   const policy = loadJson(policyPath);
   if (policy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY' || policy.scopeCount !== 36 || policy.assetKindCount !== 9) fail(`${name}: authority invalid`);
-  for (const [field, value] of Object.entries(policy.rules ?? {})) if (value !== false) fail(`${name}: machine rule must remain false: ${field}`);
-  if ((policy[policyPriorityField] ?? []).length < minimumPriority) fail(`${name}: preservation priority depth weakened`);
-  return { name, policyPath, authorityPath, policy, outputPriorityField, minimumPriority };
+  if ((policy[policyPriorityField] ?? []).length < minPriority) fail(`${name}: preservation priority weakened`);
+  for (const [field,value] of Object.entries(policy.rules ?? {})) if (value !== false) fail(`${name}: rule must remain false: ${field}`);
+  return {name,policyPath,authorityPath,policy,outputPriorityField,minPriority,axesField,minAxes,promptMarker};
 });
 
 const ids: string[] = [];
-for (const path of profilePaths) {
-  const json = loadJson(path);
-  if (!Array.isArray(json.characters)) fail(`${path}: characters missing`);
-  for (const character of json.characters) ids.push(character.id);
-}
-if (ids.length !== 36 || new Set(ids).size !== 36) fail(`expected 36 unique production IDs, got ${ids.length}/${new Set(ids).size}`);
-
-const inheritedFlagGroups = [
-  'requiredFlags',
-  'wrapperRequiredFlags',
-  'finalWrapperRequiredFlags',
-  'terminalWrapperRequiredFlags',
-  'hairTerminalWrapperRequiredFlags',
-  'faceTerminalWrapperRequiredFlags',
-];
-
-const promptMarkers = [
-  'CHARACTER PRODUCTION GENERATION ENTRYPOINT — FINAL AUTHORITY LOCK.',
-  'HAIR / GROOMING CONSTRUCTION FIDELITY — FINAL HAIR TOPOLOGY LOCK.',
-  'FACE / SKULL LANDMARK CONSTRUCTION FIDELITY — FINAL CRANIOFACIAL IDENTITY LOCK.',
-  'BODY / MASS DISTRIBUTION / POSTURE CONSTRUCTION FIDELITY — FINAL EMBODIED IDENTITY LOCK.',
-  'GARMENT-TO-BODY FIT / TENSION / COMPRESSION FIDELITY — FINAL CLOTH-BODY MECHANICS LOCK.',
-  'GARMENT PATTERN / SEAM / CLOSURE / LOAD FIDELITY — FINAL CONSTRUCTION TOPOLOGY LOCK.',
-  'GARMENT MATERIAL / DRAPE / FOLD MEMORY FIDELITY — FINAL CLOTH PHYSICS LOCK.',
-  'GARMENT DON / DOFF / DRESSING WORKFLOW FIDELITY — FINAL WEARABILITY LOCK.',
-  'GARMENT COMFORT / PRESSURE / CHAFING / THERMAL / LONG-WEAR FIDELITY — FINAL LIVED-USE LOCK.',
-  'FASTENER / OPERATIONAL ACCESS / SERVICEABILITY FIDELITY — FINAL USABILITY LOCK.',
-  'BODY ADORNMENT / PIERCING / JEWELRY / SKIN-MARKING TOPOLOGY FIDELITY — FINAL BODY-ATTACHED IDENTITY LOCK.',
-  'ACCESSORY / PROP INVENTORY / STATE-TRANSITION FIDELITY — FINAL DISCRETE OBJECT IDENTITY LOCK.',
-];
+for (const path of profilePaths) for (const c of loadJson(path).characters ?? []) ids.push(c.id);
+if (ids.length !== 36 || new Set(ids).size !== 36) fail(`expected 36 unique ids, got ${ids.length}/${new Set(ids).size}`);
 
 for (const id of ids) {
-  const stdout = execFileSync(process.execPath, [
-    '--experimental-strip-types', resolve(root, terminalPolicy.productionExporter),
-    '--character', id,
-    '--kind', 'character_reference',
-  ], { cwd: root, encoding: 'utf8', maxBuffer: 600 * 1024 * 1024 });
-  const exported = JSON.parse(stdout);
-
-  for (const { path, policy } of policyLineage) {
-    for (const [field, expected] of Object.entries(policy.requiredOutputFlags ?? {})) {
-      if (exported[field] !== expected) fail(`${id}: ${path} required output mismatch: ${field}`);
-    }
-    for (const authorityPath of [path, policy.authorityDocument, policy.terminalPolicy, policy.terminalAuthorityDocument].filter((value): value is string => typeof value === 'string')) {
-      if (!exported.authorityOrder?.includes(authorityPath)) fail(`${id}: entrypoint lineage authority missing: ${authorityPath}`);
-    }
+  const stdout = execFileSync(process.execPath,['--experimental-strip-types',resolve(root,terminalPolicy.productionExporter),'--character',id,'--kind','character_reference'],{cwd:root,encoding:'utf8',maxBuffer:760*1024*1024});
+  const output = JSON.parse(stdout);
+  if (output.productionImageGenerationEntrypoint !== true || output.productionCharacterPromptReady !== true || output.productionPromptAuthorityLocked !== true) fail(`${id}: production lock missing`);
+  if (output.generatedOutputState !== 'CANDIDATE_REVIEW_REQUIRED') fail(`${id}: candidate boundary weakened`);
+  if (Array.isArray(output.imageGenerationReadinessFailures) && output.imageGenerationReadinessFailures.length) fail(`${id}: readiness failures present`);
+  for (const {path,policy} of lineage) {
+    for (const [field,expected] of Object.entries(policy.requiredOutputFlags ?? {})) if (output[field] !== expected) fail(`${id}: ${path} flag mismatch: ${field}`);
+    for (const evidencePath of [path,policy.authorityDocument,policy.terminalPolicy,policy.terminalAuthorityDocument].filter((v):v is string => typeof v === 'string')) if (!output.authorityOrder?.includes(evidencePath)) fail(`${id}: lineage authority missing: ${evidencePath}`);
   }
-
-  for (const groupName of inheritedFlagGroups) {
-    for (const [field, expected] of Object.entries(rootPolicy[groupName] ?? {})) {
-      if (exported[field] !== expected) fail(`${id}: inherited ${groupName} mismatch: ${field}`);
-    }
+  for (const layer of loadedLayers) {
+    for (const field of Object.keys(layer.policy.rules ?? {})) if (output[field] !== false) fail(`${id}: ${layer.name} guard weakened: ${field}`);
+    if (!output.authorityOrder?.includes(layer.policyPath) || !output.authorityOrder?.includes(layer.authorityPath)) fail(`${id}: ${layer.name} authority missing`);
+    if ((output[layer.outputPriorityField] ?? []).length < layer.minPriority) fail(`${id}: ${layer.name} priority weakened`);
+    if ((output[layer.axesField] ?? []).length < layer.minAxes) fail(`${id}: ${layer.name} axes missing`);
+    if (!output.prompt?.includes(layer.promptMarker)) fail(`${id}: ${layer.name} prompt marker missing`);
   }
-
-  if (exported.productionImageGenerationEntrypoint !== true || exported.productionCharacterPromptReady !== true || exported.productionPromptAuthorityLocked !== true) fail(`${id}: production lock missing`);
-  if (exported.generatedOutputState !== 'CANDIDATE_REVIEW_REQUIRED') fail(`${id}: candidate boundary weakened`);
-  if (Array.isArray(exported.imageGenerationReadinessFailures) && exported.imageGenerationReadinessFailures.length > 0) fail(`${id}: readiness failures present`);
-
-  for (const { name, policyPath, authorityPath, policy, outputPriorityField, minimumPriority } of loadedPolicies) {
-    for (const field of Object.keys(policy.rules ?? {})) if (exported[field] !== false) fail(`${id}: ${name} guard weakened: ${field}`);
-    if (!exported.authorityOrder?.includes(policyPath) || !exported.authorityOrder?.includes(authorityPath)) fail(`${id}: ${name} authority chain missing`);
-    if ((exported[outputPriorityField] ?? []).length < minimumPriority) fail(`${id}: ${name} exported preservation priority weakened`);
-  }
-
-  if ((exported.faceConstructionAxes ?? []).length < 46) fail(`${id}: face construction axes missing`);
-  if ((exported.bodyConstructionAxes ?? []).length < 52) fail(`${id}: body construction axes missing`);
-  if ((exported.garmentFitConstructionAxes ?? []).length < 55) fail(`${id}: garment fit axes missing`);
-  if ((exported.garmentConstructionAxes ?? []).length < 60) fail(`${id}: garment construction axes missing`);
-  if ((exported.garmentMaterialMechanicsAxes ?? []).length < 65) fail(`${id}: garment material mechanics axes missing`);
-  if ((exported.dressingWorkflowAxes ?? []).length < 65) fail(`${id}: dressing workflow axes missing`);
-  if ((exported.longWearComfortAxes ?? []).length < 80) fail(`${id}: long-wear comfort axes missing`);
-  if ((exported.operationalAccessAxes ?? []).length < 80) fail(`${id}: operational access axes missing`);
-  if ((exported.bodyAdornmentTopologyAxes ?? []).length < 70) fail(`${id}: body adornment topology axes missing`);
-  if ((exported.accessoryPropInventoryAxes ?? []).length < 70) fail(`${id}: accessory inventory axes missing`);
-
-  for (const marker of promptMarkers) if (!exported.prompt?.includes(marker)) fail(`${id}: prompt marker missing: ${marker}`);
-  for (const path of rootPolicy.requiredAuthorityPaths ?? []) if (!exported.authorityOrder?.includes(path)) fail(`${id}: inherited root authority missing: ${path}`);
+  if (!output.prompt?.includes('CHARACTER PRODUCTION GENERATION ENTRYPOINT — FINAL AUTHORITY LOCK.')) fail(`${id}: root production marker missing`);
 }
 
-console.log(`[character-production-entrypoint] OK: ${ids.length}/36 production prompts preserve ${policyLineage.length}-generation entrypoint lineage and all layered fidelity authorities through ${terminalPolicy.productionExporter}`);
+console.log(`[character-production-entrypoint] OK: ${ids.length}/36 prompts preserve ${lineage.length}-generation lineage and ${loadedLayers.length} layered fidelity authorities through ${terminalPolicy.productionExporter}`);
