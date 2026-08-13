@@ -1,0 +1,57 @@
+{
+  "id": "yoru-no-shirube-all-character-skin-coverage-exposure-boundary-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-skin-coverage-exposure-boundary-fidelity-master-v1.md",
+  "unknownCoverageDefault": "SOURCE_CONSTRAINED_BASELINE_COVERAGE_PRESERVATION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedExposureCreatesCanon": false
+  },
+  "coverageAxes": [
+    "headGarmentCoverage", "foreheadGarmentCoverage", "earCoverage", "neckFrontCoverage", "neckSideCoverage", "neckRearCoverage", "clavicleCoverage", "shoulderTopCoverage", "shoulderRearCoverage", "upperChestCoverage", "sideChestCoverage", "rearUpperBackCoverage", "midBackCoverage", "lowerBackCoverage", "upperArmCoverage", "elbowCoverage", "forearmCoverage", "wristCoverage", "handCoverage", "fingerCoverage", "upperAbdomenCoverage", "midAbdomenCoverage", "lowerAbdomenCoverage", "waistCoverage", "sideWaistCoverage", "pelvisFrontHipCoverage", "sideHipCoverage", "rearHipSeatCoverage", "upperThighCoverage", "midThighCoverage", "kneeCoverage", "calfCoverage", "ankleCoverage", "footCoverage", "toeCoverage", "necklineShape", "necklineDepth", "necklineWidth", "collarOpeningState", "frontClosureOpeningExtent", "rearOpeningExtent", "sideOpeningExtent", "armholeOpeningGeometry", "sleeveOpeningGeometry", "cuffOpeningGeometry", "hemlineLandmark", "sideSlitExistence", "sideSlitMaximumExtent", "frontRearSlitExistence", "skirtDressOverlapCoverage", "trouserShortRiseCoverage", "sockStockingTopBoundary", "gloveTopBoundary", "footwearTopBoundary", "underlayerExistence", "underlayerCoverageBoundary", "outerlayerOverlap", "layerGapExposure", "seatedCoverage", "crouchedCoverage", "reachingCoverage", "armRaisedCoverage", "twistingCoverage", "runningMotionCoverage", "windDisplacementLimit", "wetnessCoverageBoundary", "damageCoverageBoundary", "mobilityEquipmentInteraction", "wheelchairSeatedCoverage", "prostheticOrthoticInterfaceCoverage", "viewpointContinuity", "canonicalLeftRightAsymmetry", "cropIndependence", "lightingIndependence", "effectIndependence", "stateVariantInheritance", "premiumStateInheritance", "seasonalStateInheritance", "lodPreservationClass", "chibiPreservationClass", "spritePreservationClass", "temporaryAuthorizedExposureDelta", "temporaryAuthorizedAddedCoverageDelta", "coverageUncertaintyClass"
+  ],
+  "coverageInvariants": [
+    "known coverage and known exposure are equally authoritative", "pose does not create new exposure topology", "viewpoint does not redesign garment openings", "premium does not increase exposure", "premium does not arbitrarily add coverage", "wetness does not create transparency or unsupported reveal", "damage does not create unsupported exposure", "wind remains within garment construction limits", "seated posture preserves seat hip and waist coverage", "wheelchair use preserves authored coverage", "underlayers are not invented as censorship patches", "underlayers are not deleted for exposure", "summer does not remove layers without delta", "cold does not add layers without delta", "state labels do not change coverage without authorized delta", "body markings remain independent from exposure", "coverage meaning is not inferred as personality", "culture or religion is not inferred from coverage", "sexuality is not inferred from coverage", "child or young character exposure is never sexualized", "camera angle does not change garment length", "foreshortening does not change coverage", "LOD preserves major coverage topology", "chibi preserves coverage topology", "sprite preserves underlayer and opening logic", "crop does not hide coverage mismatch", "effects do not hide coverage mismatch", "generated exposure remains candidate only", "generated coverage meaning remains candidate only", "generated exposure never creates canon"
+  ],
+  "preservationPriority": [
+    "sourceBackedCoverageAndExposure", "garmentOpeningTopology", "underlayerAndLayerPresence", "necklineArmholeSleeveHemBoundaries", "backWaistHipSeatCoverage", "legAndFootCoverage", "seatedWheelchairCoverage", "motionWeatherDamageLimits", "stateVariantInheritance", "bodyAdornmentIndependence", "lodCoverageSurvival", "surfacePolishAndMicroFolds"
+  ],
+  "forbiddenShortcuts": [
+    "premiumDeepensNeckline", "premiumWidensNeckline", "premiumOpensCollar", "premiumExposesShoulders", "premiumCreatesOpenBack", "premiumCropsTop", "premiumShortensHem", "premiumAddsThighSlit", "premiumRollsSleeves", "premiumRemovesStockings", "premiumRemovesGloves", "premiumOpensButtonsOrZipper", "premiumAddsCutout", "premiumAddsWetTransparency", "battleTearsClothingForExposure", "damageRevealsUnsupportedChest", "damageRevealsUnsupportedWaist", "damageRevealsUnsupportedThigh", "damageRevealsUnsupportedBack", "windMaximizesExposure", "runningLiftsHemForFanservice", "armRaiseCreatesUnsupportedMidriff", "crouchCreatesUnsupportedRearExposure", "seatedPoseCreatesUnsupportedWaistExposure", "twistCreatesNewCutout", "cameraAngleChangesGarmentLength", "foreshorteningChangesCoverage", "openBackInventedFromUnknownRear", "slitInventedToAllowPose", "underlayerDeletedForExposure", "undershirtInventedForCoverage", "shortsInventedForCoverage", "leggingsInventedForCoverage", "stockingsInventedForCoverage", "bandageInventedForCoverage", "compressionWearInventedForCoverage", "summerRemovesLayerWithoutDelta", "summerRollsSleeveWithoutDelta", "heatOpensClosureWithoutDelta", "coldAddsLayerWithoutDelta", "coldAddsScarfWithoutDelta", "coldAddsGlovesWithoutDelta", "wetnessCreatesTransparency", "wetnessRevealsUnsupportedAnatomy", "exposureInventsTattoo", "exposureInventsPiercing", "coverageDeletesBodyMarking", "childPremiumIncreasesExposure", "childBattleIncreasesExposure", "childWetnessSexualizesBody", "stateChangesCoverageWithoutDelta", "seasonalChangesCoverageWithoutDelta", "lodDeepensNecklineForReadability", "lodShortensHemForSilhouette", "chibiSimplifiesToSwimsuitShape", "spriteDeletesUnderlayer", "cropHidesCoverageMismatch", "hairHidesCoverageMismatch", "effectsHideCoverageMismatch", "generatedExposureCreatesCanon", "generatedCoverageMeaningCreatesCanon", "modestyInferredFromCoverage", "sexualityInferredFromCoverage", "cultureInferredFromCoverage", "traumaInferredFromCoverage", "bodyConfidenceInferredFromCoverage", "extraPanelInventedForCoverage", "extraScarfInventedForCoverage", "outerwearInventedForCoverage", "premiumDeletesUnderlayer", "premiumReplacesUnderlayerWithLingerie", "actionOpensClosureForReadability", "poseMovesWaistbandForExposure", "viewpointMovesHemline", "generatedUnderlayerCreatesCanon"
+  ],
+  "rules": {
+    "unknownCoverageMayBeRedesignedByImageModel": false,
+    "poseMayIncreaseExposure": false,
+    "viewpointMayChangeCoverageTopology": false,
+    "cameraMayChangeGarmentLength": false,
+    "premiumMayIncreaseExposure": false,
+    "premiumMayArbitrarilyAddCoverage": false,
+    "wetnessMayIncreaseExposure": false,
+    "damageMayIncreaseExposureWithoutAuthority": false,
+    "windMayMaximizeExposure": false,
+    "underlayerMayBeInventedForCoverage": false,
+    "underlayerMayBeDeletedForExposure": false,
+    "heatMayOpenOrRemoveLayersWithoutDelta": false,
+    "coldMayAddLayersWithoutDelta": false,
+    "stateMayChangeCoverageWithoutDelta": false,
+    "seasonalStateMayChangeCoverageWithoutDelta": false,
+    "exposureMayInventBodyMarking": false,
+    "coverageMayDeleteBodyMarking": false,
+    "coverageMeaningMayBeInferredAsPersonality": false,
+    "sexualityMayBeInferredFromCoverage": false,
+    "cultureReligionMayBeInferredFromCoverage": false,
+    "traumaMayBeInferredFromCoverage": false,
+    "bodyConfidenceMayBeInferredFromCoverage": false,
+    "childYoungCharacterMayBeSexualizedThroughExposure": false,
+    "lodMayChangeMajorCoverageTopology": false,
+    "chibiMayChangeMajorCoverageTopology": false,
+    "spriteMayDeleteUnderlayerOrOpeningLogic": false,
+    "cropMayHideCoverageMismatch": false,
+    "effectsMayHideCoverageMismatch": false,
+    "generatedExposureCreatesCanon": false
+  }
+}
