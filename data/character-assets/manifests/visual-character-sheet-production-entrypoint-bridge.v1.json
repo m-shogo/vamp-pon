@@ -4,15 +4,15 @@
   "status": "ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION",
   "purpose": "Make Character Design Sheet 01-04 composition a strict child of the current Character Reference Production Entrypoint so wrapper changes on main are inherited live instead of requiring a stale parent script name in this bridge.",
   "observedLatestMain": {
-    "sha": "53fdd27c6e9dca12883b262ee215950eeeb035d7",
-    "throughPullRequest": 336,
+    "sha": "14e953d7ba93b469031924f9980bf1f6c09e80a5",
+    "throughPullRequest": 339,
     "syncedIntoInventoryBranch": true,
     "mustRecheckImmediatelyBeforeAnyImageGenerationOrMerge": true,
     "note": "This SHA records the synchronization baseline, not a permanent authority freeze. A newer main must be rechecked before generation or merge."
   },
   "parentProductionEntrypointSource": "src/game/data/characterReferenceProductionEntrypoint.ts",
   "parentExporterResolution": "LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT",
-  "observedResolvedParentExporter": "tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts",
+  "observedResolvedParentExporter": "tools/asset-factory/scripts/export-face-skull-landmark-locked-character-design-prompt.ts",
   "parentPolicyResolution": "LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT",
   "observedResolvedParentPolicy": "data/visual/character-production-generation-entrypoint-v1.json",
   "sheetAdapter": "tools/asset-factory/scripts/export-character-design-sheet-prompt.ts",
@@ -83,59 +83,25 @@
     "detail-density-ornament-budget-fidelity",
     "negative-space-cluster-separation-fidelity",
     "feature-scale-proportion-lod-fidelity",
-    "variant-delta-state-transformation-fidelity"
+    "variant-delta-state-transformation-fidelity",
+    "viewpoint-turnaround-back-design-fidelity",
+    "hair-grooming-construction-fidelity",
+    "face-skull-landmark-construction-fidelity"
   ],
   "latestInheritedAuthorities": [
-    {
-      "source": "PR #327",
-      "id": "occlusion-layering-fidelity",
-      "rule": "Solve overlap by camera/crop, authorized placement, physical deformation, omission of hidden micro-detail or Human review; never redesign construction to remove collisions."
-    },
-    {
-      "source": "PR #328",
-      "id": "crop-silhouette-readability",
-      "rule": "Adapt composition before sacrificing identity-bearing silhouette, species, prop, mobility, ground-contact or construction information."
-    },
-    {
-      "source": "PR #329",
-      "id": "focus-depth-effects-fidelity",
-      "rule": "Focus, depth of field and effects may support presentation but may not hide identity-critical errors, invent aura/emission, erase mobility equipment or replace identity palette."
-    },
-    {
-      "source": "PR #330",
-      "id": "surface-tone-mapping-fidelity",
-      "rule": "Surface rendering and tone mapping must preserve skin/body identity, age, body volume and material-class differences without universal gloss, beauty smoothing, humanization or invented microtexture."
-    },
-    {
-      "source": "PR #331",
-      "id": "contrast-value-hierarchy-fidelity",
-      "rule": "Contrast and value hierarchy must preserve skin/body identity, body category, mobility equipment and identity midtones without invented outlines/glow, automatic premium contrast or night-time crushing."
-    },
-    {
-      "source": "PR #332",
-      "id": "edge-line-shape-boundary-fidelity",
-      "rule": "Edges describe authorized shape rather than redesigning it; line cleanup, anti-aliasing and small-scale simplification may not enlarge eyes, beautify jaws, slim bodies, erase mobility equipment, invent exposure or add white/neon readability outlines."
-    },
-    {
-      "source": "PR #333",
-      "id": "detail-density-ornament-budget-fidelity",
-      "rule": "Information density is not rarity, importance, beauty or professionalism; every visible detail needs an authorized identity, construction, use, storage, repair, material, era/world or source-history job, and unsupported ornament defaults to zero/minimum sufficient detail."
-    },
-    {
-      "source": "PR #334",
-      "id": "negative-space-cluster-separation-fidelity",
-      "rule": "Negative space is identity-critical readability structure; effects, ornament, premium polish, action posing and high resolution may not fill functional gaps, detach props, hide mobility equipment, force relationship touching silhouettes or turn generated spacing accidents into canon."
-    },
-    {
-      "source": "PR #335",
-      "id": "feature-scale-proportion-lod-fidelity",
-      "rule": "LOD is information reduction rather than character redesign; portrait, sprite, chibi, resolution or distance changes may not enlarge eyes, beautify jaw/chin, alter head/body or limb proportions, slim bodies, de-age, shrink mobility equipment, mascotify animals or humanize robots."
-    },
-    {
-      "source": "PR #336",
-      "id": "variant-delta-state-transformation-fidelity",
-      "rule": "Every visual state is baseline plus explicitly authorized delta; unspecified axes inherit baseline, and Dawn/Kokuyou/premium/battle/seasonal labels do not permit automatic body, exposure, modification, disability, garment, prop, palette, maintenance, ornament or relationship redesign."
-    }
+    {"source":"PR #327","id":"occlusion-layering-fidelity","rule":"Solve overlap by camera/crop, authorized placement, physical deformation, omission of hidden micro-detail or Human review; never redesign construction to remove collisions."},
+    {"source":"PR #328","id":"crop-silhouette-readability","rule":"Adapt composition before sacrificing identity-bearing silhouette, species, prop, mobility, ground-contact or construction information."},
+    {"source":"PR #329","id":"focus-depth-effects-fidelity","rule":"Focus, depth of field and effects may support presentation but may not hide identity-critical errors, invent aura/emission, erase mobility equipment or replace identity palette."},
+    {"source":"PR #330","id":"surface-tone-mapping-fidelity","rule":"Surface rendering and tone mapping must preserve skin/body identity, age, body volume and material-class differences without universal gloss, beauty smoothing, humanization or invented microtexture."},
+    {"source":"PR #331","id":"contrast-value-hierarchy-fidelity","rule":"Contrast and value hierarchy must preserve skin/body identity, body category, mobility equipment and identity midtones without invented outlines/glow, automatic premium contrast or night-time crushing."},
+    {"source":"PR #332","id":"edge-line-shape-boundary-fidelity","rule":"Edges describe authorized shape rather than redesigning it; line cleanup, anti-aliasing and small-scale simplification may not enlarge eyes, beautify jaws, slim bodies, erase mobility equipment, invent exposure or add white/neon readability outlines."},
+    {"source":"PR #333","id":"detail-density-ornament-budget-fidelity","rule":"Information density is not rarity, importance, beauty or professionalism; every visible detail needs an authorized identity, construction, use, storage, repair, material, era/world or source-history job, and unsupported ornament defaults to zero/minimum sufficient detail."},
+    {"source":"PR #334","id":"negative-space-cluster-separation-fidelity","rule":"Negative space is identity-critical readability structure; effects, ornament, premium polish, action posing and high resolution may not fill functional gaps, detach props, hide mobility equipment, force relationship touching silhouettes or turn generated spacing accidents into canon."},
+    {"source":"PR #335","id":"feature-scale-proportion-lod-fidelity","rule":"LOD is information reduction rather than character redesign; portrait, sprite, chibi, resolution or distance changes may not enlarge eyes, beautify jaw/chin, alter head/body or limb proportions, slim bodies, de-age, shrink mobility equipment, mascotify animals or humanize robots."},
+    {"source":"PR #336","id":"variant-delta-state-transformation-fidelity","rule":"Every visual state is baseline plus explicitly authorized delta; unspecified axes inherit baseline, and Dawn/Kokuyou/premium/battle/seasonal labels do not permit automatic body, exposure, modification, disability, garment, prop, palette, maintenance, ornament or relationship redesign."},
+    {"source":"PR #337","id":"viewpoint-turnaround-back-design-fidelity","rule":"A viewpoint reveals the same authorized object from another side rather than creating a new design surface; hidden surfaces use source-constrained neutral completion and may not invent rear construction, pockets, exposure, prop-side migration or mobility simplification."},
+    {"source":"PR #338","id":"hair-grooming-construction-fidelity","rule":"Hair is continuous scalp-attached topology with authored grooming behavior; preserve hairline, part, fringe mass, side-lock topology, ear exposure, rear mass, tie anchors/count, asymmetry, fasteners, length landmarks and grooming family across view, state, weather, motion, premium and LOD."},
+    {"source":"PR #339","id":"face-skull-landmark-construction-fidelity","rule":"Face and skull landmarks remain one identity-bearing construction across viewpoint, expression, LOD and premium treatment; preserve cranial/face proportions, eye spacing/axis, nose, cheek, mouth, jaw, chin, ear placement, asymmetry and age-bearing cues without beautification or generic-anime convergence."}
   ],
   "sheetRoleBoundaries": {
     "identity-turnaround": [
@@ -143,16 +109,19 @@
       "single anatomical coordinate system",
       "no mirror substitution for asymmetric construction",
       "same face/body/clothing/equipment topology across views",
+      "hidden/rear surfaces use only source-constrained neutral completion, never invented redesign",
+      "hair topology, grooming anchors and face/skull landmark construction remain identical across all inspection views",
       "neutral inspection pose does not create signature pose",
-      "do not hide unresolved overlap or construction behind crop, blur, foreground effects, depth of field, surface polish, contrast crushing, edge cleanup, ornament inflation or collapsed negative space",
+      "do not hide unresolved overlap or construction behind crop, blur, effects, depth of field, polish, contrast, edge cleanup, ornament or collapsed negative space",
       "LOD never changes identity proportions; state labels inherit baseline identity unless an explicit authorized delta says otherwise"
     ],
     "face-expression-acting": [
       "neutral base face remains parent geometry",
-      "expression deforms soft tissue rather than identity geometry",
+      "expression deforms soft tissue rather than identity skull/landmark geometry",
       "diagnostic acting does not create signature emotional canon",
+      "hair/grooming may react physically but may not change topology or authored grooming family",
       "no generic premium-anime face convergence",
-      "crop/focus/effects/tone mapping/contrast/edge/detail/spacing/LOD treatment may not erase or beautify identity-bearing face/head construction or age",
+      "crop/focus/effects/tone/contrast/edge/detail/spacing/LOD treatment may not erase or beautify face/head construction or age",
       "state variants may not de-age, enlarge eyes or change jaw/chin geometry without explicit upstream authority"
     ],
     "costume-equipment-material": [
@@ -162,6 +131,7 @@
       "no invented accessory or exposure",
       "Named Object geometry remains separate authority",
       "solve layer collisions without deleting or rerouting garment/equipment construction",
+      "viewpoint changes may reveal only mechanically required continuations of authorized construction",
       "effects may not conceal clipping, contact or storage errors",
       "surface/tone treatment preserves material-class differences instead of universal gloss",
       "contrast may not invent outline/glow or hide mobility/storage structure",
@@ -174,6 +144,8 @@
     "silhouette-motion-derivation": [
       "body mass/species/age/mobility identity survives motion and perspective",
       "prop scale/contact continuity",
+      "hair rear mass and identity silhouette survive motion/weather/LOD without generic beauty reshaping",
+      "face/head profile remains the same skull/landmark construction under perspective",
       "world adapts around the character rather than resizing the character",
       "OPEN motion uses neutral diagnostic placeholders rather than signature choreography",
       "crop, blur, effects, grading, contrast, line treatment, detail density, cluster spacing and LOD preserve identity-bearing silhouette/body-volume information",
