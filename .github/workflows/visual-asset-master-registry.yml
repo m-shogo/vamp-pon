@@ -9,6 +9,9 @@ on:
       - 'data/visual/**'
       - 'docs/visual/**'
       - 'docs/visual-asset-generation-foundation-v1.md'
+      - 'docs/sakuyaza-current-identity-v1.md'
+      - 'docs/gunjo-zankyoroku-current-v1.md'
+      - 'docs/00-current-story-world-master.md'
       - 'assets/reference/character-master/**'
       - 'src/game/data/characterAuthorDbCoverageManifest.ts'
       - 'src/game/data/characterAppearanceGenerationContracts.ts'
@@ -30,12 +33,14 @@ on:
       - 'src/game/data/namedObjectVisualSharedSource.ts'
       - 'src/game/data/starBeastVisualSharedSource.ts'
       - 'src/game/data/storyWorldMasterSource.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
       - 'src/game/data/yatsukageIdentitySource.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/visualAssetGenerationInventory.ts'
       - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
+      - 'scripts/quality/check-visual-current-group-record-master.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
   push:
@@ -47,6 +52,9 @@ on:
       - 'data/visual/**'
       - 'docs/visual/**'
       - 'docs/visual-asset-generation-foundation-v1.md'
+      - 'docs/sakuyaza-current-identity-v1.md'
+      - 'docs/gunjo-zankyoroku-current-v1.md'
+      - 'docs/00-current-story-world-master.md'
       - 'assets/reference/character-master/**'
       - 'src/game/data/characterAuthorDbCoverageManifest.ts'
       - 'src/game/data/characterAppearanceGenerationContracts.ts'
@@ -68,12 +76,14 @@ on:
       - 'src/game/data/namedObjectVisualSharedSource.ts'
       - 'src/game/data/starBeastVisualSharedSource.ts'
       - 'src/game/data/storyWorldMasterSource.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
       - 'src/game/data/yatsukageIdentitySource.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/visualAssetGenerationInventory.ts'
       - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
+      - 'scripts/quality/check-visual-current-group-record-master.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
 
@@ -98,3 +108,5 @@ jobs:
         run: pnpm visual-assets:check
       - name: Validate generation backlog governance, counts, and duplicate binaries
         run: node --experimental-strip-types scripts/quality/check-visual-generation-governance.ts
+      - name: Validate Sakuyaza Current naming and Gunjo record-taxonomy visual masters
+        run: node --experimental-strip-types scripts/quality/check-visual-current-group-record-master.ts
