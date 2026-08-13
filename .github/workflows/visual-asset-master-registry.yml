@@ -45,6 +45,7 @@ on:
       - 'src/game/data/yatsukagePairDynamicsSource.ts'
       - 'src/game/data/sakuyazaLegacyMigrationSource.ts'
       - 'src/game/data/visualPreGameSourceMasterInventory.ts'
+      - 'src/game/data/assetGenerationPolicy.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/visualAssetGenerationInventory.ts'
       - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
@@ -57,6 +58,8 @@ on:
       - 'scripts/quality/check-visual-pre-game-fixed-master-rows.ts'
       - 'scripts/quality/check-visual-pre-game-source-master-inventory.ts'
       - 'scripts/quality/check-visual-existing-top-loading-reuse-audit.ts'
+      - 'scripts/quality/check-visual-guide-db-reuse-policy.ts'
+      - 'scripts/quality/check-visual-existing-contract-output-audit.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
   push:
@@ -104,6 +107,7 @@ on:
       - 'src/game/data/yatsukagePairDynamicsSource.ts'
       - 'src/game/data/sakuyazaLegacyMigrationSource.ts'
       - 'src/game/data/visualPreGameSourceMasterInventory.ts'
+      - 'src/game/data/assetGenerationPolicy.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/visualAssetGenerationInventory.ts'
       - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
@@ -116,6 +120,8 @@ on:
       - 'scripts/quality/check-visual-pre-game-fixed-master-rows.ts'
       - 'scripts/quality/check-visual-pre-game-source-master-inventory.ts'
       - 'scripts/quality/check-visual-existing-top-loading-reuse-audit.ts'
+      - 'scripts/quality/check-visual-guide-db-reuse-policy.ts'
+      - 'scripts/quality/check-visual-existing-contract-output-audit.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
 
@@ -150,6 +156,10 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-visual-pre-game-source-master-inventory.ts
       - name: Validate existing TOP and Loading reuse classification
         run: node --experimental-strip-types scripts/quality/check-visual-existing-top-loading-reuse-audit.ts
+      - name: Validate Guide and DB master-reuse policy
+        run: node --experimental-strip-types scripts/quality/check-visual-guide-db-reuse-policy.ts
+      - name: Audit all indexed Asset Factory output paths
+        run: node --experimental-strip-types scripts/quality/check-visual-existing-contract-output-audit.ts
       - name: Validate dynamic Gunjo visual subject admission
         run: node --experimental-strip-types scripts/quality/check-visual-gunjo-subject-admission.ts
       - name: Validate Story authority visual coverage gaps
