@@ -60,6 +60,7 @@ on:
       - 'scripts/quality/check-gunjo-record-foundation-masters.ts'
       - 'scripts/quality/check-world-dream-sky-foundation-masters.ts'
       - 'scripts/quality/check-modern-iau88-project-line-art-vector-master.ts'
+      - 'scripts/quality/check-modern-iau88-dataset-binding-plan.ts'
       - 'scripts/quality/check-core5-era-environment-household-authoring-brief.ts'
       - 'scripts/quality/check-core5-era-setting-board-production-contract.ts'
       - 'scripts/quality/check-core5-era-setting-board-evidence-packets.ts'
@@ -140,6 +141,7 @@ on:
       - 'scripts/quality/check-gunjo-record-foundation-masters.ts'
       - 'scripts/quality/check-world-dream-sky-foundation-masters.ts'
       - 'scripts/quality/check-modern-iau88-project-line-art-vector-master.ts'
+      - 'scripts/quality/check-modern-iau88-dataset-binding-plan.ts'
       - 'scripts/quality/check-core5-era-environment-household-authoring-brief.ts'
       - 'scripts/quality/check-core5-era-setting-board-production-contract.ts'
       - 'scripts/quality/check-core5-era-setting-board-evidence-packets.ts'
@@ -194,6 +196,8 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-world-dream-sky-foundation-masters.ts
       - name: Validate Modern IAU88 vector-system boundary
         run: node --experimental-strip-types scripts/quality/check-modern-iau88-project-line-art-vector-master.ts
+      - name: Validate Modern IAU88 dataset binding plan
+        run: node --experimental-strip-types scripts/quality/check-modern-iau88-dataset-binding-plan.ts
       - name: Validate Core5 era environment and population-household authoring briefs
         run: node --experimental-strip-types scripts/quality/check-core5-era-environment-household-authoring-brief.ts
       - name: Validate Core5 era setting-board production contract
