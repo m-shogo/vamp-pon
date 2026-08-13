@@ -31,7 +31,8 @@ if (policy.unknownBodyDefault !== 'SOURCE_CONSTRAINED_EMBODIED_NEUTRAL_COMPLETIO
 for (const [field, value] of Object.entries(policy.rules ?? {})) if (value !== false) fail(`rule must remain false: ${field}`);
 if (!authority.includes('CANDIDATE_REVIEW_REQUIRED')) fail('candidate boundary missing from authority');
 if (!authority.includes('SOURCE_CONSTRAINED_EMBODIED_NEUTRAL_COMPLETION')) fail('unknown-body default missing from authority');
-if (!authority.includes('body is one authored mass-and-proportion construction')) fail('core embodied construction rule missing');
+if (!authority.includes('A character must remain one coherent embodied construction')) fail('core embodied construction rule missing');
+if (!authority.includes('Posture is the second face')) fail('posture identity rule missing');
 if (typeof productionExporterPath !== 'string' || productionExporterPath.length === 0) fail('production exporter missing');
 
 const ids: string[] = [];
