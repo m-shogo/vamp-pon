@@ -1,7 +1,9 @@
 import { readFileSync } from 'node:fs';
 
-const PATH = 'data/character-assets/manifests/visual-audit-resolution-ledger.v1.json';
-const ledger = JSON.parse(readFileSync(PATH, 'utf8'));
+const LEDGER_PATH = 'data/character-assets/manifests/visual-audit-resolution-ledger.v1.json';
+const BRIDGE_PATH = 'data/character-assets/manifests/visual-character-sheet-production-entrypoint-bridge.v1.json';
+const ledger = JSON.parse(readFileSync(LEDGER_PATH, 'utf8'));
+const bridge = JSON.parse(readFileSync(BRIDGE_PATH, 'utf8'));
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -9,8 +11,14 @@ function assert(condition: unknown, message: string): asserts condition {
 
 assert(ledger.schemaVersion === 2, 'resolution ledger schemaVersion must be 2 after latest-main sync/migrations');
 assert(ledger.status === 'ACTIVE_RESOLUTION_TRACKING_NO_AUTOMATIC_GENERATION', 'resolution ledger may not authorize generation');
-assert(ledger.currentBoundary?.latestMainSyncBaseline === '029a834aed8287cd3d6155c2516d6c98b7818566', 'latest-main sync baseline drift');
-assert(ledger.currentBoundary?.latestMainSyncThroughPullRequest === 330, 'latest-main sync PR boundary drift');
+assert(bridge.status === 'ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION', 'Sheet bridge must remain active and non-generating');
+assert(typeof bridge.observedLatestMain?.sha === 'string' && /^[0-9a-f]{40}$/.test(bridge.observedLatestMain.sha), 'Sheet bridge latest-main SHA must be a full Git SHA');
+assert(Number.isInteger(bridge.observedLatestMain?.throughPullRequest) && bridge.observedLatestMain.throughPullRequest > 0, 'Sheet bridge latest-main PR boundary missing');
+assert(bridge.observedLatestMain?.syncedIntoInventoryBranch === true, 'Sheet bridge latest-main baseline must be synced into branch');
+assert(bridge.observedLatestMain?.mustRecheckImmediatelyBeforeAnyImageGenerationOrMerge === true, 'Sheet bridge must require latest-main recheck before generation/merge');
+
+assert(ledger.currentBoundary?.latestMainSyncBaseline === bridge.observedLatestMain.sha, 'ledger/Sheet bridge latest-main SHA mismatch');
+assert(ledger.currentBoundary?.latestMainSyncThroughPullRequest === bridge.observedLatestMain.throughPullRequest, 'ledger/Sheet bridge latest-main PR boundary mismatch');
 assert(ledger.currentBoundary?.latestMainBaselineMergedIntoBranchWithoutForce === true, 'latest-main baseline must be integrated without force rewrite');
 assert(ledger.currentBoundary?.latestMainMustBeRecheckedBeforeImageGenerationOrMerge === true, 'latest main must still be rechecked before generation/merge');
 assert(ledger.currentBoundary?.imageGenerationAllowed === false, 'resolution ledger may not authorize image generation');
@@ -101,19 +109,23 @@ assert(assetFactory?.mustRevalidateOnCurrentHead === true, '977 snapshot must be
 
 const sheets = ledger.characterSheetExecution;
 assert(sheets?.state === 'LIVE_ADAPTER_IMPLEMENTED', 'Character Sheet live adapter state missing');
-assert(sheets?.parentEntrypointSource === 'src/game/data/characterReferenceProductionEntrypoint.ts', 'Character Sheet parent entrypoint source drift');
-assert(sheets?.parentExporterResolution === 'LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT', 'Character Sheet parent exporter must resolve live');
-assert(sheets?.latestMainSyncBaselineThrough === 330, 'Character Sheet latest-main baseline must include PR #330');
+assert(sheets?.bridge === BRIDGE_PATH, 'Character Sheet ledger bridge path drift');
+assert(sheets?.parentEntrypointSource === bridge.parentProductionEntrypointSource, 'Character Sheet ledger/bridge parent entrypoint source mismatch');
+assert(sheets?.parentExporterResolution === bridge.parentExporterResolution, 'Character Sheet ledger/bridge parent exporter resolution mismatch');
+assert(sheets?.latestMainSyncBaselineThrough === bridge.observedLatestMain.throughPullRequest, 'Character Sheet ledger/bridge sync PR boundary mismatch');
 assert(sheets?.requiredFlagValidation === 'ALL_PARENT_DECLARED_STAR_REQUIRED_FLAGS_GROUPS', 'Character Sheet must validate all parent *RequiredFlags groups dynamically');
-for (const required of ['occlusion-layering-fidelity', 'crop-silhouette-readability', 'focus-depth-effects-fidelity', 'surface-tone-mapping-fidelity']) {
-  assert(Array.isArray(sheets?.latestInheritedAuthorityAdditions) && sheets.latestInheritedAuthorityAdditions.includes(required), `Character Sheet latest authority addition missing: ${required}`);
+const bridgeAuthorityIds = (bridge.latestInheritedAuthorities ?? []).map((entry: any) => entry.id);
+assert(bridgeAuthorityIds.length >= 1, 'Sheet bridge must track latest inherited authority additions');
+for (const required of bridgeAuthorityIds) {
+  assert(Array.isArray(sheets?.latestInheritedAuthorityAdditions) && sheets.latestInheritedAuthorityAdditions.includes(required), `ledger missing Sheet inherited authority: ${required}`);
 }
+assert(new Set(sheets.latestInheritedAuthorityAdditions ?? []).size === (sheets.latestInheritedAuthorityAdditions ?? []).length, 'Character Sheet inherited authority additions must be unique');
 assert(sheets?.oldPromptPacketDirectGenerationAllowed === false, 'old prompt packets may not be used directly');
 assert(sheets?.staticPacketReexportRequiredForProduction === false, 'static packet re-export must not be mistaken for the live production path');
-assert(sheets?.activeCharacters === 35, 'active Character Sheet character count drift');
-assert(sheets?.activeLiveSheetPrompts === 140, 'active live Sheet prompt count drift');
-assert(Array.isArray(sheets?.heldCharacterIds) && sheets.heldCharacterIds.length === 1 && sheets.heldCharacterIds[0] === 'yui', 'Yui must remain the only explicit held character');
-assert(sheets?.heldSheetSlots === 4, 'Yui held Sheet slot count drift');
+assert(sheets?.activeCharacters === bridge.roster?.activeCharacters, 'active Character Sheet character count drift vs bridge');
+assert(sheets?.activeLiveSheetPrompts === bridge.roster?.activeLiveAdapterSheetPrompts, 'active live Sheet prompt count drift vs bridge');
+assert(Array.isArray(sheets?.heldCharacterIds) && JSON.stringify(sheets.heldCharacterIds) === JSON.stringify(bridge.hold?.characterIds), 'held Character IDs drift vs bridge');
+assert(sheets?.heldSheetSlots === bridge.roster?.heldSheetSlots, 'held Sheet slot count drift vs bridge');
 assert(sheets?.imageGenerationAllowed === false, 'Character Sheet image generation must remain blocked by listing phase');
 
 console.log(JSON.stringify({
