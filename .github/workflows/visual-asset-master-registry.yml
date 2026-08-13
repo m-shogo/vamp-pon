@@ -39,6 +39,10 @@ on:
       - 'src/game/data/sakumeiCandidateSource.ts'
       - 'src/game/data/yatsukageIdentitySource.ts'
       - 'src/game/data/yatsukageCollectionPresentationSource.ts'
+      - 'src/game/data/current21YatsukageRelationshipSource.ts'
+      - 'src/game/data/yatsukageEncounterMemorySource.ts'
+      - 'src/game/data/yatsukagePairDynamicsSource.ts'
+      - 'src/game/data/sakuyazaLegacyMigrationSource.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/visualAssetGenerationInventory.ts'
       - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
@@ -47,6 +51,7 @@ on:
       - 'scripts/quality/check-visual-current-group-record-master.ts'
       - 'scripts/quality/check-visual-gunjo-subject-admission.ts'
       - 'scripts/quality/check-visual-story-authority-coverage-audit.ts'
+      - 'scripts/quality/check-sakuyaza-legacy-migration.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
   push:
@@ -88,6 +93,10 @@ on:
       - 'src/game/data/sakumeiCandidateSource.ts'
       - 'src/game/data/yatsukageIdentitySource.ts'
       - 'src/game/data/yatsukageCollectionPresentationSource.ts'
+      - 'src/game/data/current21YatsukageRelationshipSource.ts'
+      - 'src/game/data/yatsukageEncounterMemorySource.ts'
+      - 'src/game/data/yatsukagePairDynamicsSource.ts'
+      - 'src/game/data/sakuyazaLegacyMigrationSource.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/visualAssetGenerationInventory.ts'
       - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
@@ -96,6 +105,7 @@ on:
       - 'scripts/quality/check-visual-current-group-record-master.ts'
       - 'scripts/quality/check-visual-gunjo-subject-admission.ts'
       - 'scripts/quality/check-visual-story-authority-coverage-audit.ts'
+      - 'scripts/quality/check-sakuyaza-legacy-migration.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
 
@@ -122,6 +132,8 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-visual-generation-governance.ts
       - name: Validate Sakuyaza Current naming and Gunjo record-taxonomy visual masters
         run: node --experimental-strip-types scripts/quality/check-visual-current-group-record-master.ts
+      - name: Validate Sakuyaza legacy-ID migration facade
+        run: node --experimental-strip-types scripts/quality/check-sakuyaza-legacy-migration.ts
       - name: Validate dynamic Gunjo visual subject admission
         run: node --experimental-strip-types scripts/quality/check-visual-gunjo-subject-admission.ts
       - name: Validate Story authority visual coverage gaps
