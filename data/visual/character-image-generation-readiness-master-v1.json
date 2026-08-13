@@ -1,0 +1,114 @@
+{
+  "id": "yoru-no-shirube-character-image-generation-readiness-master-v1",
+  "date": "2026-08-13",
+  "status": "TOP_LEVEL_IMAGE_GENERATION_GATE",
+  "scopeCount": 36,
+  "passingState": "READY_FOR_CANDIDATE_GENERATION",
+  "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+  "generatedImageCreatesCanon": false,
+  "openMeansModelFreedom": false,
+  "highResolutionMayAddConcepts": false,
+  "states": [
+    "READY_FOR_CANDIDATE_GENERATION",
+    "EXPLORATORY_ONLY",
+    "BLOCK"
+  ],
+  "requiredOutputFlags": {
+    "finalCharacterDesignProductionEntrypoint": true,
+    "generationReadyProductionEntrypoint": true,
+    "allCharacterIdentityProductionRequired": true,
+    "allCharacterGarmentProductionRequired": true,
+    "allCharacterNightLightRenderingRequired": true,
+    "allCharacterEmbodiedActingProductionRequired": true,
+    "unknownIdentityGeometryMayBeInventedByImageModel": false,
+    "unknownGarmentDetailMayBeInventedByImageModel": false,
+    "unknownLightSourceMayBeInventedByImageModel": false,
+    "unknownEmbodiedDetailMayBeInventedByImageModel": false,
+    "renderingMayRedesignCharacter": false,
+    "candidateAppearanceDetailCreatesCanon": false,
+    "generatedPoseCreatesCanon": false
+  },
+  "requiredObjects": [
+    "livingVisualProfile",
+    "appearanceGenerationContract",
+    "allCharacterGarmentProductionProfile",
+    "allCharacterNightLightRenderingProfile",
+    "embodiedActingProfile",
+    "worldMaterialTranslationMaster"
+  ],
+  "core5AdditionalRequirements": [
+    "core5GarmentConstructionRequired",
+    "core5GarmentConstructionProfile"
+  ],
+  "safeUnknownPolicy": {
+    "allowedWhenExplicitlyOmittedOrForbidden": true,
+    "allowedAsModelChoice": false,
+    "examples": [
+      "optional-piercing-not-added",
+      "optional-tattoo-not-added",
+      "unknown-handedness-noncanon",
+      "unknown-exact-grip-plausible-but-noncanon",
+      "unknown-pocket-count-no-new-pocket",
+      "unknown-repair-location-no-fake-repair",
+      "unknown-light-source-no-emission"
+    ]
+  },
+  "genericGachaDrift": [
+    "unsupported-gold-trim",
+    "unsupported-gemstone",
+    "unsupported-belt-harness-pouch",
+    "unsupported-floating-cloth",
+    "unsupported-thigh-cutout-or-exposure-increase",
+    "unsupported-glowing-eyes-tattoo-jewelry-seams",
+    "decorative-asymmetry-without-use-history",
+    "universal-cyan-violet-rim-light",
+    "same-v-jaw-giant-eye-face-base",
+    "body-slimming",
+    "de-aging",
+    "child-adultification",
+    "disability-removal",
+    "nonhuman-humanoidization"
+  ],
+  "detailDensityBudget": {
+    "mayDescribeExisting": [
+      "seam-construction",
+      "material-texture",
+      "authorized-wear-repair",
+      "authorized-fasteners",
+      "hair-fur-surface-structure",
+      "physically-caused-light-response"
+    ],
+    "mayNotAdd": [
+      "new-jewelry",
+      "new-symbols",
+      "new-straps-or-pockets",
+      "new-body-marks",
+      "new-exposure",
+      "new-magical-effects",
+      "new-costume-layers"
+    ]
+  },
+  "postGenerationReviewTaxonomy": [
+    "KEEP_SOURCE_FAITHFUL",
+    "REMOVE_UNSUPPORTED",
+    "REPLACE_WRONG_INTERPRETATION",
+    "BAN_RECURRING_DRIFT",
+    "AUTHOR_CANDIDATE_FOR_REVIEW"
+  ],
+  "imageGenerationGate": [
+    "required-production-flags-match-policy",
+    "required-resolved-objects-present",
+    "living-visual-profile-loaded",
+    "appearance-contract-loaded",
+    "garment-profile-loaded",
+    "night-light-profile-loaded",
+    "embodied-profile-loaded",
+    "world-material-master-loaded",
+    "core5-dedicated-garment-loaded-when-applicable",
+    "open-fields-do-not-grant-model-freedom",
+    "generic-gacha-drift-prohibited",
+    "high-resolution-concept-addition-prohibited",
+    "generated-output-remains-candidate",
+    "human-review-required-for-promotion"
+  ]
+}
