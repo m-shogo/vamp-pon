@@ -93,6 +93,19 @@
       "generationAllowedNow": false
     },
     {
+      "id": "CORE5_ERA_POPULATION_HOUSEHOLD_REFERENCE_MASTERS",
+      "priority": "P0_WORLD_MASTER",
+      "count": 5,
+      "state": "MISSING",
+      "why": "Current Story explicitly forbids one protagonist or one household type from visually representing an entire Era and requires child, teen/young-adult, parent-age adult, older adult, non-parent adult and non-nuclear household lenses. Era environment boards therefore need source-backed ordinary-population/household references rather than only the Core5 lead character.",
+      "rules": [
+        "Background population references are world-setting evidence, not new named cast or automatic Canon relatives.",
+        "Do not turn age, household structure, class, nationality or occupation into costume shorthand.",
+        "Prefer researched ordinary-life examples and editable/reference boards over invented hero characters."
+      ],
+      "generationAllowedNow": false
+    },
+    {
       "id": "DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER",
       "priority": "P0_WORLD_MASTER",
       "count": 1,
@@ -106,6 +119,32 @@
       "count": 1,
       "state": "UNDER_MODELED_INSIDE_GENERIC_EFFECT_TOPICS",
       "why": "Moon phase represents incident depth, Saku is moonless, stars remain, unresolved/boss scenes stay dark, and resolution may brighten the sky without a physical sunrise. This needs an explicit sky/moon/resolution color-script master so legacy dawn asset names cannot imply ordinary sunrise.",
+      "generationAllowedNow": false
+    },
+    {
+      "id": "MODERN_IAU88_CONSTELLATION_LINE_ART_VECTOR_MASTER",
+      "priority": "P0_SKY_BRAND_VECTOR",
+      "count": 1,
+      "state": "MISSING_PROJECT_CANONICAL_LINE_ART_SYSTEM",
+      "why": "Current Story requires IAU88 as the stable modern constellation identity and says the project should fix one Modern canonical line-art because IAU regions do not provide one official connect-the-stars figure. Historical archive overlays do not replace this modern stable vector system.",
+      "rules": [
+        "Use IAU88 identity/boundaries as the stable constellation reference; do not claim an invented line figure is IAU official line-art.",
+        "Historical atlas figures remain separate overlays/evidence.",
+        "Prefer SVG/vector authority for reproducible UI/merch/reference use."
+      ],
+      "generationAllowedNow": false
+    },
+    {
+      "id": "ERA_INCIDENT_VISUAL_ADMISSION_POLICY",
+      "priority": "P0_DYNAMIC_POLICY",
+      "count": 1,
+      "state": "MISSING",
+      "why": "Gunjo masters cover retrospective records, but each fictional Era incident can later require system/process/environment/ordinary-life and failure-state visual masters before scene keyframes or combat derivatives. Incidents are still Candidate/Open, so a dynamic admission gate is needed rather than fixed five incident boards now.",
+      "rules": [
+        "Do not materialize exact places, dates, casualties, organizations or victims while OPEN.",
+        "Incident visual authority is separate from Gunjo record-taxonomy presentation and separate from combat Boss identity.",
+        "A finalized incident may reference existing location/person/system masters rather than duplicate them."
+      ],
       "generationAllowedNow": false
     },
     {
