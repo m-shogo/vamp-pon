@@ -5,7 +5,9 @@ on:
     paths:
       - 'docs/visual/core5-identity-geometry-master-v1.md'
       - 'data/visual/core5-identity-geometry-master-v1.json'
+      - 'data/visual/core5-posture-silhouette-master-v1.json'
       - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'src/game/data/current21SilhouetteMatrix.ts'
       - 'src/game/data/characterReferenceGenerationHandoff.ts'
       - 'tools/asset-factory/scripts/export-character-asset-prompt.ts'
       - 'scripts/quality/check-core5-identity-geometry-master.ts'
@@ -15,7 +17,9 @@ on:
     paths:
       - 'docs/visual/core5-identity-geometry-master-v1.md'
       - 'data/visual/core5-identity-geometry-master-v1.json'
+      - 'data/visual/core5-posture-silhouette-master-v1.json'
       - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'src/game/data/current21SilhouetteMatrix.ts'
       - 'src/game/data/characterReferenceGenerationHandoff.ts'
       - 'tools/asset-factory/scripts/export-character-asset-prompt.ts'
       - 'scripts/quality/check-core5-identity-geometry-master.ts'
@@ -30,9 +34,9 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Validate Core5 identity geometry master
+      - name: Validate Core5 identity geometry and posture silhouette master
         run: node --experimental-strip-types scripts/quality/check-core5-identity-geometry-master.ts
-      - name: Smoke-test resolved Core5 identity geometry
+      - name: Smoke-test resolved Core5 identity geometry and posture
         run: |
           node --experimental-strip-types tools/asset-factory/scripts/export-character-asset-prompt.ts \
             --character yui --kind character_reference --format json --output /tmp/yui-geometry.json
@@ -48,6 +52,10 @@ jobs:
             if (!x.authorityOrder.includes('docs/visual/core5-identity-geometry-master-v1.md')) throw new Error(`${id}: geometry master missing from authority order`);
             if (!x.core5IdentityGeometryProfile) throw new Error(`${id}: geometry profile missing`);
             if (x.core5IdentityGeometryProfile.faceSignatureId !== signature) throw new Error(`${id}: face signature mismatch`);
+            if (!x.core5IdentityGeometryProfile.posture) throw new Error(`${id}: posture missing from resolved geometry`);
+            if (!x.core5IdentityGeometryProfile.silhouetteRead) throw new Error(`${id}: silhouette read missing from resolved geometry`);
+            if (!x.core5IdentityGeometryProfile.objectAnchor) throw new Error(`${id}: object anchor missing from resolved geometry`);
+            if (!x.core5IdentityGeometryProfile.motionSignature) throw new Error(`${id}: motion signature missing from resolved geometry`);
             if (x.unknownIdentityGeometryMayBeInventedByImageModel !== false) throw new Error(`${id}: geometry invention guard weakened`);
             if (!x.prompt.includes('CORE5 IDENTITY GEOMETRY MASTER — REQUIRED FACE/BODY AUTHORITY.')) throw new Error(`${id}: geometry prompt block missing`);
           }
