@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "auditId": "yoruno-shirube-pre-game-master-gap-audit-v1",
+  "status": "ACTIVE_LISTING_NO_AUTOMATIC_GENERATION",
+  "purpose": "Make all setting-book / lorebook / database / TOP visual masters explicit before any gameplay derivative generation. This audit is non-authoritative and must not promote Story Canon, final art, or runtime approval.",
+  "requestedProductionOrder": [
+    "MASTER_SETTING_BOOK",
+    "GUIDE_LOREBOOK_DATABASE",
+    "TOP_LOADING_PRESENTATION",
+    "GAMEPLAY_DERIVATIVES_LAST"
+  ],
+  "principles": {
+    "masterBeforeDerivative": true,
+    "itemMastersAreNotGameplayIcons": true,
+    "enemyReferenceIsMasterNotGameplaySprite": true,
+    "locationSettingArtPrecedesStageBackgrounds": true,
+    "dbChartsAndRelationshipMapsPreferDeterministicHtmlSvgOverBakedRaster": true,
+    "proceduralMotionPreferCodeShaderParticlesOverGeneratedRasterWhenAppropriate": true,
+    "yuiRemainsOnHold": true
+  },
+  "confirmedExistingMasterFamilies": [
+    {
+      "id": "character-design-master-pack",
+      "scope": "36 logical packs / 4 source sheets each",
+      "state": "PLANNED_WITH_YUI_HOLD",
+      "notes": "Identity/turnaround, face/expression/acting, costume/equipment/material, silhouette/motion/derivation."
+    },
+    {
+      "id": "sakuyaza-character-master",
+      "scope": "8 members",
+      "state": "AUTHORING_REQUIRED"
+    },
+    {
+      "id": "star-beast-master",
+      "scope": "21 entries",
+      "state": "READY_FOR_PROMPT_REVIEW_NOT_EXECUTION"
+    },
+    {
+      "id": "named-object-master",
+      "scope": "21 luminous possessions",
+      "state": "BLOCKED_OBJECT_GEOMETRY_REVIEW"
+    }
+  ],
+  "missingOrUnderModeledPreGameMasters": [
+    {
+      "id": "ITEM_OBJECT_DESIGN_MASTERS",
+      "priority": "P0_MASTER",
+      "state": "REQUIRES_VISUAL_IDENTITY_DEDUP_AND_MASTER_ROW_MODEL",
+      "why": "The gameplay Item DB contains five character-linked item phases plus field drops, but only 21 luminous Named Objects currently have explicit object-master rows. Gameplay icon/card/pickup/evolution/ui-slot assets must not become the de facto visual authority.",
+      "source": "src/game/data/itemAssetProductionDatabase.ts",
+      "knownScope": {
+        "characterLinked": "100+ entries by current test contract; exact current source count must be exported",
+        "fieldDrops": 5,
+        "gameplayDerivativeKindsPerItem": 5
+      },
+      "masterSheetProposal": [
+        "front-back-side-or-orthographic-when-object-shape-needs-it",
+        "scale-against-hand-or-common-object",
+        "material-and-color",
+        "wear-repair-history-marks",
+        "open-closed-or-before-after-state-when-applicable",
+        "handling-grip-storage",
+        "silhouette-small-read",
+        "relationship-to-owner-without-baking-game-ui"
+      ],
+      "dedupeRule": "Names/phases that are the same physical object or an evolution of one lineage must share a versioned lineage instead of generating unrelated masters."
+    },
+    {
+      "id": "ENEMY_CREATURE_REFERENCE_MASTERS",
+      "priority": "P0_MASTER",
+      "state": "MODEL_REFERENCE_AS_MASTER_BEFORE_GAMEPLAY_DERIVATIVES",
+      "why": "Enemy DB already plans 48 enemies with a reference asset beside sprite/attack/icon. The reference should be promoted structurally to a pre-game design master; sprite/attack/icon remain derivatives.",
+      "source": "src/game/data/enemyProductionDatabase.ts",
+      "knownScope": {
+        "enemyCount": 48,
+        "families": ["ombu", "omburo", "wrong_reading", "great_shadow"]
+      },
+      "masterSheetProposal": [
+        "front-side-back-as-needed",
+        "silhouette-family-comparison",
+        "scale-threat-tier",
+        "face-mouth-appendage-rule",
+        "attack-telegraph-pose-reference",
+        "material-ink-paper-shadow-language",
+        "family-shared-vs-individual-differences"
+      ],
+      "overlapAuditRequired": "Check whether the 8 Sakuyaza subjects overlap any of the 48 enemy production records before counting final master totals."
+    },
+    {
+      "id": "LOCATION_ENVIRONMENT_SETTING_MASTERS",
+      "priority": "P0_MASTER",
+      "state": "REQUIRES_LOCATION_MASTER_ROWS",
+      "why": "Stage DB has at least 20 locations, but current outputs are gameplay background/parallax/thumbnail/tile assets. Anime-style setting documentation needs a location/environment master first.",
+      "source": "src/game/data/stageProductionDatabase.ts",
+      "knownScope": {
+        "stageCount": ">=20 by test contract",
+        "currentGameplayDerivativeKinds": ["background_390x844", "parallax_layer_pack", "stage_thumbnail", "battle_tile_patch"]
+      },
+      "masterSheetProposal": [
+        "wide-establishing-view",
+        "ground-plan-or-spatial-relationship-sketch-when-needed",
+        "key-architecture-and-landmarks",
+        "foreground-midground-background-breakdown",
+        "material-and-aging-board",
+        "lighting-color-script",
+        "weather-season-or-time-variants-only-when-authorized",
+        "human-character-scale-reference",
+        "signage-text-boundary-no-invented-readable-canon"
+      ]
+    },
+    {
+      "id": "CHARACTER_STATE_TRANSFORMATION_MASTERS",
+      "priority": "P0_MASTER_AFTER_BASE_CHARACTER",
+      "state": "REQUIRES_EXPLICIT_STATE_AUTHORITY_AND_VISUAL_ROW_MODEL",
+      "why": "Current production canon requires blackening and dawn/cutin-related visual states, but the four base Character Design sheets do not by themselves define every transformed visual state.",
+      "source": "src/game/data/itemProductionCanon.ts",
+      "masterSheetProposal": [
+        "normal-baseline-reference-link",
+        "kokuyou-blackening-state-boundary",
+        "akatsuki-or-dawn-open-state-when-authorized",
+        "what-identity-must-not-change",
+        "light-ink-material-behavior",
+        "face-eye-posture-drift-limits",
+        "before-after-comparison"
+      ],
+      "notes": "Keep as a separate master family derived from an approved base Character Pack rather than silently expanding game sprite/cutin art into authority."
+    },
+    {
+      "id": "WORLD_VISUAL_EFFECT_LANGUAGE_MASTER",
+      "priority": "P1_MASTER",
+      "state": "REQUIRES_MASTER_PLATES",
+      "why": "Lantern light, black ink, paper fragments, memory loss, repair seams, dawn transition and blackening recur across TOP, lorebook, scenes and gameplay. They need shared visual reference plates so every surface does not invent a new effect language.",
+      "source": "data/visual/visual-design-production-master-v1.json",
+      "masterSheetProposal": [
+        "lantern-and-small-practical-light",
+        "black-ink-edge-spread-and-puddle",
+        "paper-record-ledger-label-material",
+        "memory-fragment-and-missing-record",
+        "repair-binding-folding-seams",
+        "night-to-dawn-light-transition",
+        "kokuyou-effect-boundary",
+        "allowed-vs-forbidden-neon-glow-comparison"
+      ]
+    },
+    {
+      "id": "CHARACTER_SCALE_ENSEMBLE_MASTERS",
+      "priority": "P1_MASTER",
+      "state": "BLOCKED_UNTIL_RELATIVE_HEIGHT_BODY_AUTHORITY_IS_REVIEWED",
+      "why": "Individual sheets can still drift when characters are composed together. Anime production normally benefits from height/scale and silhouette lineup references.",
+      "masterSheetProposal": [
+        "relative-height-lineup",
+        "body-mass-and-age-impression-lineup",
+        "core-group-silhouette-lineup",
+        "sakuyaza-group-lineup",
+        "pair-or-family-lineups-only-where-relationship-authority-allows"
+      ],
+      "noInferenceRule": "Do not invent exact centimeters or blood/family relationships from visual similarity."
+    },
+    {
+      "id": "TOUMON_SIGIL_AND_SYMBOL_MASTERS",
+      "priority": "P1_MASTER_VECTOR",
+      "state": "MASTER_VECTOR_NOT_YET_DRAWN_IN_COMMERCIAL_PROFILE",
+      "why": "Commercial production profiles explicitly mark Toumon one-color master vectors as not yet drawn. Symbols affect DB, goods-like presentation, TOP decoration and later gameplay icons, so they need a controlled master before derivatives.",
+      "source": "src/game/data/commercialProductionProfile.ts",
+      "preferredFormat": "SVG/vector master first; raster generation is not the authority",
+      "masterSheetProposal": [
+        "single-ink-master-vector",
+        "minimum-size-proof",
+        "reversed-dark-light-proof",
+        "embroidery-safe-proof-when-relevant",
+        "clear-space-and-do-not-distort-rules"
+      ]
+    },
+    {
+      "id": "CONSTELLATION_HISTORICAL_ARCHIVE_MASTERS",
+      "priority": "P1_MASTER_LORE",
+      "state": "ALREADY_IDENTIFIED_AS_OMITTED_UNTIL_PER_OBJECT_AUTHORITY_EXISTS",
+      "why": "Historical/obsolete constellation differences are a story and lorebook clue system; they should be formalized as archive plates rather than improvised inside profile cards or TOP art.",
+      "masterSheetProposal": [
+        "era-specific-star-chart-plate",
+        "modern-vs-historical-comparison-plate",
+        "obsolete-or-unadopted-constellation-entry",
+        "planisphere-or-atlas-object-view-where-authorized",
+        "spoiler-safe-and-authority-status-visible"
+      ]
+    },
+    {
+      "id": "GROUP_FACTION_VISUAL_MASTERS",
+      "priority": "P1_MASTER",
+      "state": "REQUIRES_GROUP_SCOPE_AUDIT",
+      "why": "Individual characters alone do not define shared visual grammar for groups. Group masters should lock shared motif, spacing, material and emblem usage without making every member a clone.",
+      "masterSheetProposal": [
+        "group-lineup",
+        "shared-vs-individual-design-grammar",
+        "group-color-material-boundary",
+        "gesture-or-position-grammar",
+        "emblem-symbol-boundary"
+      ]
+    },
+    {
+      "id": "STORY_SCENE_KEYFRAME_MASTERS",
+      "priority": "P2_MASTER_AFTER_STORY_AUTHORITY",
+      "state": "BLOCKED_STORY_SCENE_AUTHORITY",
+      "why": "For anime-setting-book and guide-site use, a small set of scene/keyframe references helps establish staging, mood and character distance. They must not be generated while exact scene canon is still open.",
+      "masterSheetProposal": [
+        "chapter-or-arc-establishing-keyframe",
+        "important-pair-or-group-staging-reference",
+        "environment-character-scale-keyframe",
+        "spoiler-tiered-guide-variant"
+      ]
+    }
+  ],
+  "guideLorebookDatabaseAfterMasters": [
+    "character-profile-portrait-and-full-body-derivatives",
+    "star-beast-profile-derivatives",
+    "item-object-catalog-derivatives",
+    "enemy-reference-catalog-derivatives",
+    "location-stage-guide-illustrations",
+    "constellation-archive-plates",
+    "chapter-and-group-thumbnails",
+    "relationship-pair-illustrations-only-when-useful"
+  ],
+  "doNotGenerateAsBakedImagesForGuideDbByDefault": [
+    "relationship-network-lines",
+    "stat-tables",
+    "timeline-text",
+    "filters-and-tabs",
+    "profile-card-chrome",
+    "status-badges",
+    "long-readable-copy"
+  ],
+  "topLoadingAfterMasters": {
+    "generateOrIllustrate": [
+      "key-art-background-plates",
+      "approved-character-cutout-or-composition-derivatives",
+      "approved-star-beast-or-object-cameos",
+      "seasonal-loading-compositions",
+      "foreground-midground-background-art-layers-when-not-procedural"
+    ],
+    "preferProceduralOrCode": [
+      "star-twinkle",
+      "small-cloud-drift-when-feasible",
+      "lantern-flicker-and-glow",
+      "paper-particle-drift",
+      "subtle-parallax",
+      "reduced-motion-fallback"
+    ],
+    "existingTopWorkMustBeAuditedBeforeReplacement": true
+  },
+  "gameplayLast": [
+    "character-icons-and-portraits",
+    "character-sprites-and-state-differences",
+    "enemy-sprites-attack-sheets-and-collection-icons",
+    "item-icon-card-pickup-evolution-ui-slot-derivatives",
+    "stage-background-parallax-thumbnail-battle-tile-derivatives",
+    "weapon-skill-card-ui-runtime-images",
+    "runtime-vfx-derived-from-approved-effect-master"
+  ],
+  "nextAuditActions": [
+    "Export exact item source count and deduplicate physical-object/evolution lineages before assigning master image count.",
+    "Enumerate exact stage/location count and create one location-setting-master row per authorized location.",
+    "Split enemy reference assets from gameplay derivatives and audit overlap with Sakuyaza.",
+    "Enumerate Toumon/sigil masters and verify source authority before vector authoring.",
+    "Define shared world/effect reference plates and character state master rows.",
+    "Only then finalize guide/DB and TOP production lists; gameplay execution remains last."
+  ]
+}
