@@ -1,0 +1,30 @@
+name: All Character Cross-Asset Consistency Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-cross-asset-consistency-master-v1.md'
+      - 'data/visual/all-character-cross-asset-consistency-master-v1.json'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
+      - 'tools/asset-factory/scripts/export-cross-asset-consistent-character-design-prompt.ts'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'scripts/quality/check-all-character-cross-asset-consistency-master.ts'
+      - '.github/workflows/all-character-cross-asset-consistency-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-cross-asset-consistency-master-v1.md'
+      - 'data/visual/all-character-cross-asset-consistency-master-v1.json'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
+      - 'tools/asset-factory/scripts/export-cross-asset-consistent-character-design-prompt.ts'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'scripts/quality/check-all-character-cross-asset-consistency-master.ts'
+      - '.github/workflows/all-character-cross-asset-consistency-master.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate cross-asset consistency for all 36 characters
+        run: node --experimental-strip-types scripts/quality/check-all-character-cross-asset-consistency-master.ts

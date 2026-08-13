@@ -5,10 +5,11 @@
   "scopeCount": 36,
   "authorityDocument": "docs/visual/character-production-generation-entrypoint-v1.md",
   "productionExporter": "tools/asset-factory/scripts/export-production-character-design-prompt.ts",
-  "wrappedExporter": "tools/asset-factory/scripts/export-color-aware-character-design-prompt.ts",
+  "wrappedExporter": "tools/asset-factory/scripts/export-cross-asset-consistent-character-design-prompt.ts",
   "requiredFlags": {
     "feedbackRecurrenceGenerationEntrypoint": true,
     "allCharacterColorProductionRequired": true,
+    "allCharacterCrossAssetConsistencyRequired": true,
     "characterImageGenerationReadinessRequired": true,
     "imageGenerationReadinessState": "READY_FOR_CANDIDATE_GENERATION",
     "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
@@ -19,6 +20,11 @@
     "unknownGarmentDetailMayBeInventedByImageModel": false,
     "unknownLightSourceMayBeInventedByImageModel": false,
     "unknownExactColorMayBeInventedByImageModel": false,
+    "unknownSimplificationMayRedesignCharacter": false,
+    "smallScaleMayInventReadabilityAccessory": false,
+    "effectsMayRedesignCharacter": false,
+    "emblemMayCreateAppearanceCanon": false,
+    "generatedCrossAssetDetailCreatesCanon": false,
     "starBeastColorMayBecomeAutomaticCostumeColor": false,
     "nightMayReplaceIdentityPalette": false,
     "generatedColorAccidentCreatesCanon": false,
@@ -47,7 +53,9 @@
     "docs/visual/character-design-feedback-recurrence-master-v1.md",
     "data/visual/character-design-feedback-ledger.json",
     "docs/visual/all-character-color-production-master-v1.md",
-    "data/visual/all-character-color-production-master-v1.json"
+    "data/visual/all-character-color-production-master-v1.json",
+    "docs/visual/all-character-cross-asset-consistency-master-v1.md",
+    "data/visual/all-character-cross-asset-consistency-master-v1.json"
   ],
   "candidateBoundary": [
     "not-final-art-approval",
