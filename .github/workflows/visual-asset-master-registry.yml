@@ -62,6 +62,7 @@ on:
       - 'scripts/quality/check-modern-iau88-project-line-art-vector-master.ts'
       - 'scripts/quality/check-core5-era-environment-household-authoring-brief.ts'
       - 'scripts/quality/check-core5-era-setting-board-production-contract.ts'
+      - 'scripts/quality/check-core5-era-setting-board-evidence-packets.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
@@ -138,6 +139,7 @@ on:
       - 'scripts/quality/check-modern-iau88-project-line-art-vector-master.ts'
       - 'scripts/quality/check-core5-era-environment-household-authoring-brief.ts'
       - 'scripts/quality/check-core5-era-setting-board-production-contract.ts'
+      - 'scripts/quality/check-core5-era-setting-board-evidence-packets.ts'
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
@@ -190,6 +192,8 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-core5-era-environment-household-authoring-brief.ts
       - name: Validate Core5 era setting-board production contract
         run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-production-contract.ts
+      - name: Validate Core5 era setting-board evidence packets
+        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-evidence-packets.ts
       - name: Validate Sakuyaza Current naming and Gunjo record-taxonomy visual masters
         run: node --experimental-strip-types scripts/quality/check-visual-current-group-record-master.ts
       - name: Validate Sakuyaza legacy-ID migration facade
