@@ -54,6 +54,7 @@ const packet = {
   hardGateFailures: [] as string[],
   weightedScore: null as number | null,
   fidelityState: emblem ? 'NOT_APPLICABLE' : 'PENDING_REVIEW',
+  systemRecommendation: emblem ? 'EMBLEM_CANON_REVIEW_REQUIRED' : null,
   reviewerVerdict: null as 'KEEP' | 'REWORK' | 'REJECT' | null,
   keepRemoveReplaceBanNotes: [] as string[],
   recurrenceDirectivePromotionState: 'NONE' as 'NONE' | 'PROPOSED' | 'ACTIVE',
@@ -61,6 +62,7 @@ const packet = {
   promotionBlocked: true,
   generatedImageCreatesAuthority: false,
   generatedImageCreatesRecurrenceDirective: false,
+  systemMaySetHumanVerdict: false,
   hardGatePolicy: emblem ? null : {
     identityCriticalAxes: master.identityCriticalAxes,
     assetKindMin: options.kind === 'sprite_sheet_180' ? 85 : 90,
