@@ -9,6 +9,8 @@ const ENVIRONMENT_POLICY_PATH = 'data/visual/all-character-environment-weather-f
 const SPATIAL_POLICY_PATH = 'data/visual/all-character-spatial-world-scale-fidelity-master-v1.json';
 const LAYOUT_POLICY_PATH = 'data/visual/all-character-world-use-interaction-layout-master-v1.json';
 const MAINTENANCE_POLICY_PATH = 'data/visual/all-character-material-aging-maintenance-continuity-master-v1.json';
+const OCCLUSION_POLICY_PATH = 'data/visual/all-character-occlusion-layering-fidelity-master-v1.json';
+const CROP_POLICY_PATH = 'data/visual/all-character-crop-silhouette-readability-master-v1.json';
 
 type Options = { characterId: string; kind: string; output: string | null };
 
@@ -47,6 +49,8 @@ const environmentPolicy = loadCurrentProductionAuthority(ENVIRONMENT_POLICY_PATH
 const spatialPolicy = loadCurrentProductionAuthority(SPATIAL_POLICY_PATH, 'Spatial/world-scale');
 const layoutPolicy = loadCurrentProductionAuthority(LAYOUT_POLICY_PATH, 'World-use/interaction-layout');
 const maintenancePolicy = loadCurrentProductionAuthority(MAINTENANCE_POLICY_PATH, 'Material-aging/maintenance');
+const occlusionPolicy = loadCurrentProductionAuthority(OCCLUSION_POLICY_PATH, 'Occlusion/layering');
+const cropPolicy = loadCurrentProductionAuthority(CROP_POLICY_PATH, 'Crop/silhouette-readability');
 
 const handoff = characterReferenceGenerationHandoff.find((entry) => entry.characterId === options.characterId) ?? null;
 const handoffAuthoritySet = new Set(handoff?.visualAuthorityPaths ?? []);
@@ -86,6 +90,24 @@ const effectiveBase = {
   highResolutionMayAddWearDetail: maintenancePolicy.rules?.highResolutionMayAddWearDetail,
   stateTransformMayResetMaintenanceHistory: maintenancePolicy.rules?.stateTransformMayResetMaintenanceHistory,
   generatedWearRepairCreatesCanon: maintenancePolicy.rules?.generatedWearRepairCreatesCanon,
+  allCharacterOcclusionLayeringFidelityRequired: occlusionPolicy.production.requiredForCandidateGeneration === true,
+  unknownLayerRouteMayBeInventedByImageModel: occlusionPolicy.rules?.unknownLayerRouteMayBeInventedByImageModel,
+  occlusionMayRedesignCharacter: occlusionPolicy.rules?.occlusionMayRedesignCharacter,
+  occlusionMayIncreaseExposure: occlusionPolicy.rules?.occlusionMayIncreaseExposure,
+  occlusionMayInventAttachment: occlusionPolicy.rules?.occlusionMayInventAttachment,
+  occlusionMayRemoveMobilityEquipment: occlusionPolicy.rules?.occlusionMayRemoveMobilityEquipment,
+  lightingMayHideClippingAsSolution: occlusionPolicy.rules?.lightingMayHideClippingAsSolution,
+  stateTransformMayRerouteGarmentConstruction: occlusionPolicy.rules?.stateTransformMayRerouteGarmentConstruction,
+  generatedOverlapSolutionCreatesCanon: occlusionPolicy.rules?.generatedOverlapSolutionCreatesCanon,
+  allCharacterCropSilhouetteReadabilityRequired: cropPolicy.production.requiredForCandidateGeneration === true,
+  unknownCropMayBeInventedByImageModel: cropPolicy.rules?.unknownCropMayBeInventedByImageModel,
+  cropMayRedesignCharacter: cropPolicy.rules?.cropMayRedesignCharacter,
+  cropMayHideMobilityEquipmentAsSolution: cropPolicy.rules?.cropMayHideMobilityEquipmentAsSolution,
+  cropMayHideBodyCategoryAsSolution: cropPolicy.rules?.cropMayHideBodyCategoryAsSolution,
+  effectsMayObscureIdentityAnchorsAsSolution: cropPolicy.rules?.effectsMayObscureIdentityAnchorsAsSolution,
+  premiumAssetMaySacrificeIdentityReadability: cropPolicy.rules?.premiumAssetMaySacrificeIdentityReadability,
+  readabilityMayInventAccessory: cropPolicy.rules?.readabilityMayInventAccessory,
+  generatedCropChoiceCreatesCanon: cropPolicy.rules?.generatedCropChoiceCreatesCanon,
 };
 
 const failures: string[] = [];
@@ -136,6 +158,8 @@ const promptBlock = [
   `Spatial/world-scale machine authority: ${SPATIAL_POLICY_PATH}.`,
   `World-use/interaction-layout machine authority: ${LAYOUT_POLICY_PATH}.`,
   `Material-aging/maintenance machine authority: ${MAINTENANCE_POLICY_PATH}.`,
+  `Occlusion/layering machine authority: ${OCCLUSION_POLICY_PATH}.`,
+  `Crop/silhouette-readability machine authority: ${CROP_POLICY_PATH}.`,
   `Character Reference Generation Handoff present: ${handoff ? 'yes' : 'no — top-level production policy remains authoritative for this roster member'}.`,
   `Production authority supplement count: ${supplementedAuthorityPaths.length}.`,
   'This output is the only production-ready character-image prompt export. Lower exporters and hand-written prompts are diagnostic/drafting inputs only.',
@@ -144,13 +168,15 @@ const promptBlock = [
   'Spatial/world-scale rules may adapt composition and world layout but may not resize, slim, age-shift, humanize, remove mobility equipment or invent exact unsupported dimensions.',
   'World-use/interaction-layout rules may arrange already-authorized space for plausible use but may not invent routine, intimacy, private possessions, decorative clutter or blocked mobility routes.',
   'Material-aging/maintenance rules preserve causal wear, cleaning, repair and replacement continuity; they may not invent personality, exposure, random damage, premium distressing or canon history.',
+  'Occlusion/layering rules preserve physical front-back order, attachment routes and garment construction; overlap problems must not be solved by exposure, invented straps, deleted panels, hidden clipping or removed mobility equipment.',
+  'Crop/silhouette-readability rules preserve identity-bearing body, silhouette, species, prop and mobility evidence; framing and effects must not hide unresolved structure or replace lost readability with invented accessories.',
   'productionCharacterPromptReady means ready to request a CANDIDATE image only. It is not final-art approval, Character Master approval, legal/commercial clearance, runtime registration, or canon promotion.',
   'Do not remove or bypass earlier Master blocks. Do not reinterpret OPEN as model freedom. Generated images remain CANDIDATE_REVIEW_REQUIRED.',
 ].join('\n');
 
 const result = {
   ...effectiveBase,
-  schemaVersion: Math.max(Number(effectiveBase.schemaVersion ?? 0), 22),
+  schemaVersion: Math.max(Number(effectiveBase.schemaVersion ?? 0), 24),
   generatedBy: 'tools/asset-factory/scripts/export-production-character-design-prompt.ts',
   productionImageGenerationEntrypoint: true,
   productionCharacterPromptReady: true,
@@ -161,6 +187,8 @@ const result = {
   spatialWorldScaleFidelityPolicyPath: SPATIAL_POLICY_PATH,
   worldUseInteractionLayoutPolicyPath: LAYOUT_POLICY_PATH,
   materialAgingMaintenanceContinuityPolicyPath: MAINTENANCE_POLICY_PATH,
+  occlusionLayeringFidelityPolicyPath: OCCLUSION_POLICY_PATH,
+  cropSilhouetteReadabilityPolicyPath: CROP_POLICY_PATH,
   characterReferenceGenerationHandoffPresent: handoff !== null,
   handoffDeclaredAuthorityPaths: handoff?.visualAuthorityPaths ?? [],
   productionAuthoritySupplementPaths: supplementedAuthorityPaths,
@@ -177,6 +205,8 @@ const result = {
     '建築・家具・地面・背景の都合で人物の体格、年齢、species、mobility equipment、prop比率を変更しない',
     '空間の使い方は動線・収納・作業・待機の物理から作り、未確定の生活習慣・親密さ・私物を発明しない',
     '摩耗・補修・汚れ・交換は素材と使用箇所の因果を維持し、assetごとに新品化/ランダム劣化させない',
+    '髪・服・手・prop・mobility equipmentの前後関係を守り、貫通解決のため露出・新規attachment・構造削除を行わない',
+    'crop・前景・effectで体格、silhouette、species、mobility equipment、prop関係を隠して本人性を弱めない',
     'legacy handoff/queueに未列挙のcharacterでも36-character production policyを弱めない',
     'READYはcandidate generation許可でありfinal approvalではない',
     ...(Array.isArray(effectiveBase.reviewChecklist) ? effectiveBase.reviewChecklist : []),

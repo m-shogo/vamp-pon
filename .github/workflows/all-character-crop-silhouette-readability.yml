@@ -1,0 +1,28 @@
+name: All Character Crop Silhouette Readability Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-crop-silhouette-readability-master-v1.md'
+      - 'data/visual/all-character-crop-silhouette-readability-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-crop-silhouette-readability.ts'
+      - '.github/workflows/all-character-crop-silhouette-readability.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-crop-silhouette-readability-master-v1.md'
+      - 'data/visual/all-character-crop-silhouette-readability-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-crop-silhouette-readability.ts'
+      - '.github/workflows/all-character-crop-silhouette-readability.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character crop silhouette readability authority
+        run: node --experimental-strip-types scripts/quality/check-all-character-crop-silhouette-readability.ts
