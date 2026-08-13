@@ -6,8 +6,6 @@ const root = process.cwd();
 const policyPath = 'data/visual/all-character-focus-depth-effects-fidelity-master-v1.json';
 const authorityPath = 'docs/visual/all-character-focus-depth-effects-fidelity-master-v1.md';
 const productionPolicyPath = 'data/visual/character-production-generation-entrypoint-v1.json';
-const exporterPath = 'tools/asset-factory/scripts/export-focus-depth-effects-character-design-prompt.ts';
-const finalExporterPath = 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts';
 const profilePaths = [
   'data/visual/core5-living-visual-profiles-v1.json',
   'data/visual/current21-extended-living-visual-profiles-v1.json',
@@ -18,7 +16,7 @@ const fail = (m: string): never => { throw new Error(`[focus-depth-effects] ${m}
 const policy = JSON.parse(readFileSync(resolve(root, policyPath), 'utf8'));
 const authority = readFileSync(resolve(root, authorityPath), 'utf8');
 const productionPolicy = JSON.parse(readFileSync(resolve(root, productionPolicyPath), 'utf8'));
-const finalExporterSource = readFileSync(resolve(root, finalExporterPath), 'utf8');
+const productionExporterPath = productionPolicy.productionExporter;
 
 if (policy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') fail('status invalid');
 if (policy.scopeCount !== 36 || policy.assetKindCount !== 9) fail('scope must remain 36/9');
@@ -39,12 +37,7 @@ for (const [field, expected] of Object.entries(productionPolicy.wrapperRequiredF
     fail(`wrapper guard must remain false: ${field}`);
   }
 }
-if (productionPolicy.productionExporter === exporterPath) {
-  // Focus may be top-level when no later rendering wrapper exists.
-} else {
-  if (productionPolicy.productionExporter !== finalExporterPath) fail('focus wrapper must remain in the declared production chain');
-  if (!finalExporterSource.includes(`const BASE_EXPORTER = '${exporterPath}'`)) fail('final production wrapper must directly wrap focus/depth/effects exporter');
-}
+if (typeof productionExporterPath !== 'string' || productionExporterPath.length === 0) fail('production exporter missing');
 for (const path of [authorityPath, policyPath]) if (!productionPolicy.requiredAuthorityPaths?.includes(path)) fail(`required authority path missing: ${path}`);
 
 const ids: string[] = [];
@@ -56,11 +49,13 @@ if (ids.length !== 36 || new Set(ids).size !== 36) fail(`expected 36 unique ids,
 
 for (const id of ids) {
   const stdout = execFileSync(process.execPath, [
-    '--experimental-strip-types', resolve(root, exporterPath),
+    '--experimental-strip-types', resolve(root, productionExporterPath),
     '--character', id,
     '--kind', 'character_reference',
-  ], { cwd: root, encoding: 'utf8', maxBuffer: 48 * 1024 * 1024 });
+  ], { cwd: root, encoding: 'utf8', maxBuffer: 96 * 1024 * 1024 });
   const output = JSON.parse(stdout);
+  if (output.productionImageGenerationEntrypoint !== true) fail(`${id}: production entrypoint flag missing`);
+  if (output.productionPromptAuthorityLocked !== true) fail(`${id}: production authority lock missing`);
   if (output.allCharacterFocusDepthEffectsFidelityRequired !== true) fail(`${id}: focus/depth/effects flag missing`);
   if (output.unknownFocusMayBeInventedByImageModel !== false) fail(`${id}: unknown focus guard weakened`);
   if (output.effectsMayHideIdentityCriticalError !== false) fail(`${id}: effects error-hiding guard weakened`);
@@ -74,4 +69,4 @@ for (const id of ids) {
   if (!output.prompt?.includes('FOCUS / DEPTH / EFFECTS FIDELITY — FINAL RENDERING LOCK.')) fail(`${id}: focus prompt block missing`);
 }
 
-console.log(`[focus-depth-effects] OK: ${ids.length}/36 focus/depth/effects production prompts validated as required wrapper stage`);
+console.log(`[focus-depth-effects] OK: ${ids.length}/36 final production prompts preserve focus/depth/effects authority`);
