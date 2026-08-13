@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "auditId": "yoruno-shirube-existing-top-loading-reuse-audit-v1",
+  "status": "OBSERVED_CURRENT_MAIN_REUSE_AUDIT_NO_AUTOMATIC_REGENERATION",
+  "purpose": "Prevent existing Loading seasonal binaries, TOP V3 candidate art and verified TOP layer-kit sources from being miscounted as missing generation work. Runtime capture screenshots are evidence, not authored image-generation targets.",
+  "observedMain": {
+    "sha": "6a67d967a2658b2cc411c16cd24ad61b4b5fe8a9",
+    "mustRevalidateBeforeReplacementOrMerge": true
+  },
+  "authoritySources": [
+    "docs/design-targets/generated/loading-seasonal-v1/README.md",
+    "docs/design-targets/generated/loading-seasonal-v1/manifest.json",
+    "docs/design-targets/generated/top-living-night-v3/README.md",
+    "docs/design-targets/generated/top-living-night-v3/final-art-status.json",
+    "docs/design-targets/generated/top-living-night-v2/README.md"
+  ],
+  "rules": {
+    "existingDoesNotMeanApprovedFinal": true,
+    "pendingReviewDoesNotMeanMissingImage": true,
+    "doNotRegenerateExistingSourceWithoutExplicitReplacementDecision": true,
+    "sameAssetMayServeMultipleSurfacesThroughUsageTargets": true,
+    "runtimeCaptureIsEvidenceNotGeneratedKeyArt": true,
+    "historicalPreviewIsNotCurrentMaster": true,
+    "binaryReplacementRequiresNewHashAndReviewInvalidation": true
+  },
+  "counts": {
+    "loadingCommittedSourceArt": 4,
+    "topV3RegisteredFinalCandidate": 1,
+    "topV2LayerKitSourceAssets": 17,
+    "topV2LiveOrMotionRelevantInputsUnderV3Authority": 10,
+    "topV2ProvenanceOrFallbackOnlyInputs": 7,
+    "currentRuntimeEvidenceScreenshotsRequired": 15,
+    "currentRuntimeEvidenceScreenshotsCompleted": 0
+  },
+  "loadingSeasonal": {
+    "surfaceId": "loading-seasonal-v1",
+    "classification": "EXISTS_COMMITTED_SOURCE_REUSE",
+    "runtimeConnected": true,
+    "seasonalBinariesCommitted": true,
+    "usesFallbackSources": false,
+    "approvedAsFinal": false,
+    "runtimeApproved": false,
+    "finalApprovalBlocked": true,
+    "generationNeed": "NO_REGEN_UNLESS_EXPLICIT_REPLACEMENT_DECISION",
+    "assets": [
+      {
+        "assetId": "loading-spring-v1",
+        "path": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-01-spring.png",
+        "width": 853,
+        "height": 1844,
+        "sha256": "1507daac222250bda76e7d38385b0b82e4b00197ec98d02f67f3663ae09fe496",
+        "state": "EXISTS_COMMITTED_SOURCE_REUSE"
+      },
+      {
+        "assetId": "loading-summer-v1",
+        "path": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-02-summer.png",
+        "width": 852,
+        "height": 1846,
+        "sha256": "78be422ee01caa0a81f50fd10a385ec596bc2053079d7b4909d39e2f1d96e2a4",
+        "state": "EXISTS_COMMITTED_SOURCE_REUSE"
+      },
+      {
+        "assetId": "loading-autumn-v1",
+        "path": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-03-autumn.png",
+        "width": 853,
+        "height": 1844,
+        "sha256": "c788861e8609cc1322fc14e913d01fec62d09201af348a577800e6309d5ace40",
+        "state": "EXISTS_COMMITTED_SOURCE_REUSE"
+      },
+      {
+        "assetId": "loading-winter-v1",
+        "path": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-04-winter.png",
+        "width": 853,
+        "height": 1844,
+        "sha256": "015f725af547609e680ca19f1c12af8eb43b3413f7dffe32594a9ed19b3be0b1",
+        "state": "EXISTS_COMMITTED_SOURCE_REUSE"
+      }
+    ]
+  },
+  "topV3FinalCandidate": {
+    "surfaceId": "top-living-night-v3",
+    "classification": "EXISTS_CANDIDATE_REVIEW_REQUIRED",
+    "candidateGenerated": true,
+    "path": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
+    "width": 430,
+    "height": 932,
+    "sha256": "f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e",
+    "core5ReferenceCount": 5,
+    "core5IdentityReviewed": false,
+    "cropReviewComplete": false,
+    "motionSeparationReviewed": false,
+    "humanVisualReviewComplete": false,
+    "runtimeCaptureComplete": false,
+    "approvedAsFinal": false,
+    "runtimeApproved": false,
+    "finalApprovalBlocked": true,
+    "generationNeed": "REVIEW_EXISTING_CANDIDATE_FIRST_DO_NOT_REGENERATE_BY_DEFAULT",
+    "replacementAllowedAfter": [
+      "human-or-authority-rejection",
+      "upstream-character-master-change-invalidates-candidate",
+      "explicit-new-art-direction"
+    ]
+  },
+  "topV2LayerKit": {
+    "surfaceId": "top-living-night-v2-layer-kit",
+    "classification": "EXISTS_VERIFIED_SOURCE_KIT_REUSE_OR_PROVENANCE",
+    "sourceAssetCount": 17,
+    "v2UnityEvidence": "PASSED_AT_RECORDED_V2_COMMIT",
+    "currentV3ApprovalProof": false,
+    "generationNeed": "NO_BLIND_REGEN_AUDIT_CURRENT_ROLE_BEFORE_REPLACEMENT",
+    "assets": [
+      {"file":"00-environment-starless.png","role":"environment-source","currentV3Role":"PROVENANCE_OR_FALLBACK_ONLY"},
+      {"file":"01-stars.png","role":"stars","currentV3Role":"LIVE_TRANSPARENT_SKY_OVERLAY_PER_V3_AUTHORITY"},
+      {"file":"01-moon.png","role":"crescent-moon","currentV3Role":"PROVENANCE_OR_FALLBACK_ONLY"},
+      {"file":"02-clouds-far.png","role":"far-clouds","currentV3Role":"LIVE_TRANSPARENT_SKY_OVERLAY_PER_V3_AUTHORITY"},
+      {"file":"03-clouds-near.png","role":"near-clouds","currentV3Role":"LIVE_TRANSPARENT_SKY_OVERLAY_PER_V3_AUTHORITY"},
+      {"file":"04-distant-lights-mask.png","role":"station-light-mask","currentV3Role":"LIVE_ADDITIVE_MASK"},
+      {"file":"05-distant-companion.png","role":"distant-companion","currentV3Role":"PROVENANCE_OR_FALLBACK_ONLY"},
+      {"file":"06-characters.png","role":"bridge-character-source","currentV3Role":"PROVENANCE_OR_FALLBACK_NOT_FINAL_CORE5_IDENTITY"},
+      {"file":"08-animal-robot.png","role":"animal-robot","currentV3Role":"PROVENANCE_OR_FALLBACK_ONLY"},
+      {"file":"08-robot-eye-mask.png","role":"robot-eye-mask","currentV3Role":"LIVE_ADDITIVE_MASK_RARE_EVENT"},
+      {"file":"09-fire-base.png","role":"fire-base","currentV3Role":"PROVENANCE_OR_FALLBACK_ONLY"},
+      {"file":"10-fire-flipbook-atlas.png","role":"fire-flipbook","currentV3Role":"LIVE_MOTION_OVERLAY"},
+      {"file":"11-fire-glow-mask.png","role":"fire-glow-mask","currentV3Role":"LIVE_ADDITIVE_MASK"},
+      {"file":"12-smoke-atlas.png","role":"smoke-atlas","currentV3Role":"LIVE_MOTION_OVERLAY"},
+      {"file":"13-embers-atlas.png","role":"embers-atlas","currentV3Role":"LIVE_MOTION_OVERLAY"},
+      {"file":"14-foreground-accents.png","role":"foreground-accents","currentV3Role":"PROVENANCE_OR_FALLBACK_ONLY"},
+      {"file":"14-lantern-glow-mask.png","role":"lantern-glow-mask","currentV3Role":"LIVE_ADDITIVE_MASK"}
+    ]
+  },
+  "runtimeEvidence": {
+    "classification": "CAPTURE_REQUIRED_NOT_IMAGE_GENERATION",
+    "expectedCaptureCount": 15,
+    "currentCaptureCount": 0,
+    "currentCaptureComplete": false,
+    "required": [
+      "Spring x 360x800 / 390x844 / 430x932",
+      "Summer x 360x800 / 390x844 / 430x932",
+      "Autumn x 360x800 / 390x844 / 430x932",
+      "Winter x 360x800 / 390x844 / 430x932",
+      "TOP x 360x800 / 390x844 / 430x932"
+    ],
+    "rule": "These are runtime evidence screenshots. They must never inflate the authored image-generation backlog."
+  },
+  "productionDecision": {
+    "loadingNewGenerationBacklogRows": 0,
+    "topV3NewGenerationBacklogRowsNow": 0,
+    "topLayerReplacementRowsNow": 0,
+    "runtimeCaptureGenerationRows": 0,
+    "why": "Existing committed/candidate/source assets must be reviewed or reused before any replacement generation is authorized."
+  }
+}
