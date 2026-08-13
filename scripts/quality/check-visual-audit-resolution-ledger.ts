@@ -9,8 +9,8 @@ function assert(condition: unknown, message: string): asserts condition {
 
 assert(ledger.schemaVersion === 2, 'resolution ledger schemaVersion must be 2 after latest-main sync/migrations');
 assert(ledger.status === 'ACTIVE_RESOLUTION_TRACKING_NO_AUTOMATIC_GENERATION', 'resolution ledger may not authorize generation');
-assert(ledger.currentBoundary?.latestMainSyncBaseline === '18ad29ef740c52eaa6bd893d0e7e656154641300', 'latest-main sync baseline drift');
-assert(ledger.currentBoundary?.latestMainSyncThroughPullRequest === 326, 'latest-main sync PR boundary drift');
+assert(ledger.currentBoundary?.latestMainSyncBaseline === '84cef6537ccd7875335bf4d2a1d8dee95c6ee4e4', 'latest-main sync baseline drift');
+assert(ledger.currentBoundary?.latestMainSyncThroughPullRequest === 328, 'latest-main sync PR boundary drift');
 assert(ledger.currentBoundary?.latestMainBaselineMergedIntoBranchWithoutForce === true, 'latest-main baseline must be integrated without force rewrite');
 assert(ledger.currentBoundary?.latestMainMustBeRecheckedBeforeImageGenerationOrMerge === true, 'latest main must still be rechecked before generation/merge');
 assert(ledger.currentBoundary?.imageGenerationAllowed === false, 'resolution ledger may not authorize image generation');
@@ -93,6 +93,8 @@ assert(assetFactory?.mustRevalidateOnCurrentHead === true, '977 snapshot must be
 
 const sheets = ledger.characterSheetExecution;
 assert(sheets?.state === 'LIVE_ADAPTER_IMPLEMENTED', 'Character Sheet live adapter state missing');
+assert(sheets?.latestMainSyncBaselineThrough === 328, 'Character Sheet latest-main baseline must include PR #328');
+assert(Array.isArray(sheets?.latestInheritedAuthorityAdditions) && sheets.latestInheritedAuthorityAdditions.includes('occlusion-layering-fidelity') && sheets.latestInheritedAuthorityAdditions.includes('crop-silhouette-readability'), 'Character Sheet latest authority additions missing');
 assert(sheets?.oldPromptPacketDirectGenerationAllowed === false, 'old prompt packets may not be used directly');
 assert(sheets?.staticPacketReexportRequiredForProduction === false, 'static packet re-export must not be mistaken for the live production path');
 assert(sheets?.activeCharacters === 35, 'active Character Sheet character count drift');
@@ -105,12 +107,13 @@ console.log(JSON.stringify({
   status: 'PASS',
   ledgerId: ledger.ledgerId,
   latestMainSyncBaseline: ledger.currentBoundary.latestMainSyncBaseline,
+  latestMainSyncThroughPullRequest: ledger.currentBoundary.latestMainSyncThroughPullRequest,
   legacyFindingsResolvedSynced: legacy.size,
   fixedMasterFindingsTracked: fixed.size,
   sourceDerivedFamiliesTracked: sourceDerived.size,
   itemCollisionReview: { groups: item.exactLabelCollisionGroups, collapsesAuthorized: item.collisionRowsAuthorizedToCollapse },
   guideExecution: { imageBearing: guide.currentExecutionImageBearingRows, nonImage: guide.currentExecutionLogicalNonImageRows, migratedLorebook: guide.legacyBakedRowsMigrated },
-  sheetAdapter: { activePrompts: sheets.activeLiveSheetPrompts, heldSlots: sheets.heldSheetSlots },
+  sheetAdapter: { activePrompts: sheets.activeLiveSheetPrompts, heldSlots: sheets.heldSheetSlots, latestAuthorityAdditions: sheets.latestInheritedAuthorityAdditions },
   assetFactorySnapshot: { existing: assetFactory.existingOutputPathsObserved, missing: assetFactory.missingOutputPathsObserved },
   mustRecheckMainBeforeGenerationOrMerge: true,
   imageGenerationAllowed: false,
