@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "manifestId": "yoruno-shirube-current-group-record-master-v1",
+  "status": "CURRENT_AUTHORITY_OVERLAY_LIST_ONLY_NO_AUTOMATIC_GENERATION",
+  "purpose": "Correct legacy antagonist naming in visual production and add the missing Gunjo Zankyoroku record-taxonomy visual master family without inventing members, incidents, or organization structure.",
+  "precedence": {
+    "appliesTo": [
+      "data/character-assets/manifests/visual-generation-count-baseline.v1.json",
+      "data/character-assets/manifests/visual-pre-game-master-expansion-queue.v1.json",
+      "data/character-assets/manifests/visual-image-production-list.v1.json",
+      "docs/visual/visual-generation-master-backlog-v1.md"
+    ],
+    "rule": "When legacy Yatsukage/八影 naming conflicts with this overlay or Current Story authority, this overlay and the Current Story authority win. Legacy IDs may remain only for compatibility and lineage."
+  },
+  "authoritySources": {
+    "sakuyaza": [
+      "docs/sakuyaza-current-identity-v1.md",
+      "src/game/data/sakumeiCandidateSource.ts",
+      "src/game/data/storyWorldMasterSource.ts"
+    ],
+    "gunjoZankyoroku": [
+      "docs/gunjo-zankyoroku-current-v1.md",
+      "docs/00-current-story-world-master.md",
+      "src/game/data/storyWorldMasterSource.ts"
+    ]
+  },
+  "sakuyaza": {
+    "formalName": "朔夜座",
+    "reading": "さくやざ",
+    "seasonScope": "S1",
+    "currentFormalAntagonistTeam": true,
+    "currentMemberCount": 8,
+    "memberCallNames": [
+      "ナシロ",
+      "アサトジ",
+      "ミチグレ",
+      "オリネ",
+      "ハクマ",
+      "ツグリ",
+      "ユラネ",
+      "ペタ"
+    ],
+    "memberEnemyIds": [
+      "boss_name_without_owner",
+      "boss_closed_morning_box",
+      "boss_night_without_route",
+      "omburo_black_origami",
+      "omburo_blank_card",
+      "omburo_repair_seam",
+      "omburo_dream_wave",
+      "omburo_nameplate"
+    ],
+    "visualMasterPolicy": {
+      "characterMasterCount": 8,
+      "countAsAdditionalEnemyDatabaseIdentity": false,
+      "enemyDatabaseReferenceMayBeSharedByLineage": true,
+      "finalCharacterMastersStillRequired": true,
+      "teamComparisonMasterRequired": true,
+      "sharedUniformRequired": false,
+      "finalCommonSymbolApproved": false,
+      "season2MayReuseAsPrimaryTeam": false
+    },
+    "legacyCompatibility": {
+      "earlyObserverLabel": "夜綴りの八影",
+      "earlyObserverShortLabel": "八影",
+      "legacyEnglishWorkingLabel": "Yatsukage",
+      "legacySourcePath": "src/game/data/yatsukageIdentitySource.ts",
+      "legacyLabelsMayBeCurrentProductionName": false,
+      "legacyIdsMayBeDeletedAutomatically": false,
+      "legacyDataMayRemainAsCompatibilityInput": true,
+      "legacyVisualAssetsMayBecomeCurrentWithoutMigrationReview": false
+    }
+  },
+  "gunjoZankyoroku": {
+    "formalName": "群青残響録",
+    "reading": "ぐんじょうざんきょうろく",
+    "currentDefinition": "各時代の大事件で中心となった人物・人物群・制度等を、事件後の記録・観測・シリーズ構造上から括るrecord taxonomy",
+    "isOrganization": false,
+    "isAntagonistTeam": false,
+    "isFixedBossRoster": false,
+    "fixedMemberCount": null,
+    "formalMembersFrozen": false,
+    "exactIncidentsFrozen": false,
+    "exactYearsFrozen": false,
+    "generationAllowed": false,
+    "foundationMasters": [
+      {
+        "masterId": "gunjo-record-taxonomy-system-master-v1",
+        "kind": "EDITABLE_RECORD_GRAPHIC_SYSTEM_MASTER",
+        "preferredFormat": "SVG_HTML_EDITABLE",
+        "mandatoryRasterImage": false,
+        "contains": [
+          "群青残響録 title/name treatment",
+          "Era / Incident indexing hierarchy",
+          "central-person / group / institution / system / social-pressure record categories",
+          "source and evidence-state markers",
+          "record ambiguity / differing-source treatment",
+          "Sakuyaza relation slot without hierarchy implication",
+          "incident-center and combat-boss separation",
+          "spoiler-tier boundary"
+        ],
+        "mustNotContain": [
+          "organization emblem implying membership",
+          "fixed member portraits",
+          "uniform design",
+          "headquarters identity",
+          "fixed five-era boss slots",
+          "all-member enemy treatment"
+        ]
+      },
+      {
+        "masterId": "gunjo-record-medium-material-master-v1",
+        "kind": "RECORD_MEDIUM_AND_EVIDENCE_VISUAL_REFERENCE_MASTER",
+        "preferredFormat": "EDITABLE_REFERENCE_BOARD_WITH_SOURCE_BACKED_RASTER_ONLY_WHEN_NEEDED",
+        "mandatoryRasterImage": false,
+        "contains": [
+          "newspaper / photo / minutes / old-book / incident-document handling rules where source-backed",
+          "era-specific record-material differentiation",
+          "paper / archive / digital-record material language",
+          "call-name to surname clue to kanji/full-name reveal visual boundary",
+          "missing / redacted / disputed record treatment",
+          "provenance and correction-history treatment"
+        ],
+        "mustNotContain": [
+          "one universal institutional stationery style across all eras",
+          "invented readable names, dates, places or victim counts",
+          "generic secret-society styling",
+          "automatic retro paper treatment for future records"
+        ]
+      }
+    ],
+    "futureIncidentMasters": {
+      "idTemplate": "gunjo-incident-{incidentId}-record-board-v1",
+      "count": "TBD_AFTER_FORMAL_INCIDENT_AUTHORITY",
+      "generationAllowedNow": false,
+      "admissionGate": [
+        "Era / Incident authorized",
+        "central person/group/system definition authorized",
+        "source/evidence boundary defined",
+        "Sakuyaza relation known or explicitly UNKNOWN",
+        "combat role separated from incident role",
+        "spoiler tier defined"
+      ]
+    },
+    "guideLorebookDbDerivatives": [
+      "gunjo record index",
+      "incident dossier/detail page",
+      "source/evidence panel",
+      "record ambiguity comparison",
+      "spoiler-safe record card / thumbnail"
+    ],
+    "nonRasterByDefault": [
+      "taxonomy hierarchy",
+      "record index",
+      "evidence-status badges",
+      "timeline/date text",
+      "relationship lines",
+      "source citations",
+      "long document text"
+    ]
+  },
+  "globalRules": {
+    "automaticGenerationAllowed": false,
+    "legacyNameMayOverrideCurrentAuthority": false,
+    "openMemberCountMayBeConvertedToFixedImageCount": false,
+    "generatedImageMayCreateGroupMembership": false,
+    "generatedImageMayCreateIncidentCanon": false,
+    "sameBinaryShouldBeReusedByReferenceNotCopied": true
+  }
+}
