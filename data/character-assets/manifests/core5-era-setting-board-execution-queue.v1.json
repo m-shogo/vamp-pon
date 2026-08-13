@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "queueId": "yoruno-shirube-core5-era-setting-board-execution-queue-v1",
+  "status": "BRIEF_AND_EVIDENCE_READY_SETTING_BOARDS_NOT_AUTHORED",
+  "purpose": "Track the ten pre-existing stable Core5 setting-board Master IDs from source-backed brief/evidence readiness through editable board authoring and Human review without inventing duplicate IDs or treating planning artifacts as completed images.",
+  "sources": {
+    "fixedMasterRegistry": "data/character-assets/manifests/visual-pre-game-fixed-master-rows.v1.json",
+    "environmentBrief": "data/visual/core5-reality-era-environment-authoring-brief-v1.json",
+    "populationHouseholdBrief": "data/visual/core5-era-population-household-authoring-brief-v1.json",
+    "productionContract": "data/visual/core5-era-setting-board-production-contract-v1.json",
+    "evidencePackets": "data/visual/core5-era-setting-board-evidence-packets-v1.json"
+  },
+  "counts": {
+    "environment": 5,
+    "populationHousehold": 5,
+    "total": 10,
+    "briefReady": 10,
+    "evidenceReady": 10,
+    "editableBoardAuthored": 0,
+    "humanApproved": 0,
+    "rasterAuthority": 0
+  },
+  "globalRules": {
+    "reuseExistingStableAssetIds": true,
+    "newDuplicateAssetIdAllowed": false,
+    "briefOrEvidencePacketCountsAsCompletedBoard": false,
+    "settingBoardMustFollowProductionContract": true,
+    "exactOpenFieldsMayNotBeInvented": true,
+    "generatedImageMayOnlyBeCandidateEvidence": true,
+    "generatedImageCreatesStoryCanon": false,
+    "generatedImageCreatesCharacterFamilyCanon": false,
+    "humanReviewRequired": true,
+    "imageGenerationAuthorized": false
+  },
+  "entries": [
+    {
+      "assetId": "era-tomori-reality-environment-reference-master-v1",
+      "characterId": "tomori",
+      "boardType": "ENVIRONMENT",
+      "familyId": "core5-reality-era-environment-reference-master",
+      "exactYearState": "OPEN",
+      "currentState": "BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED",
+      "requiredPanelIds": ["E01-establishing-system-view","E02-system-comparison-strip","E03-material-prop-detail","E04-human-use-and-friction","E05-source-open-boundary"],
+      "plannedEditableBoardPath": "data/visual/setting-boards/era-tomori-reality-environment-reference-master-v1.json",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "assetId": "era-michiru-reality-environment-reference-master-v1",
+      "characterId": "michiru",
+      "boardType": "ENVIRONMENT",
+      "familyId": "core5-reality-era-environment-reference-master",
+      "exactYearState": "OPEN",
+      "currentState": "BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED",
+      "requiredPanelIds": ["E01-establishing-system-view","E02-system-comparison-strip","E03-material-prop-detail","E04-human-use-and-friction","E05-source-open-boundary"],
+      "plannedEditableBoardPath": "data/visual/setting-boards/era-michiru-reality-environment-reference-master-v1.json",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "assetId": "era-nagi-reality-environment-reference-master-v1",
+      "characterId": "nagi",
+      "boardType": "ENVIRONMENT",
+      "familyId": "core5-reality-era-environment-reference-master",
+      "exactYearState": "OPEN",
+      "currentState": "BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED",
+      "requiredPanelIds": ["E01-establishing-system-view","E02-system-comparison-strip","E03-material-prop-detail","E04-human-use-and-friction","E05-source-open-boundary"],
+      "plannedEditableBoardPath": "data/visual/setting-boards/era-nagi-reality-environment-reference-master-v1.json",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "assetId": "era-yui-reality-environment-reference-master-v1",
+      "characterId": "yui",
+      "boardType": "ENVIRONMENT",
+      "familyId": "core5-reality-era-environment-reference-master",
+      "exactYearState": "2026_CURRENT",
+      "currentState": "BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED",
+      "requiredPanelIds": ["E01-establishing-system-view","E02-system-comparison-strip","E03-material-prop-detail","E04-human-use-and-friction","E05-source-open-boundary"],
+      "plannedEditableBoardPath": "data/visual/setting-boards/era-yui-reality-environment-reference-master-v1.json",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "assetId": "era-asa-reality-environment-reference-master-v1",
+      "characterId": "asa",
+      "boardType": "ENVIRONMENT",
+      "familyId": "core5-reality-era-environment-reference-master",
+      "exactYearState": "OPEN",
+      "currentState": "BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED",
+      "requiredPanelIds": ["E01-establishing-system-view","E02-system-comparison-strip","E03-material-prop-detail","E04-human-use-and-friction","E05-source-open-boundary"],
+      "plannedEditableBoardPath": "data/visual/setting-boards/era-asa-reality-environment-reference-master-v1.json",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "assetId": "era-tomori-population-household-reference-master-v1",
+      "characterId": "tomori",
+      "boardType": "POPULATION_HOUSEHOLD",
+      "familyId": "core5-era-population-household-reference-master",
+      "exactYearState": "OPEN",
+      "literalFamilyCanonCreated": false,
+      "currentState": "BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED",
+      "requiredPanelIds": ["P01-six-population-lenses","P02-household-system-variation","P03-ordinary-task-distribution","P04-system-access-differences","P05-not-literal-family-boundary"],
+      "plannedEditableBoardPath": "data/visual/setting-boards/era-tomori-population-household-reference-master-v1.json",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "assetId": "era-michiru-population-household-reference-master-v1",
+      "characterId": "michiru",
+      "boardType": "POPULATION_HOUSEHOLD",
+      "familyId": "core5-era-population-household-reference-master",
+      "exactYearState": "OPEN",
+      "literalFamilyCanonCreated": false,
+      "currentState": "BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED",
+      "requiredPanelIds": ["P01-six-population-lenses","P02-household-system-variation","P03-ordinary-task-distribution","P04-system-access-differences","P05-not-literal-family-boundary"],
+      "plannedEditableBoardPath": "data/visual/setting-boards/era-michiru-population-household-reference-master-v1.json",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "assetId": "era-nagi-population-household-reference-master-v1",
+      "characterId": "nagi",
+      "boardType": "POPULATION_HOUSEHOLD",
+      "familyId": "core5-era-population-household-reference-master",
+      "exactYearState": "OPEN",
+      "literalFamilyCanonCreated": false,
+      "currentState": "BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED",
+      "requiredPanelIds": ["P01-six-population-lenses","P02-household-system-variation","P03-ordinary-task-distribution","P04-system-access-differences","P05-not-literal-family-boundary"],
+      "plannedEditableBoardPath": "data/visual/setting-boards/era-nagi-population-household-reference-master-v1.json",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "assetId": "era-yui-population-household-reference-master-v1",
+      "characterId": "yui",
+      "boardType": "POPULATION_HOUSEHOLD",
+      "familyId": "core5-era-population-household-reference-master",
+      "exactYearState": "2026_CURRENT",
+      "literalFamilyCanonCreated": false,
+      "currentState": "BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED",
+      "requiredPanelIds": ["P01-six-population-lenses","P02-household-system-variation","P03-ordinary-task-distribution","P04-system-access-differences","P05-not-literal-family-boundary"],
+      "plannedEditableBoardPath": "data/visual/setting-boards/era-yui-population-household-reference-master-v1.json",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "assetId": "era-asa-population-household-reference-master-v1",
+      "characterId": "asa",
+      "boardType": "POPULATION_HOUSEHOLD",
+      "familyId": "core5-era-population-household-reference-master",
+      "exactYearState": "OPEN",
+      "literalFamilyCanonCreated": false,
+      "currentState": "BRIEF_EVIDENCE_READY_SETTING_BOARD_NOT_AUTHORED",
+      "requiredPanelIds": ["P01-six-population-lenses","P02-household-system-variation","P03-ordinary-task-distribution","P04-system-access-differences","P05-not-literal-family-boundary"],
+      "plannedEditableBoardPath": "data/visual/setting-boards/era-asa-population-household-reference-master-v1.json",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    }
+  ],
+  "nextGate": {
+    "action": "AUTHOR_EDITABLE_SETTING_BOARD_FROM_CURRENT_BRIEF_CONTRACT_AND_EVIDENCE",
+    "mayUseGeneratedCandidateEvidence": true,
+    "mayTreatGeneratedCandidateAsAuthority": false,
+    "mustPreserveStableAssetId": true,
+    "mustKeepOpenFieldsVisible": true,
+    "humanReviewRequiredBeforeMasterApproval": true,
+    "imageGenerationAuthorizedByQueue": false
+  }
+}
