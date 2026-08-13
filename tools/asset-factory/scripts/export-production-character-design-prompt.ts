@@ -6,6 +6,7 @@ import { characterReferenceGenerationHandoff } from '../../../src/game/data/char
 const POLICY_PATH = 'data/visual/character-production-generation-entrypoint-v1.json';
 const AUTHORITY_DOC = 'docs/visual/character-production-generation-entrypoint-v1.md';
 const ENVIRONMENT_POLICY_PATH = 'data/visual/all-character-environment-weather-fidelity-master-v1.json';
+const SPATIAL_POLICY_PATH = 'data/visual/all-character-spatial-world-scale-fidelity-master-v1.json';
 
 type Options = { characterId: string; kind: string; output: string | null };
 
@@ -26,6 +27,13 @@ function parseArgs(args: string[]): Options {
   return { characterId, kind, output };
 }
 
+function loadCurrentProductionAuthority(path: string, label: string) {
+  const value = JSON.parse(readFileSync(resolve(process.cwd(), path), 'utf8'));
+  if (value.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') throw new Error(`${label} production authority invalid: ${path}`);
+  if (value.scopeCount !== 36 || value.production?.requiredForCandidateGeneration !== true) throw new Error(`${label} production scope or requirement weakened`);
+  return value;
+}
+
 const options = parseArgs(process.argv.slice(2));
 const policy = JSON.parse(readFileSync(resolve(process.cwd(), POLICY_PATH), 'utf8'));
 if (policy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT') throw new Error(`Production entrypoint policy invalid: ${POLICY_PATH}`);
@@ -33,9 +41,8 @@ if (policy.scopeCount !== 36) throw new Error(`Production entrypoint scope must 
 if (policy.lowerExportersAreProductionEntrypoints !== false || policy.handWrittenPromptIsProductionReady !== false) throw new Error('Production bypass guards weakened');
 if (policy.generatedImageCreatesCanon !== false || policy.generatedArtStartsAs !== 'CANDIDATE_REVIEW_REQUIRED') throw new Error('Candidate boundary weakened');
 
-const environmentPolicy = JSON.parse(readFileSync(resolve(process.cwd(), ENVIRONMENT_POLICY_PATH), 'utf8'));
-if (environmentPolicy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') throw new Error(`Environment/weather production authority invalid: ${ENVIRONMENT_POLICY_PATH}`);
-if (environmentPolicy.scopeCount !== 36 || environmentPolicy.production?.requiredForCandidateGeneration !== true) throw new Error('Environment/weather production scope or requirement weakened');
+const environmentPolicy = loadCurrentProductionAuthority(ENVIRONMENT_POLICY_PATH, 'Environment/weather');
+const spatialPolicy = loadCurrentProductionAuthority(SPATIAL_POLICY_PATH, 'Spatial/world-scale');
 
 const handoff = characterReferenceGenerationHandoff.find((entry) => entry.characterId === options.characterId) ?? null;
 const handoffAuthoritySet = new Set(handoff?.visualAuthorityPaths ?? []);
@@ -55,6 +62,12 @@ const effectiveBase = {
   weatherMayIncreaseExposure: environmentPolicy.rules?.weatherMayIncreaseExposure,
   weatherMayInventWardrobe: environmentPolicy.rules?.weatherMayInventWardrobe,
   generatedEnvironmentalReactionCreatesCanon: environmentPolicy.rules?.generatedEnvironmentalReactionCreatesCanon,
+  allCharacterSpatialWorldScaleFidelityRequired: spatialPolicy.production.requiredForCandidateGeneration === true,
+  unknownExactDimensionsMayBeInventedByImageModel: spatialPolicy.rules?.unknownExactDimensionsMayBeInventedByImageModel,
+  worldScaleMayRedesignCharacter: spatialPolicy.rules?.worldScaleMayRedesignCharacter,
+  architectureMayResizeBody: spatialPolicy.rules?.architectureMayResizeBody,
+  mobilityEquipmentMayBeRemovedForComposition: spatialPolicy.rules?.mobilityEquipmentMayBeRemovedForComposition,
+  generatedSpatialRelationshipCreatesCanon: spatialPolicy.rules?.generatedSpatialRelationshipCreatesCanon,
 };
 
 const failures: string[] = [];
@@ -102,18 +115,20 @@ const promptBlock = [
   `Authority: ${AUTHORITY_DOC}.`,
   `Machine policy: ${POLICY_PATH}.`,
   `Environment/weather machine authority: ${ENVIRONMENT_POLICY_PATH}.`,
+  `Spatial/world-scale machine authority: ${SPATIAL_POLICY_PATH}.`,
   `Character Reference Generation Handoff present: ${handoff ? 'yes' : 'no — top-level production policy remains authoritative for this roster member'}.`,
   `Production authority supplement count: ${supplementedAuthorityPaths.length}.`,
   'This output is the only production-ready character-image prompt export. Lower exporters and hand-written prompts are diagnostic/drafting inputs only.',
   'Every required production authority missing from the wrapped resolved chain has had its actual file content read and appended before this final lock. A legacy queue/handoff omission does not reduce the 36-character production authority set.',
-  'Environment/weather rules are resolved by this top-level entrypoint from their current machine authority; weather and environment may affect authorized materials physically but may not invent wardrobe, exposure, identity or canon.',
+  'Environment/weather rules may affect authorized materials physically but may not invent wardrobe, exposure, identity or canon.',
+  'Spatial/world-scale rules may adapt composition and world layout but may not resize, slim, age-shift, humanize, remove mobility equipment or invent exact unsupported dimensions.',
   'productionCharacterPromptReady means ready to request a CANDIDATE image only. It is not final-art approval, Character Master approval, legal/commercial clearance, runtime registration, or canon promotion.',
   'Do not remove or bypass earlier Master blocks. Do not reinterpret OPEN as model freedom. Generated images remain CANDIDATE_REVIEW_REQUIRED.',
 ].join('\n');
 
 const result = {
   ...effectiveBase,
-  schemaVersion: Math.max(Number(effectiveBase.schemaVersion ?? 0), 19),
+  schemaVersion: Math.max(Number(effectiveBase.schemaVersion ?? 0), 20),
   generatedBy: 'tools/asset-factory/scripts/export-production-character-design-prompt.ts',
   productionImageGenerationEntrypoint: true,
   productionCharacterPromptReady: true,
@@ -121,6 +136,7 @@ const result = {
   productionGenerationEntrypointPolicyPath: POLICY_PATH,
   productionGenerationEntrypointAuthorityDocument: AUTHORITY_DOC,
   environmentWeatherFidelityPolicyPath: ENVIRONMENT_POLICY_PATH,
+  spatialWorldScaleFidelityPolicyPath: SPATIAL_POLICY_PATH,
   characterReferenceGenerationHandoffPresent: handoff !== null,
   handoffDeclaredAuthorityPaths: handoff?.visualAuthorityPaths ?? [],
   productionAuthoritySupplementPaths: supplementedAuthorityPaths,
@@ -134,6 +150,7 @@ const result = {
     '下位exporter直出力・手打ちpromptをproduction-readyとして扱わない',
     'resolved chainに無いproduction必須Authorityは実ファイル本文を読んだsupplementで補完されていることを確認する',
     '環境・天候は素材へ物理的に作用しても、服・露出・体型・色Authority・canonを追加しない',
+    '建築・家具・地面・背景の都合で人物の体格、年齢、species、mobility equipment、prop比率を変更しない',
     'legacy handoff/queueに未列挙のcharacterでも36-character production policyを弱めない',
     'READYはcandidate generation許可でありfinal approvalではない',
     ...(Array.isArray(effectiveBase.reviewChecklist) ? effectiveBase.reviewChecklist : []),
