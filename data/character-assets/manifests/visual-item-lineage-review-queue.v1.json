@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "queueId": "yoruno-shirube-visual-item-lineage-review-queue-v1",
+  "status": "REVIEW_REQUIRED_NO_AUTOMATIC_COLLAPSE",
+  "purpose": "Reduce duplicate item/object master generation safely by reviewing exact-name collisions before any physical-object lineage is declared.",
+  "source": "src/game/data/characterProductionPlans.ts",
+  "sourceCharacterCount": 20,
+  "sourcePhaseRows": 100,
+  "exactDistinctLabels": 89,
+  "exactDuplicateGroups": 11,
+  "automaticSamePhysicalObjectDecisionAllowed": false,
+  "allowedDecisions": [
+    "SAME_PHYSICAL_OBJECT_SAME_STATE",
+    "SAME_PHYSICAL_OBJECT_EVOLVED_STATE",
+    "SAME_LINEAGE_DIFFERENT_OBJECT",
+    "SAME_LABEL_DIFFERENT_VISUAL_OBJECT",
+    "UNRESOLVED"
+  ],
+  "reviewRequiredFields": [
+    "decision",
+    "authoritySources",
+    "physicalConstructionContinuity",
+    "materialContinuity",
+    "ownerContinuity",
+    "stateChangeDescription",
+    "masterCountAfterDecision",
+    "notes"
+  ],
+  "items": [
+    {
+      "reviewId": "item-lineage:koyori:呼び名の紙縒り",
+      "characterId": "koyori",
+      "label": "呼び名の紙縒り",
+      "occurrences": ["passiveItem", "lampTsugi"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    },
+    {
+      "reviewId": "item-lineage:gen:駅前の道火",
+      "characterId": "gen",
+      "label": "駅前の道火",
+      "occurrences": ["passiveItem", "lampTsugi"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    },
+    {
+      "reviewId": "item-lineage:hana:箱底の花",
+      "characterId": "hana",
+      "label": "箱底の花",
+      "occurrences": ["passiveItem", "lampTsugi"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    },
+    {
+      "reviewId": "item-lineage:shiro:未分類の頁",
+      "characterId": "shiro",
+      "label": "未分類の頁",
+      "occurrences": ["passiveItem", "lampTsugi"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    },
+    {
+      "reviewId": "item-lineage:tobari:片道ではない切符",
+      "characterId": "tobari",
+      "label": "片道ではない切符",
+      "occurrences": ["rareItem", "akatsukiBiraki"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    },
+    {
+      "reviewId": "item-lineage:nemu:眠り頁",
+      "characterId": "nemu",
+      "label": "眠り頁",
+      "occurrences": ["passiveItem", "lampTsugi"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    },
+    {
+      "reviewId": "item-lineage:kuroori:四つ折りの影",
+      "characterId": "kuroori",
+      "label": "四つ折りの影",
+      "occurrences": ["passiveItem", "lampTsugi"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    },
+    {
+      "reviewId": "item-lineage:kage1:隠し火",
+      "characterId": "kage1",
+      "label": "隠し火",
+      "occurrences": ["passiveItem", "lampTsugi"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    },
+    {
+      "reviewId": "item-lineage:kage2:薄れ名",
+      "characterId": "kage2",
+      "label": "薄れ名",
+      "occurrences": ["passiveItem", "lampTsugi"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    },
+    {
+      "reviewId": "item-lineage:kage3:角度の火",
+      "characterId": "kage3",
+      "label": "角度の火",
+      "occurrences": ["passiveItem", "lampTsugi"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    },
+    {
+      "reviewId": "item-lineage:kage4:余白の継ぎ目",
+      "characterId": "kage4",
+      "label": "余白の継ぎ目",
+      "occurrences": ["passiveItem", "lampTsugi"],
+      "decision": "UNRESOLVED",
+      "masterCountBeforeDecision": 2,
+      "masterCountAfterDecision": null
+    }
+  ],
+  "nonCollisionRows": {
+    "count": 78,
+    "rule": "unique text does not prove unique physical object either; later semantic lineage review may still merge related starter/passive/rare/evolution states"
+  },
+  "fieldDrops": {
+    "count": 5,
+    "labels": ["記憶片", "朝露", "迷子の鈴", "夜明けマッチ", "白い切符"],
+    "lineageReviewRequired": false,
+    "notes": "field drops are separate gameplay/world pickup identities unless a future authority explicitly links them to another physical object"
+  },
+  "namedObjectBoundary": {
+    "count": 21,
+    "automaticallyMergedWithCharacterItemRows": false,
+    "reason": "luminous possession Named Objects have their own geometry/authority source and must not be merged by similar motif or owner alone"
+  }
+}
