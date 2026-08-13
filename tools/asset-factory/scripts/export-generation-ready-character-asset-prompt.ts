@@ -5,14 +5,18 @@ import { dirname, resolve } from 'node:path';
 const CORE5_IDS = new Set(['yui', 'asa', 'nagi', 'michiru', 'tomori']);
 const WORLD_MATERIAL_DOC = 'docs/visual/world-material-translation-master-v1.md';
 const WORLD_MATERIAL_JSON = 'data/visual/world-material-translation-master-v1.json';
+const ALL_GARMENT_DOC = 'docs/visual/all-character-garment-production-master-v1.md';
+const ALL_GARMENT_JSON = 'data/visual/all-character-garment-production-master-v1.json';
 const CORE5_GARMENT_DOC = 'docs/visual/core5-garment-construction-master-v1.md';
 const CORE5_GARMENT_JSON = 'data/visual/core5-garment-construction-master-v1.json';
 const BASE_EXPORTER = 'tools/asset-factory/scripts/export-character-asset-prompt.ts';
 
-type Options = {
-  characterId: string;
-  kind: string;
-  output: string | null;
+type Options = { characterId: string; kind: string; output: string | null };
+
+type BaseResolvedPrompt = Record<string, any> & {
+  livingVisualProfile?: Record<string, any>;
+  livingVisualProfilePath?: string;
+  livingVisualProfileSourceStatus?: string | null;
 };
 
 function parseArgs(args: string[]): Options {
@@ -22,18 +26,9 @@ function parseArgs(args: string[]): Options {
   for (let i = 0; i < args.length; i += 1) {
     const arg = args[i];
     if (arg === '--') continue;
-    if (arg === '--character') {
-      characterId = args[++i] ?? '';
-      continue;
-    }
-    if (arg === '--kind') {
-      kind = args[++i] ?? '';
-      continue;
-    }
-    if (arg === '--output') {
-      output = args[++i] ?? null;
-      continue;
-    }
+    if (arg === '--character') { characterId = args[++i] ?? ''; continue; }
+    if (arg === '--kind') { kind = args[++i] ?? ''; continue; }
+    if (arg === '--output') { output = args[++i] ?? null; continue; }
     throw new Error(`Unknown argument: ${arg}`);
   }
   if (!characterId) throw new Error('--character is required');
@@ -43,63 +38,97 @@ function parseArgs(args: string[]): Options {
 
 function loadWorldMaterialMaster() {
   const master = JSON.parse(readFileSync(resolve(process.cwd(), WORLD_MATERIAL_JSON), 'utf8'));
-  if (master.status !== 'CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION') {
-    throw new Error(`World Material Translation Master is not current: ${WORLD_MATERIAL_JSON}`);
-  }
-  if (master.doesNotCreateNewStoryCanon !== true) {
-    throw new Error(`World Material Translation Master must not create new story canon: ${WORLD_MATERIAL_JSON}`);
-  }
-  if (master.worldbuildingAppearsAsConsequenceNotSticker !== true) {
-    throw new Error(`World Material Translation consequence rule weakened: ${WORLD_MATERIAL_JSON}`);
-  }
-  if (master.unknownWorldMaterialMayBeInventedByImageModel !== false) {
-    throw new Error(`Image-model world/material invention must remain disabled: ${WORLD_MATERIAL_JSON}`);
-  }
-  if (!Array.isArray(master.imageGenerationGate) || master.imageGenerationGate.length < 12) {
-    throw new Error(`World Material image-generation gate incomplete: ${WORLD_MATERIAL_JSON}`);
-  }
+  if (master.status !== 'CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION') throw new Error(`World Material Translation Master is not current: ${WORLD_MATERIAL_JSON}`);
+  if (master.doesNotCreateNewStoryCanon !== true || master.worldbuildingAppearsAsConsequenceNotSticker !== true) throw new Error(`World Material governance weakened: ${WORLD_MATERIAL_JSON}`);
+  if (master.unknownWorldMaterialMayBeInventedByImageModel !== false) throw new Error(`Image-model world/material invention must remain disabled: ${WORLD_MATERIAL_JSON}`);
+  if (!Array.isArray(master.imageGenerationGate) || master.imageGenerationGate.length < 12) throw new Error(`World Material image-generation gate incomplete: ${WORLD_MATERIAL_JSON}`);
+  return master;
+}
+
+function loadAllCharacterGarmentMaster() {
+  const master = JSON.parse(readFileSync(resolve(process.cwd(), ALL_GARMENT_JSON), 'utf8'));
+  if (master.status !== 'CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION') throw new Error(`All Character Garment Production Master is not current: ${ALL_GARMENT_JSON}`);
+  if (master.doesNotCreateNewStoryCanon !== true || master.doesNotPromoteAuthorCandidates !== true) throw new Error(`All Character Garment provenance governance weakened: ${ALL_GARMENT_JSON}`);
+  if (master.scopeCount !== 36) throw new Error(`All Character Garment scope must remain 36: ${ALL_GARMENT_JSON}`);
+  if (master.unknownGarmentDetailMayBeInventedByImageModel !== false || master.sharedRules?.unknownGarmentDetailMayBeInventedByImageModel !== false) throw new Error(`Image-model garment invention must remain disabled: ${ALL_GARMENT_JSON}`);
+  if (!Array.isArray(master.imageGenerationGate) || master.imageGenerationGate.length < 14) throw new Error(`All Character Garment image-generation gate incomplete: ${ALL_GARMENT_JSON}`);
   return master;
 }
 
 function loadCore5GarmentProfile(characterId: string) {
   if (!CORE5_IDS.has(characterId)) return null;
   const master = JSON.parse(readFileSync(resolve(process.cwd(), CORE5_GARMENT_JSON), 'utf8'));
-  if (master.status !== 'CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION') {
-    throw new Error(`Core5 Garment Construction Master is not current: ${CORE5_GARMENT_JSON}`);
-  }
-  if (master.doesNotCreateNewStoryCanon !== true || master.doesNotPromoteAuthorCandidates !== true) {
-    throw new Error(`Core5 Garment source/candidate governance weakened: ${CORE5_GARMENT_JSON}`);
-  }
-  if (master.unknownGarmentDetailMayBeInventedByImageModel !== false || master.sharedRules?.unknownGarmentDetailMayBeInventedByImageModel !== false) {
-    throw new Error(`Image-model garment invention must remain disabled: ${CORE5_GARMENT_JSON}`);
-  }
-  if (!Array.isArray(master.imageGenerationGate) || master.imageGenerationGate.length < 12) {
-    throw new Error(`Core5 Garment image-generation gate incomplete: ${CORE5_GARMENT_JSON}`);
-  }
+  if (master.status !== 'CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION') throw new Error(`Core5 Garment Construction Master is not current: ${CORE5_GARMENT_JSON}`);
+  if (master.doesNotCreateNewStoryCanon !== true || master.doesNotPromoteAuthorCandidates !== true) throw new Error(`Core5 Garment source/candidate governance weakened: ${CORE5_GARMENT_JSON}`);
+  if (master.unknownGarmentDetailMayBeInventedByImageModel !== false || master.sharedRules?.unknownGarmentDetailMayBeInventedByImageModel !== false) throw new Error(`Image-model garment invention must remain disabled: ${CORE5_GARMENT_JSON}`);
   const profile = (master.characters ?? []).find((entry: any) => entry.id === characterId);
   if (!profile) throw new Error(`Core5 Garment profile missing for ${characterId}; production export blocked.`);
   return { master, profile };
 }
 
-function runBaseExporter(characterId: string, kind: string) {
-  const stdout = execFileSync(
-    process.execPath,
-    [
-      '--experimental-strip-types',
-      resolve(process.cwd(), BASE_EXPORTER),
-      '--character', characterId,
-      '--kind', kind,
-      '--format', 'json',
-    ],
-    { cwd: process.cwd(), encoding: 'utf8' },
-  );
+function runBaseExporter(characterId: string, kind: string): BaseResolvedPrompt {
+  const stdout = execFileSync(process.execPath, [
+    '--experimental-strip-types', resolve(process.cwd(), BASE_EXPORTER),
+    '--character', characterId, '--kind', kind, '--format', 'json',
+  ], { cwd: process.cwd(), encoding: 'utf8' });
   return JSON.parse(stdout);
 }
 
+function normalizeAllCharacterGarmentProfile(base: BaseResolvedPrompt, master: any) {
+  const p = base.livingVisualProfile;
+  if (!p || typeof p !== 'object') throw new Error('Resolved base prompt missing livingVisualProfile; production export blocked.');
+  const bodyComfort = typeof p.bodyComfort === 'object' && p.bodyComfort !== null ? p.bodyComfort.value ?? p.bodyComfort : p.bodyComfort;
+  const exposure = p.exposurePreference ?? p.exposure ?? null;
+  const bodyModification = p.bodyModification ?? {
+    piercingPolicy: p.piercingPolicy ?? null,
+    tattooPolicy: p.tattooPolicy ?? null,
+    jewelryPolicy: p.jewelryPolicy ?? null,
+    makeupPolicy: p.makeupPolicy ?? null,
+    nailPolicy: p.nailPolicy ?? null,
+  };
+  const clothing = p.clothing ?? {};
+  const silhouette = clothing.silhouette ?? p.silhouettePreference ?? null;
+  const fit = clothing.fit ?? p.fitPreference ?? null;
+  const materials = clothing.materials ?? p.materialPreference ?? null;
+  const patterns = clothing.patterns ?? p.patternPreference ?? null;
+  const footwear = clothing.footwear ?? p.footwearPreference ?? null;
+  const storage = clothing.storage ?? p.bagPocketBehavior ?? null;
+  const wearHabits = p.wearHabits ?? p.clothingWearHabits ?? null;
+  const maintenance = p.maintenance ?? p.maintenanceBehavior ?? null;
+  if (!Array.isArray(p.absoluteNever) || p.absoluteNever.length < 5) throw new Error(`${p.id}: Living Visual absoluteNever incomplete; production export blocked.`);
+  if (!Array.isArray(p.positivePreference) || p.positivePreference.length < 5) throw new Error(`${p.id}: Living Visual positivePreference incomplete; production export blocked.`);
+  return {
+    id: p.id,
+    name: p.name ?? p.displayName ?? p.id,
+    species: p.species ?? 'HUMAN_LIKE_OR_UNSPECIFIED',
+    sourceProfilePath: base.livingVisualProfilePath ?? null,
+    sourceStatus: base.livingVisualProfileSourceStatus ?? null,
+    derivationAuthority: 'SOURCE_PRESERVING_PROJECTION_FROM_LIVING_VISUAL_PROFILE',
+    doesNotPromoteAuthorCandidate: true,
+    lifeFocus: p.lifeFocus ?? null,
+    bodyComfort: bodyComfort ?? null,
+    movementNeeds: p.movementNeeds ?? null,
+    exposure,
+    bodyModification,
+    silhouette,
+    fit,
+    materials,
+    patterns,
+    footwear,
+    storage,
+    wearHabits,
+    maintenance,
+    socialPresentation: p.socialPresentation ?? null,
+    absoluteNever: p.absoluteNever,
+    positivePreference: p.positivePreference,
+    worldTranslationRule: master.worldTranslation,
+    nonHumanHandling: master.nonHumanHandling,
+    unresolvedDetailRule: 'Do not invent missing exact construction; remain conservative or exploratory-only.',
+  };
+}
+
 function buildWorldPromptBlock(master: any, characterId: string): string {
-  const core5 = Array.isArray(master.core5)
-    ? master.core5.find((entry: any) => entry.id === characterId) ?? null
-    : null;
+  const core5 = Array.isArray(master.core5) ? master.core5.find((entry: any) => entry.id === characterId) ?? null : null;
   return [
     'WORLD MATERIAL TRANSLATION MASTER — REQUIRED PRODUCTION VISUAL AUTHORITY.',
     `Authority: ${WORLD_MATERIAL_DOC}.`,
@@ -107,79 +136,88 @@ function buildWorldPromptBlock(master: any, characterId: string): string {
     'Worldbuilding must appear as consequence, not stickers. Translate night / route / record / ink / practical light / star-chart / missing-record / repair grammar through construction, storage, wear, handling and material response.',
     'Do not communicate Yoru no Shirube by automatically adding stars, paper scraps, ink splashes, glowing trim, gold edges, constellation jewelry, decorative compasses, lantern pendants, torn hems, patchwork, belts or pouches.',
     'Personal taste and Living Visual boundaries override decorative world shorthand. World context never authorizes extra exposure, piercing, tattoo, jewelry or ornament.',
-    'Every major garment/prop must have material weight, stiffness, fold behavior, reflection, wear location, repairability, closure logic, storage relation and ordinary-use behavior resolved before production generation.',
     'Emitted light must have a real source. Repair must have a cause. Storage must contain something. Asymmetry must come from use/construction/history rather than premium-gacha filler.',
     `World grammar: ${JSON.stringify(master.worldGrammar, null, 2)}`,
-    ...(core5
-      ? [
-          'CHARACTER-SPECIFIC WORLD MATERIAL TRANSLATION — REQUIRED.',
-          JSON.stringify(core5, null, 2),
-        ]
-      : []),
+    ...(core5 ? ['CHARACTER-SPECIFIC WORLD MATERIAL TRANSLATION — REQUIRED.', JSON.stringify(core5, null, 2)] : []),
     `Anti-generic world drift: ${JSON.stringify(master.antiGenericWorldDrift)}`,
-    `World/material generation gate: ${JSON.stringify(master.imageGenerationGate)}`,
   ].join('\n');
 }
 
-function buildGarmentPromptBlock(garment: { master: any; profile: any } | null): string {
+function buildAllCharacterGarmentBlock(master: any, profile: any): string {
+  return [
+    'ALL CHARACTER GARMENT PRODUCTION MASTER — REQUIRED FOR EVERY CHARACTER.',
+    `Authority: ${ALL_GARMENT_DOC}.`,
+    `Machine rules: ${ALL_GARMENT_JSON}.`,
+    'This is a source-preserving projection from the loaded Living Visual Profile. Preserve provenance: AUTHOR_CANDIDATE remains AUTHOR_CANDIDATE and generated details never become canon.',
+    'Treat clothing/body equipment as lived construction, not a genre costume surface. Do not invent exact buckle type, pocket count, fiber blend, heel height, repair location, jewelry quantity, exposure, or ornament when absent from source.',
+    'For DOG/CAT/ARTIFICIAL_PERSON/MAINTENANCE_ROBOT, do not impose a generic human clothing template. Use body equipment, shell/panel/tool storage or grooming only when supported by the loaded profile.',
+    'Age, body size, disability, skin tone, gender presentation, sexuality, artificiality and species are not costume generators.',
+    'CHARACTER-SPECIFIC RESOLVED GARMENT PRODUCTION PROFILE — REQUIRED.',
+    JSON.stringify(profile, null, 2),
+    `All-character garment generation gate: ${JSON.stringify(master.imageGenerationGate)}`,
+  ].join('\n');
+}
+
+function buildCore5GarmentPromptBlock(garment: { master: any; profile: any } | null): string {
   if (!garment) return '';
   return [
-    'CORE5 GARMENT CONSTRUCTION MASTER — REQUIRED PRODUCTION CLOTHING AUTHORITY.',
+    'CORE5 GARMENT CONSTRUCTION MASTER — STRONGER DEDICATED OVERRIDE.',
     `Authority: ${CORE5_GARMENT_DOC}.`,
     `Machine rules: ${CORE5_GARMENT_JSON}.`,
-    'Treat clothing as wearable lived equipment, not as a fantasy costume surface. Resolve material physics, layer construction, closures, actual storage contents, footwear, wear locations, repair causes, prop interference and ordinary movement before decorative detail.',
-    'Worldbuilding must appear through garment consequence: seams, folds, fastening, pocket placement, edge treatment, repair history, object access, friction and local light response. Do not paste project motifs onto clothes.',
+    'Resolve material physics, layer construction, closures, actual storage contents, footwear, wear locations, repair causes, prop interference and ordinary movement before decorative detail.',
     'No belt, strap, buckle, pouch, patch, chain, cutout, flap, metal plate, exposed area or ornament may appear without a loaded function/history. High resolution cannot add new garment concepts.',
-    'OPEN or unspecified garment detail is not image-model freedom. If a required construction field is unresolved, production generation is blocked or explicitly exploratory-only.',
-    `Shared garment rules: ${JSON.stringify(garment.master.sharedRules, null, 2)}`,
-    'CHARACTER-SPECIFIC GARMENT CONSTRUCTION — REQUIRED.',
     JSON.stringify(garment.profile, null, 2),
-    `Garment generation gate: ${JSON.stringify(garment.master.imageGenerationGate)}`,
+    `Core5 garment generation gate: ${JSON.stringify(garment.master.imageGenerationGate)}`,
   ].join('\n');
 }
 
 const options = parseArgs(process.argv.slice(2));
-const worldMaster = loadWorldMaterialMaster();
-const garment = loadCore5GarmentProfile(options.characterId);
 const base = runBaseExporter(options.characterId, options.kind);
+const worldMaster = loadWorldMaterialMaster();
+const allGarmentMaster = loadAllCharacterGarmentMaster();
+const allGarmentProfile = normalizeAllCharacterGarmentProfile(base, allGarmentMaster);
+const core5Garment = loadCore5GarmentProfile(options.characterId);
 const worldBlock = buildWorldPromptBlock(worldMaster, options.characterId);
-const garmentBlock = buildGarmentPromptBlock(garment);
+const allGarmentBlock = buildAllCharacterGarmentBlock(allGarmentMaster, allGarmentProfile);
+const core5GarmentBlock = buildCore5GarmentPromptBlock(core5Garment);
 
 const authorityOrder = Array.isArray(base.authorityOrder) ? [...base.authorityOrder] : [];
 const insertionIndex = Math.min(3, authorityOrder.length);
-authorityOrder.splice(insertionIndex, 0, WORLD_MATERIAL_DOC, WORLD_MATERIAL_JSON);
-if (garment) {
-  authorityOrder.splice(insertionIndex + 2, 0, CORE5_GARMENT_DOC, CORE5_GARMENT_JSON);
-}
+authorityOrder.splice(insertionIndex, 0, WORLD_MATERIAL_DOC, WORLD_MATERIAL_JSON, ALL_GARMENT_DOC, ALL_GARMENT_JSON);
+if (core5Garment) authorityOrder.splice(insertionIndex + 4, 0, CORE5_GARMENT_DOC, CORE5_GARMENT_JSON);
 
 const result = {
   ...base,
-  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 9),
+  schemaVersion: Math.max(Number(base.schemaVersion ?? 0), 10),
   generatedBy: 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts',
   generationReadyProductionEntrypoint: true,
   worldMaterialTranslationMasterPath: WORLD_MATERIAL_JSON,
   worldMaterialTranslationAuthorityDocument: WORLD_MATERIAL_DOC,
   worldMaterialTranslationMaster: worldMaster,
-  core5GarmentConstructionMasterPath: garment ? CORE5_GARMENT_JSON : null,
-  core5GarmentConstructionAuthorityDocument: garment ? CORE5_GARMENT_DOC : null,
-  core5GarmentConstructionProfile: garment?.profile ?? null,
+  allCharacterGarmentProductionMasterPath: ALL_GARMENT_JSON,
+  allCharacterGarmentProductionAuthorityDocument: ALL_GARMENT_DOC,
+  allCharacterGarmentProductionRequired: true,
+  allCharacterGarmentProductionProfile: allGarmentProfile,
+  core5GarmentConstructionMasterPath: core5Garment ? CORE5_GARMENT_JSON : null,
+  core5GarmentConstructionAuthorityDocument: core5Garment ? CORE5_GARMENT_DOC : null,
+  core5GarmentConstructionProfile: core5Garment?.profile ?? null,
   core5GarmentConstructionRequired: CORE5_IDS.has(options.characterId),
   unknownWorldMaterialMayBeInventedByImageModel: false,
   unknownGarmentDetailMayBeInventedByImageModel: false,
   authorityOrder,
-  prompt: `${base.prompt}\n\n${worldBlock}${garmentBlock ? `\n\n${garmentBlock}` : ''}`,
+  prompt: `${base.prompt}\n\n${worldBlock}\n\n${allGarmentBlock}${core5GarmentBlock ? `\n\n${core5GarmentBlock}` : ''}`,
   reviewChecklist: [
+    'All Character Garment Production Masterを全キャラで本文まで読み、Living Visual Profileの衣装・身体境界をproductionへ投影する',
+    'AUTHOR_CANDIDATEをUSER_DECIDEDへ昇格せず、欠けたexact detailをimage modelに発明させない',
+    '非人間キャラへhuman garment templateを強制しない',
+    '年齢・体型・障害・肌色・gender presentation・sexuality・speciesをcostume shorthandへ変換しない',
     'World Material Translation Masterを本文まで読み、世界観を装飾記号ではなく構造・素材・使用痕へ翻訳する',
     '星 / 紙 / 墨 / 灯りを全員共通アクセサリーとして貼っていない',
-    '素材・留め具・収納・摩耗・修繕が人物のEra / 生活 / 好みと矛盾しない',
+    '素材・留め具・収納・摩耗・修繕が人物の生活・好みと矛盾しない',
     '発光には実際のsourceがあり、premium感のための常時発光をしていない',
-    'world shorthandで露出・piercing・tattoo・jewelryを増やしていない',
-    ...(garment ? [
-      'Core5 Garment Construction Masterのmaterial / construction / closure / storage / footwear / wear / repair / prop interferenceを本文まで読む',
-      'すべてのpocket / pouch / strap / buckle / patch / hardwareに実際の用途または履歴がある',
+    ...(core5Garment ? [
+      'Core5 Garment Construction Masterのdedicated material / construction / closure / storage / footwear / wear / repair / prop interferenceを優先する',
       '歩行・着座・しゃがみ・腕上げ・prop取得で衣装構造が破綻しない',
-      '摩耗は接触・摩擦・天候、補修は実際のdamage/stressから発生している',
-      '色と小物を消しても服構造だけでCore5の差が残る',
     ] : []),
     ...(Array.isArray(base.reviewChecklist) ? base.reviewChecklist : []),
   ],
