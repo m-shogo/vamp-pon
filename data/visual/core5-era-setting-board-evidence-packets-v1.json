@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "id": "yoruno-shirube-core5-era-setting-board-evidence-packets-v1",
+  "status": "RESEARCH_BACKED_EVIDENCE_PACKETS_NOT_CHARACTER_CANON",
+  "purpose": "Bind the Core5 setting-board briefs to already researched historical/current/trajectory evidence while separating research fact, fiction translation, future trajectory and OPEN details.",
+  "authoritySources": [
+    "docs/research/era-society-food-future-sourcebook-v1.md",
+    "data/visual/core5-era-life-design-master-v1.json",
+    "data/visual/core5-reality-era-environment-authoring-brief-v1.json",
+    "data/visual/core5-era-population-household-authoring-brief-v1.json",
+    "data/visual/core5-era-setting-board-production-contract-v1.json"
+  ],
+  "globalBoundary": {
+    "researchFactCreatesCharacterCanon": false,
+    "researchFactCreatesExactYear": false,
+    "researchFactCreatesExactHousehold": false,
+    "researchFactCreatesExactIncident": false,
+    "realHistoricalIncidentMayBeRenamedAndCopied": false,
+    "futureTrajectoryResearchProvesFutureSociety": false,
+    "generatedVisualCreatesHistoricalFact": false,
+    "generatedVisualCreatesFutureFact": false,
+    "humanReviewRequired": true,
+    "imageGenerationAuthorized": false
+  },
+  "packets": [
+    {
+      "characterId": "tomori",
+      "eraBand": "postwar_reconstruction_scarcity",
+      "evidenceAuthority": "RESEARCH_BACKED_CURRENT_FOR_ERA_BAND",
+      "researchEvidence": [
+        "Postwar rationing of food and daily necessities continued while delays and missed distribution occurred.",
+        "Urban households could rely on shopping trips and black markets in addition to formal distribution.",
+        "Clothing and ordinary goods were repaired and kept in use rather than assuming easy replacement.",
+        "Paper coupons, ledgers and incomplete records are appropriate system evidence for the era band.",
+        "Housing shortage, temporary/incomplete housing and public-health friction can appear as background conditions without making every scene misery.",
+        "Postwar school-lunch recovery and changing food access are real research context, but do not define Tomori's literal school history."
+      ],
+      "researchSourceLabels": [
+        "昭和館 — 戦後復興までの道のり／配給制度と人々の暮らし",
+        "昭和館 — 占領から独立までの軌跡 1945–1952",
+        "農林水産省 — 年代別にみる学校給食の変遷",
+        "国立国会図書館 — 主要食糧の集荷および配給制度要綱"
+      ],
+      "boardSafeEvidenceMotifs": ["paper-coupon-or-ledger-system","repair-and-mending-evidence","reused-container-or-wrapping","shopping-trip-time-cost","incomplete-or-repaired-infrastructure","distribution-and-mutual-aid-traces"],
+      "mustNotBeUniversalized": ["constant_starvation","everyone_in_rags","everyone_uses_black_market","all_housing_is_barracks","all_material_is_military_surplus"],
+      "requiresExactYearRecheck": ["specific product/package design","specific rail/vehicle model","specific signage typography","specific housing fixture","specific school-lunch menu"],
+      "fictionTranslationBoundary": "The fictional integrated-ledger incident is a design lane, not a historical event and not automatically Canon.",
+      "imageGenerationAuthorized": false
+    },
+    {
+      "characterId": "michiru",
+      "eraBand": "late_high_growth_pollution_oil_shock",
+      "evidenceAuthority": "RESEARCH_BACKED_CURRENT_FOR_ERA_BAND",
+      "researchEvidence": [
+        "Rapid heavy-industry growth and urbanization in the 1960s produced serious industrial-pollution and health problems, followed by stronger countermeasures in the 1970s.",
+        "The 1973 oil shock exposed Japan's high oil dependence and produced supply anxiety, inflation and buying panic.",
+        "Road, rail, new-town and older-neighborhood systems could coexist during development rather than one cleanly replacing another.",
+        "Household prosperity and energy/price pressure can coexist; the era is not visually equivalent to universal poverty.",
+        "Diet diversified with greater meat, dairy, oil, instant and processed-food presence alongside continued rice-centered meals."
+      ],
+      "researchSourceLabels": [
+        "環境省 — 環境白書／高度経済成長時代の環境問題",
+        "資源エネルギー庁 — 石油がとまると何が起こるのか？",
+        "資源エネルギー庁 — 日本のエネルギー、150年の歴史④",
+        "農林水産省 — 数字で学ぶ日本の食料"
+      ],
+      "boardSafeEvidenceMotifs": ["printed-map-and-timetable","rail-road-new-town-old-route-coexistence","factory-and-resident-monitoring-evidence","energy-saving-or-price-pressure-trace","processed-food-and-changing-household-goods","public-signage-and-development-planning"],
+      "mustNotBeUniversalized": ["everyone_is_activist","everyone_is_poor","one_famous_pollution_case_reenacted","all_homes_equally_affluent","1970s_catalog_costume_as_worldbuilding"],
+      "requiresExactYearRecheck": ["specific oil-shock signage or restrictions","specific train/road model","specific package/brand appearance","specific appliance penetration","specific pollution-monitoring equipment"],
+      "fictionTranslationBoundary": "The single-growth-route city-planning incident is fictional design structure and may not copy a real pollution disaster or victim history.",
+      "imageGenerationAuthorized": false
+    },
+    {
+      "characterId": "nagi",
+      "eraBand": "post_bubble_early_mobile_internet",
+      "evidenceAuthority": "RESEARCH_BACKED_CURRENT_FOR_ERA_BAND",
+      "researchEvidence": [
+        "The employment-ice-age context spans roughly the 1993–2004 job-search cohort and left long-running unstable-employment/social-participation effects.",
+        "In 2002, household access to Internet-capable devices was expanding but not universal; PC and mobile/PHS access coexisted.",
+        "By 2005 Internet-capable household-device ownership had increased further, showing a fast transition rather than an always-online settled norm.",
+        "Feature phones, PHS, mobile mail, PC mail, BBS/personal sites, handles, printouts and FAX are appropriate early-network evidence.",
+        "Printed maps and online information can coexist; reply delay and disconnected time remain ordinary.",
+        "Convenience-store/prepared food and abundance are ordinary context; shortage is not the era's default food story."
+      ],
+      "researchSourceLabels": [
+        "厚生労働省 — 就職氷河期世代／中高年の活躍支援",
+        "統計局 — 家計消費状況調査 平成14年 IT関連項目",
+        "統計局 — 家計消費状況調査 平成17年 IT関連項目",
+        "農林水産省 — 健全な食生活の実現"
+      ],
+      "boardSafeEvidenceMotifs": ["feature-phone-or-PHS","shared-household-PC","printed-map-plus-digital-info","screen-privacy-and-handle-name","FAX-or-printout-workflow","cash-and-convenience-store-everyday-life"],
+      "mustNotBeUniversalized": ["everyone_has_home_internet","everyone_has_mobile_internet","modern_smartphone_UI","algorithmic_social_feed_as_core","cyberpunk_network_visuals","instant_reply_norm"],
+      "requiresExactYearRecheck": ["specific handset model","specific network standard","specific PC/OS/interface","specific broadband penetration","specific recruiting medium","specific store/package design"],
+      "fictionTranslationBoundary": "The shared identity/watchlist network is a fictional incident lane and must not be presented as a real historical system.",
+      "imageGenerationAuthorized": false
+    },
+    {
+      "characterId": "yui",
+      "eraBand": "1990s_born_2026_tokyo_arakawa",
+      "evidenceAuthority": "RESEARCH_BACKED_CURRENT_2026_CONTEXT",
+      "researchEvidence": [
+        "Government guidance in 2026 treats online false/misleading information, AI-generated fake images and deepfakes as practical verification problems.",
+        "A 2025 national loneliness/isolation survey reported that roughly four in ten respondents experienced some loneliness, so constant connectivity may coexist with isolation.",
+        "The 2025 aging-society white paper reports an aging rate of 29.3% and continued growth of older people living alone.",
+        "Prepared/ready-made meals support busy daily life while food access can still be difficult because of aging, retail decline, low income and other constraints, including in urban contexts.",
+        "Smartphones, group chat, cloud photo, cashless/QR-like payment, delivery/takeout and recommendation systems are ordinary present-day infrastructure but do not define every person's access equally."
+      ],
+      "researchSourceLabels": [
+        "政府広報オンライン — インターネット上の偽情報や誤情報にご注意！",
+        "内閣府 — 孤独・孤立の実態把握に関する全国調査（令和7年実施）",
+        "内閣府 — 令和7年版高齢社会白書",
+        "農林水産省 — 中食の今",
+        "農林水産省 — 円滑な食品アクセスの確保"
+      ],
+      "boardSafeEvidenceMotifs": ["smartphone-and-paper-coexistence","cloud-photo-or-group-log-context","cash-IC-app-payment-coexistence","delivery-takeout-local-shop-coexistence","older-younger-access-differences","verification-or-provenance-friction"],
+      "mustNotBeUniversalized": ["everyone_is_always_online","everyone_is_cashless","everyone_uses_same_apps","loneliness_as_visual_personality_trait","elderly_people_as_technology_illiterate_gag","smartphone_only_present_day"],
+      "requiresLocalPrivacySafeRecheck": ["specific Arakawa street/store reference","specific private residence","recognizable private resident","exact frequently used business","exact workplace or school"],
+      "fictionTranslationBoundary": "The verified-information emergency filtering incident is fictional and may not recreate a real disaster/casualty pattern.",
+      "imageGenerationAuthorized": false
+    },
+    {
+      "characterId": "asa",
+      "eraBand": "far_future_human_android_robot_avatar_coexistence",
+      "evidenceAuthority": "CURRENT_TRAJECTORY_RESEARCH_NOT_FUTURE_FACT",
+      "researchEvidence": [
+        "Japan's Moonshot Goal 1 researches a 2050 direction involving robotic/avatar embodiment, expanded ability/perception and reduced body/space/time constraints.",
+        "Current Digital Agency trust work treats digital identity and authenticity/non-tampering of data as real infrastructure questions.",
+        "Current AI-governance work emphasizes human-centered governance, safety and transparency.",
+        "These present-day trajectories are research anchors only; they do not prove the exact Far Future society in Yoru-no-Shirube."
+      ],
+      "researchSourceLabels": [
+        "内閣府 — Moonshot Goal 1",
+        "デジタル庁 — トラスト（デジタル・アイデンティティ等）",
+        "経済産業省 — AI事業者ガイドライン"
+      ],
+      "studyOnlyQuestionStructures": [
+        "body_changed_is_the_person_the_same",
+        "memory_copied_can_copy_diverge_into_person",
+        "network_freedom_and_intrusion_risk_coexist",
+        "institutional_identity_certainty_can_conflict_with_personhood",
+        "machine_intelligence_need_not_become_human_to_deserve_relationship"
+      ],
+      "futureVisualCandidatesNotFacts": ["multiple-remote-body-access","identity-credentials-across-person-device-avatar","repairable-personal-hardware","different-body-environmental-needs","social-meal-participation-without-human-nutrition-need"],
+      "mustNotBeUniversalized": ["everyone_has_body_replacement","everyone_uses_holograms","everyone_wears_bodysuits","neon_chrome_equals_future","Android_must_humanize","upgrade_equals_personal_growth"],
+      "explicitNonCopyGuard": ["Ghost_in_the_Shell_branded_terms","Public_Security_Section_9_like_structure","Puppet_Master_like_antagonist","franchise_specific_cybercrime_plot"],
+      "requiresAuthorityBeforeBoardFact": ["exact future year","exact legal personhood system","exact body-transfer technology","exact authentication UI","exact household composition","exact political side","exact incident"],
+      "fictionTranslationBoundary": "The continuity-judgment/personhood incident is an authoring lane, not a forecast and not Canon until separately admitted.",
+      "imageGenerationAuthorized": false
+    }
+  ],
+  "completionBoundary": {
+    "packetCount": 5,
+    "allPacketsSourceBound": true,
+    "exactHistoricalYearsLockedByPackets": false,
+    "futureFactsCreatedByPackets": false,
+    "characterFamilyCanonCreatedByPackets": false,
+    "settingBoardsAuthored": false,
+    "imageGenerationAuthorized": false,
+    "humanReviewRequired": true
+  }
+}
