@@ -1,0 +1,53 @@
+{
+  "id": "yoru-no-shirube-all-character-garment-don-doff-dressing-workflow-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md",
+  "unknownDressingWorkflowDefault": "SOURCE_CONSTRAINED_MINIMUM_PLAUSIBLE_DRESSING_WORKFLOW_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedDressingWorkflowCreatesCanon": false
+  },
+  "workflowAxes": [
+    "primaryEntryOpening", "primaryExitOpening", "headPassageClearance", "shoulderPassageClearance", "armPassageClearance", "handCuffPassageClearance", "torsoPassageClearance", "pelvisHipPassageClearance", "thighPassageClearance", "kneePassageClearance", "calfPassageClearance", "footAnklePassageClearance", "footwearEntryOpening", "footwearHeelClearance", "closureOpenState", "closureCloseState", "closureReachability", "closureVisibilityRequirement", "oneHandReachPlausibility", "twoHandReachPlausibility", "behindBodyReachPlausibility", "seatedReachPlausibility", "standingReachPlausibility", "gripRequirement", "fingerDexterityRequirement", "pullForceFamily", "stretchRequirement", "stretchAuthoritySource", "detachableComponentRequirement", "detachableAuthoritySource", "layerDonningOrder", "layerDoffingOrder", "underlayerClearance", "outerlayerClearance", "collarHeadSequence", "sleeveArmSequence", "trouserLegSequence", "skirtDressLowerBodySequence", "beltWaistClosureSequence", "strapHarnessSequence", "pocketEmptyingRequirement", "propRemovalRequirement", "bagRemovalRequirement", "footwearSequence", "sockStockingSequence", "hoodSequence", "gloveSequence", "accessoryFasteningSequence", "jewelryBodyModificationConflictCheck", "hairEarClearance", "glassesHeadwearClearance", "mobilityEquipmentInterferenceCheck", "wheelchairSeatedWorkflow", "prostheticOrthoticInteraction", "assistiveDeviceTemporaryRemovalRequirement", "balanceSupportRequirement", "dressingSurfaceRequirement", "privacyRequirementStatus", "helperRequirementStatus", "adjustmentAfterDonning", "closureVerification", "foldSettlingAdjustment", "hemCuffAdjustment", "strapTensionAdjustment", "storageState", "hangFoldRollCompatibility", "wetGarmentDoffingBehavior", "damagedGarmentDoffingBehavior", "emergencyRemovalStatus", "workflowUncertaintyClass"
+  ],
+  "workflowInvariants": [
+    "authorized body passes through authored openings without body resizing", "closed garments require real openings or authorized stretch", "hidden fasteners are not invented for convenience", "hidden stretch is not invented for convenience", "detachable sections are not invented for convenience", "closures remain the same type and side across viewpoints", "closures remain reachable within authorized mobility", "one hand use is not assumed without mechanical plausibility", "helper dependency is not invented", "disability accommodation is not invented", "layer order remains mechanically possible", "hair topology is not redesigned for donning", "body modifications are not removed for donning", "headwear and glasses clearance remains coherent", "footwear admits the authorized foot without foot resizing", "boots retain a real entry path", "seated dressing preserves body construction", "wheelchair interactions remain source constrained", "prosthetic orthotic interactions remain source constrained", "assistive devices are not removed without authority", "wet garments retain material dependent doffing behavior", "damage does not create convenient new openings", "adjustment does not redesign fit or exposure", "premium does not add hidden wearability mechanisms", "premium does not increase exposure for wearability", "LOD preserves critical opening logic", "chibi preserves critical opening logic", "sprite preserves critical opening logic", "storage habits are not inferred as personality", "generated workflow remains candidate only", "generated workflow never creates canon"
+  ],
+  "preservationPriority": [
+    "authorizedBodyAndMobility", "garmentConstructionTopology", "majorOpeningsAndClosures", "layerOrder", "closureReachability", "hairHeadwearAccessoryClearance", "footwearEntryLogic", "mobilityAssistiveEquipmentInteraction", "handGripDexterityRequirements", "wetDamageRemovalBehavior", "ordinaryAdjustmentAndStorageCompatibility", "microConvenienceAndPresentationPolish"
+  ],
+  "forbiddenShortcuts": [
+    "impossibleClosedNeckOpening", "impossibleClosedCuffOpening", "impossibleHipPassage", "impossibleFootPassage", "headShrunkToFitOpening", "shouldersNarrowedToFitGarment", "handsShrunkToFitCuffs", "hipsSlimmedToFitWaistOpening", "feetShrunkToFitFootwear", "hiddenZipperInventedForConvenience", "hiddenElasticInventedForConvenience", "hiddenStretchInventedForConvenience", "detachablePanelInventedForConvenience", "magneticClosureInventedForConvenience", "magicDonningAssumed", "helperDependencyInvented", "disabilityAccommodationInvented", "closureMovesForReachability", "closureChangesSideByView", "closureDisappearsAtSmallScale", "rearClosureBecomesFrontClosure", "impossibleOneHandFastening", "impossibleBehindBackReachAssumed", "layerOrderContradiction", "beltUnderImpossibleLayer", "harnessThroughSolidGarment", "hoodThroughHeadwearConflict", "collarThroughHairConflict", "earringsDeletedToPassCollar", "hairTopologyChangedForDressing", "necklineWidenedToSolveDonning", "sleeveRolledToSolveHandPassage", "hemShortenedToSolveFootPassage", "slitAddedToSolveLegPassage", "openingAddedToSolveWheelchairClearance", "assistiveDeviceRemovedWithoutAuthority", "prostheticRemovedWithoutAuthority", "orthoticRemovedWithoutAuthority", "bodyResizedForSeatedDressing", "footwearClosureInvented", "bootEntryPathImpossible", "highHeelAddedForFootEntryOrElegance", "premiumAddsHiddenFastener", "premiumAddsDetachableSection", "premiumAddsElasticPanel", "premiumAddsMagneticClosure", "premiumIncreasesExposureForWearability", "premiumWidensNecklineForConvenience", "premiumOpensBackForConvenience", "premiumRollsSleevesForConvenience", "chibiErasesCriticalOpeningLogic", "spriteErasesCriticalOpeningLogic", "lodConvergesToImpossiblePullover", "wetGarmentDoffsAsIfDryWithoutReason", "damageCreatesNewOpeningForConvenience", "storageHabitInventsPersonality", "helperUseInventsRelationshipEvidence", "privacyNeedInventsCharacterTrait", "generatedDressingWorkflowCreatesCanon"
+  ],
+  "rules": {
+    "unknownDressingWorkflowMayBeInventedByImageModel": false,
+    "bodyMayBeResizedToFitGarment": false,
+    "hiddenFastenerMayBeInventedForConvenience": false,
+    "hiddenStretchMayBeInventedForConvenience": false,
+    "detachableSectionMayBeInventedForConvenience": false,
+    "magicalDressingMayBeAssumed": false,
+    "helperDependencyMayBeInvented": false,
+    "disabilityAccommodationMayBeInvented": false,
+    "closureMayMoveForReachability": false,
+    "closureMayChangeSideByView": false,
+    "layerOrderMayBeViolated": false,
+    "hairMayBeRedesignedForDonning": false,
+    "bodyModificationMayBeRemovedForDonning": false,
+    "footwearMechanismMayBeInventedForEntry": false,
+    "premiumMayAddHiddenFastener": false,
+    "premiumMayAddDetachableSection": false,
+    "premiumMayIncreaseExposureForWearability": false,
+    "lodMayEraseCriticalOpeningLogic": false,
+    "chibiMayEraseCriticalOpeningLogic": false,
+    "spriteMayEraseCriticalOpeningLogic": false,
+    "assistiveDeviceMayBeRemovedWithoutAuthority": false,
+    "prostheticOrthoticMayBeRemovedWithoutAuthority": false,
+    "wetDamageStateMayCreateConvenientRemovalPath": false,
+    "storageHabitMayBeInventedAsPersonality": false,
+    "generatedDressingWorkflowCreatesCanon": false
+  }
+}
