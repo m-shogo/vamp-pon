@@ -17,12 +17,15 @@ const selectors: Record<string,string[]> = {
   skinCoverage: ['exposurePreference'],
 };
 
-function openPaths(value: unknown, prefix = ''): string[] {
-  if (value === 'OPEN_AUTHOR_DECISION') return [prefix];
-  if (Array.isArray(value)) return value.flatMap((item,index) => openPaths(item, `${prefix}[${index}]`));
-  if (value && typeof value === 'object') return Object.entries(value as Record<string,unknown>).flatMap(([key,item]) => openPaths(item, prefix ? `${prefix}.${key}` : key));
+function markerPaths(value: unknown, marker: (text: string) => boolean, prefix = ''): string[] {
+  if (typeof value === 'string' && marker(value)) return [prefix];
+  if (Array.isArray(value)) return value.flatMap((item,index) => markerPaths(item, marker, `${prefix}[${index}]`));
+  if (value && typeof value === 'object') return Object.entries(value as Record<string,unknown>).flatMap(([key,item]) => markerPaths(item, marker, prefix ? `${prefix}.${key}` : key));
   return [];
 }
+
+const openPaths = (value: unknown, prefix = '') => markerPaths(value, (text) => text.startsWith('OPEN_AUTHOR_DECISION'), prefix);
+const pendingReviewPaths = (value: unknown, prefix = '') => markerPaths(value, (text) => text.includes('PENDING_REVIEW'), prefix);
 
 function sourceKinds(value: any): string[] {
   const result = new Set<string>();
@@ -45,6 +48,7 @@ const characters = (profile.characters ?? []).filter((character: any) => core5.h
         present: value !== undefined,
         sourceKinds: sourceKinds(value),
         openAuthorDecisionPaths: openPaths(value, selector),
+        pendingReviewPaths: pendingReviewPaths(value, selector),
         value,
       }];
     }));
@@ -74,6 +78,7 @@ const contract = {
     imageModelFreedom: false,
     generatedImageMayCloseItem: false,
     openAuthorDecisionPreserved: true,
+    pendingReviewPreserved: true,
   },
   characters,
 };
@@ -81,7 +86,7 @@ const contract = {
 const markdown = [
   '# Core5 P0 Life-Choice Review Contract v1','',
   'Status: `DERIVED_REVIEW_CONTRACT_NON_CANON`','',
-  'This document exposes existing profile evidence for the ten P0 review items. It does not decide any candidate, absence, placement, count, exposure boundary, or OPEN_AUTHOR_DECISION.','',
+  'This document exposes existing profile evidence for the ten P0 review items. It does not decide any candidate, absence, placement, count, exposure boundary, OPEN_AUTHOR_DECISION, or pending-review marker.','',
   ...characters.flatMap((character: any) => [
     `## ${character.name} / ${character.id}`,'',
     ...p0Domains.flatMap((domain) => {
@@ -92,6 +97,7 @@ const markdown = [
           `- ${selector}: ${JSON.stringify(raw.value)}`,
           `  - sources: ${raw.sourceKinds.length ? raw.sourceKinds.join(', ') : 'NONE'}`,
           `  - OPEN paths: ${raw.openAuthorDecisionPaths.length ? raw.openAuthorDecisionPaths.join(', ') : 'none'}`,
+          `  - pending-review paths: ${raw.pendingReviewPaths.length ? raw.pendingReviewPaths.join(', ') : 'none'}`,
         ]),
         '',
       ];
@@ -101,7 +107,8 @@ const markdown = [
   '- Human/author review may accept, reject, explicitly mark absence, or leave a candidate unresolved.',
   '- Generated images are never evidence and cannot close an item.',
   '- Missing data is not absence.',
-  '- OPEN_AUTHOR_DECISION remains open until an explicit authored decision exists.','',
+  '- OPEN_AUTHOR_DECISION remains open until an explicit authored decision exists.',
+  '- PENDING_REVIEW remains pending until explicit human/author review resolves it.','',
 ].join('\n');
 
 if (process.argv.includes('--emit')) {
