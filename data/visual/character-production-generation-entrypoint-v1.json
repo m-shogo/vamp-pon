@@ -4,7 +4,7 @@
   "status": "TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT",
   "scopeCount": 36,
   "authorityDocument": "docs/visual/character-production-generation-entrypoint-v1.md",
-  "productionExporter": "tools/asset-factory/scripts/export-production-character-design-prompt.ts",
+  "productionExporter": "tools/asset-factory/scripts/export-focus-depth-effects-character-design-prompt.ts",
   "wrappedExporter": "tools/asset-factory/scripts/export-cross-asset-consistent-character-design-prompt.ts",
   "requiredFlags": {
     "feedbackRecurrenceGenerationEntrypoint": true,
@@ -75,6 +75,17 @@
     "generatedImageCreatesFeedbackRule": false,
     "candidateReviewAutomaticallyChangesGeneration": false
   },
+  "wrapperRequiredFlags": {
+    "allCharacterFocusDepthEffectsFidelityRequired": true,
+    "unknownFocusMayBeInventedByImageModel": false,
+    "focusMayRedesignCharacter": false,
+    "effectsMayHideIdentityCriticalError": false,
+    "effectsMayInventAuraOrEmission": false,
+    "effectsMayReplaceIdentityPalette": false,
+    "effectsMayHideMobilityEquipment": false,
+    "premiumAssetMayIncreaseEffectDensityAutomatically": false,
+    "generatedEffectTreatmentCreatesCanon": false
+  },
   "lowerExportersAreProductionEntrypoints": false,
   "handWrittenPromptIsProductionReady": false,
   "generatedImageCreatesCanon": false,
@@ -117,7 +128,9 @@
     "docs/visual/all-character-occlusion-layering-fidelity-master-v1.md",
     "data/visual/all-character-occlusion-layering-fidelity-master-v1.json",
     "docs/visual/all-character-crop-silhouette-readability-master-v1.md",
-    "data/visual/all-character-crop-silhouette-readability-master-v1.json"
+    "data/visual/all-character-crop-silhouette-readability-master-v1.json",
+    "docs/visual/all-character-focus-depth-effects-fidelity-master-v1.md",
+    "data/visual/all-character-focus-depth-effects-fidelity-master-v1.json"
   ],
   "candidateBoundary": [
     "not-final-art-approval",

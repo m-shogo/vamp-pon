@@ -1,0 +1,30 @@
+name: All Character Focus Depth Effects Fidelity Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-focus-depth-effects-fidelity-master-v1.md'
+      - 'data/visual/all-character-focus-depth-effects-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-focus-depth-effects-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-focus-depth-effects-fidelity.ts'
+      - '.github/workflows/all-character-focus-depth-effects-fidelity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-focus-depth-effects-fidelity-master-v1.md'
+      - 'data/visual/all-character-focus-depth-effects-fidelity-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-focus-depth-effects-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-focus-depth-effects-fidelity.ts'
+      - '.github/workflows/all-character-focus-depth-effects-fidelity.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character focus depth effects fidelity authority
+        run: node --experimental-strip-types scripts/quality/check-all-character-focus-depth-effects-fidelity.ts
