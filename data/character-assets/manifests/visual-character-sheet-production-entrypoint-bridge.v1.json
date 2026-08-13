@@ -4,8 +4,8 @@
   "status": "ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION",
   "purpose": "Make Character Design Sheet 01-04 composition a strict child of the current Character Reference Production Entrypoint so wrapper changes on main are inherited live instead of requiring a stale parent script name in this bridge.",
   "observedLatestMain": {
-    "sha": "029a834aed8287cd3d6155c2516d6c98b7818566",
-    "throughPullRequest": 330,
+    "sha": "0fcfb1ccdbfda0cccd028d38d30a396cc42165f8",
+    "throughPullRequest": 331,
     "syncedIntoInventoryBranch": true,
     "mustRecheckImmediatelyBeforeAnyImageGenerationOrMerge": true,
     "note": "This SHA records the synchronization baseline, not a permanent authority freeze. A newer main must be rechecked before generation or merge."
@@ -77,7 +77,8 @@
     "occlusion-layering-fidelity",
     "crop-silhouette-readability",
     "focus-depth-effects-fidelity",
-    "surface-tone-mapping-fidelity"
+    "surface-tone-mapping-fidelity",
+    "contrast-value-hierarchy-fidelity"
   ],
   "latestInheritedAuthorities": [
     {
@@ -99,6 +100,11 @@
       "source": "PR #330",
       "id": "surface-tone-mapping-fidelity",
       "rule": "Surface rendering and tone mapping must preserve skin/body identity, age, body volume and material-class differences without universal gloss, beauty smoothing, humanization or invented microtexture."
+    },
+    {
+      "source": "PR #331",
+      "id": "contrast-value-hierarchy-fidelity",
+      "rule": "Contrast and value hierarchy must preserve skin/body identity, body category, mobility equipment and identity midtones without invented outlines/glow, automatic premium contrast or night-time crushing."
     }
   ],
   "sheetRoleBoundaries": {
@@ -108,14 +114,14 @@
       "no mirror substitution for asymmetric construction",
       "same face/body/clothing/equipment topology across views",
       "neutral inspection pose does not create signature pose",
-      "do not hide unresolved overlap or construction behind crop, blur, foreground effects, depth of field or surface polish"
+      "do not hide unresolved overlap or construction behind crop, blur, foreground effects, depth of field, surface polish or contrast crushing"
     ],
     "face-expression-acting": [
       "neutral base face remains parent geometry",
       "expression deforms soft tissue rather than identity geometry",
       "diagnostic acting does not create signature emotional canon",
       "no generic premium-anime face convergence",
-      "crop/focus/effects/tone mapping may not erase identity-bearing face/head construction, age or skin/body identity"
+      "crop/focus/effects/tone mapping/contrast may not erase identity-bearing face/head construction, age or skin/body identity"
     ],
     "costume-equipment-material": [
       "authorized garment construction and storage only",
@@ -125,14 +131,15 @@
       "Named Object geometry remains separate authority",
       "solve layer collisions without deleting or rerouting garment/equipment construction",
       "effects may not conceal clipping, contact or storage errors",
-      "surface/tone treatment preserves material-class differences instead of universal gloss"
+      "surface/tone treatment preserves material-class differences instead of universal gloss",
+      "contrast may not invent outline/glow or hide mobility/storage structure"
     ],
     "silhouette-motion-derivation": [
       "body mass/species/age/mobility identity survives motion and perspective",
       "prop scale/contact continuity",
       "world adapts around the character rather than resizing the character",
       "OPEN motion uses neutral diagnostic placeholders rather than signature choreography",
-      "crop, blur, effects and grading preserve identity-bearing silhouette/body-volume information"
+      "crop, blur, effects, grading and contrast preserve identity-bearing silhouette/body-volume information"
     ]
   },
   "yuiReferenceOnlyHardConstraintsPreservedForFutureResume": [
