@@ -1,5 +1,5 @@
 export const CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT = {
-  exporter: 'tools/asset-factory/scripts/export-focus-depth-effects-character-design-prompt.ts',
+  exporter: 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts',
   policy: 'data/visual/character-production-generation-entrypoint-v1.json',
   authority: 'docs/visual/character-production-generation-entrypoint-v1.md',
   requiredOutputFlags: {

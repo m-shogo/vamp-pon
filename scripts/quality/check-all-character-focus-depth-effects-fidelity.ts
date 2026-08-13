@@ -7,6 +7,7 @@ const policyPath = 'data/visual/all-character-focus-depth-effects-fidelity-maste
 const authorityPath = 'docs/visual/all-character-focus-depth-effects-fidelity-master-v1.md';
 const productionPolicyPath = 'data/visual/character-production-generation-entrypoint-v1.json';
 const exporterPath = 'tools/asset-factory/scripts/export-focus-depth-effects-character-design-prompt.ts';
+const finalExporterPath = 'tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts';
 const profilePaths = [
   'data/visual/core5-living-visual-profiles-v1.json',
   'data/visual/current21-extended-living-visual-profiles-v1.json',
@@ -17,6 +18,7 @@ const fail = (m: string): never => { throw new Error(`[focus-depth-effects] ${m}
 const policy = JSON.parse(readFileSync(resolve(root, policyPath), 'utf8'));
 const authority = readFileSync(resolve(root, authorityPath), 'utf8');
 const productionPolicy = JSON.parse(readFileSync(resolve(root, productionPolicyPath), 'utf8'));
+const finalExporterSource = readFileSync(resolve(root, finalExporterPath), 'utf8');
 
 if (policy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY') fail('status invalid');
 if (policy.scopeCount !== 36 || policy.assetKindCount !== 9) fail('scope must remain 36/9');
@@ -29,7 +31,6 @@ if (policy.unknownFocusDefault !== 'RESTRAINED_IDENTITY_PRESERVING_FOCUS') fail(
 for (const [field, value] of Object.entries(policy.rules ?? {})) if (value !== false) fail(`rule must remain false: ${field}`);
 if (!authority.includes('CANDIDATE_REVIEW_REQUIRED')) fail('authority must preserve candidate-only output');
 if (!authority.includes('RESTRAINED_IDENTITY_PRESERVING_FOCUS')) fail('authority unknown-focus default missing');
-if (productionPolicy.productionExporter !== exporterPath) fail('focus wrapper must be top-level production exporter');
 if (productionPolicy.wrapperRequiredFlags?.allCharacterFocusDepthEffectsFidelityRequired !== true) fail('wrapper focus requirement missing');
 for (const [field, expected] of Object.entries(productionPolicy.wrapperRequiredFlags ?? {})) {
   if (field === 'allCharacterFocusDepthEffectsFidelityRequired') {
@@ -37,6 +38,12 @@ for (const [field, expected] of Object.entries(productionPolicy.wrapperRequiredF
   } else if (expected !== false) {
     fail(`wrapper guard must remain false: ${field}`);
   }
+}
+if (productionPolicy.productionExporter === exporterPath) {
+  // Focus may be top-level when no later rendering wrapper exists.
+} else {
+  if (productionPolicy.productionExporter !== finalExporterPath) fail('focus wrapper must remain in the declared production chain');
+  if (!finalExporterSource.includes(`const BASE_EXPORTER = '${exporterPath}'`)) fail('final production wrapper must directly wrap focus/depth/effects exporter');
 }
 for (const path of [authorityPath, policyPath]) if (!productionPolicy.requiredAuthorityPaths?.includes(path)) fail(`required authority path missing: ${path}`);
 
@@ -67,4 +74,4 @@ for (const id of ids) {
   if (!output.prompt?.includes('FOCUS / DEPTH / EFFECTS FIDELITY — FINAL RENDERING LOCK.')) fail(`${id}: focus prompt block missing`);
 }
 
-console.log(`[focus-depth-effects] OK: ${ids.length}/36 focus/depth/effects production prompts validated`);
+console.log(`[focus-depth-effects] OK: ${ids.length}/36 focus/depth/effects production prompts validated as required wrapper stage`);

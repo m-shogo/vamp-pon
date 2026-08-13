@@ -4,7 +4,7 @@
   "status": "TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT",
   "scopeCount": 36,
   "authorityDocument": "docs/visual/character-production-generation-entrypoint-v1.md",
-  "productionExporter": "tools/asset-factory/scripts/export-focus-depth-effects-character-design-prompt.ts",
+  "productionExporter": "tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts",
   "wrappedExporter": "tools/asset-factory/scripts/export-cross-asset-consistent-character-design-prompt.ts",
   "requiredFlags": {
     "feedbackRecurrenceGenerationEntrypoint": true,
@@ -86,6 +86,17 @@
     "premiumAssetMayIncreaseEffectDensityAutomatically": false,
     "generatedEffectTreatmentCreatesCanon": false
   },
+  "finalWrapperRequiredFlags": {
+    "allCharacterSurfaceToneMappingFidelityRequired": true,
+    "unknownSurfaceMayBeInventedByImageModel": false,
+    "toneMappingMayChangeSkinIdentity": false,
+    "surfacePolishMayDeAgeCharacter": false,
+    "surfacePolishMaySlimBodyByHighlight": false,
+    "premiumAssetMayUniversalizeGloss": false,
+    "weatherMaySexualizeWetSurface": false,
+    "nonHumanSurfaceMayHumanize": false,
+    "generatedMicrotextureCreatesCanon": false
+  },
   "lowerExportersAreProductionEntrypoints": false,
   "handWrittenPromptIsProductionReady": false,
   "generatedImageCreatesCanon": false,
@@ -130,7 +141,9 @@
     "docs/visual/all-character-crop-silhouette-readability-master-v1.md",
     "data/visual/all-character-crop-silhouette-readability-master-v1.json",
     "docs/visual/all-character-focus-depth-effects-fidelity-master-v1.md",
-    "data/visual/all-character-focus-depth-effects-fidelity-master-v1.json"
+    "data/visual/all-character-focus-depth-effects-fidelity-master-v1.json",
+    "docs/visual/all-character-surface-tone-mapping-fidelity-master-v1.md",
+    "data/visual/all-character-surface-tone-mapping-fidelity-master-v1.json"
   ],
   "candidateBoundary": [
     "not-final-art-approval",
