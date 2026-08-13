@@ -4,8 +4,8 @@
   "status": "ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION",
   "purpose": "Make Character Design Sheet 01-04 composition a strict child of the current Character Reference Production Entrypoint so wrapper changes on main are inherited live instead of requiring a stale parent script name in this bridge.",
   "observedLatestMain": {
-    "sha": "0fcfb1ccdbfda0cccd028d38d30a396cc42165f8",
-    "throughPullRequest": 331,
+    "sha": "e7b94aabde8e55c846ca6e7950f17b6f20ee2183",
+    "throughPullRequest": 332,
     "syncedIntoInventoryBranch": true,
     "mustRecheckImmediatelyBeforeAnyImageGenerationOrMerge": true,
     "note": "This SHA records the synchronization baseline, not a permanent authority freeze. A newer main must be rechecked before generation or merge."
@@ -78,7 +78,8 @@
     "crop-silhouette-readability",
     "focus-depth-effects-fidelity",
     "surface-tone-mapping-fidelity",
-    "contrast-value-hierarchy-fidelity"
+    "contrast-value-hierarchy-fidelity",
+    "edge-line-shape-boundary-fidelity"
   ],
   "latestInheritedAuthorities": [
     {
@@ -105,6 +106,11 @@
       "source": "PR #331",
       "id": "contrast-value-hierarchy-fidelity",
       "rule": "Contrast and value hierarchy must preserve skin/body identity, body category, mobility equipment and identity midtones without invented outlines/glow, automatic premium contrast or night-time crushing."
+    },
+    {
+      "source": "PR #332",
+      "id": "edge-line-shape-boundary-fidelity",
+      "rule": "Edges describe authorized shape rather than redesigning it; line cleanup, anti-aliasing and small-scale simplification may not enlarge eyes, beautify jaws, slim bodies, erase mobility equipment, invent exposure or add white/neon readability outlines."
     }
   ],
   "sheetRoleBoundaries": {
@@ -114,14 +120,14 @@
       "no mirror substitution for asymmetric construction",
       "same face/body/clothing/equipment topology across views",
       "neutral inspection pose does not create signature pose",
-      "do not hide unresolved overlap or construction behind crop, blur, foreground effects, depth of field, surface polish or contrast crushing"
+      "do not hide unresolved overlap or construction behind crop, blur, foreground effects, depth of field, surface polish, contrast crushing or edge cleanup"
     ],
     "face-expression-acting": [
       "neutral base face remains parent geometry",
       "expression deforms soft tissue rather than identity geometry",
       "diagnostic acting does not create signature emotional canon",
       "no generic premium-anime face convergence",
-      "crop/focus/effects/tone mapping/contrast may not erase identity-bearing face/head construction, age or skin/body identity"
+      "crop/focus/effects/tone mapping/contrast/edge treatment may not erase identity-bearing face/head construction, age or skin/body identity"
     ],
     "costume-equipment-material": [
       "authorized garment construction and storage only",
@@ -132,14 +138,15 @@
       "solve layer collisions without deleting or rerouting garment/equipment construction",
       "effects may not conceal clipping, contact or storage errors",
       "surface/tone treatment preserves material-class differences instead of universal gloss",
-      "contrast may not invent outline/glow or hide mobility/storage structure"
+      "contrast may not invent outline/glow or hide mobility/storage structure",
+      "edge cleanup may not remove seams, closures, layered garment boundaries or mobility-equipment shape"
     ],
     "silhouette-motion-derivation": [
       "body mass/species/age/mobility identity survives motion and perspective",
       "prop scale/contact continuity",
       "world adapts around the character rather than resizing the character",
       "OPEN motion uses neutral diagnostic placeholders rather than signature choreography",
-      "crop, blur, effects, grading and contrast preserve identity-bearing silhouette/body-volume information"
+      "crop, blur, effects, grading, contrast and line treatment preserve identity-bearing silhouette/body-volume information"
     ]
   },
   "yuiReferenceOnlyHardConstraintsPreservedForFutureResume": [
