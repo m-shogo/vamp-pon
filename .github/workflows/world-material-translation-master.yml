@@ -1,0 +1,49 @@
+name: World Material Translation Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/world-material-translation-master-v1.md'
+      - 'data/visual/world-material-translation-master-v1.json'
+      - 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts'
+      - 'scripts/quality/check-world-material-translation-master.ts'
+      - '.github/workflows/world-material-translation-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/world-material-translation-master-v1.md'
+      - 'data/visual/world-material-translation-master-v1.json'
+      - 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts'
+      - 'scripts/quality/check-world-material-translation-master.ts'
+      - '.github/workflows/world-material-translation-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate world material translation master
+        run: node --experimental-strip-types scripts/quality/check-world-material-translation-master.ts
+      - name: Smoke-test production world-grounded prompts
+        run: |
+          node --experimental-strip-types tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts \
+            --character yui --kind character_reference --output /tmp/yui-world.json
+          node --experimental-strip-types tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts \
+            --character tomori --kind character_reference --output /tmp/tomori-world.json
+          node - <<'NODE'
+          const yui = require('/tmp/yui-world.json');
+          const tomori = require('/tmp/tomori-world.json');
+          for (const [id, x] of [['yui', yui], ['tomori', tomori]]) {
+            if (x.generationReadyProductionEntrypoint !== true) throw new Error(`${id}: not production entrypoint output`);
+            if (x.unknownWorldMaterialMayBeInventedByImageModel !== false) throw new Error(`${id}: world material invention guard weakened`);
+            if (!x.authorityOrder.includes('docs/visual/world-material-translation-master-v1.md')) throw new Error(`${id}: world material authority missing`);
+            if (!x.prompt.includes('WORLD MATERIAL TRANSLATION MASTER — REQUIRED PRODUCTION VISUAL AUTHORITY.')) throw new Error(`${id}: world material prompt block missing`);
+            if (!x.worldMaterialTranslationMaster) throw new Error(`${id}: world material master body missing`);
+          }
+          if (!yui.prompt.includes('blue_gold_protagonist_costume')) throw new Error('yui character-specific world guard missing');
+          if (!tomori.prompt.includes('steampunk_cosplay')) throw new Error('tomori character-specific world guard missing');
+          NODE

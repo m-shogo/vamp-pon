@@ -1,0 +1,28 @@
+name: Cross-Asset Fidelity Review Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/cross-asset-fidelity-review-master-v1.md'
+      - 'data/visual/cross-asset-fidelity-review-master-v1.json'
+      - 'data/visual/character-design-feedback-ledger.json'
+      - 'scripts/quality/check-cross-asset-fidelity-review-master.ts'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
+      - '.github/workflows/cross-asset-fidelity-review-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/cross-asset-fidelity-review-master-v1.md'
+      - 'data/visual/cross-asset-fidelity-review-master-v1.json'
+      - 'data/visual/character-design-feedback-ledger.json'
+      - 'scripts/quality/check-cross-asset-fidelity-review-master.ts'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
+      - '.github/workflows/cross-asset-fidelity-review-master.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate cross-asset fidelity review authority
+        run: node --experimental-strip-types scripts/quality/check-cross-asset-fidelity-review-master.ts

@@ -1,0 +1,65 @@
+name: Core5 Garment Construction Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/core5-garment-construction-master-v1.md'
+      - 'data/visual/core5-garment-construction-master-v1.json'
+      - 'docs/visual/all-character-garment-production-master-v1.md'
+      - 'data/visual/all-character-garment-production-master-v1.json'
+      - 'docs/visual/all-character-night-light-rendering-master-v1.md'
+      - 'data/visual/all-character-night-light-rendering-master-v1.json'
+      - 'data/visual/world-material-translation-master-v1.json'
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts'
+      - 'scripts/quality/check-core5-garment-construction-master.ts'
+      - '.github/workflows/core5-garment-construction-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/core5-garment-construction-master-v1.md'
+      - 'data/visual/core5-garment-construction-master-v1.json'
+      - 'docs/visual/all-character-garment-production-master-v1.md'
+      - 'data/visual/all-character-garment-production-master-v1.json'
+      - 'docs/visual/all-character-night-light-rendering-master-v1.md'
+      - 'data/visual/all-character-night-light-rendering-master-v1.json'
+      - 'data/visual/world-material-translation-master-v1.json'
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts'
+      - 'scripts/quality/check-core5-garment-construction-master.ts'
+      - '.github/workflows/core5-garment-construction-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Core5 garment construction master
+        run: node --experimental-strip-types scripts/quality/check-core5-garment-construction-master.ts
+      - name: Smoke-test generation-ready Core5 garment prompts
+        run: |
+          for id in yui asa nagi michiru tomori; do
+            node --experimental-strip-types tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts \
+              --character "$id" --kind character_reference --output "/tmp/${id}-garment.json"
+          done
+          node - <<'NODE'
+          const ids = ['yui','asa','nagi','michiru','tomori'];
+          for (const id of ids) {
+            const x = require(`/tmp/${id}-garment.json`);
+            if (x.generationReadyProductionEntrypoint !== true) throw new Error(`${id}: not generation ready`);
+            if (x.allCharacterGarmentProductionRequired !== true) throw new Error(`${id}: all-character garment master not required`);
+            if (!x.allCharacterGarmentProductionProfile) throw new Error(`${id}: all-character garment profile missing`);
+            if (x.core5GarmentConstructionRequired !== true) throw new Error(`${id}: Core5 garment override not required`);
+            if (!x.core5GarmentConstructionProfile) throw new Error(`${id}: Core5 garment profile missing`);
+            if (x.allCharacterNightLightRenderingRequired !== true) throw new Error(`${id}: night/light rendering master not required`);
+            if (x.unknownGarmentDetailMayBeInventedByImageModel !== false) throw new Error(`${id}: garment invention guard weakened`);
+            if (!x.authorityOrder.includes('docs/visual/core5-garment-construction-master-v1.md')) throw new Error(`${id}: garment doc absent from authority order`);
+            if (!x.prompt.includes('CORE5 GARMENT CONSTRUCTION MASTER — STRONGER DEDICATED OVERRIDE.')) throw new Error(`${id}: Core5 garment prompt body not embedded`);
+            if (!x.prompt.includes('ALL CHARACTER GARMENT PRODUCTION MASTER — REQUIRED FOR EVERY CHARACTER.')) throw new Error(`${id}: all-character garment prompt body not embedded`);
+            if (!x.prompt.includes('WORLD MATERIAL TRANSLATION MASTER — REQUIRED PRODUCTION VISUAL AUTHORITY.')) throw new Error(`${id}: world material block missing`);
+          }
+          NODE

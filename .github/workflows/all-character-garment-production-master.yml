@@ -1,0 +1,40 @@
+name: All Character Garment Production Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-garment-production-master-v1.md'
+      - 'data/visual/all-character-garment-production-master-v1.json'
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/core5-garment-construction-master-v1.json'
+      - 'data/visual/world-material-translation-master-v1.json'
+      - 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts'
+      - 'scripts/quality/check-all-character-garment-production-master.ts'
+      - '.github/workflows/all-character-garment-production-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-garment-production-master-v1.md'
+      - 'data/visual/all-character-garment-production-master-v1.json'
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/core5-garment-construction-master-v1.json'
+      - 'data/visual/world-material-translation-master-v1.json'
+      - 'tools/asset-factory/scripts/export-generation-ready-character-asset-prompt.ts'
+      - 'scripts/quality/check-all-character-garment-production-master.ts'
+      - '.github/workflows/all-character-garment-production-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all 36 garment production profiles
+        run: node --experimental-strip-types scripts/quality/check-all-character-garment-production-master.ts

@@ -1,0 +1,28 @@
+name: All Character World Use Interaction Layout Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-world-use-interaction-layout-master-v1.md'
+      - 'data/visual/all-character-world-use-interaction-layout-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-world-use-interaction-layout.mjs'
+      - '.github/workflows/all-character-world-use-interaction-layout.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-world-use-interaction-layout-master-v1.md'
+      - 'data/visual/all-character-world-use-interaction-layout-master-v1.json'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-world-use-interaction-layout.mjs'
+      - '.github/workflows/all-character-world-use-interaction-layout.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all-character world-use interaction layout authority
+        run: node scripts/quality/check-all-character-world-use-interaction-layout.mjs

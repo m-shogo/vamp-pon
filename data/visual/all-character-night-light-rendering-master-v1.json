@@ -1,0 +1,110 @@
+{
+  "id": "yoru-no-shirube-all-character-night-light-rendering-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION",
+  "authorityDocument": "docs/visual/all-character-night-light-rendering-master-v1.md",
+  "scopeCount": 36,
+  "doesNotCreateNewStoryCanon": true,
+  "renderingMayRedesignCharacter": false,
+  "unknownLightSourceMayBeInventedByImageModel": false,
+  "nightIsPalettePreset": false,
+  "emissionRule": "every emitted light must have an explicit loaded source; reflection is never promoted to emission",
+  "sourceHierarchy": [
+    "professional_master",
+    "living_visual_profile",
+    "appearance_geometry_authority",
+    "all_character_garment_production",
+    "world_material_translation",
+    "core5_dedicated_authorities_when_applicable",
+    "night_light_rendering_master",
+    "generation_prompt",
+    "generated_image"
+  ],
+  "sharedRules": {
+    "genericBlueNightFilterAllowed": false,
+    "universalCyanVioletRimAllowed": false,
+    "glowingEyesForMoodAllowed": false,
+    "glowingTattooSeamJewelryAllowed": false,
+    "premiumGoldHighlightEscalationAllowed": false,
+    "skinToneMayShiftForNightMood": false,
+    "ageMayBeSmoothedByLighting": false,
+    "bodyMayBeSlimmedByShadow": false,
+    "fogParticlesMayHideWeakDesign": false,
+    "backgroundMayInventCharacterGlow": false,
+    "starBeastColorIsFreeGlow": false
+  },
+  "resolvedCharacterFields": [
+    "id",
+    "name",
+    "species",
+    "source_profile_path",
+    "body_comfort",
+    "exposure",
+    "body_modification",
+    "materials",
+    "wear_maintenance",
+    "absolute_never",
+    "positive_preference"
+  ],
+  "materialResponseRules": {
+    "soft_matte_cloth": "broad low-intensity reflection; no glossy specular",
+    "worn_metal": "small source-shaped highlights; no automatic gold shift",
+    "paper_record": "soft local reflection; never self-luminous",
+    "glass_lens": "source-dependent highlight/refraction; no permanent glow",
+    "skin": "preserve canonical/local skin tone and texture; avoid porcelain normalization",
+    "hair_fur": "source-dependent edge response; no neon outline",
+    "robot_shell_panel": "material-based response; indicator light only when source-backed"
+  },
+  "backgroundRules": {
+    "transparent_reference": "no scenic background; restrained neutral/world-credible light for design inspection",
+    "scene_or_cutin": "environment may cast local light but cannot recolor identity or invent costume-side emission",
+    "silhouette_separation": "use value/background separation before rim-light tricks",
+    "atmosphere": "fog/bloom/bokeh may support depth but cannot hide anatomy, garment construction, or prop relation"
+  },
+  "nonHumanRules": {
+    "DOG": "fur reflects local source; magical eye glow prohibited unless explicitly sourced",
+    "CAT": "fur reflects local source; magical eye glow prohibited unless explicitly sourced",
+    "ARTIFICIAL_PERSON": "artificiality does not authorize neon seams, glowing eyes, or robot shorthand",
+    "MAINTENANCE_ROBOT": "shell/panel response follows material; indicators/tools emit only when source-backed"
+  },
+  "reviewTests": [
+    "remove_bloom_identity_survives",
+    "remove_rim_silhouette_survives",
+    "grayscale_body_clothing_mass_separates",
+    "remove_accent_emission_identity_survives",
+    "skin_age_body_match_neutral_authority",
+    "every_glow_source_identified",
+    "every_bright_metal_edge_material_justified",
+    "background_removed_character_construction_complete"
+  ],
+  "hardProhibitions": [
+    "generic_blue_night_filter",
+    "universal_cyan_violet_rim",
+    "unexplained_bloom",
+    "glowing_eyes_for_mood",
+    "glowing_tattoo_seam_jewelry",
+    "gold_premium_highlights",
+    "porcelain_skin_night_normalization",
+    "body_slimming_shadow_design",
+    "face_redesign_through_glamour_lighting",
+    "fog_particle_masking",
+    "background_light_inventing_costume_color",
+    "star_beast_color_as_free_glow"
+  ],
+  "imageGenerationGate": [
+    "living_visual_profile_loaded",
+    "all_character_garment_profile_loaded",
+    "world_material_master_loaded",
+    "species_and_representation_guards_loaded",
+    "emitted_vs_reflected_light_separated",
+    "every_emitted_source_identified",
+    "material_response_matches_loaded_material",
+    "skin_tone_age_body_identity_preserved",
+    "background_light_does_not_redesign_character",
+    "silhouette_reads_without_rim_trick",
+    "identity_reads_without_bloom",
+    "accent_removed_identity_survives",
+    "star_beast_color_not_used_as_free_glow",
+    "unknown_light_source_not_delegated_to_image_model"
+  ]
+}

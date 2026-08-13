@@ -1,0 +1,34 @@
+name: All Character Embodied Acting Production Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/all-character-embodied-acting-production-master-v1.md'
+      - 'data/visual/all-character-embodied-acting-production-master-v1.json'
+      - 'src/game/data/current21SilhouetteMatrix.ts'
+      - 'data/visual/*living-visual-profiles-v1.json'
+      - 'tools/asset-factory/scripts/export-final-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-embodied-acting-production-master.ts'
+      - '.github/workflows/all-character-embodied-acting-production-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/all-character-embodied-acting-production-master-v1.md'
+      - 'data/visual/all-character-embodied-acting-production-master-v1.json'
+      - 'src/game/data/current21SilhouetteMatrix.ts'
+      - 'data/visual/*living-visual-profiles-v1.json'
+      - 'tools/asset-factory/scripts/export-final-character-design-prompt.ts'
+      - 'scripts/quality/check-all-character-embodied-acting-production-master.ts'
+      - '.github/workflows/all-character-embodied-acting-production-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all 36 embodied acting production profiles
+        run: node --experimental-strip-types scripts/quality/check-all-character-embodied-acting-production-master.ts

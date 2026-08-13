@@ -1,0 +1,113 @@
+{
+  "id": "yoru-no-shirube-core5-posture-silhouette-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION",
+  "canonicalSource": "src/game/data/current21SilhouetteMatrix.ts",
+  "doesNotInventMeasurements": true,
+  "purpose": "Lock Core5 neutral posture, silhouette mass, object anchor and motion rhythm into image generation so pose and prop staging do not collapse to one generic hero stance.",
+  "sharedRules": {
+    "genericHeroPoseAllowedAsIdentityBase": false,
+    "propMayReplaceBodyIdentity": false,
+    "motionMayReplaceNeutralRead": false,
+    "objectAnchorPlacementMustHaveBodyRelation": true,
+    "forbidden": [
+      "same-front-facing-hero-stance",
+      "same-hand-on-hip-pose",
+      "floating-signature-prop-without-grip-or-storage",
+      "weapon-pose-substitution",
+      "silhouette-difference-only-from-color",
+      "extreme-action-pose-hiding-neutral-posture"
+    ]
+  },
+  "characters": [
+    {
+      "id": "yui",
+      "name": "ユイ",
+      "visualLane": "主人公 / 拾い手",
+      "silhouetteRead": "青いフード + 身体より少し前へ出るランタン + 拾った紙片",
+      "posture": "半歩前。落とし物へ先に手が伸び、火を見る時だけ両手が近づく。",
+      "clothingShape": "短いフード外衣。ランタン側へ非対称な重み。",
+      "objectAnchor": "持ち主待ちのランタン",
+      "motionSignature": "拾う → 確認する → 相手へ向ける",
+      "ensemblePosition": "中央寄り。ただし正面hero pose固定ではなく、人へ物を回す。",
+      "generationGuard": "generic heroine / sword-user silhouetteへ寄せない。",
+      "neutralAnchor": "half-step-forward / free hand reaches before torso / lantern mass slightly ahead of body"
+    },
+    {
+      "id": "asa",
+      "name": "アサ",
+      "visualLane": "行動派 / 名づけ",
+      "silhouetteRead": "短い前髪 + 名札 + 紙片 + 先に差し出す片腕",
+      "posture": "止まるより半歩先へ出る。名前を聞く時だけ正面を向く。",
+      "clothingShape": "短い上衣 + 名札面。紙の角を外形へ出す。",
+      "objectAnchor": "名結びの小鋏",
+      "motionSignature": "書く / 切る / 渡すを短く速く",
+      "ensemblePosition": "輪の中を動きながら名前を書いて回る。",
+      "generationGuard": "ユイの色違い、speed=極端な細身、常時笑顔へ寄せない。",
+      "neutralAnchor": "one-side-forward readiness / one arm initiates before full torso turn / compact stance"
+    },
+    {
+      "id": "nagi",
+      "name": "ナギ",
+      "visualLane": "静かな守り / 封じ手",
+      "silhouetteRead": "月箱 + 銀鍵 + 身体に近い肘 + 外へだけ開く月輪",
+      "posture": "物を身体の内側へ寄せ、閉じる前に二度確認する。",
+      "clothingShape": "縦に静かな面 + 箱を抱えられる前身頃。",
+      "objectAnchor": "月箱の銀鍵",
+      "motionSignature": "確認 → 閉じる → 戻れるか見る",
+      "ensemblePosition": "小物を預かれる内側。出入口を完全には塞がない。",
+      "generationGuard": "守護=重装tank、無口=猫背、病弱な華奢表現へ寄せない。",
+      "neutralAnchor": "elbows near torso / object held inside personal boundary / upright closed vertical stance"
+    },
+    {
+      "id": "michiru",
+      "name": "ミチル",
+      "visualLane": "道読み / 帰路",
+      "silhouetteRead": "斜め掛け地図 + コンパス + 道糸 + 歩き出した片脚",
+      "posture": "次の曲がり角を見る。時々後ろの仲間を確認する。",
+      "clothingShape": "歩行で開く裾 + 斜めの収納線。",
+      "objectAnchor": "帰り針のコンパス",
+      "motionSignature": "長めの歩幅 + 小さな方向修正",
+      "ensemblePosition": "輪と外側を行き来し、道を紙へ描く。",
+      "generationGuard": "runner costume、方向音痴ギャグ、ユイと同じ青主人公へ寄せない。",
+      "neutralAnchor": "one leg already preparing next step / diagonal storage line / head and gaze scan route"
+    },
+    {
+      "id": "tomori",
+      "name": "トモリ",
+      "visualLane": "作業者 / repair",
+      "silhouetteRead": "修理ゴーグル + 道具袋 + 修理ランプ + 煤と継ぎ目",
+      "posture": "しゃがむ / 覗き込む / 直す姿勢を多く使う。",
+      "clothingShape": "煤や補修跡が残る実用服。",
+      "objectAnchor": "継火の修理ランプ",
+      "motionSignature": "工具 → 火花 → 継ぎ目確認",
+      "ensemblePosition": "会話の横で何かを直している。",
+      "generationGuard": "普通の眼鏡キャラ、新品衣装、発明家白衣へ寄せない。",
+      "neutralAnchor": "work-ready lowered center / hands naturally near tool task / stance supports crouch and inspection"
+    }
+  ],
+  "ensembleQA": [
+    "black-fill-silhouette-distinguishable",
+    "neutral-posture-distinguishable-without-face",
+    "prop-location-distinguishable",
+    "yui-and-asa-forwardness-not-identical",
+    "nagi-upright-closed-not-slouch",
+    "michiru-walking-read-not-runner-costume",
+    "tomori-work-posture-not-generic-mechanic-pose",
+    "signature-prop-has-grip-storage-or-body-relation",
+    "hero-pose-removal-does-not-destroy-identity",
+    "color-removal-does-not-destroy-silhouette"
+  ],
+  "imageGenerationGate": [
+    "silhouette_read_loaded",
+    "neutral_posture_loaded",
+    "clothing_shape_loaded",
+    "object_anchor_loaded",
+    "motion_signature_loaded",
+    "ensemble_position_loaded",
+    "generation_guard_loaded",
+    "neutral_anchor_loaded",
+    "prop_body_relation_resolved",
+    "generic_hero_stance_disabled"
+  ]
+}

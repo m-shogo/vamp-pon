@@ -1,0 +1,30 @@
+name: Character Production Generation Entrypoint
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/character-production-generation-entrypoint-v1.md'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
+      - 'tools/asset-factory/scripts/export-feedback-aware-character-design-prompt.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/character-production-generation-entrypoint.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/character-production-generation-entrypoint-v1.md'
+      - 'data/visual/character-production-generation-entrypoint-v1.json'
+      - 'src/game/data/characterReferenceProductionEntrypoint.ts'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
+      - 'tools/asset-factory/scripts/export-feedback-aware-character-design-prompt.ts'
+      - 'scripts/quality/check-character-production-generation-entrypoint.ts'
+      - '.github/workflows/character-production-generation-entrypoint.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate single production entrypoint for all 36 characters
+        run: node --experimental-strip-types scripts/quality/check-character-production-generation-entrypoint.ts

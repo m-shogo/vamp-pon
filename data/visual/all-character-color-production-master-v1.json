@@ -1,0 +1,97 @@
+{
+  "id": "yoru-no-shirube-all-character-color-production-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION",
+  "scopeCount": 36,
+  "current21ExactCount": 21,
+  "future15CandidateDerivedCount": 15,
+  "authorityDocument": "docs/visual/all-character-color-production-master-v1.md",
+  "current21ExactSource": "src/game/data/characterThemeColors.ts",
+  "future15Source": "data/visual/future15-living-visual-profiles-v1.json",
+  "core5DedicatedAuthority": "data/visual/core5-color-application-master-v1.json",
+  "current21AuthorityClass": "EXISTING_CANON_SOURCE_LOCKED",
+  "future15AuthorityClass": "AUTHOR_CANDIDATE_DERIVED",
+  "unknownExactColorMayBeInventedByImageModel": false,
+  "starBeastColorMayBecomeAutomaticCostumeColor": false,
+  "themeColorMayFloodEntireGarment": false,
+  "nightMayReplaceIdentityPalette": false,
+  "generatedColorAccidentCreatesCanon": false,
+  "colorChannels": [
+    "body-identity",
+    "garment-base",
+    "garment-support-neutral",
+    "character-theme",
+    "character-accent",
+    "star-beast",
+    "prop-material",
+    "emitted-light",
+    "reflected-environment-light",
+    "wear-repair-dirt"
+  ],
+  "current21RequiredFields": [
+    "characterId",
+    "displayName",
+    "themeColor",
+    "accentColor",
+    "starBeastTheme"
+  ],
+  "future15DerivedFields": [
+    "id",
+    "name",
+    "species",
+    "bodyComfort",
+    "clothing",
+    "socialPresentation",
+    "absoluteNever",
+    "positivePreference"
+  ],
+  "future15UnresolvedPolicy": {
+    "exactThemeHex": "UNRESOLVED_DO_NOT_INVENT",
+    "exactAccentHex": "UNRESOLVED_DO_NOT_INVENT",
+    "starBeastHex": "UNRESOLVED_DO_NOT_INVENT",
+    "signaturePalette": "UNRESOLVED_DO_NOT_INVENT",
+    "allowed": [
+      "preserve explicit body/skin/fur/shell identity",
+      "preserve explicit color likes/dislikes if source provides them",
+      "use material-credible ordinary neutrals without declaring them signature colors",
+      "preserve anti-stereotype color boundaries"
+    ]
+  },
+  "hardProhibitions": [
+    "theme-hex-replaced-for-premium-look",
+    "theme-color-on-every-garment-surface",
+    "accent-color-as-universal-piping-or-rim",
+    "star-beast-color-as-third-costume-main-color",
+    "star-beast-color-as-automatic-eye-or-hair-glow",
+    "skin-hair-fur-shell-recolored-to-match-theme",
+    "shared-star-beast-color-means-matching-outfit",
+    "universal-midnight-blue-gold-world-palette",
+    "universal-cyan-violet-night-rim",
+    "dark-skin-lightened-for-readability",
+    "pale-material-treated-as-self-luminous",
+    "future15-signature-hex-invented-from-personality",
+    "sexuality-gender-disability-species-used-as-palette-generator",
+    "high-resolution-adds-new-color-concept"
+  ],
+  "grayscaleChecks": [
+    "face-body-separate-from-clothing",
+    "signature-prop-remains-locatable",
+    "silhouette-mass-does-not-depend-on-saturation",
+    "white-gray-black-designs-use-value-and-material-not-premium-accent",
+    "dark-designs-do-not-require-glowing-outline"
+  ],
+  "imageGenerationGate": [
+    "color-source-class-resolved",
+    "current21-exact-record-loaded-when-applicable",
+    "core5-dedicated-color-master-loaded-when-applicable",
+    "body-identity-color-separated-from-theme",
+    "theme-and-accent-roles-separated",
+    "star-beast-color-separated",
+    "emitted-and-reflected-light-separated",
+    "night-does-not-overwrite-identity-palette",
+    "no-unsupported-color-concept-added",
+    "future15-unresolved-exact-palette-not-invented",
+    "grayscale-value-readability-checked",
+    "generated-color-does-not-create-canon"
+  ]
+}

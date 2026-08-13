@@ -1,0 +1,70 @@
+{
+  "id": "yoru-no-shirube-cross-asset-fidelity-review-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_POST_GENERATION_VISUAL_REVIEW_AUTHORITY",
+  "scopeCount": 36,
+  "doesNotCreateNewCanon": true,
+  "generatedImageIsNotAuthority": true,
+  "weightedScoreMayOverrideHardGate": false,
+  "identityCriticalAxes": [
+    {"id":"speciesAgeBodyState","weight":12,"referenceMin":90,"spriteMin":85},
+    {"id":"faceGeometryAgeCoding","weight":18,"referenceMin":90,"spriteMin":85},
+    {"id":"bodyMassProportionMobility","weight":16,"referenceMin":90,"spriteMin":85},
+    {"id":"headHairMass","weight":8,"referenceMin":90,"spriteMin":85},
+    {"id":"silhouettePosture","weight":12,"referenceMin":90,"spriteMin":85},
+    {"id":"clothingConstructionExposure","weight":12,"referenceMin":90,"spriteMin":85}
+  ],
+  "supportAxes": [
+    {"id":"colorRoleFidelity","weight":7},
+    {"id":"propRelation","weight":5},
+    {"id":"materialHierarchy","weight":4},
+    {"id":"stateEffectContainment","weight":3},
+    {"id":"smallScaleReadability","weight":2},
+    {"id":"microDetailDiscipline","weight":1}
+  ],
+  "scoreBands": [
+    {"min":95,"state":"FIDELITY_PASS_STRONG"},
+    {"min":90,"state":"FIDELITY_PASS"},
+    {"min":85,"state":"REWORK_SUPPORTING_AXES"},
+    {"min":0,"state":"REWORK_MAJOR"}
+  ],
+  "hardGateFailureState": "BLOCK_IDENTITY_DRIFT",
+  "assetKinds": {
+    "character_reference":{"identitySimplificationAllowed":false,"hardGateMin":90},
+    "sprite_sheet_180":{"identitySimplificationAllowed":true,"hardGateMin":85,"allowedSimplification":["micro-detail","secondary seams","tiny fasteners","subtle material variation"],"forbiddenCompensation":["common chibi head/body base","giant-eye homogenization","body slimming","mobility equipment removal","animal or robot humanoidization","floating prop icon replacement"]},
+    "normal_cutin":{"identitySimplificationAllowed":false,"hardGateMin":90,"allowedChange":["crop","gesture intensity","motion"]},
+    "dawn_cutin":{"identitySimplificationAllowed":false,"hardGateMin":90,"allowedChange":["crop","motion","light","state effects"],"forbiddenChange":["skin whitening","body identity recolor","white-gold costume redesign","exposure increase","new jewelry","face/body geometry change"]},
+    "kokuyou_cutin":{"identitySimplificationAllowed":false,"hardGateMin":90,"allowedChange":["crop","motion","ink","soot","broken-edge effects","darkness"],"forbiddenChange":["black-neon armor redesign","de-aging","slimming","sexualization","skin/fur/shell recolor","new tattoo/scar/piercing"]},
+    "emblem_blank":{"appearanceFidelityNotApplicable":true,"emblemCanonRequired":true},
+    "emblem_normal":{"appearanceFidelityNotApplicable":true,"emblemCanonRequired":true},
+    "emblem_dawn":{"appearanceFidelityNotApplicable":true,"emblemCanonRequired":true},
+    "emblem_kokuyou":{"appearanceFidelityNotApplicable":true,"emblemCanonRequired":true}
+  },
+  "absoluteBlockers": [
+    "species-age-body-state-change",
+    "common-attractive-face-normalization",
+    "unsupported-body-slimming-or-athleticization",
+    "child-adultification",
+    "mobility-equipment-removal-or-cosmetic-replacement",
+    "gender-ambiguity-resolution-by-generation",
+    "animal-or-robot-humanoidization",
+    "unsupported-exposure-body-modification-or-jewelry",
+    "generic-gacha-clothing-replacement",
+    "lighting-recolors-identity",
+    "star-beast-color-becomes-automatic-costume-color",
+    "generated-accident-becomes-reference-authority"
+  ],
+  "reviewEvidenceRequired": [
+    "candidateIdOrPath",
+    "characterId",
+    "assetKind",
+    "authoritySources",
+    "axisScores",
+    "hardGateFailures",
+    "weightedScore",
+    "fidelityState",
+    "reviewerVerdict",
+    "keepRemoveReplaceBanNotes",
+    "recurrenceDirectivePromotionState"
+  ]
+}

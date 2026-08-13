@@ -1,0 +1,129 @@
+{
+  "id": "yoru-no-shirube-world-material-translation-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION",
+  "authorityDocument": "docs/visual/world-material-translation-master-v1.md",
+  "canonicalWorldSource": "docs/00-current-story-world-master.md",
+  "doesNotCreateNewStoryCanon": true,
+  "worldbuildingAppearsAsConsequenceNotSticker": true,
+  "translationChannels": [
+    "seam",
+    "fold",
+    "fastening",
+    "panel_division",
+    "pocket_storage_logic",
+    "edge_treatment",
+    "repair_history",
+    "justified_translucency",
+    "carried_object_construction",
+    "wear_pattern",
+    "emitted_reflected_light_behavior"
+  ],
+  "worldGrammar": {
+    "night": {
+      "translateAs": ["value_hierarchy", "practical_visibility", "local_light_response", "material_reflection"],
+      "neverAutomatic": ["all_black_navy_clothing", "glowing_trim"]
+    },
+    "route_way_home": {
+      "translateAs": ["tool_access", "map_key_label_storage", "bag_body_relationship", "walking_return_support"],
+      "neverAutomatic": ["decorative_compass", "route_symbol_print"]
+    },
+    "paper_record_ledger_label": {
+      "translateAs": ["folding", "binding", "stitched_or_replaceable_labels", "protected_document_storage", "worn_edges", "archival_handling"],
+      "neverAutomatic": ["floating_paper", "random_paper_ornament"]
+    },
+    "black_ink": {
+      "translateAs": ["functional_mark_making", "record_surface", "stain_history", "edge_contrast"],
+      "neverAutomatic": ["magic_ink_tattoo", "ink_veins", "splatter_costume"]
+    },
+    "lantern_small_practical_light": {
+      "translateAs": ["actual_lamp_or_tool_source", "local_reflection", "source_backed_indicator"],
+      "neverAutomatic": ["glowing_jewelry", "glowing_seams", "glowing_eyes", "premium_constant_glow"]
+    },
+    "old_changing_star_charts": {
+      "translateAs": ["navigation_record_interface", "chart_fold", "measured_line", "reference_mark", "reading_behavior"],
+      "neverAutomatic": ["star_print_clothing", "constellation_jewelry"]
+    },
+    "memory_missing_record": {
+      "translateAs": ["absence", "incomplete_label", "erased_replaced_trace", "preserved_old_repair", "source_backed_empty_space"],
+      "neverAutomatic": ["random_torn_clothing", "missing_sleeve_metaphor", "decorative_asymmetry"]
+    },
+    "repair_binding_folding": {
+      "translateAs": ["damage_based_patch", "stress_based_reinforcement", "real_layer_join", "source_backed_reused_hardware"],
+      "neverAutomatic": ["universal_patchwork", "tomori_repair_language_on_everyone"]
+    }
+  },
+  "materialQuestionsRequired": [
+    "material",
+    "weight",
+    "stiffness",
+    "fold_behavior",
+    "reflection",
+    "first_wear_location",
+    "repairability",
+    "era_repair_or_replace_norm",
+    "closure_technology",
+    "frequent_object_storage",
+    "sit_crouch_walk_prop_use",
+    "world_trace_from_actual_use"
+  ],
+  "personalTasteOverridesWorldDecoration": true,
+  "core5": [
+    {
+      "id": "yui",
+      "materialTranslation": ["soft_movement_friendly_cloth", "local_functional_lantern_hardware", "protected_small_record_storage", "lantern_contact_soot_only"],
+      "forbiddenWorldDrift": ["blue_gold_protagonist_costume", "luxury_paper_print", "universal_star_accessory"]
+    },
+    {
+      "id": "asa",
+      "materialTranslation": ["light_firm_fast_response_construction", "functional_replaceable_label_system", "access_based_asymmetry", "minimal_purposeful_metal"],
+      "forbiddenWorldDrift": ["armor_from_sharpness", "harness_density", "piercing_escalation", "decorative_fantasy_flaps"]
+    },
+    {
+      "id": "nagi",
+      "materialTranslation": ["opaque_controlled_closed_construction", "secured_compartment_box_key_logic", "quiet_local_silver", "narrow_vertical_geometry"],
+      "forbiddenWorldDrift": ["glowing_moon_ornament", "translucent_body_emphasis", "world_justified_skin_exposure"]
+    },
+    {
+      "id": "michiru",
+      "materialTranslation": ["breathable_travel_cloth", "movement_safe_joints", "actual_map_compass_access", "friction_based_travel_wear"],
+      "forbiddenWorldDrift": ["generic_adventurer_belts", "explorer_costume", "star_map_print_overload"]
+    },
+    {
+      "id": "tomori",
+      "materialTranslation": ["repairable_tough_cloth", "functional_hardware", "cause_based_repairs", "source_backed_reused_parts", "work_contact_soot_heat_wear"],
+      "forbiddenWorldDrift": ["steampunk_cosplay", "gear_motif", "decorative_tool_belt", "universal_grunge"]
+    }
+  ],
+  "antiGenericWorldDrift": [
+    "universal_star_jewelry",
+    "universal_paper_scraps",
+    "universal_glowing_trim",
+    "universal_blue_black_palette",
+    "universal_gold_edge",
+    "constellation_embroidery_on_everyone",
+    "decorative_compass",
+    "decorative_lantern_pendant",
+    "ink_tattoo_mystery_shorthand",
+    "random_torn_hems",
+    "unexplained_patchwork",
+    "floating_cloth_strips",
+    "extra_belts_pouches_without_contents",
+    "premium_metal_replacing_lived_material"
+  ],
+  "imageGenerationGate": [
+    "world_master_loaded",
+    "living_visual_profile_loaded",
+    "era_translation_loaded_when_applicable",
+    "primary_materials_resolved",
+    "closures_storage_resolved",
+    "wear_repair_behavior_resolved",
+    "world_motifs_translated_into_construction_use",
+    "personal_exposure_body_modification_boundaries_preserved",
+    "generic_fantasy_gacha_filler_not_used",
+    "emitted_light_has_source",
+    "prop_body_storage_relationship_resolved",
+    "unresolved_world_material_questions_not_delegated_to_image_model"
+  ],
+  "unknownWorldMaterialMayBeInventedByImageModel": false
+}

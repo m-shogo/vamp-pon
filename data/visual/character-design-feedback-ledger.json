@@ -1,15 +1,20 @@
 {
   "id": "yoru-no-shirube-character-design-feedback-ledger-v1",
-  "date": "2026-08-12",
+  "date": "2026-08-13",
   "status": "DESIGNER_LEARNING_NON_CANON",
-  "purpose": "Preserve candidate-by-candidate human feedback without mixing it with assistant interpretation.",
+  "purpose": "Preserve candidate-by-candidate human feedback without mixing it with assistant interpretation, carry only explicitly promoted recurrence directives into later candidate generation, and preserve structured cross-asset fidelity evidence.",
   "rules": {
     "userFeedbackIsHighestPriorityWithinCandidateReview": true,
     "assistantDiagnosisMustBeSeparate": true,
     "singleReactionDoesNotCreateGlobalHardRule": true,
     "repeatedPatternMayBecomeCandidateLearning": true,
     "humanApprovalRequiredForPromotionToApprovedDesignRule": true,
-    "namedArtistOrIpStyleTargetAllowed": false
+    "namedArtistOrIpStyleTargetAllowed": false,
+    "candidateReviewDoesNotAutomaticallyModifyGeneration": true,
+    "onlyActiveRecurrenceDirectivesMayModifyLaterGeneration": true,
+    "generatedImageNeverCreatesRecurrenceDirective": true,
+    "weightedFidelityScoreNeverOverridesIdentityHardGate": true,
+    "generatedImageNeverBecomesFidelityAuthorityByItself": true
   },
   "candidateReviewSchema": {
     "candidateId": "string",
@@ -34,11 +39,49 @@
         "note": "string"
       }
     ],
+    "crossAssetFidelityReview": {
+      "master": "data/visual/cross-asset-fidelity-review-master-v1.json",
+      "assetKind": "string",
+      "authoritySources": ["string"],
+      "axisScores": {"axisId": "0..100"},
+      "hardGateFailures": ["string"],
+      "weightedScore": "0..100|null",
+      "fidelityState": "FIDELITY_PASS_STRONG|FIDELITY_PASS|REWORK_SUPPORTING_AXES|REWORK_MAJOR|BLOCK_IDENTITY_DRIFT|NOT_APPLICABLE|null",
+      "reviewerVerdict": "KEEP|REWORK|REJECT|null",
+      "keepRemoveReplaceBanNotes": ["string"],
+      "recurrenceDirectivePromotionState": "NONE|PROPOSED|ACTIVE|null"
+    },
     "keepElements": ["string"],
     "changeElements": ["string"],
     "associationNotes": ["string"],
     "nextDelta": ["string"],
     "promotionState": "prototype-only|candidate-learning|human-approved-design-rule|reference-candidate|commercial-candidate|rejected"
   },
-  "candidateReviews": []
+  "recurrenceDirectiveSchema": {
+    "id": "string",
+    "scope": "CHARACTER|GLOBAL",
+    "characterId": "string|null",
+    "action": "KEEP|BAN|REPLACE|WARN",
+    "dimension": "identity|rendering|costume|composition|world-fit|acting|derivation|association",
+    "statement": "short executable design instruction",
+    "replacement": "string|null",
+    "authority": "USER_DECIDED|HUMAN_APPROVED_DESIGN_RULE|CANDIDATE_LEARNING",
+    "state": "ACTIVE|PROPOSED|RETIRED",
+    "sourceCandidateIds": ["string"],
+    "evidence": ["faithful user feedback or approved review reference"],
+    "createdByGeneratedImageAlone": false
+  },
+  "recurrenceRules": {
+    "activeCharacterDirectiveAppliesOnlyToMatchingCharacter": true,
+    "activeGlobalDirectiveRequiresHumanApprovedOrUserDecidedAuthority": true,
+    "candidateLearningMayNotCreateGlobalBan": true,
+    "proposedDirectiveDoesNotModifyGeneration": true,
+    "retiredDirectiveDoesNotModifyGeneration": true,
+    "banWithoutPositiveReplacementDoesNotAuthorizeRandomAlternative": true,
+    "replaceMustNamePositiveTarget": true,
+    "keepProtectsExistingAcceptedElementButDoesNotExpandIt": true,
+    "warnAddsReviewAttentionButDoesNotOverrideHigherAuthority": true
+  },
+  "candidateReviews": [],
+  "recurrenceDirectives": []
 }
