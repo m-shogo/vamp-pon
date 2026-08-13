@@ -41,6 +41,7 @@ on:
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
+      - 'scripts/quality/check-visual-gunjo-subject-admission.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
   push:
@@ -84,6 +85,7 @@ on:
       - 'scripts/quality/check-visual-asset-master-registry.ts'
       - 'scripts/quality/check-visual-generation-governance.ts'
       - 'scripts/quality/check-visual-current-group-record-master.ts'
+      - 'scripts/quality/check-visual-gunjo-subject-admission.ts'
       - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
 
@@ -110,3 +112,5 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-visual-generation-governance.ts
       - name: Validate Sakuyaza Current naming and Gunjo record-taxonomy visual masters
         run: node --experimental-strip-types scripts/quality/check-visual-current-group-record-master.ts
+      - name: Validate dynamic Gunjo visual subject admission
+        run: node --experimental-strip-types scripts/quality/check-visual-gunjo-subject-admission.ts
