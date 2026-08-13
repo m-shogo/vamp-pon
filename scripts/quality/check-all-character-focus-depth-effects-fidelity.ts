@@ -30,7 +30,14 @@ for (const [field, value] of Object.entries(policy.rules ?? {})) if (value !== f
 if (!authority.includes('CANDIDATE_REVIEW_REQUIRED')) fail('authority must preserve candidate-only output');
 if (!authority.includes('RESTRAINED_IDENTITY_PRESERVING_FOCUS')) fail('authority unknown-focus default missing');
 if (productionPolicy.productionExporter !== exporterPath) fail('focus wrapper must be top-level production exporter');
-if (productionPolicy.requiredFlags?.allCharacterFocusDepthEffectsFidelityRequired !== true) fail('production focus requirement missing');
+if (productionPolicy.wrapperRequiredFlags?.allCharacterFocusDepthEffectsFidelityRequired !== true) fail('wrapper focus requirement missing');
+for (const [field, expected] of Object.entries(productionPolicy.wrapperRequiredFlags ?? {})) {
+  if (field === 'allCharacterFocusDepthEffectsFidelityRequired') {
+    if (expected !== true) fail(`wrapper flag must remain true: ${field}`);
+  } else if (expected !== false) {
+    fail(`wrapper guard must remain false: ${field}`);
+  }
+}
 for (const path of [authorityPath, policyPath]) if (!productionPolicy.requiredAuthorityPaths?.includes(path)) fail(`required authority path missing: ${path}`);
 
 const ids: string[] = [];
