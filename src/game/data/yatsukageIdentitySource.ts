@@ -143,6 +143,10 @@ export const yatsukageCallNames = seeds;
 export const yatsukageCallNameByEnemyId = new Map(yatsukageCallNames.map((entry) => [entry.enemyId, entry]));
 
 export const yatsukageIdentitySummary = {
+  // Backward-compatible field names. Their values are explicitly legacy labels;
+  // consumers must not treat them as Current formal naming authority.
+  formalName: YATSUKAGE_GROUP_IDENTITY.formalName,
+  shortName: YATSUKAGE_GROUP_IDENTITY.shortName,
   legacyFormalName: YATSUKAGE_GROUP_IDENTITY.formalName,
   legacyShortName: YATSUKAGE_GROUP_IDENTITY.shortName,
   currentFormalName: YATSUKAGE_GROUP_IDENTITY.currentFormalName,
