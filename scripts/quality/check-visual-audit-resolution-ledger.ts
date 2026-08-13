@@ -7,9 +7,12 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-assert(ledger.schemaVersion === 1, 'resolution ledger schemaVersion must remain 1');
+assert(ledger.schemaVersion === 2, 'resolution ledger schemaVersion must be 2 after latest-main sync/migrations');
 assert(ledger.status === 'ACTIVE_RESOLUTION_TRACKING_NO_AUTOMATIC_GENERATION', 'resolution ledger may not authorize generation');
-assert(ledger.currentBoundary?.latestMainSyncStillRequired === true, 'latest main sync must remain required');
+assert(ledger.currentBoundary?.latestMainSyncBaseline === '18ad29ef740c52eaa6bd893d0e7e656154641300', 'latest-main sync baseline drift');
+assert(ledger.currentBoundary?.latestMainSyncThroughPullRequest === 326, 'latest-main sync PR boundary drift');
+assert(ledger.currentBoundary?.latestMainBaselineMergedIntoBranchWithoutForce === true, 'latest-main baseline must be integrated without force rewrite');
+assert(ledger.currentBoundary?.latestMainMustBeRecheckedBeforeImageGenerationOrMerge === true, 'latest main must still be rechecked before generation/merge');
 assert(ledger.currentBoundary?.imageGenerationAllowed === false, 'resolution ledger may not authorize image generation');
 assert(ledger.currentBoundary?.yuiHold === true, 'Yui HOLD must remain preserved');
 
@@ -23,7 +26,7 @@ for (const id of [
 ]) {
   const entry = legacy.get(id) as any;
   assert(entry, `resolution ledger missing legacy finding: ${id}`);
-  assert(entry.state === 'RESOLVED_ON_BRANCH_PENDING_MAIN_SYNC', `${id}: branch resolution state drift`);
+  assert(entry.state === 'RESOLVED_SYNCED', `${id}: synced resolution state drift`);
 }
 
 const fixed = new Map((ledger.fixedMasterFamilies ?? []).map((entry: any) => [entry.findingId, entry]));
@@ -60,9 +63,11 @@ for (const [id, expected] of [
   assert(entry.rowCount === expected, `${id}: expected ${expected} rows, got ${entry.rowCount}`);
 }
 const item = sourceDerived.get('ITEM_OBJECT_DESIGN_MASTERS') as any;
-assert(item?.state === 'SOURCE_DERIVED_INVENTORY_IMPLEMENTED', 'Item source-derived inventory missing');
+assert(item?.state === 'COLLISION_REVIEW_IMPLEMENTED_CONTENT_UNRESOLVED', 'Item exact-label collision review state missing');
 assert(item.rawLineageCandidateRows === 105, 'Item raw lineage candidate count drift');
-assert(item.finalMasterCount === 'TBD_AFTER_LINEAGE_REVIEW', 'Item final master count must remain unresolved before lineage review');
+assert(item.exactLabelCollisionGroups === 11, 'Item exact-label collision group count drift');
+assert(item.collisionRowsAuthorizedToCollapse === 0, 'Item collision rows may not be auto-collapsed');
+assert(item.finalMasterCount === 'TBD_AFTER_AUTHORITY_REVIEW', 'Item final master count must remain unresolved before explicit lineage authority');
 
 const top = ledger.reuseAndDerivativeAudits?.topLoading;
 assert(top?.state === 'REUSE_AUDIT_IMPLEMENTED', 'TOP/Loading reuse audit state drift');
@@ -71,8 +76,12 @@ assert(top?.topV3ExistingCandidate === 1, 'TOP V3 existing candidate count drift
 assert(top?.newAuthorizedReplacementRowsNow === 0, 'TOP/Loading may not gain replacement rows without explicit decision');
 
 const guide = ledger.reuseAndDerivativeAudits?.guideDb;
-assert(guide?.state === 'PENDING_CONTENT_MIGRATION', 'Guide/DB must remain pending old baked-row migration');
+assert(guide?.state === 'NON_RASTER_MIGRATION_IMPLEMENTED', 'Guide/DB non-raster migration must remain implemented');
 assert(guide?.independentGuideBinariesDefault === 0, 'Guide/DB may not default to independent generated binaries');
+assert(guide?.legacyBakedRowsMigrated === 142, 'Guide/DB migrated baked-row count drift');
+assert(guide?.currentExecutionImageBearingRows === 266, 'current execution image-bearing count drift');
+assert(guide?.currentExecutionLogicalNonImageRows === 214, 'current execution non-image count drift');
+assert(guide?.legacyPlanningListDirectGenerationAuthority === false, 'legacy image list may not directly authorize generation');
 
 const assetFactory = ledger.reuseAndDerivativeAudits?.assetFactory977;
 assert(assetFactory?.state === 'REUSE_AUDIT_IMPLEMENTED', '977 output audit state drift');
@@ -80,20 +89,29 @@ assert(assetFactory?.totalContracts === 977, '977 output audit total drift');
 assert(assetFactory?.existingOutputPathsObserved === 0, 'persisted audit existing count drift');
 assert(assetFactory?.missingOutputPathsObserved === 977, 'persisted audit missing count drift');
 assert(assetFactory?.automaticGenerationAuthorized === false, '977 missing outputs may not auto-authorize generation');
-assert(assetFactory?.mustRevalidateAfterLatestMainSync === true, '977 snapshot must be revalidated after sync');
+assert(assetFactory?.mustRevalidateOnCurrentHead === true, '977 snapshot must be revalidated on current head before gameplay generation');
 
-assert(ledger.characterSheetExecution?.state === 'BLOCKED_LATEST_MAIN_ADAPTER', 'Character Sheet execution must remain latest-main-adapter blocked');
-assert(ledger.characterSheetExecution?.oldPromptPacketDirectGenerationAllowed === false, 'old prompt packets may not be used directly');
-assert(ledger.characterSheetExecution?.sheetAdapterImplemented === false, 'sheet adapter may not be claimed implemented yet');
-assert(ledger.characterSheetExecution?.imageGenerationAllowed === false, 'Character Sheet image generation must remain blocked');
+const sheets = ledger.characterSheetExecution;
+assert(sheets?.state === 'LIVE_ADAPTER_IMPLEMENTED', 'Character Sheet live adapter state missing');
+assert(sheets?.oldPromptPacketDirectGenerationAllowed === false, 'old prompt packets may not be used directly');
+assert(sheets?.staticPacketReexportRequiredForProduction === false, 'static packet re-export must not be mistaken for the live production path');
+assert(sheets?.activeCharacters === 35, 'active Character Sheet character count drift');
+assert(sheets?.activeLiveSheetPrompts === 140, 'active live Sheet prompt count drift');
+assert(Array.isArray(sheets?.heldCharacterIds) && sheets.heldCharacterIds.length === 1 && sheets.heldCharacterIds[0] === 'yui', 'Yui must remain the only explicit held character');
+assert(sheets?.heldSheetSlots === 4, 'Yui held Sheet slot count drift');
+assert(sheets?.imageGenerationAllowed === false, 'Character Sheet image generation must remain blocked by listing phase');
 
 console.log(JSON.stringify({
   status: 'PASS',
   ledgerId: ledger.ledgerId,
-  legacyFindingsResolvedOnBranch: legacy.size,
+  latestMainSyncBaseline: ledger.currentBoundary.latestMainSyncBaseline,
+  legacyFindingsResolvedSynced: legacy.size,
   fixedMasterFindingsTracked: fixed.size,
   sourceDerivedFamiliesTracked: sourceDerived.size,
+  itemCollisionReview: { groups: item.exactLabelCollisionGroups, collapsesAuthorized: item.collisionRowsAuthorizedToCollapse },
+  guideExecution: { imageBearing: guide.currentExecutionImageBearingRows, nonImage: guide.currentExecutionLogicalNonImageRows, migratedLorebook: guide.legacyBakedRowsMigrated },
+  sheetAdapter: { activePrompts: sheets.activeLiveSheetPrompts, heldSlots: sheets.heldSheetSlots },
   assetFactorySnapshot: { existing: assetFactory.existingOutputPathsObserved, missing: assetFactory.missingOutputPathsObserved },
-  latestMainSyncStillRequired: ledger.currentBoundary.latestMainSyncStillRequired,
+  mustRecheckMainBeforeGenerationOrMerge: true,
   imageGenerationAllowed: false,
 }, null, 2));
