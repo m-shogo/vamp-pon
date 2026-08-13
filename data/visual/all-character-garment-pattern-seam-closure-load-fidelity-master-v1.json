@@ -1,0 +1,53 @@
+{
+  "id": "yoru-no-shirube-all-character-garment-pattern-seam-closure-load-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.md",
+  "unknownConstructionDefault": "SOURCE_CONSTRAINED_MINIMUM_MECHANICALLY_VALID_GARMENT_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedGarmentConstructionCreatesCanon": false
+  },
+  "constructionAxes": [
+    "primaryPatternPieceCountFamily", "frontBodyPanelTopology", "backBodyPanelTopology", "sidePanelTopology", "shoulderPanelTopology", "yokeTopology", "collarPatternTopology", "lapelTopology", "hoodPatternTopology", "sleevePatternTopology", "sleeveCapConnection", "cuffConstruction", "armholeSeamRoute", "sideSeamRoute", "centerFrontRoute", "centerBackRoute", "shoulderSeamRoute", "waistSeamRoute", "princessSeamPresence", "dartPresence", "dartOriginTermination", "pleatPresence", "pleatOriginRetention", "gatherOriginDistribution", "tuckTopology", "gussetPresencePlacement", "ventPresencePlacement", "slitPresencePlacement", "hemConstruction", "facingTopology", "liningTopology", "interliningReinforcement", "bindingTopology", "pipingTopology", "trimAttachmentTopology", "pocketBagConstruction", "pocketOpeningReinforcement", "flapAttachment", "placketConstruction", "zipperRouteTermination", "buttonRouteSpacing", "buttonholeRoute", "snapRoute", "hookEyeRoute", "buckleAttachment", "beltLoopTopology", "lacingRouteAnchors", "drawcordRouteExits", "elasticChannelTopology", "strapAnchorTopology", "harnessAnchorTopology", "bagAttachmentTopology", "closureLoadDirection", "seamLoadDirection", "reinforcementLoadPath", "shoulderLoadTransfer", "waistLoadTransfer", "seatCrotchLoadTransfer", "sleeveMovementLoadTransfer", "mobilityEquipmentContactReinforcement", "footwearUpperSoleAttachment", "repairSeamCompatibility", "materialEdgeFinishing", "seamAllowancePlausibility", "hiddenSurfaceContinuationClass"
+  ],
+  "constructionInvariants": [
+    "one coherent garment topology across viewpoints", "pattern pieces remain stable across motion", "seams join or shape real construction", "darts require source backed shaping authority", "closures have opening receiving side termination and load path", "buttons require receiving closure", "zippers require route and termination", "buckles require anchored continuation", "lacing requires reinforced anchors", "drawcords require channels and exits", "pockets retain physical volume", "pockets do not migrate across views", "seams do not migrate across views", "closure type does not change by viewpoint", "motion changes load not topology", "premium does not increase construction complexity", "construction does not increase exposure", "construction does not redesign authorized body", "material behavior remains compatible with construction", "seated load remains mechanically plausible", "crouch load remains mechanically plausible", "wheelchair contact remains mechanically plausible", "assistive equipment clearance remains functional", "repair attaches to real construction", "LOD removes micro detail before topology", "chibi preserves major garment topology", "sprite preserves major garment topology", "hidden surfaces use minimum neutral continuation", "generated construction remains candidate only", "generated construction never creates canon"
+  ],
+  "preservationPriority": [
+    "existingCanonGarmentConstruction", "authorizedBodyConstruction", "garmentInventoryAndLayerOrder", "majorPatternPieceTopology", "closureTypeAndRoute", "pocketStorageTopology", "strapHarnessAnchorLogic", "mobilityEquipmentClearance", "materialConstructionCompatibility", "loadPathContinuity", "fitTensionCompressionAuthority", "microStitchAndPolishDetail"
+  ],
+  "forbiddenShortcuts": [
+    "randomDecorativePanelLines", "randomPrincessSeams", "randomBustDarts", "randomWaistDarts", "randomCorsetPaneling", "randomShoulderYokes", "randomContrastTopstitching", "randomGoldSeamTrim", "randomZipperAsDecoration", "randomBucklesAsDecoration", "randomLacingAsDecoration", "randomHarnessAsDecoration", "randomBeltLoopsWithoutBeltLogic", "randomStrapAnchors", "floatingButtons", "buttonsWithoutReceivingClosure", "zipperWithoutTermination", "zipperWithoutOpposingEdge", "buckleWithoutAnchor", "lacingWithoutReinforcedAnchors", "drawcordWithoutChannel", "pocketOpeningWithoutPocketVolume", "pocketMigrationAcrossViews", "seamMigrationAcrossViews", "dartMigrationAcrossViews", "closureMigrationAcrossViews", "inventedRearSeams", "inventedHiddenPaneling", "mirroredCanonicalConstructionAsymmetry", "seamUsedToNarrowWaist", "dartUsedToInventChestVolume", "dartUsedToInventHipVolume", "panelingUsedToSlimBody", "shoulderSeamUsedToBroadenBody", "underBustSeamUsedForSexualization", "crotchSeamUsedForAnatomyEmphasis", "fakeMusculatureFromSeamHighlight", "openClosureToSolveFit", "openClosureToIncreaseExposure", "slitAddedToSolveStride", "ventAddedToSolveMotion", "hemRaisedToSolvePose", "necklineWidenedToSolveOverlap", "sleeveRolledToAvoidConstruction", "layerRemovedToReduceBulk", "cutoutAddedToResolveIntersection", "gussetInventedForActionPose", "pleatInventedForPremiumDetail", "gatherInventedForBodyEmphasis", "closureTypeChangesByView", "closureTypeChangesByStateWithoutDelta", "premiumAddsConstructionComplexity", "premiumAddsCorsetry", "premiumAddsHarness", "premiumAddsExtraZippers", "premiumAddsExtraBuckles", "premiumAddsGoldSeamEdges", "lodConvergesToGenericGarmentTopology", "chibiConvergesToGenericGarmentTopology", "spriteConvergesToGenericGarmentTopology", "mobilityEquipmentContactIgnored", "wheelchairPressureZoneIgnored", "assistiveClearanceSolvedByInventedOpening", "generatedConstructionAccidentCreatesCanon"
+  ],
+  "rules": {
+    "unknownGarmentConstructionMayBeInventedByImageModel": false,
+    "viewpointMayRedesignPatternTopology": false,
+    "viewpointMayMoveSeams": false,
+    "viewpointMayMoveClosures": false,
+    "viewpointMayMovePockets": false,
+    "premiumMayAddConstructionComplexity": false,
+    "premiumMayAddDecorativeSeams": false,
+    "premiumMayAddCorsetryOrHarness": false,
+    "constructionMayIncreaseExposure": false,
+    "constructionMayRedesignAuthorizedBody": false,
+    "motionMayChangeGarmentTopology": false,
+    "poseMayInventGussetVentOrSlit": false,
+    "closureMayOpenToSolveFit": false,
+    "closureMayOpenToIncreaseExposure": false,
+    "seamMayBeUsedForBodyBeautification": false,
+    "dartMayInventUnsupportedAnatomy": false,
+    "pocketMayMigrateForComposition": false,
+    "loadPathMayTerminateWithoutAnchor": false,
+    "materialMayIgnoreConstructionLimits": false,
+    "mobilityEquipmentContactMayBeIgnored": false,
+    "assistiveClearanceMayBeSolvedByInventedOpening": false,
+    "lodMayConvergeToGenericGarmentTopology": false,
+    "chibiMayConvergeToGenericGarmentTopology": false,
+    "spriteMayConvergeToGenericGarmentTopology": false,
+    "generatedGarmentConstructionCreatesCanon": false
+  }
+}
