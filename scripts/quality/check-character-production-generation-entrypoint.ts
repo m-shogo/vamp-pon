@@ -11,13 +11,13 @@ const profilePaths = [
 ];
 
 const layeredPolicies = [
-  ['hair', 'data/visual/all-character-hair-grooming-construction-fidelity-master-v1.json', 'docs/visual/all-character-hair-grooming-construction-fidelity-master-v1.md'],
-  ['face', 'data/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.json', 'docs/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.md'],
-  ['body', 'data/visual/all-character-body-mass-posture-construction-fidelity-master-v1.json', 'docs/visual/all-character-body-mass-posture-construction-fidelity-master-v1.md'],
-  ['garmentFit', 'data/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.json', 'docs/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.md'],
-  ['garmentConstruction', 'data/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.json', 'docs/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.md'],
-  ['garmentMaterial', 'data/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.json', 'docs/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.md'],
-  ['dressingWorkflow', 'data/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.json', 'docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md'],
+  ['hair', 'data/visual/all-character-hair-grooming-construction-fidelity-master-v1.json', 'docs/visual/all-character-hair-grooming-construction-fidelity-master-v1.md', 14],
+  ['face', 'data/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.json', 'docs/visual/all-character-face-skull-landmark-construction-fidelity-master-v1.md', 15],
+  ['body', 'data/visual/all-character-body-mass-posture-construction-fidelity-master-v1.json', 'docs/visual/all-character-body-mass-posture-construction-fidelity-master-v1.md', 12],
+  ['garmentFit', 'data/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.json', 'docs/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.md', 12],
+  ['garmentConstruction', 'data/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.json', 'docs/visual/all-character-garment-pattern-seam-closure-load-fidelity-master-v1.md', 12],
+  ['garmentMaterial', 'data/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.json', 'docs/visual/all-character-garment-material-drape-fold-memory-fidelity-master-v1.md', 12],
+  ['dressingWorkflow', 'data/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.json', 'docs/visual/all-character-garment-don-doff-dressing-workflow-fidelity-master-v1.md', 12],
 ] as const;
 
 function fail(message: string): never {
@@ -40,11 +40,12 @@ const basePolicy = JSON.parse(readFileSync(resolve(root, terminalPolicy.basePoli
 if (basePolicy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT' || basePolicy.scopeCount !== 36) fail('base production policy invalid');
 if (terminalPolicy.wrappedExporter !== basePolicy.productionExporter) fail('terminal wrapper/base exporter mismatch');
 
-const loadedPolicies = layeredPolicies.map(([name, policyPath, authorityPath]) => {
+const loadedPolicies = layeredPolicies.map(([name, policyPath, authorityPath, minimumPriority]) => {
   const policy = JSON.parse(readFileSync(resolve(root, policyPath), 'utf8'));
   if (policy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY' || policy.scopeCount !== 36 || policy.assetKindCount !== 9) fail(`${name}: authority invalid`);
   for (const [field, value] of Object.entries(policy.rules ?? {})) if (value !== false) fail(`${name}: machine rule must remain false: ${field}`);
-  return { name, policyPath, authorityPath, policy };
+  if ((policy.preservationPriority ?? []).length < minimumPriority) fail(`${name}: preservation priority depth weakened`);
+  return { name, policyPath, authorityPath, policy, minimumPriority };
 });
 
 const ids: string[] = [];
@@ -96,9 +97,17 @@ for (const id of ids) {
   if (exported.generatedOutputState !== 'CANDIDATE_REVIEW_REQUIRED') fail(`${id}: candidate boundary weakened`);
   if (Array.isArray(exported.imageGenerationReadinessFailures) && exported.imageGenerationReadinessFailures.length > 0) fail(`${id}: readiness failures present`);
 
-  for (const { name, policyPath, authorityPath, policy } of loadedPolicies) {
+  for (const { name, policyPath, authorityPath, policy, minimumPriority } of loadedPolicies) {
     for (const field of Object.keys(policy.rules ?? {})) if (exported[field] !== false) fail(`${id}: ${name} guard weakened: ${field}`);
     if (!exported.authorityOrder?.includes(policyPath) || !exported.authorityOrder?.includes(authorityPath)) fail(`${id}: ${name} authority chain missing`);
+    const priorityField = name === 'face' ? 'faceLandmarkPreservationPriority'
+      : name === 'body' ? 'bodyPreservationPriority'
+      : name === 'garmentFit' ? 'garmentFitPreservationPriority'
+      : name === 'garmentConstruction' ? 'garmentConstructionPreservationPriority'
+      : name === 'garmentMaterial' ? 'garmentMaterialPreservationPriority'
+      : name === 'dressingWorkflow' ? 'dressingWorkflowPreservationPriority'
+      : null;
+    if (priorityField && (exported[priorityField] ?? []).length < minimumPriority) fail(`${id}: ${name} exported preservation priority weakened`);
   }
 
   if ((exported.faceConstructionAxes ?? []).length < 46) fail(`${id}: face construction axes missing`);
