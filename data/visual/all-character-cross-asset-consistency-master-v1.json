@@ -1,0 +1,80 @@
+{
+  "id": "yoru-no-shirube-all-character-cross-asset-consistency-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_VISUAL_PRODUCTION_AUTHORITY_EXTENSION",
+  "scopeCount": 36,
+  "authorityDocument": "docs/visual/all-character-cross-asset-consistency-master-v1.md",
+  "assetKinds": [
+    "sprite_sheet_180",
+    "character_reference",
+    "normal_cutin",
+    "dawn_cutin",
+    "kokuyou_cutin",
+    "emblem_blank",
+    "emblem_normal",
+    "emblem_dawn",
+    "emblem_kokuyou"
+  ],
+  "identityPreservationOrder": [
+    "species-age-body-identity",
+    "face-construction-nearest-face-difference",
+    "body-shape-proportion-mobility-equipment",
+    "head-hair-mass",
+    "neutral-silhouette-posture",
+    "clothing-silhouette-major-construction",
+    "exposure-piercing-tattoo-boundaries",
+    "source-backed-theme-base-color",
+    "signature-prop-relation",
+    "major-material-contrast",
+    "secondary-closure-pocket-repair",
+    "micro-seams-texture-minor-accessory"
+  ],
+  "unknownSimplificationMayRedesignCharacter": false,
+  "smallScaleMayInventReadabilityAccessory": false,
+  "effectsMayRedesignCharacter": false,
+  "emblemMayCreateAppearanceCanon": false,
+  "generatedCrossAssetDetailCreatesCanon": false,
+  "assetKindRules": {
+    "character_reference": {
+      "mode": "FULL_IDENTITY_INSPECTION",
+      "preserve": ["full-identity-geometry","body-proportion","major-clothing-construction","prop-relation","color-channel-separation"],
+      "forbid": ["large-canvas-premium-ornament","cinematic-light-redesign"]
+    },
+    "sprite_sheet_180": {
+      "mode": "SMALL_SCALE_IDENTITY_SIMPLIFICATION",
+      "preserve": ["head-body-proportion","head-hair-mass","body-mass-center-of-gravity","silhouette-family","large-clothing-masses","source-backed-color-blocks","mobility-equipment","non-human-anatomy"],
+      "simplifyFirst": ["micro-seams","subtle-texture","micro-fasteners","minor-repair-stitch","tiny-secondary-accessories"],
+      "forbid": ["same-chibi-circle-head","same-slim-body-base","giant-eye-homogenization","invented-readability-ribbon-hat-gem-weapon","disability-removal","animal-humanoidization","floating-prop-icon"]
+    },
+    "normal_cutin": {
+      "mode": "DRAMATIC_CROP_WITH_IDENTITY_LOCK",
+      "preserve": ["face","age","body-size","disability-species","clothing-construction","exposure-body-modification","color-identity","prop-logic"]
+    },
+    "dawn_cutin": {
+      "mode": "DAWN_EFFECT_WITH_IDENTITY_LOCK",
+      "preserve": ["normal-identity-and-construction"],
+      "forbid": ["skin-whitening","all-gold-accent","angelic-jewelry","invented-flowing-cloth","de-aging","unapproved-ceremonial-costume"]
+    },
+    "kokuyou_cutin": {
+      "mode": "KOKUYOU_EFFECT_WITH_IDENTITY_LOCK",
+      "preserve": ["normal-face-body-species-disability-clothing-base"],
+      "forbid": ["monster-face-rebuild","random-horns-tattoo-scars","black-armor-conversion","black-neon-template","sexualized-torn-exposure"]
+    },
+    "emblem_blank": {"mode":"EMBLEM_CANON_ONLY","characterAppearanceNotRequired":true},
+    "emblem_normal": {"mode":"EMBLEM_CANON_ONLY","characterAppearanceNotRequired":true},
+    "emblem_dawn": {"mode":"EMBLEM_CANON_ONLY","characterAppearanceNotRequired":true},
+    "emblem_kokuyou": {"mode":"EMBLEM_CANON_ONLY","characterAppearanceNotRequired":true}
+  },
+  "crossAssetReviewGate": [
+    "same-face-geometry",
+    "same-body-mass-and-proportion",
+    "same-head-hair-mass",
+    "same-silhouette-hierarchy",
+    "same-wardrobe-construction",
+    "same-exposure-body-modification-boundaries",
+    "same-body-color-identity",
+    "theme-color-not-migrated-into-body",
+    "prop-scale-placement-not-new-identity",
+    "rendering-effects-not-design-change"
+  ]
+}
