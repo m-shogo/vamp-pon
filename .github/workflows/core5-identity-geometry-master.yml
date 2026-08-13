@@ -1,0 +1,54 @@
+name: Core5 Identity Geometry Master
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/core5-identity-geometry-master-v1.md'
+      - 'data/visual/core5-identity-geometry-master-v1.json'
+      - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'tools/asset-factory/scripts/export-character-asset-prompt.ts'
+      - 'scripts/quality/check-core5-identity-geometry-master.ts'
+      - '.github/workflows/core5-identity-geometry-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/core5-identity-geometry-master-v1.md'
+      - 'data/visual/core5-identity-geometry-master-v1.json'
+      - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'tools/asset-factory/scripts/export-character-asset-prompt.ts'
+      - 'scripts/quality/check-core5-identity-geometry-master.ts'
+      - '.github/workflows/core5-identity-geometry-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Core5 identity geometry master
+        run: node --experimental-strip-types scripts/quality/check-core5-identity-geometry-master.ts
+      - name: Smoke-test resolved Core5 identity geometry
+        run: |
+          node --experimental-strip-types tools/asset-factory/scripts/export-character-asset-prompt.ts \
+            --character yui --kind character_reference --format json --output /tmp/yui-geometry.json
+          node --experimental-strip-types tools/asset-factory/scripts/export-character-asset-prompt.ts \
+            --character tomori --kind character_reference --format json --output /tmp/tomori-geometry.json
+          node - <<'NODE'
+          const yui = require('/tmp/yui-geometry.json');
+          const tomori = require('/tmp/tomori-geometry.json');
+          for (const [id, x, signature] of [
+            ['yui', yui, 'YUI-SOFT-DIMPLE'],
+            ['tomori', tomori, 'TOMORI-HOODED-REPAIR'],
+          ]) {
+            if (!x.authorityOrder.includes('docs/visual/core5-identity-geometry-master-v1.md')) throw new Error(`${id}: geometry master missing from authority order`);
+            if (!x.core5IdentityGeometryProfile) throw new Error(`${id}: geometry profile missing`);
+            if (x.core5IdentityGeometryProfile.faceSignatureId !== signature) throw new Error(`${id}: face signature mismatch`);
+            if (x.unknownIdentityGeometryMayBeInventedByImageModel !== false) throw new Error(`${id}: geometry invention guard weakened`);
+            if (!x.prompt.includes('CORE5 IDENTITY GEOMETRY MASTER — REQUIRED FACE/BODY AUTHORITY.')) throw new Error(`${id}: geometry prompt block missing`);
+          }
+          NODE
