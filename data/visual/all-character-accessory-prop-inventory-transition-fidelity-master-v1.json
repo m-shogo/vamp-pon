@@ -1,0 +1,57 @@
+{
+  "id": "yoru-no-shirube-all-character-accessory-prop-inventory-transition-fidelity-master-v1",
+  "date": "2026-08-13",
+  "status": "CURRENT_PRODUCTION_VISUAL_AUTHORITY",
+  "scopeCount": 36,
+  "assetKindCount": 9,
+  "authorityDocument": "docs/visual/all-character-accessory-prop-inventory-transition-fidelity-master-v1.md",
+  "unknownInventoryDefault": "SOURCE_CONSTRAINED_NO_INVENTION_ACCESSORY_INVENTORY_COMPLETION",
+  "production": {
+    "requiredForCandidateGeneration": true,
+    "generatedOutputState": "CANDIDATE_REVIEW_REQUIRED",
+    "generatedInventoryCreatesCanon": false
+  },
+  "inventoryAxes": [
+    "objectExistenceAuthority", "objectAbsenceAuthority", "objectClass", "canonicalObjectIdentity", "inventoryCount", "duplicateProhibitionStatus", "leftRightPairedStatus", "pairedObjectIdentityRelationship", "objectSizeFamily", "objectMassFamily", "primaryMaterialFamily", "colorFamily", "majorShapeTopology", "majorSilhouetteTopology", "canonicalAsymmetry", "objectMarkingLabelContinuity", "attachmentPoint", "attachmentHardware", "attachmentOrientation", "wornBodyRegion", "carriedHandState", "carriedLeftRightHandState", "twoHandCarryState", "shoulderCarryState", "backCarryState", "waistCarryState", "pocketStorageState", "bagStorageState", "caseHolsterStorageState", "environmentPlacementState", "restingState", "activeUseState", "closedOpenObjectState", "foldedUnfoldedState", "collapsedExtendedState", "packedUnpackedState", "objectBodyContact", "objectGarmentContact", "objectHairContact", "objectEquipmentContact", "objectOtherPropContact", "storageOpeningCompatibility", "storageVolumeCompatibility", "storageDepthCompatibility", "storageRetentionMethod", "retrievalPath", "returnPath", "drawUseReturnSequence", "donRemoveStoreSequence", "sourceBackedHandoffStatus", "temporaryPlacementStatus", "objectVisibilityByViewpoint", "hiddenSideContinuation", "occlusionSurvival", "cropSurvivalPriority", "motionSurvival", "seatedStateLocation", "crouchedStateLocation", "sourceBackedRestSleepState", "weatherStateLocation", "battleActionStateLocation", "premiumStateInheritance", "seasonalStateInheritance", "lodSurvivalPriority", "chibiObjectIdentityClass", "spriteObjectIdentityClass", "objectOmissionPermissionStatus", "temporaryRemovalAuthority", "permanentInventoryChangeAuthority", "breakageDamageAuthority", "repairReplacementAuthority", "relationshipEvidenceBoundary", "ownershipMeaningBoundary", "culturalMeaningBoundary", "generatedAccidentRejectionStatus", "inventoryUncertaintyClass"
+  ],
+  "inventoryInvariants": [
+    "unsupported removable accessories are never invented", "unsupported props are never invented", "source backed absence remains authoritative", "inventory count remains authoritative", "one object does not duplicate between held and stored states", "one sided attachments are not mirrored", "single items are not converted to pairs", "paired items remain paired where source backed", "object identity remains stable across worn held stored and placed states", "object scale remains stable across state transitions", "object material and color remain stable unless authority changes them", "storage volume remains compatible with object size", "storage openings remain physically compatible", "retrieval and return paths remain mechanically plausible", "held objects require real hand contact", "held objects leave their prior storage location", "placed objects leave their worn or stored location", "viewpoint does not migrate object attachment", "occlusion hides rather than deletes inventory", "crop does not hide inventory mismatch", "state variants inherit baseline inventory without authorized delta", "premium does not increase inventory count", "premium does not replace practical objects with ornate variants", "premium does not infer relationship tokens", "weather does not invent weather props", "battle does not invent combat props", "seasonal state does not invent headwear", "LOD preserves identity objects before micro detail", "chibi preserves count and location before ornament detail", "sprite preserves one sided attachment logic", "relationship meaning is not inferred from shared objects", "ownership meaning is not inferred from placement alone", "generated object state remains candidate only", "generated inventory never creates canon"
+  ],
+  "preservationPriority": [
+    "sourceBackedExistenceAndAbsence", "inventoryCountAndPairLogic", "canonicalObjectIdentity", "attachmentAndStorageLocation", "wornHeldStoredPlacedState", "retrievalReturnTransitionPath", "storageVolumeAndOpeningCompatibility", "handContactAndUseState", "viewpointOcclusionCropContinuity", "stateVariantInheritance", "lodIdentitySurvival", "surfaceOrnamentMicroDetail"
+  ],
+  "forbiddenShortcuts": [
+    "inventAccessoryBecauseSilhouetteFeelsEmpty", "inventPropBecauseHandsFeelEmpty", "inventBagBecauseWaistFeelsEmpty", "inventUtilityPouchForGenreShorthand", "inventGlovesForCombatRole", "inventHatForSeasonalMood", "inventEyewearForIntelligenceCoding", "inventToolFromOccupationGuess", "inventGiftFromRelationshipGuess", "inventMatchingAccessoryForRelationshipEvidence", "inventLuxuryVariantForPremium", "inventSpareOrBackupObject", "duplicateObjectBetweenHandAndStorage", "duplicateObjectAcrossTwoHands", "duplicateBagForSymmetry", "mirrorOneSidedPouch", "mirrorOneSidedCase", "convertSingleItemToPair", "convertPairToSingle", "objectTeleportsBetweenStates", "objectChangesIdentityWhenDrawn", "objectChangesColorWhenProminent", "objectChangesMaterialWhenProminent", "objectGainsOrnamentWhenProminent", "objectScaleInflatesForHeroFraming", "objectShrinksToFitPocket", "pocketEnlargesToFitObject", "invisibleStorageCompartmentInvented", "storageOpeningInvented", "retentionHardwareInvented", "heldObjectStillVisibleInStorage", "placedObjectStillVisibleOnBody", "removedEyewearStillVisibleOnFace", "glassesMergeIntoFace", "headwearChangesSilhouetteByView", "hairOcclusionDeletesAccessory", "cropHidesInventoryMismatch", "effectsHideInventoryMismatch", "bagStrapChangesSideByView", "pouchMigratesAroundWaist", "toolHolsterMigratesByView", "propFloatsNearHand", "gripChangesHandAnatomy", "objectClipsThroughGarment", "objectClipsThroughMobilityEquipment", "stateAddsAccessoryWithoutDelta", "stateRemovesAccessoryWithoutDelta", "premiumAddsAccessoryCount", "premiumAddsUtilityPouches", "premiumAddsGoldOrGems", "premiumAddsMatchingRelationshipToken", "premiumAddsGlowToProp", "premiumReplacesObjectWithOrnateVariant", "seasonalAddsUnapprovedHeadwear", "battleAddsUnapprovedTool", "weatherAddsUnapprovedUmbrella", "lodDeletesIdentityObjectWithoutPermission", "lodMovesObjectForReadability", "chibiEnlargesObjectIntoIcon", "spriteMirrorsOneSidedAttachment", "generatedPlacementCreatesOwnershipCanon", "generatedPropCreatesRelationshipEvidence", "generatedObjectIdentityCreatesCanon", "generatedInventoryCreatesCanon", "pairLogicInferredFromSymmetry", "spareItemInferredFromPreparedness", "bagInventedFromStorageNeed", "caseInventedFromToolNeed", "holsterInventedFromPropNeed", "objectPlacedInEnvironmentBecomesSetDressingCanon", "objectHandedOffInventsRelationship", "objectWearStateInventsHabit", "premiumAddsDecorativeCase", "premiumAddsSecondEyewear", "premiumAddsExtraHeadAccessory"
+  ],
+  "rules": {
+    "unknownAccessoryPropMayBeInventedByImageModel": false,
+    "unspecifiedAccessoryMayBeAdded": false,
+    "unspecifiedPropMayBeAdded": false,
+    "inventoryCountMayChangeWithoutAuthority": false,
+    "singleItemMayBecomePair": false,
+    "pairedItemMayBecomeSingle": false,
+    "oneSidedAttachmentMayBeMirrored": false,
+    "heldObjectMayRemainDuplicatedInStorage": false,
+    "placedObjectMayRemainDuplicatedOnBody": false,
+    "objectIdentityMayChangeAcrossStates": false,
+    "objectScaleMayChangeForComposition": false,
+    "objectMayShrinkToFitStorage": false,
+    "storageMayExpandToFitObject": false,
+    "hiddenStorageMayBeInvented": false,
+    "viewpointMayMigrateObjectAttachment": false,
+    "occlusionMayDeleteInventory": false,
+    "cropMayHideInventoryMismatch": false,
+    "stateMayAddInventoryWithoutDelta": false,
+    "stateMayRemoveInventoryWithoutDelta": false,
+    "premiumMayIncreaseInventoryCount": false,
+    "premiumMayReplaceObjectWithOrnateVariant": false,
+    "relationshipEvidenceMayBeInferredFromAccessory": false,
+    "ownershipMeaningMayBeInferredFromPlacement": false,
+    "weatherMayInventProp": false,
+    "battleMayInventProp": false,
+    "lodMayMoveOrDeleteIdentityObjectForReadability": false,
+    "chibiMayEnlargeAccessoryIntoIcon": false,
+    "spriteMayMirrorOneSidedObjectAttachment": false,
+    "generatedInventoryCreatesCanon": false
+  }
+}
