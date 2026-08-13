@@ -5,6 +5,10 @@ import { CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT } from '../../src/game/data/c
 
 const root = process.cwd();
 const policyPath = 'data/visual/character-production-generation-entrypoint-v1.json';
+const bodyPolicyPath = 'data/visual/all-character-body-mass-posture-construction-fidelity-master-v1.json';
+const bodyAuthorityPath = 'docs/visual/all-character-body-mass-posture-construction-fidelity-master-v1.md';
+const garmentFitPolicyPath = 'data/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.json';
+const garmentFitAuthorityPath = 'docs/visual/all-character-garment-body-fit-tension-compression-fidelity-master-v1.md';
 const profilePaths = [
   'data/visual/core5-living-visual-profiles-v1.json',
   'data/visual/current21-extended-living-visual-profiles-v1.json',
@@ -16,6 +20,8 @@ function fail(message: string): never {
 }
 
 const policy = JSON.parse(readFileSync(resolve(root, policyPath), 'utf8'));
+const bodyPolicy = JSON.parse(readFileSync(resolve(root, bodyPolicyPath), 'utf8'));
+const garmentFitPolicy = JSON.parse(readFileSync(resolve(root, garmentFitPolicyPath), 'utf8'));
 if (policy.status !== 'TOP_LEVEL_PRODUCTION_IMAGE_GENERATION_ENTRYPOINT') fail('policy status invalid');
 if (policy.scopeCount !== 36) fail('scopeCount must be 36');
 if (policy.productionExporter !== CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.exporter) fail('code/policy exporter mismatch');
@@ -24,6 +30,8 @@ if (policy.lowerExportersAreProductionEntrypoints !== false) fail('lower exporte
 if (policy.handWrittenPromptIsProductionReady !== false) fail('hand prompt bypass guard weakened');
 if (CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.lowerExporterOutputIsProductionReady !== false) fail('code lower-exporter guard weakened');
 if (CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT.handWrittenPromptIsProductionReady !== false) fail('code hand-prompt guard weakened');
+if (bodyPolicy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY' || bodyPolicy.scopeCount !== 36 || bodyPolicy.assetKindCount !== 9) fail('body authority invalid');
+if (garmentFitPolicy.status !== 'CURRENT_PRODUCTION_VISUAL_AUTHORITY' || garmentFitPolicy.scopeCount !== 36 || garmentFitPolicy.assetKindCount !== 9) fail('garment/body fit authority invalid');
 
 for (const [groupName, requiredField] of [
   ['hairTerminalWrapperRequiredFlags', 'allCharacterHairGroomingConstructionFidelityRequired'],
@@ -49,45 +57,16 @@ for (const path of profilePaths) {
 if (ids.length !== 36 || new Set(ids).size !== 36) fail(`expected 36 unique production IDs, got ${ids.length}/${new Set(ids).size}`);
 
 const hairFalseFields = [
-  'unknownHairMayBeInventedByImageModel',
-  'viewpointMayChangeHairline',
-  'viewpointMayChangePart',
-  'viewpointMayChangeFringeTopology',
-  'viewpointMayChangeEarExposure',
-  'viewpointMayChangeTieAnchor',
-  'viewpointMayMirrorCanonicalHairAsymmetry',
-  'premiumAssetMayBeautifyHairline',
-  'premiumAssetMayIncreaseHairOrnament',
-  'premiumAssetMayChangeHairVolume',
-  'stateMayChangeHairstyleWithoutAuthorizedDelta',
-  'weatherMayRedesignHairTopology',
-  'motionMayRedesignHairTopology',
-  'wetHairMayIncreaseSexualization',
-  'lodMayChangeIdentityHairTopology',
-  'hairMayHideMobilityEquipmentForComposition',
-  'skinToneMayInferHairTextureOrCulturalStyle',
-  'generatedHairTreatmentCreatesCanon',
+  'unknownHairMayBeInventedByImageModel','viewpointMayChangeHairline','viewpointMayChangePart','viewpointMayChangeFringeTopology','viewpointMayChangeEarExposure','viewpointMayChangeTieAnchor','viewpointMayMirrorCanonicalHairAsymmetry','premiumAssetMayBeautifyHairline','premiumAssetMayIncreaseHairOrnament','premiumAssetMayChangeHairVolume','stateMayChangeHairstyleWithoutAuthorizedDelta','weatherMayRedesignHairTopology','motionMayRedesignHairTopology','wetHairMayIncreaseSexualization','lodMayChangeIdentityHairTopology','hairMayHideMobilityEquipmentForComposition','skinToneMayInferHairTextureOrCulturalStyle','generatedHairTreatmentCreatesCanon',
 ];
-
 const faceFalseFields = [
-  'unknownFaceGeometryMayBeInventedByImageModel',
-  'viewpointMayRedesignCraniofacialLandmarks',
-  'expressionMayRedesignSkullGeometry',
-  'premiumMayBeautifyFaceRatios',
-  'premiumMayIncreaseEyeSize',
-  'premiumMayNarrowJaw',
-  'premiumMaySharpenChin',
-  'premiumMayShrinkNose',
-  'lodMayConvergeToGenericFace',
-  'chibiMayConvergeToGenericFace',
-  'spriteMayConvergeToGenericFace',
-  'stateMayChangeBaselineFaceWithoutTransformationAuthority',
-  'lightingMayHideFaceMismatch',
-  'hairMayHideFaceMismatch',
-  'cropMayHideFaceMismatch',
-  'effectsMayHideFaceMismatch',
-  'identityTraitsMayBeGuessedFromFacialStereotype',
-  'generatedFaceTreatmentCreatesCanon',
+  'unknownFaceGeometryMayBeInventedByImageModel','viewpointMayRedesignCraniofacialLandmarks','expressionMayRedesignSkullGeometry','premiumMayBeautifyFaceRatios','premiumMayIncreaseEyeSize','premiumMayNarrowJaw','premiumMaySharpenChin','premiumMayShrinkNose','lodMayConvergeToGenericFace','chibiMayConvergeToGenericFace','spriteMayConvergeToGenericFace','stateMayChangeBaselineFaceWithoutTransformationAuthority','lightingMayHideFaceMismatch','hairMayHideFaceMismatch','cropMayHideFaceMismatch','effectsMayHideFaceMismatch','identityTraitsMayBeGuessedFromFacialStereotype','generatedFaceTreatmentCreatesCanon',
+];
+const bodyFalseFields = [
+  'unknownBodyGeometryMayBeInventedByImageModel','premiumMayBeautifyBodyProportions','premiumMayLengthenLegs','premiumMayNarrowWaist','premiumMaySlimBodyCategory','premiumMayIncreaseMuscularity','viewpointMayRedesignBodyProportions','perspectiveMayChangeBodyCategory','poseMayChangeBaselineBodyConstruction','lightingMaySlimAuthorizedBodyMass','surfaceMayInventMusculature','clothingMayImplyUnsupportedBodyShape','wetClothingMayIncreaseBodySexualization','damageMayRevealUnsupportedAnatomy','lodMayConvergeToGenericBody','chibiMayConvergeToGenericBody','spriteMayConvergeToGenericBody','cropMayHideBodyMismatch','effectsMayHideBodyMismatch','hairMayHideShoulderMismatch','mobilityEquipmentMayBeRescaledForBodyBeautification','identityTraitsMayBeGuessedFromBodyStereotype','generatedBodyTreatmentCreatesCanon',
+];
+const garmentFitFalseFields = [
+  'unknownGarmentFitMayBeInventedByImageModel','garmentMayRedesignAuthorizedBody','looseGarmentMayImplyThinnerBody','tightGarmentMayInventUnsupportedAnatomy','premiumMayIncreaseBodyCling','premiumMaySuppressWaist','premiumMayIncreaseExposureForFit','poseMayChangeGarmentConstruction','seatedPoseMaySlimBodyForClearance','crouchMaySlimBodyForOverlap','wetnessMayIncreaseAnatomicalRevelation','damageMayChangeFitOrExposureWithoutAuthority','foldsMayInventMusculature','strapsMayReshapeBodyBeyondLocalizedPressure','beltsMayManufactureNarrowerWaist','layersMayEraseAuthorizedBodyMass','mobilityEquipmentMayBeHiddenToSimplifyFit','wheelchairContactMayBeIgnored','assistiveDeviceClearanceMayBeIgnored','lodMayConvergeToGenericSlimFit','chibiMayConvergeToGenericSlimFit','spriteMayConvergeToGenericSlimFit','identityTraitsMayBeGuessedFromFitStereotype','generatedGarmentFitCreatesCanon',
 ];
 
 for (const id of ids) {
@@ -95,7 +74,7 @@ for (const id of ids) {
     '--experimental-strip-types', resolve(root, policy.productionExporter),
     '--character', id,
     '--kind', 'character_reference',
-  ], { cwd: root, encoding: 'utf8', maxBuffer: 160 * 1024 * 1024 });
+  ], { cwd: root, encoding: 'utf8', maxBuffer: 192 * 1024 * 1024 });
   const exported = JSON.parse(stdout);
   if (exported.productionImageGenerationEntrypoint !== true) fail(`${id}: production entrypoint flag missing`);
   if (exported.productionCharacterPromptReady !== true) fail(`${id}: production ready flag missing`);
@@ -112,18 +91,27 @@ for (const id of ids) {
   if (exported.allCharacterViewpointTurnaroundBackDesignFidelityRequired !== true) fail(`${id}: turnaround terminal chain missing`);
   if (exported.allCharacterHairGroomingConstructionFidelityRequired !== true) fail(`${id}: hair terminal chain missing`);
   if (exported.allCharacterFaceSkullLandmarkConstructionFidelityRequired !== true) fail(`${id}: face terminal chain missing`);
+  if (exported.allCharacterBodyMassPostureConstructionFidelityRequired !== true) fail(`${id}: body construction chain missing`);
+  if (exported.allCharacterGarmentBodyFitTensionCompressionFidelityRequired !== true) fail(`${id}: garment/body fit chain missing`);
   for (const field of hairFalseFields) if (exported[field] !== false) fail(`${id}: hair guard weakened: ${field}`);
   for (const field of faceFalseFields) if (exported[field] !== false) fail(`${id}: face guard weakened: ${field}`);
+  for (const field of bodyFalseFields) if (exported[field] !== false) fail(`${id}: body guard weakened: ${field}`);
+  for (const field of garmentFitFalseFields) if (exported[field] !== false) fail(`${id}: garment/body fit guard weakened: ${field}`);
   if ((exported.faceConstructionAxes ?? []).length < 46) fail(`${id}: face construction axes missing`);
   if ((exported.faceLandmarkPreservationPriority ?? []).length < 15) fail(`${id}: face preservation priority missing`);
+  if ((exported.bodyConstructionAxes ?? []).length < 52) fail(`${id}: body construction axes missing`);
+  if ((exported.bodyPreservationPriority ?? []).length < 12) fail(`${id}: body preservation priority missing`);
+  if ((exported.garmentFitConstructionAxes ?? []).length < 55) fail(`${id}: garment/body fit construction axes missing`);
+  if ((exported.garmentFitPreservationPriority ?? []).length < 12) fail(`${id}: garment/body fit preservation priority missing`);
   if (!exported.prompt.includes('CHARACTER PRODUCTION GENERATION ENTRYPOINT — FINAL AUTHORITY LOCK.')) fail(`${id}: final production prompt block missing`);
   if (!exported.prompt.includes('HAIR / GROOMING CONSTRUCTION FIDELITY — FINAL HAIR TOPOLOGY LOCK.')) fail(`${id}: final hair prompt block missing`);
   if (!exported.prompt.includes('FACE / SKULL LANDMARK CONSTRUCTION FIDELITY — FINAL CRANIOFACIAL IDENTITY LOCK.')) fail(`${id}: final face prompt block missing`);
-  for (const path of policy.requiredAuthorityPaths) {
-    if (!exported.authorityOrder.includes(path)) fail(`${id}: required authority missing: ${path}`);
-  }
+  if (!exported.prompt.includes('BODY / MASS DISTRIBUTION / POSTURE CONSTRUCTION FIDELITY — FINAL EMBODIED IDENTITY LOCK.')) fail(`${id}: final body prompt block missing`);
+  if (!exported.prompt.includes('GARMENT-TO-BODY FIT / TENSION / COMPRESSION FIDELITY — FINAL CLOTH-BODY MECHANICS LOCK.')) fail(`${id}: final garment/body fit prompt block missing`);
+  for (const path of policy.requiredAuthorityPaths) if (!exported.authorityOrder.includes(path)) fail(`${id}: required authority missing: ${path}`);
+  for (const path of [bodyAuthorityPath, bodyPolicyPath, garmentFitAuthorityPath, garmentFitPolicyPath]) if (!exported.authorityOrder.includes(path)) fail(`${id}: terminal authority missing: ${path}`);
   if (!exported.authorityOrder.includes(policy.authorityDocument)) fail(`${id}: production entrypoint authority missing`);
   if (!exported.authorityOrder.includes(policyPath)) fail(`${id}: production entrypoint policy missing`);
 }
 
-console.log(`[character-production-entrypoint] OK: ${ids.length}/36 production prompts exported only through ${policy.productionExporter}`);
+console.log(`[character-production-entrypoint] OK: ${ids.length}/36 production prompts preserve face, body and garment/body fit construction through ${policy.productionExporter}`);
