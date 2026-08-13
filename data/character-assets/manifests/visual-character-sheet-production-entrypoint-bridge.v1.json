@@ -4,15 +4,15 @@
   "status": "ACTIVE_LATEST_MAIN_SHEET_ADAPTER_NO_IMAGE_GENERATION",
   "purpose": "Make Character Design Sheet 01-04 composition a strict child of the current Character Reference Production Entrypoint so wrapper changes on main are inherited live instead of requiring a stale parent script name in this bridge.",
   "observedLatestMain": {
-    "sha": "4e6b49bdf02208ffd9637a2d3a8904baee8365b9",
-    "throughPullRequest": 329,
+    "sha": "029a834aed8287cd3d6155c2516d6c98b7818566",
+    "throughPullRequest": 330,
     "syncedIntoInventoryBranch": true,
     "mustRecheckImmediatelyBeforeAnyImageGenerationOrMerge": true,
     "note": "This SHA records the synchronization baseline, not a permanent authority freeze. A newer main must be rechecked before generation or merge."
   },
   "parentProductionEntrypointSource": "src/game/data/characterReferenceProductionEntrypoint.ts",
   "parentExporterResolution": "LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT",
-  "observedResolvedParentExporter": "tools/asset-factory/scripts/export-focus-depth-effects-character-design-prompt.ts",
+  "observedResolvedParentExporter": "tools/asset-factory/scripts/export-surface-tone-mapped-character-design-prompt.ts",
   "parentPolicyResolution": "LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT",
   "observedResolvedParentPolicy": "data/visual/character-production-generation-entrypoint-v1.json",
   "sheetAdapter": "tools/asset-factory/scripts/export-character-design-sheet-prompt.ts",
@@ -76,7 +76,8 @@
     "material-aging-maintenance-continuity",
     "occlusion-layering-fidelity",
     "crop-silhouette-readability",
-    "focus-depth-effects-fidelity"
+    "focus-depth-effects-fidelity",
+    "surface-tone-mapping-fidelity"
   ],
   "latestInheritedAuthorities": [
     {
@@ -93,6 +94,11 @@
       "source": "PR #329",
       "id": "focus-depth-effects-fidelity",
       "rule": "Focus, depth of field and effects may support presentation but may not hide identity-critical errors, invent aura/emission, erase mobility equipment or replace identity palette."
+    },
+    {
+      "source": "PR #330",
+      "id": "surface-tone-mapping-fidelity",
+      "rule": "Surface rendering and tone mapping must preserve skin/body identity, age, body volume and material-class differences without universal gloss, beauty smoothing, humanization or invented microtexture."
     }
   ],
   "sheetRoleBoundaries": {
@@ -102,14 +108,14 @@
       "no mirror substitution for asymmetric construction",
       "same face/body/clothing/equipment topology across views",
       "neutral inspection pose does not create signature pose",
-      "do not hide unresolved overlap or construction behind crop, blur, foreground effects or depth of field"
+      "do not hide unresolved overlap or construction behind crop, blur, foreground effects, depth of field or surface polish"
     ],
     "face-expression-acting": [
       "neutral base face remains parent geometry",
       "expression deforms soft tissue rather than identity geometry",
       "diagnostic acting does not create signature emotional canon",
       "no generic premium-anime face convergence",
-      "crop/focus/effects may not erase identity-bearing face/head construction"
+      "crop/focus/effects/tone mapping may not erase identity-bearing face/head construction, age or skin/body identity"
     ],
     "costume-equipment-material": [
       "authorized garment construction and storage only",
@@ -118,14 +124,15 @@
       "no invented accessory or exposure",
       "Named Object geometry remains separate authority",
       "solve layer collisions without deleting or rerouting garment/equipment construction",
-      "effects may not conceal clipping, contact or storage errors"
+      "effects may not conceal clipping, contact or storage errors",
+      "surface/tone treatment preserves material-class differences instead of universal gloss"
     ],
     "silhouette-motion-derivation": [
       "body mass/species/age/mobility identity survives motion and perspective",
       "prop scale/contact continuity",
       "world adapts around the character rather than resizing the character",
       "OPEN motion uses neutral diagnostic placeholders rather than signature choreography",
-      "crop, blur and effects preserve identity-bearing silhouette information"
+      "crop, blur, effects and grading preserve identity-bearing silhouette/body-volume information"
     ]
   },
   "yuiReferenceOnlyHardConstraintsPreservedForFutureResume": [
@@ -146,8 +153,7 @@
     "expectedHeldSlots": 4,
     "legacyStaticPromptHashesMayAuthorizeGeneration": false,
     "visualCIRequired": true,
-    "allParentRequiredFlagsMustPass": true,
-    "allParentWrapperRequiredFlagsMustPass": true,
+    "allParentDeclaredRequiredFlagGroupsMustPass": true,
     "allParentRequiredAuthorityPathsMustPass": true,
     "imageGenerationAuthorizedByThisBridge": false
   }
