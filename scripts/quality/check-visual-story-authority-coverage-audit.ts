@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 
 const AUDIT_PATH = 'data/character-assets/manifests/visual-story-authority-coverage-audit.v1.json';
+const SHEET_BRIDGE_PATH = 'data/character-assets/manifests/visual-character-sheet-production-entrypoint-bridge.v1.json';
 const STORY_PATH = 'docs/00-current-story-world-master.md';
 const SAKUYAZA_PATH = 'docs/sakuyaza-current-identity-v1.md';
 const GUNJO_PATH = 'docs/gunjo-zankyoroku-current-v1.md';
@@ -9,11 +10,12 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-for (const path of [AUDIT_PATH, STORY_PATH, SAKUYAZA_PATH, GUNJO_PATH]) {
+for (const path of [AUDIT_PATH, SHEET_BRIDGE_PATH, STORY_PATH, SAKUYAZA_PATH, GUNJO_PATH]) {
   assert(existsSync(path), `missing required coverage-audit source: ${path}`);
 }
 
 const audit = JSON.parse(readFileSync(AUDIT_PATH, 'utf8'));
+const sheetBridge = JSON.parse(readFileSync(SHEET_BRIDGE_PATH, 'utf8'));
 const story = readFileSync(STORY_PATH, 'utf8');
 const sakuyaza = readFileSync(SAKUYAZA_PATH, 'utf8');
 const gunjo = readFileSync(GUNJO_PATH, 'utf8');
@@ -47,8 +49,11 @@ for (const id of [
   'SAKUYAZA_TEAM_COMPARISON_MASTER',
   'GUNJO_FOUNDATION_MASTERS',
   'CORE5_REALITY_ERA_ENVIRONMENT_REFERENCE_MASTERS',
-  'DREAM_COMMON_DAILY_LIFE_INFSTRUCTURE_MASTER'.replace('INFSTRUCTURE', 'INFRASTRUCTURE'),
+  'CORE5_ERA_POPULATION_HOUSEHOLD_REFERENCE_MASTERS',
+  'DREAM_COMMON_DAILY_LIFE_INFRASTRUCTURE_MASTER',
   'SKY_MOON_RESOLUTION_COLOR_SCRIPT_MASTER',
+  'MODERN_IAU88_CONSTELLATION_LINE_ART_VECTOR_MASTER',
+  'ERA_INCIDENT_VISUAL_ADMISSION_POLICY',
   'DREAM_REALITY_FORM_COMPARISON_MASTERS',
   'SUNNY_IF_REWARD_ENSEMBLE_MASTER_FAMILY',
   'SEASON_ANTAGONIST_VISUAL_ADMISSION_POLICY',
@@ -85,6 +90,17 @@ for (const id of [
   assert(lorebookMissing.has(id), `coverage audit lost Lorebook coverage gap: ${id}`);
 }
 
+assert(sheetBridge.schemaVersion === 1, 'character-sheet bridge schemaVersion must remain 1');
+assert(sheetBridge.status === 'BLOCKED_UNTIL_LATEST_MAIN_SYNC_AND_ADAPTER_IMPLEMENTATION', 'character-sheet generation must remain blocked until latest-main sync and adapter implementation');
+assert(sheetBridge.existingInventoryPacket?.mayBeUsedDirectlyForProductionImageGeneration === false, 'old inventory prompt packet may not be a direct production entrypoint');
+assert(sheetBridge.requiredPostSyncArchitecture?.productionCharacterPromptExporter === 'tools/asset-factory/scripts/export-production-character-design-prompt.ts', 'sheet adapter must wrap the single production character exporter');
+assert(sheetBridge.requiredPostSyncArchitecture?.handWrittenPromptMayBeProductionReady === false, 'hand-written character sheet prompt must not be production-ready');
+assert(sheetBridge.requiredPostSyncArchitecture?.lowerExporterMayBeProductionReady === false, 'lower exporter output must not be production-ready');
+assert(sheetBridge.requiredPostSyncArchitecture?.generatedSheetMayCreateCanon === false, 'generated sheet may not create Canon');
+assert(sheetBridge.mergeGate?.syncLatestMainFirst === true, 'latest-main sync must precede character sheet generation');
+assert(sheetBridge.mergeGate?.reexportAll36PromptPackets === true, 'all 36 character packets must be re-exported after sync');
+assert(sheetBridge.mergeGate?.imageGenerationAllowedBeforeGatePass === false, 'character sheet image generation must remain blocked before bridge gate passes');
+
 assert(audit.mergeGate?.automaticImageGenerationAllowed === false, 'coverage audit must never authorize generation');
 assert(audit.mergeGate?.allBlockingLegacyNameContradictionsMustBeResolved === true, 'legacy naming contradictions must remain a merge gate');
 assert(audit.mergeGate?.latestMainAuthorityMustBeIntegrated === true, 'latest main authority sync must remain required');
@@ -98,4 +114,5 @@ console.log(JSON.stringify({
   missingOrUnderModeledMasterFamilyCount: familyIds.size,
   knownPreGameFamilyCount: knownPreGame.size,
   lorebookCoverageGapCount: lorebookMissing.size,
+  sheetProductionEntrypointBlockedUntilSync: true,
 }, null, 2));
