@@ -1,0 +1,26 @@
+name: Current16 Life Choice Profile Migration Intake
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/current16-life-choice-profile-migration-intake-v1.json'
+      - 'scripts/quality/build-current16-life-choice-profile-migration-intake.ts'
+      - '.github/workflows/current16-life-choice-profile-migration-intake.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/current16-life-choice-profile-migration-intake-v1.json'
+      - 'scripts/quality/build-current16-life-choice-profile-migration-intake.ts'
+      - '.github/workflows/current16-life-choice-profile-migration-intake.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Derive current16 migration intake
+        run: node --experimental-strip-types scripts/quality/build-current16-life-choice-profile-migration-intake.ts --emit
+      - name: Validate compact materialized intake
+        run: node --experimental-strip-types scripts/quality/build-current16-life-choice-profile-migration-intake.ts --check-materialized

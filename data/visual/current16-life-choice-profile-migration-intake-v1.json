@@ -1,0 +1,75 @@
+{
+  "id": "yoru-no-shirube-current16-life-choice-profile-migration-intake-v1",
+  "date": "2026-08-14",
+  "status": "DERIVED_SCHEMA_MIGRATION_INTAKE_NON_CANON",
+  "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+  "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+  "scope": {
+    "characterCount": 16,
+    "domainCount": 6,
+    "decisionCount": 96
+  },
+  "policy": {
+    "noNewCharacterFactsAuthored": true,
+    "genericPolicyIsNotCharacterEvidence": true,
+    "inheritedProfileValuesRemainAuthorCandidate": true,
+    "migrationDoesNotEqualCanonPromotion": true,
+    "openAndPendingMarkersMustRemainUnresolved": true,
+    "requiresHumanSchemaReview": true,
+    "imageModelFreedom": false,
+    "generatedImageMayCloseItem": false
+  },
+  "stateCounts": {
+    "MIGRATION_READY_AUTHOR_CANDIDATE": 63,
+    "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW": 31,
+    "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION": 1,
+    "PARTIAL_MIGRATION_EVIDENCE_WITH_OPEN_AUTHOR_DECISION": 1
+  },
+  "characterIds": [
+    "sen",
+    "ritsu",
+    "koyori",
+    "gen",
+    "hana",
+    "yubi",
+    "madoka",
+    "shiro",
+    "tobari",
+    "nemu",
+    "kuroori",
+    "kage1",
+    "kage2",
+    "kage3",
+    "kage4",
+    "ren"
+  ],
+  "defaultDomainStates": {
+    "bodyAdornment": "MIGRATION_READY_AUTHOR_CANDIDATE",
+    "skinCoverage": "MIGRATION_READY_AUTHOR_CANDIDATE",
+    "personalGrooming": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+    "accessoryPropInventory": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+    "footwearGroundInterface": "MIGRATION_READY_AUTHOR_CANDIDATE",
+    "materialWearMaintenance": "MIGRATION_READY_AUTHOR_CANDIDATE"
+  },
+  "overrides": [
+    {
+      "characterId": "kage4",
+      "domain": "bodyAdornment",
+      "state": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+      "openAuthorDecisionPaths": [
+        "piercing",
+        "tattoo"
+      ],
+      "pendingReviewPaths": []
+    },
+    {
+      "characterId": "kage4",
+      "domain": "personalGrooming",
+      "state": "PARTIAL_MIGRATION_EVIDENCE_WITH_OPEN_AUTHOR_DECISION",
+      "openAuthorDecisionPaths": [
+        "makeup"
+      ],
+      "pendingReviewPaths": []
+    }
+  ]
+}
