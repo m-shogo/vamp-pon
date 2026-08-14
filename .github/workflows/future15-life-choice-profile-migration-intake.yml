@@ -1,0 +1,31 @@
+name: Future15 Life Choice Profile Migration Intake
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/future15-life-choice-profile-migration-intake-v1.json'
+      - 'scripts/quality/build-future15-life-choice-profile-migration-intake.ts'
+      - '.github/workflows/future15-life-choice-profile-migration-intake.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/future15-life-choice-profile-migration-intake-v1.json'
+      - 'scripts/quality/build-future15-life-choice-profile-migration-intake.ts'
+      - '.github/workflows/future15-life-choice-profile-migration-intake.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Derive future15 migration intake
+        run: node --experimental-strip-types scripts/quality/build-future15-life-choice-profile-migration-intake.ts --emit
+      - name: Validate compact materialized intake when present
+        run: |
+          if [ -f data/visual/future15-life-choice-profile-migration-intake-v1.json ]; then
+            node --experimental-strip-types scripts/quality/build-future15-life-choice-profile-migration-intake.ts --check-materialized
+          else
+            echo 'P4 intake snapshot not materialized yet'
+          fi
