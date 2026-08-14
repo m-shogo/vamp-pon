@@ -3,7 +3,7 @@
   "reviewId": "yoruno-shirube-core5-era-setting-board-professional-pre-review-v1",
   "reviewKind": "AI_PROFESSIONAL_PRE_HUMAN_REVIEW",
   "status": "ALL_TEN_STRUCTURALLY_READY_FOR_HUMAN_REVIEW_NO_HUMAN_DECISION_RECORDED",
-  "purpose": "Record a professional pre-Human review of the ten Core5 editable setting-board specs. This layer may detect structural blockers and revision needs, but it cannot create Human approval, Master approval, raster authority or image-generation authorization.",
+  "purpose": "Record a professional pre-Human review of the ten Core5 editable setting-board specs. This layer may detect structural blockers and revision needs and may record a non-binding AI recommendation, but it cannot create Human approval, Master approval, raster authority or image-generation authorization.",
   "sources": {
     "executionQueue": "data/character-assets/manifests/core5-era-setting-board-execution-queue.v1.json",
     "humanReviewPacket": "data/character-assets/reviews/core5-era-setting-board-human-review-packet.v1.json",
@@ -15,10 +15,18 @@
     "populationHousehold": 5,
     "structurallyReadyForHumanReview": 10,
     "blockingRevisionsFound": 0,
+    "recommendedPassToEvidenceAuthoring": 10,
+    "recommendedRevise": 0,
+    "recommendedHold": 0,
     "humanPass": 0,
     "humanRevise": 0,
     "humanHold": 0,
     "imageGenerationAuthorized": false
+  },
+  "recommendationMeaning": {
+    "PASS_TO_EVIDENCE_AUTHORING": "Non-binding AI recommendation that the editable spec is suitable for the next visual-reference evidence-authoring phase if a Human explicitly PASSes it. It does not authorize raster/image generation and does not create Master, Story, Character-family, final or runtime authority.",
+    "REVISE_BEFORE_EVIDENCE": "Non-binding AI recommendation that a blocking clarity/source/open-boundary defect should be corrected before Human PASS.",
+    "HOLD_FOR_UPSTREAM_AUTHORITY": "Non-binding AI recommendation that upstream authority is insufficient or contradictory."
   },
   "reviewDimensions": [
     "AUTHORITY_BOUNDARY",
@@ -40,6 +48,7 @@
     {
       "assetId": "era-tomori-reality-environment-reference-master-v1",
       "preReviewState": "READY_FOR_HUMAN_REVIEW",
+      "recommendedHumanDecision": "PASS_TO_EVIDENCE_AUTHORING",
       "blockingFindings": [],
       "strengths": ["repair/reuse/records/infrastructure are readable together", "poverty cosplay and universal deprivation are explicitly vetoed", "exact year/site/product/vehicle/fixture remain OPEN"],
       "humanAttention": ["Confirm the reconstruction/scarcity band is narratively appropriate without narrowing to one real incident or locality."]
@@ -47,6 +56,7 @@
     {
       "assetId": "era-michiru-reality-environment-reference-master-v1",
       "preReviewState": "READY_FOR_HUMAN_REVIEW",
+      "recommendedHumanDecision": "PASS_TO_EVIDENCE_AUTHORING",
       "blockingFindings": [],
       "strengths": ["development benefit and resident friction coexist", "pollution/oil-shock material is bounded away from reenactment", "old/new route and convenience systems can be compared visually"],
       "humanAttention": ["Confirm the selected era band is the intended breadth before any specific development district or equipment is admitted."]
@@ -54,6 +64,7 @@
     {
       "assetId": "era-nagi-reality-environment-reference-master-v1",
       "preReviewState": "READY_FOR_HUMAN_REVIEW",
+      "recommendedHumanDecision": "PASS_TO_EVIDENCE_AUTHORING",
       "blockingFindings": [],
       "strengths": ["online/offline coexistence is explicit", "shared-PC/privacy/reply-delay friction gives era logic beyond props", "modern smartphone/social-feed leakage is vetoed"],
       "humanAttention": ["When exact year is later fixed, re-check PHS/feature-phone/BBS/broadband combinations for temporal compatibility."]
@@ -61,6 +72,7 @@
     {
       "assetId": "era-yui-reality-environment-reference-master-v1",
       "preReviewState": "READY_FOR_HUMAN_REVIEW",
+      "recommendedHumanDecision": "PASS_TO_EVIDENCE_AUTHORING",
       "blockingFindings": [],
       "strengths": ["2026_CURRENT and Arakawa are preserved as decided authority", "present day is not reduced to smartphone-only shorthand", "privacy-safe locality boundary is explicit"],
       "humanAttention": ["Any recognizable street/business/private-resident reference still requires separate locality/privacy review."]
@@ -68,6 +80,7 @@
     {
       "assetId": "era-asa-reality-environment-reference-master-v1",
       "preReviewState": "READY_FOR_HUMAN_REVIEW",
+      "recommendedHumanDecision": "PASS_TO_EVIDENCE_AUTHORING",
       "blockingFindings": [],
       "strengths": ["future design is function-first rather than neon/chrome shorthand", "trajectory research is explicitly non-prophetic", "identity/access/maintenance/mobility provide reusable design questions"],
       "humanAttention": ["Do not promote candidate future infrastructure into fact until Story authority decides the exact society/legal/technology layer."]
@@ -75,6 +88,7 @@
     {
       "assetId": "era-tomori-population-household-reference-master-v1",
       "preReviewState": "READY_FOR_HUMAN_REVIEW",
+      "recommendedHumanDecision": "PASS_TO_EVIDENCE_AUTHORING",
       "blockingFindings": [],
       "strengths": ["six population lenses are present", "household variation is based on access/repair/distribution rather than gender roles", "literal Tomori family canon is explicitly denied"],
       "humanAttention": ["Visual evidence should differentiate the six lenses through task/access relationships, not age costume caricature."]
@@ -82,6 +96,7 @@
     {
       "assetId": "era-michiru-population-household-reference-master-v1",
       "preReviewState": "READY_FOR_HUMAN_REVIEW",
+      "recommendedHumanDecision": "PASS_TO_EVIDENCE_AUTHORING",
       "blockingFindings": [],
       "strengths": ["new infrastructure benefit and environmental/price friction can coexist", "mobility and ability-to-relocate differences create meaningful household variation", "literal family inference is blocked"],
       "humanAttention": ["Avoid making environmental exposure a personality or moral shorthand when visual evidence is authored."]
@@ -89,6 +104,7 @@
     {
       "assetId": "era-nagi-population-household-reference-master-v1",
       "preReviewState": "READY_FOR_HUMAN_REVIEW",
+      "recommendedHumanDecision": "PASS_TO_EVIDENCE_AUTHORING",
       "blockingFindings": [],
       "strengths": ["shared/private device access creates household-level era logic", "cash/print/FAX/mobile/PC coexistence is reusable", "literal family inference is blocked"],
       "humanAttention": ["Exact-year review must precede any precise device/network ownership depiction."]
@@ -96,6 +112,7 @@
     {
       "assetId": "era-yui-population-household-reference-master-v1",
       "preReviewState": "READY_FOR_HUMAN_REVIEW",
+      "recommendedHumanDecision": "PASS_TO_EVIDENCE_AUTHORING",
       "blockingFindings": [],
       "strengths": ["2026 mixed access is represented across payment/device/local-delivery/mobility systems", "older-adult access is not treated as a technology gag", "literal Yui family/private address remain OPEN"],
       "humanAttention": ["Keep Arakawa-specific texture privacy-safe and avoid implying any composite household is Yui's actual household."]
@@ -103,12 +120,16 @@
     {
       "assetId": "era-asa-population-household-reference-master-v1",
       "preReviewState": "READY_FOR_HUMAN_REVIEW",
+      "recommendedHumanDecision": "PASS_TO_EVIDENCE_AUTHORING",
       "blockingFindings": [],
       "strengths": ["human/android/robot/avatar coexistence is framed as candidate access structure", "food/body/network/maintenance differences are non-hierarchical", "literal Asa family/legal status/future society remain unresolved"],
       "humanAttention": ["Human review should decide only whether this question-space is appropriate; it must not be mistaken for approval of a concrete future society."]
     }
   ],
   "promotionBoundary": {
+    "recommendationCreatesHumanApproval": false,
+    "recommendedPassAuthorizesEvidenceWithoutHumanPass": false,
+    "recommendedPassAuthorizesImageGeneration": false,
     "preReviewCreatesHumanApproval": false,
     "preReviewCreatesMasterApproval": false,
     "preReviewCreatesRasterAuthority": false,
