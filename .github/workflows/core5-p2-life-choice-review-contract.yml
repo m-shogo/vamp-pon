@@ -1,0 +1,33 @@
+name: Core5 P2 Life Choice Review Contract
+on:
+  pull_request:
+    paths:
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/core5-p2-life-choice-review-contract-v1.json'
+      - 'scripts/quality/build-core5-p2-life-choice-review-contract.ts'
+      - '.github/workflows/core5-p2-life-choice-review-contract.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node --experimental-strip-types scripts/quality/build-core5-p2-life-choice-review-contract.ts --emit
+      - name: Check snapshot freshness
+        run: |
+          node --input-type=module <<'NODE'
+          import {createHash} from 'node:crypto';
+          import {readFileSync} from 'node:fs';
+          const text=readFileSync('data/visual/core5-living-visual-profiles-v1.json','utf8');
+          const live=JSON.parse(text);
+          const snap=JSON.parse(readFileSync('data/visual/core5-p2-life-choice-review-contract-v1.json','utf8'));
+          const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+          if(snap.sourceProfileSha256!==createHash('sha256').update(text).digest('hex')) throw Error('stale hash');
+          const byId=new Map(live.characters.map(x=>[x.id,x]));
+          for(const x of snap.characters){
+            const y=byId.get(x.id);
+            if(!y) throw Error('missing profile');
+            if(!eq(x.accessoryPropInventory,{bagPocketBehavior:y.bagPocketBehavior,acquisitionPreference:y.acquisitionPreference})) throw Error('inventory drift');
+            if(!eq(x.materialWearMaintenance,{materialPreference:y.materialPreference,maintenanceBehavior:y.maintenanceBehavior,clothingWearHabits:y.clothingWearHabits})) throw Error('material drift');
+          }
+          console.log('P2 snapshot fresh');
+          NODE

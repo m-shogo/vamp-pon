@@ -1,0 +1,70 @@
+{
+  "id": "yoru-no-shirube-core5-p0-life-choice-review-contract-v1",
+  "date": "2026-08-14",
+  "status": "DERIVED_REVIEW_CONTRACT_NON_CANON",
+  "sourceProfile": "data/visual/core5-living-visual-profiles-v1.json",
+  "sourceProfileSha256": "519465641e03d1cbc2e4530c1e53f3367fe0e79b65b30bac0dc1f4ba24560a86",
+  "sourceQueue": "data/visual/all-character-life-choice-author-review-queue-v1.json",
+  "scope": {"characterCount":5,"domainCount":2,"reviewItemCount":10},
+  "policy": {
+    "noNewCharacterFactsAuthored": true,
+    "requiresHumanDecision": true,
+    "canonPromotionBlocked": true,
+    "imageModelFreedom": false,
+    "generatedImageMayCloseItem": false,
+    "openAuthorDecisionPreserved": true,
+    "pendingReviewPreserved": true
+  },
+  "characters": [
+    {
+      "id":"yui","name":"ユイ",
+      "bodyAdornment": {
+        "piercingPolicy":{"value":"NO_CURRENT_INTEREST","placement":[],"source":"AUTHOR_CANDIDATE","reason":"current appearance contract has no body modification and accessory density is intentionally low"},
+        "tattooPolicy":{"value":"NO_CURRENT_INTEREST","source":"AUTHOR_CANDIDATE"},
+        "jewelryPolicy":{"value":"minimal","source":"APPEARANCE_SOURCE","notes":"small lantern-related or sentimental item may exist; jewelry must never become protagonist decoration density"}
+      },
+      "skinCoverage":{"shoulders":"LOW","upperArms":"NEUTRAL","chestNeckline":"LOW","midriff":"AVOID","back":"AVOID","thighs":"AVOID","knees":"NEUTRAL","legs":"LOW","source":"AUTHOR_CANDIDATE"},
+      "openAuthorDecisionPaths":[],"pendingReviewPaths":[]
+    },
+    {
+      "id":"asa","name":"アサ",
+      "bodyAdornment": {
+        "piercingPolicy":{"value":"WOULD_CONSIDER","placement":["lobe","helix"],"tongue":"OPEN_AUTHOR_DECISION","source":"APPEARANCE_SOURCE"},
+        "tattooPolicy":{"value":"NO_CURRENT_INTEREST","source":"AUTHOR_CANDIDATE"},
+        "jewelryPolicy":{"value":"minimal-intentional-asymmetric","source":"AUTHOR_CANDIDATE"}
+      },
+      "skinCoverage":{"shoulders":"NEUTRAL","upperArms":"NEUTRAL","chestNeckline":"LOW","midriff":"CONTEXT_ONLY","back":"LOW","thighs":"LOW","knees":"NEUTRAL","legs":"NEUTRAL","source":"AUTHOR_CANDIDATE"},
+      "openAuthorDecisionPaths":["piercingPolicy.tongue"],"pendingReviewPaths":[]
+    },
+    {
+      "id":"nagi","name":"ナギ",
+      "bodyAdornment": {
+        "piercingPolicy":{"value":"WOULD_CONSIDER_MINIMAL","placement":["ear-cuff"],"source":"APPEARANCE_SOURCE"},
+        "tattooPolicy":{"value":"NO_CURRENT_INTEREST","source":"AUTHOR_CANDIDATE"},
+        "jewelryPolicy":{"value":"minimal","source":"AUTHOR_CANDIDATE"}
+      },
+      "skinCoverage":{"shoulders":"AVOID","upperArms":"LOW","chestNeckline":"AVOID","midriff":"AVOID","back":"AVOID","thighs":"AVOID","knees":"LOW","legs":"LOW","source":"AUTHOR_CANDIDATE"},
+      "openAuthorDecisionPaths":[],"pendingReviewPaths":[]
+    },
+    {
+      "id":"michiru","name":"ミチル",
+      "bodyAdornment": {
+        "piercingPolicy":{"value":"NO_CURRENT_INTEREST","source":"AUTHOR_CANDIDATE"},
+        "tattooPolicy":{"value":"NO_CURRENT_INTEREST","source":"AUTHOR_CANDIDATE"},
+        "jewelryPolicy":{"value":"travel-mementos-over-jewelry","source":"AUTHOR_CANDIDATE"}
+      },
+      "skinCoverage":{"shoulders":"NEUTRAL","upperArms":"NEUTRAL","chestNeckline":"LOW","midriff":"LOW","back":"LOW","thighs":"LOW","knees":"LIKES","legs":"NEUTRAL","source":"AUTHOR_CANDIDATE"},
+      "openAuthorDecisionPaths":[],"pendingReviewPaths":[]
+    },
+    {
+      "id":"tomori","name":"トモリ",
+      "bodyAdornment": {
+        "piercingPolicy":{"value":"WOULD_CONSIDER_OR_HAS_PENDING_REVIEW","placement":["lobe","helix","other-ear-metal"],"source":"APPEARANCE_SOURCE"},
+        "tattooPolicy":{"value":"OPEN_AUTHOR_DECISION_REQUIRES_PERSONAL_OR_CULTURAL_HISTORY","source":"APPEARANCE_SOURCE"},
+        "jewelryPolicy":{"value":"worn-or-sentimental-metal-only; must not interfere with work","source":"AUTHOR_CANDIDATE"}
+      },
+      "skinCoverage":{"shoulders":"LOW","upperArms":"NEUTRAL","chestNeckline":"LOW","midriff":"AVOID","back":"LOW","thighs":"AVOID","knees":"NEUTRAL","legs":"LOW","source":"AUTHOR_CANDIDATE"},
+      "openAuthorDecisionPaths":["tattooPolicy.value"],"pendingReviewPaths":["piercingPolicy.value"]
+    }
+  ]
+}
