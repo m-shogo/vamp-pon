@@ -33,12 +33,27 @@ if (review.summary?.structurallyReadyForHumanReview !== 10 || review.summary?.bl
   fail('all ten specs must remain structurally ready with zero blocking pre-review findings.');
 }
 
+if (
+  review.summary?.recommendedPassToEvidenceAuthoring !== 10
+  || review.summary?.recommendedRevise !== 0
+  || review.summary?.recommendedHold !== 0
+) {
+  fail('professional recommendation summary must remain 10 PASS_TO_EVIDENCE_AUTHORING, 0 REVISE, 0 HOLD while no blockers exist.');
+}
+
 for (const key of ['humanPass', 'humanRevise', 'humanHold']) {
   if (review.summary?.[key] !== 0) fail(`${key} must remain 0 in the AI pre-review layer.`);
 }
 
 if (review.summary?.imageGenerationAuthorized !== false) {
   fail('pre-review may not authorize image generation.');
+}
+
+const recommendationMeaning = review.recommendationMeaning ?? {};
+for (const key of ['PASS_TO_EVIDENCE_AUTHORING', 'REVISE_BEFORE_EVIDENCE', 'HOLD_FOR_UPSTREAM_AUTHORITY']) {
+  if (typeof recommendationMeaning[key] !== 'string' || recommendationMeaning[key].length < 20) {
+    fail(`recommendation meaning missing or too weak: ${key}`);
+  }
 }
 
 const queueIds = new Set((queue.entries ?? []).map((entry: any) => entry.assetId));
@@ -52,6 +67,9 @@ for (const entry of reviewEntries) {
   reviewIds.add(entry.assetId);
   if (entry.preReviewState !== 'READY_FOR_HUMAN_REVIEW') {
     fail(`${entry.assetId} must remain READY_FOR_HUMAN_REVIEW, not Human PASS/REVISE/HOLD.`);
+  }
+  if (entry.recommendedHumanDecision !== 'PASS_TO_EVIDENCE_AUTHORING') {
+    fail(`${entry.assetId} must carry only the non-binding PASS_TO_EVIDENCE_AUTHORING recommendation while blockers remain zero.`);
   }
   if (!Array.isArray(entry.blockingFindings) || entry.blockingFindings.length !== 0) {
     fail(`${entry.assetId} has blocking findings but summary claims none.`);
@@ -78,6 +96,9 @@ for (const entry of humanEntries) {
 
 const boundary = review.promotionBoundary ?? {};
 for (const key of [
+  'recommendationCreatesHumanApproval',
+  'recommendedPassAuthorizesEvidenceWithoutHumanPass',
+  'recommendedPassAuthorizesImageGeneration',
   'preReviewCreatesHumanApproval',
   'preReviewCreatesMasterApproval',
   'preReviewCreatesRasterAuthority',
@@ -90,4 +111,4 @@ if (boundary.nextGate !== 'EXPLICIT_HUMAN_PASS_REVISE_HOLD_PER_BOARD') {
   fail('nextGate must remain explicit Human PASS/REVISE/HOLD per board.');
 }
 
-console.log('Core5 professional pre-Human setting-board review: PASS (10/10 structurally ready, Human decisions still pending).');
+console.log('Core5 professional pre-Human setting-board review: PASS (10/10 structurally ready; 10/10 non-binding PASS recommendations; Human decisions still pending).');
