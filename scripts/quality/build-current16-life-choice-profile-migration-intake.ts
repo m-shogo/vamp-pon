@@ -24,16 +24,39 @@ function sourceKinds(value: unknown): string[] {
   return [...out].sort();
 }
 
+function markerPaths(value: unknown, kind: 'open'|'pending', prefix = ''): string[] {
+  if (typeof value === 'string') {
+    const open = /OPEN[\s_-]*AUTHOR[\s_-]*DECISION/i.test(value);
+    const pending = /PENDING[\s_-]*REVIEW/i.test(value);
+    return (kind === 'open' ? open : pending) ? [prefix] : [];
+  }
+  if (Array.isArray(value)) return value.flatMap((item,index) => markerPaths(item, kind, `${prefix}[${index}]`));
+  if (value && typeof value === 'object') {
+    return Object.entries(value as Record<string,unknown>).flatMap(([key,item]) => markerPaths(item, kind, prefix ? `${prefix}.${key}` : key));
+  }
+  return [];
+}
+
 function hairWearEvidence(wearHabits: unknown): string[] {
   if (!Array.isArray(wearHabits)) return [];
   return wearHabits.filter((item) => typeof item === 'string' && /(hair|fringe|clip|tie|lens|glasses)/i.test(item));
 }
 
-function entry(state: string, evidence: Record<string,unknown>) {
+function entry(baseState: string, evidence: Record<string,unknown>) {
+  const openAuthorDecisionPaths = markerPaths(evidence, 'open');
+  const pendingReviewPaths = markerPaths(evidence, 'pending');
+  let state = baseState;
+  if (baseState !== 'NO_CHARACTER_SPECIFIC_EVIDENCE' && openAuthorDecisionPaths.length) {
+    state = baseState.startsWith('PARTIAL_') ? 'PARTIAL_MIGRATION_EVIDENCE_WITH_OPEN_AUTHOR_DECISION' : 'MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION';
+  } else if (baseState !== 'NO_CHARACTER_SPECIFIC_EVIDENCE' && pendingReviewPaths.length) {
+    state = baseState.startsWith('PARTIAL_') ? 'PARTIAL_MIGRATION_EVIDENCE_WITH_PENDING_REVIEW' : 'MIGRATION_READY_WITH_PENDING_REVIEW';
+  }
   return {
     state,
     evidence,
     sourceKinds: sourceKinds(evidence),
+    openAuthorDecisionPaths,
+    pendingReviewPaths,
     migrationPolicy: 'COPY_SEMANTIC_EVIDENCE_ONLY_AFTER_HUMAN_SCHEMA_REVIEW',
     requiresHumanDecision: true,
     canonPromotionBlocked: true,
@@ -93,6 +116,7 @@ const intake = {
     genericPolicyIsNotCharacterEvidence: true,
     inheritedProfileValuesRemainAuthorCandidate: true,
     migrationDoesNotEqualCanonPromotion: true,
+    openAndPendingMarkersMustRemainUnresolved: true,
     requiresHumanSchemaReview: true,
     imageModelFreedom: false,
     generatedImageMayCloseItem: false,
