@@ -22,10 +22,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Derive current16 migration intake
         run: node --experimental-strip-types scripts/quality/build-current16-life-choice-profile-migration-intake.ts --emit
-      - name: Validate materialized intake when present
-        run: |
-          if [ -f data/visual/current16-life-choice-profile-migration-intake-v1.json ]; then
-            node --input-type=module -e "import {createHash} from 'node:crypto'; import {readFileSync} from 'node:fs'; const source=readFileSync('data/visual/current21-extended-living-visual-profiles-v1.json','utf8'); const intake=JSON.parse(readFileSync('data/visual/current16-life-choice-profile-migration-intake-v1.json','utf8')); if(intake.sourceProfileSha256!==createHash('sha256').update(source).digest('hex')) throw Error('stale source hash'); if(intake.scope?.characterCount!==16 || intake.scope?.domainCount!==6 || intake.scope?.decisionCount!==96) throw Error('unexpected scope'); if(intake.policy?.noNewCharacterFactsAuthored!==true || intake.policy?.migrationDoesNotEqualCanonPromotion!==true || intake.policy?.openAndPendingMarkersMustRemainUnresolved!==true || intake.policy?.imageModelFreedom!==false) throw Error('unsafe migration policy'); console.log('P3 intake snapshot fresh');"
-          else
-            echo 'P3 intake snapshot not materialized yet'
-          fi
+      - name: Validate compact materialized intake
+        run: node --experimental-strip-types scripts/quality/build-current16-life-choice-profile-migration-intake.ts --check-materialized
