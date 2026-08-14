@@ -22,6 +22,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Derive future15 migration intake
         run: node --experimental-strip-types scripts/quality/build-future15-life-choice-profile-migration-intake.ts --emit
+      - name: Emit compact snapshot candidate
+        run: node --experimental-strip-types scripts/quality/build-future15-life-choice-profile-migration-intake.ts --emit-compact
       - name: Validate compact materialized intake when present
         run: |
           if [ -f data/visual/future15-life-choice-profile-migration-intake-v1.json ]; then
