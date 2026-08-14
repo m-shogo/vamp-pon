@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 
 const root = process.cwd();
 const sourceProfile = 'data/visual/current21-extended-living-visual-profiles-v1.json';
+const materializedPath = 'data/visual/current16-life-choice-profile-migration-intake-v1.json';
 const text = readFileSync(resolve(root, sourceProfile), 'utf8');
 const profile = JSON.parse(text);
 const sourceProfileSha256 = createHash('sha256').update(text).digest('hex');
@@ -103,6 +104,17 @@ for (const c of characters) for (const d of domains) {
   counts[state] = (counts[state] ?? 0) + 1;
 }
 
+const policy = {
+  noNewCharacterFactsAuthored: true,
+  genericPolicyIsNotCharacterEvidence: true,
+  inheritedProfileValuesRemainAuthorCandidate: true,
+  migrationDoesNotEqualCanonPromotion: true,
+  openAndPendingMarkersMustRemainUnresolved: true,
+  requiresHumanSchemaReview: true,
+  imageModelFreedom: false,
+  generatedImageMayCloseItem: false,
+};
+
 const intake = {
   id: 'yoru-no-shirube-current16-life-choice-profile-migration-intake-v1',
   date: '2026-08-14',
@@ -111,21 +123,56 @@ const intake = {
   sourceProfileSha256,
   sourceProfileRule: profile.rule,
   scope: { characterCount: characters.length, domainCount: domains.length, decisionCount: characters.length * domains.length },
-  policy: {
-    noNewCharacterFactsAuthored: true,
-    genericPolicyIsNotCharacterEvidence: true,
-    inheritedProfileValuesRemainAuthorCandidate: true,
-    migrationDoesNotEqualCanonPromotion: true,
-    openAndPendingMarkersMustRemainUnresolved: true,
-    requiresHumanSchemaReview: true,
-    imageModelFreedom: false,
-    generatedImageMayCloseItem: false,
-  },
+  policy,
   stateCounts: counts,
   characters,
 };
 
-if (process.argv.includes('--emit')) {
+function mostCommonState(domain: typeof domains[number]): string {
+  const domainCounts = new Map<string,number>();
+  for (const character of characters) {
+    const state = character.domains[domain].state;
+    domainCounts.set(state, (domainCounts.get(state) ?? 0) + 1);
+  }
+  return [...domainCounts.entries()].sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0]?.[0] ?? 'NO_CHARACTER_SPECIFIC_EVIDENCE';
+}
+
+const defaultDomainStates = Object.fromEntries(domains.map((domain) => [domain, mostCommonState(domain)]));
+const overrides = characters.flatMap((character: any) => domains.flatMap((domain) => {
+  const entryValue = character.domains[domain];
+  if (entryValue.state === defaultDomainStates[domain] && !entryValue.openAuthorDecisionPaths.length && !entryValue.pendingReviewPaths.length) return [];
+  return [{
+    characterId: character.id,
+    domain,
+    state: entryValue.state,
+    openAuthorDecisionPaths: entryValue.openAuthorDecisionPaths,
+    pendingReviewPaths: entryValue.pendingReviewPaths,
+  }];
+}));
+
+const compactIntake = {
+  id: intake.id,
+  date: intake.date,
+  status: intake.status,
+  sourceProfile,
+  sourceProfileSha256,
+  scope: intake.scope,
+  policy,
+  stateCounts: counts,
+  characterIds: characters.map((character: any) => character.id),
+  defaultDomainStates,
+  overrides,
+};
+
+if (process.argv.includes('--check-materialized')) {
+  const actual = JSON.parse(readFileSync(resolve(root, materializedPath), 'utf8'));
+  if (JSON.stringify(actual) !== JSON.stringify(compactIntake)) {
+    throw new Error('materialized current16 migration intake is stale');
+  }
+  console.log('[current16-life-choice-migration-intake] materialized snapshot fresh');
+} else if (process.argv.includes('--emit-compact')) {
+  console.log(JSON.stringify(compactIntake, null, 2));
+} else if (process.argv.includes('--emit')) {
   console.log('P3_INTAKE_JSON_BEGIN');
   console.log(JSON.stringify(intake, null, 2));
   console.log('P3_INTAKE_JSON_END');
