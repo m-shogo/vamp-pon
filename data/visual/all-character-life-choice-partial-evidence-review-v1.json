@@ -1,0 +1,1741 @@
+{
+  "id": "yoru-no-shirube-all-character-life-choice-partial-evidence-review-v1",
+  "date": "2026-08-18",
+  "status": "DERIVED_PARTIAL_EVIDENCE_REVIEW_PACKET_NON_CANON",
+  "sourceHashes": {
+    "data/visual/current21-extended-living-visual-profiles-v1.json": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+    "data/visual/current16-life-choice-profile-migration-intake-v1.json": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+    "data/visual/future15-living-visual-profiles-v1.json": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+    "data/visual/future15-life-choice-profile-migration-intake-v1.json": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+    "data/visual/all-character-life-choice-migration-aware-audit-v2.json": "3085e63158a73741e68a185623db43eda2830192fba14b1f75e95e93240ea4b3",
+    "data/visual/all-character-life-choice-review-queue-v2.json": "141e40e313acc178ee63c422eba0c9a76d3798e7dfc525180612aecfcc2d76c5",
+    "data/visual/all-character-life-choice-schema-migration-ready-v1.json": "21125178e03dbc125a1f9ca53c3249b00d28aa265ff13b554a66fd175384e76e",
+    "data/visual/life-choice-species-body-type-schema-adapter-v1.json": "e20c784319e26570662c5e75a6a8b069f3b9c04a877f9d0c158670df6f4d3207",
+    "data/visual/character-production-generation-entrypoint-v6.json": "0d97281538f2704e9471e3d7c820a65898f6634e2295154ff7b4957c350e2571",
+    "data/visual/character-production-generation-entrypoint-v7.json": "33c9d4d8f2088ddb7c45b4da1d85a7fccfd4683188c37ae52be4a1fc09bae827",
+    "data/visual/character-production-generation-entrypoint-v8.json": "62bae3ea7f41431f160ff59c995d5b5641f60c2f7e92eb58d01345ca533ce92a",
+    "data/visual/character-production-generation-entrypoint-v9.json": "8e4351b4e72b855c741ed09be1798481d7c555d430c8c357e1dbc60f4feaf6ae",
+    "docs/visual/character-production-generation-entrypoint-v6.md": "b160f586b4b1643c537cd61067519e12436f16dd8e4ba0b54a672301456cc11e",
+    "docs/visual/character-production-generation-entrypoint-v8.md": "895618b82cd64ce179e46d81048ed92b6234de031f572fc9fccac1dae67250b9"
+  },
+  "scope": {
+    "rosterCount": 2,
+    "characterCount": 29,
+    "sourceDecisionCount": 186,
+    "partialEvidenceReviewDecisionCount": 56,
+    "humanSchemaReviewRequiredCount": 56,
+    "canonPromotedCount": 0,
+    "imageResolvedCount": 0
+  },
+  "partition": {
+    "schemaMigrationReady": 109,
+    "partialEvidenceReview": 56,
+    "speciesSchemaAdapter": 9,
+    "currentAndFutureOpenAuthorDecisions": 12,
+    "total": 186
+  },
+  "rosterCounts": {
+    "CURRENT16": 31,
+    "FUTURE15": 25
+  },
+  "domainCounts": {
+    "personalGrooming": 27,
+    "accessoryPropInventory": 29
+  },
+  "reviewContract": {
+    "preserveExistingEvidence": true,
+    "machineMayDeclareSpecificMissingMeaning": false,
+    "genericPolicyMaySupplyMissingEvidence": false,
+    "sourceValuesRemainAuthorCandidate": true,
+    "reviewDoesNotEqualCanonPromotion": true,
+    "imageModelFreedom": false,
+    "generatedImageMayCloseItem": false
+  },
+  "reviewDimensionSets": [
+    {
+      "id": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+      "sourceDomain": "personalGrooming",
+      "authorityEntrypoint": "data/visual/character-production-generation-entrypoint-v8.json",
+      "authorityDocument": "docs/visual/character-production-generation-entrypoint-v8.md",
+      "dimensions": [
+        "cosmeticsState",
+        "nailTreatmentState",
+        "facialHairAndBodyHairState",
+        "hairWearAndGroomingState",
+        "groomingRoutine",
+        "personalMeaning"
+      ],
+      "rule": "Preserve present evidence and ask Human review only about unsupported grooming semantics; never infer from gender, age, ethnicity, role, rarity, or exposure."
+    },
+    {
+      "id": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+      "sourceDomain": "accessoryPropInventory",
+      "authorityEntrypoint": "data/visual/character-production-generation-entrypoint-v6.json",
+      "authorityDocument": "docs/visual/character-production-generation-entrypoint-v6.md",
+      "dimensions": [
+        "discreteObjectIdentity",
+        "ownership",
+        "stateAndLocationTransition",
+        "storageRoute",
+        "temporaryPlacement",
+        "giftMeaning",
+        "relationshipMeaning"
+      ],
+      "rule": "Preserve present storage and wear evidence; unsupported removable objects, ownership, transitions, or meaning remain unresolved."
+    }
+  ],
+  "characters": [
+    {
+      "roster": "CURRENT16",
+      "characterId": "sen",
+      "characterName": "セン",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.sen.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "1fb174cc933de77bf1a8e5f5b3ba309ff15860a5d5bfc865d579ae72dd220ee8",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.sen.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "77ff8f7e39ef0c7af351bd7b0228951486d8a77abc356ca13a55b0ae4c465a81",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "ritsu",
+      "characterName": "リツ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.ritsu.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "7a56ed4845b664c5cc2efe63969cc789d23f1a8912acb06b75a29acccc05bfff",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.ritsu.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "f1ba703958e6e2ef418cdb4deb8b998fec2139659540f8aaa96767d79f1f9298",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "koyori",
+      "characterName": "コヨリ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.koyori.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "95ff931d1fcf2f1991a2b0152ac73157cd7e3dcd98e0b813ef47f0cb93888197",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.koyori.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "a8f67e57621d9ec81c75355bd584d2838ed7c3f03b69f457cd7790ee55afef5b",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "gen",
+      "characterName": "ゲン",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.gen.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "42525e358a8736730dd15a54c5423a0f1cd9459e9b4d4864c085bb43d6d8127a",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.gen.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "f8d03ae805a488f22d4d2238647aeb6215e765ec9690f33460b2e1f07be20578",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "hana",
+      "characterName": "ハナ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.hana.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "356510ab604aecd2e55b0bec02f7383bb9674afd6df35b6faafaf2820a71cb59",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.hana.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "0a675fcaef963509dc8aa74150bc0d822e3d085fcb46293aa034fe34f6baa3db",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "yubi",
+      "characterName": "ユウビ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.yubi.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "83c802bb3345d7adf845b75b1f0d123447c7553a82c198eaad2a45289b0642c6",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.yubi.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "9a3d6f4a97394a64227b0fafcd62bdbbf48ecde49bb1fa69c7aec6610669b164",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "madoka",
+      "characterName": "マドカ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.madoka.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "bffeb3fb897eb84b5096278a0c8350afb34b25b3bbdd396c3764ea35b434670c",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.madoka.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "38a007b988ef77bad66ad72e4e402227147ea1288758a366ab48072431dab272",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "shiro",
+      "characterName": "シロ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.shiro.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "21c99910151f7e1ae02f8bd18d8ac420935bbaf089725cfc71013d71dc2e387b",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.shiro.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "de5576d5fad4354e1738e073aa93c3b542dedd49096c93ba3aa2f4b1d44dc429",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "tobari",
+      "characterName": "トバリ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.tobari.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "2fee4c2ca6b582f7456f5becb3cd7d7871df51cee7e0d54d9fc071afc71df7c5",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.tobari.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "685223d8c5a233dc2ffb6a33c1fd05c5510eaf2c4c30df3dd2f1a88203146166",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "nemu",
+      "characterName": "ネム",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.nemu.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "5fe4ff312533e69ccf8658b80faddc0af58bbcafc126f64d9c3c079c8e313677",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.nemu.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "275cdce4b899f2ef8da98276b26cfb15e4635a2006096c922ca912a24a1189a8",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kuroori",
+      "characterName": "クロオリ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kuroori.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "1d9c15d09a7aa27dde483c6099b2c0cba79d87d8377d47f6ecae9a5dea5a9568",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kuroori.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "634e8742bdf90fe0ed6c719969a95ac80e8395ac8a682cc37488859e2eac9b26",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kage1",
+      "characterName": "カナメ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kage1.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "72b2c84a9d4fd04d56a812af84bf79b53b1531f97d810a80f136d13f7f792a82",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage1.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "0c31a19e1b85804c7e3c01875f899f992318505ac6b97e9cf312af52727f44ce",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kage2",
+      "characterName": "カスミ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kage2.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "534c063910fe39d5b42695e94d3a089c56d0280e1d6c086e7df8cea45032576e",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage2.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "7507664651e5f36cb2d417669333f0e8118bea18bf9ab47cf15461e914bdce4a",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kage3",
+      "characterName": "トキ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kage3.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "3d032c947fec3e00ecc1a835417884e9c0619a94e2df6399eb2bd11b6dcf86fb",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage3.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "3253e1cde9e6a9dbbe5dbcba3a1e63dca87d1024d5189ff2a4fa8dd1ce12e801",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kage4",
+      "characterName": "ツムギ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kage4.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "20cdbefa21f42bda94b226725d4ddebf064269d77660ed1d654df0ae707654ac",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "ren",
+      "characterName": "レン",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.ren.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|lens|glasses)"
+            }
+          ],
+          "sourceEvidenceSha256": "1a0d31f97ba050cf46f73d280a89469a52c2225a36e12ffc0ca79cfe6697984c",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.ren.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "489527e21f5878e4dfdd2a3132fa5662e06ec5db4de50484cc3b561f3eacb0ed",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "hiyori",
+      "characterName": "ヒヨリ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.hiyori.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "e0d50a4c378d7cae5f233d9fb57ea122f2ed2a04b19fb9cbacebf7f66b815b83",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.hiyori.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "2c90347c428d042bd913599d4b1fd6f025cd2b30864a7674bc486347fd695180",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "serika",
+      "characterName": "セリカ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.serika.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "1feb288c815c0803c1f084329d0ed0bb462ec4dfc349c6163b80bc84932fe1bc",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.serika.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "73d249dbe8369c72c73c54d0e8851fa81aa05e6e6668c18192ccc88b19bb0fa5",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "chloe",
+      "characterName": "クロエ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.chloe.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "2cf8e6f24c0900ac88c05584b76071eb96328924e0dd2a3da61c0449ba0b6e6b",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.chloe.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "335df336d21dba36644f452a7669994e9b21e8ddb8df3a89ac798e2c8a44b4ec",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "renji",
+      "characterName": "レンジ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.renji.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "38391d697d1390416f3ad9047815a9c0c4184dbec8f2b43b72aaad95d49ef986",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.renji.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "c5d2187035acbfb79e2d049b156932f5ee7f3073766eb2449b1cd83106731136",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "touma",
+      "characterName": "トウマ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.touma.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "c5403ef11355e09de596fc70d55bac1ec17ba20f9423f41b912f49a120fbfa10",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.touma.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "575feb248a6565e4619c1d223dbc76ed74ebba9180a26580405d454162755d2b",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "noa",
+      "characterName": "ノア",
+      "species": "ARTIFICIAL_PERSON",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.noa.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "cca00f2daeb93e80e4af3531ddb0a2f92c11c4cd8a0d81dcce6e3137c2e6e50e",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.noa.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "21a22043bffe27cd86db8714e833ae552d6cd320364470f53d263fc0485cfdae",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "rum",
+      "characterName": "ルム",
+      "species": "MAINTENANCE_ROBOT",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.rum.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "18f471952b8638f24a12b1829643076d058b5ec4ed01acf72d161bb73b97060d",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "maki",
+      "characterName": "マキ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.maki.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "ef59fb1a9bc9eaed1bd86cfcd0b6d7918d963e99362741da2e57038d04834545",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.maki.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "28058cb472e3ced1d4f874e4fdc7e8b9b68115066a232f5cc56beebd6672d377",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "suzu",
+      "characterName": "スズ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.suzu.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "0891a7a11ee15b17791107c6b9524939dc460896d2133674a900dd4131216749",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.suzu.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "300c2dcb004ca13e92610ddbcc14842ec821f8e824a7b9d49653e109174c8ab5",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "io",
+      "characterName": "イオ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.io.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "248c5223404eb573b25f85ea335cf61d1a2d3d942c7c62a2fbf6699a0063dcbb",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.io.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "311ff085c13831b61ce406b35d4002c514b588aaca12e2d6aa5d2540e7b51419",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "kai",
+      "characterName": "カイ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.kai.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "9c2e7905c1a860e5b4b61bd8c4f52670726322a85053fc58dc174c9e19700533",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.kai.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "15b2b53ce16a9bd9d9d84e998244ba42947e16fdd43f1c22bebaacdd8b2fa9d2",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "nao",
+      "characterName": "ナオ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.nao.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "b51a2260f8e4d76498c7504e4e965ac65184811197645a16e81657e0b8dfea0e",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.nao.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "fafcbbf54404f38731d42b9acdff308e1bfb0df13b0cda01a8ab3863ce6e4e33",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "amane",
+      "characterName": "アマネ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.amane.personalGrooming",
+          "domain": "personalGrooming",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "bodyModification.makeup",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "bodyModification.nails",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "FILTERED_STRING_ARRAY",
+              "pattern": "(hair|fringe|clip|tie|fur|coat|groom|lens|glasses)"
+            },
+            {
+              "path": "maintenance",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "c9b5d400d25bf500617d46c0d6191e26ebd27aaeb91c74346245cded63667eaa",
+          "reviewDimensionSetId": "PERSONAL_GROOMING_V8_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.amane.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "sourceState": "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW",
+          "sourceEvidenceSelectors": [
+            {
+              "path": "clothing.storage",
+              "mode": "DIRECT"
+            },
+            {
+              "path": "wearHabits",
+              "mode": "DIRECT"
+            }
+          ],
+          "sourceEvidenceSha256": "b97983bedc1d4ae34f856f4cb997f5cb4344dbaf5d7c2326d855cebcf07ee554",
+          "reviewDimensionSetId": "ACCESSORY_PROP_V6_PARTIAL_REVIEW",
+          "reviewState": "PARTIAL_EVIDENCE_PRESERVED_REVIEW_ONLY_MISSING_SEMANTICS",
+          "specificMissingMeaningMachineAuthored": false,
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    }
+  ],
+  "nextActionBoundary": "HUMAN_REVIEW_ONLY_PRESERVE_EVIDENCE_NO_GENERIC_FILL_OR_IMAGE_PROMOTION"
+}

@@ -1,0 +1,67 @@
+{
+  "id": "yoru-no-shirube-all-character-life-choice-migration-aware-audit-v2",
+  "date": "2026-08-14",
+  "status": "DERIVED_MIGRATION_AWARE_REVIEW_ARTIFACT_NON_CANON",
+  "sourceHashes": {
+    "data/visual/all-character-life-choice-author-review-queue-v1.json": "87f27719bb02d7b5a6a1d116626ee9dd4451e24ec2172749c8cf901e34ff7f64",
+    "data/visual/core5-p0-life-choice-review-contract-v1.json": "dcb1dcd582370780cfb9b9536ca2e89d399f9e55766d0addbb096aca6d2bc8c3",
+    "data/visual/core5-p1-life-choice-review-contract-v1.json": "009cd60d782d47b2427b03dfb46109fe385710dfe44689320098655e23741284",
+    "data/visual/core5-p2-life-choice-review-contract-v1.json": "cbedc29f69859ae6586bf07b70573589e0e3a691299b9d69849a2ff9655f2c28",
+    "data/visual/current16-life-choice-profile-migration-intake-v1.json": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+    "data/visual/future15-life-choice-profile-migration-intake-v1.json": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571"
+  },
+  "scope": {
+    "characterCount": 36,
+    "domainCount": 6,
+    "decisionCount": 216
+  },
+  "safety": {
+    "noNewCharacterFactsAuthored": true,
+    "migrationDoesNotEqualCanonPromotion": true,
+    "openAuthorDecisionRequiresHumanDecision": true,
+    "partialEvidenceRequiresHumanReview": true,
+    "notApplicableRequiresSchemaAdapterNotHumanFallback": true,
+    "genericPolicyMayServeAsCharacterEvidence": false,
+    "imageModelFreedom": false,
+    "generatedImageMayCloseItem": false
+  },
+  "summary": {
+    "AUTHOR_CONTENT_REVIEW_REQUIRED": 42,
+    "SCHEMA_MIGRATION_READY": 109,
+    "PARTIAL_SCHEMA_MIGRATION_REVIEW": 56,
+    "SPECIES_SCHEMA_ADAPTER_REQUIRED": 9
+  },
+  "provenance": {
+    "core5": {
+      "characterCount": 5,
+      "reviewItemCount": 30,
+      "contracts": [
+        "data/visual/core5-p0-life-choice-review-contract-v1.json",
+        "data/visual/core5-p1-life-choice-review-contract-v1.json",
+        "data/visual/core5-p2-life-choice-review-contract-v1.json"
+      ]
+    },
+    "current16": {
+      "characterCount": 16,
+      "decisionCount": 96,
+      "stateCounts": {
+        "MIGRATION_READY_AUTHOR_CANDIDATE": 63,
+        "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW": 31,
+        "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION": 1,
+        "PARTIAL_MIGRATION_EVIDENCE_WITH_OPEN_AUTHOR_DECISION": 1
+      },
+      "intake": "data/visual/current16-life-choice-profile-migration-intake-v1.json"
+    },
+    "future15": {
+      "characterCount": 15,
+      "decisionCount": 90,
+      "stateCounts": {
+        "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION": 10,
+        "MIGRATION_READY_AUTHOR_CANDIDATE": 46,
+        "PARTIAL_MIGRATION_EVIDENCE_AUTHOR_REVIEW": 25,
+        "SOURCE_MARKED_NOT_APPLICABLE_REQUIRES_SCHEMA_ADAPTER": 9
+      },
+      "intake": "data/visual/future15-life-choice-profile-migration-intake-v1.json"
+    }
+  }
+}
