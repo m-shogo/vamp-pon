@@ -1,0 +1,43 @@
+name: Life Choice Migration Aware Audit V2
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/all-character-life-choice-author-review-queue-v1.json'
+      - 'data/visual/core5-p0-life-choice-review-contract-v1.json'
+      - 'data/visual/core5-p1-life-choice-review-contract-v1.json'
+      - 'data/visual/core5-p2-life-choice-review-contract-v1.json'
+      - 'data/visual/current16-life-choice-profile-migration-intake-v1.json'
+      - 'data/visual/future15-life-choice-profile-migration-intake-v1.json'
+      - 'data/visual/all-character-life-choice-migration-aware-audit-v2.json'
+      - 'data/visual/all-character-life-choice-review-queue-v2.json'
+      - 'scripts/quality/build-life-choice-migration-aware-audit-v2.ts'
+      - '.github/workflows/life-choice-migration-aware-audit-v2.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/all-character-life-choice-author-review-queue-v1.json'
+      - 'data/visual/core5-p0-life-choice-review-contract-v1.json'
+      - 'data/visual/core5-p1-life-choice-review-contract-v1.json'
+      - 'data/visual/core5-p2-life-choice-review-contract-v1.json'
+      - 'data/visual/current16-life-choice-profile-migration-intake-v1.json'
+      - 'data/visual/future15-life-choice-profile-migration-intake-v1.json'
+      - 'data/visual/all-character-life-choice-migration-aware-audit-v2.json'
+      - 'data/visual/all-character-life-choice-review-queue-v2.json'
+      - 'scripts/quality/build-life-choice-migration-aware-audit-v2.ts'
+      - '.github/workflows/life-choice-migration-aware-audit-v2.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Derive migration-aware audit and queue
+        run: node --experimental-strip-types scripts/quality/build-life-choice-migration-aware-audit-v2.ts --emit-compact
+      - name: Validate materialized v2 artifacts when present
+        run: |
+          if [ -f data/visual/all-character-life-choice-migration-aware-audit-v2.json ] && [ -f data/visual/all-character-life-choice-review-queue-v2.json ]; then
+            node --experimental-strip-types scripts/quality/build-life-choice-migration-aware-audit-v2.ts --check-materialized
+          else
+            echo 'v2 audit/queue not materialized yet'
+          fi

@@ -1,0 +1,71 @@
+{
+  "id": "yoru-no-shirube-all-character-life-choice-review-queue-v2",
+  "date": "2026-08-14",
+  "status": "DERIVED_MIGRATION_AWARE_AUTHOR_REVIEW_QUEUE_NON_CANON",
+  "sourceAudit": "data/visual/all-character-life-choice-migration-aware-audit-v2.json",
+  "sourceHashes": {
+    "data/visual/all-character-life-choice-author-review-queue-v1.json": "87f27719bb02d7b5a6a1d116626ee9dd4451e24ec2172749c8cf901e34ff7f64",
+    "data/visual/core5-p0-life-choice-review-contract-v1.json": "dcb1dcd582370780cfb9b9536ca2e89d399f9e55766d0addbb096aca6d2bc8c3",
+    "data/visual/core5-p1-life-choice-review-contract-v1.json": "009cd60d782d47b2427b03dfb46109fe385710dfe44689320098655e23741284",
+    "data/visual/core5-p2-life-choice-review-contract-v1.json": "cbedc29f69859ae6586bf07b70573589e0e3a691299b9d69849a2ff9655f2c28",
+    "data/visual/current16-life-choice-profile-migration-intake-v1.json": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+    "data/visual/future15-life-choice-profile-migration-intake-v1.json": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571"
+  },
+  "scope": {
+    "characterCount": 36,
+    "domainCount": 6,
+    "decisionCount": 216
+  },
+  "safety": {
+    "noNewCharacterFactsAuthored": true,
+    "migrationDoesNotEqualCanonPromotion": true,
+    "openAuthorDecisionRequiresHumanDecision": true,
+    "partialEvidenceRequiresHumanReview": true,
+    "notApplicableRequiresSchemaAdapterNotHumanFallback": true,
+    "genericPolicyMayServeAsCharacterEvidence": false,
+    "imageModelFreedom": false,
+    "generatedImageMayCloseItem": false
+  },
+  "workstreams": [
+    {
+      "id": "A_AUTHOR_CONTENT_DECISIONS",
+      "priority": "A0",
+      "decisionCount": 42,
+      "rule": "Human author decides content. OPEN remains unresolved until explicit author action.",
+      "components": {
+        "core5P0": 10,
+        "core5P1": 10,
+        "core5P2": 10,
+        "current16OpenDomains": 2,
+        "future15OpenDomains": 10
+      }
+    },
+    {
+      "id": "B_SCHEMA_MIGRATION_READY",
+      "priority": "B1",
+      "decisionCount": 109,
+      "rule": "Existing character-specific candidate evidence may be mapped to the six-domain schema after human schema review; mapping is not Canon promotion."
+    },
+    {
+      "id": "C_PARTIAL_EVIDENCE_REVIEW",
+      "priority": "C2",
+      "decisionCount": 56,
+      "rule": "Preserve existing evidence and review only the missing semantic portion; never infer the missing part from generic fidelity policy."
+    },
+    {
+      "id": "D_SPECIES_SCHEMA_ADAPTER",
+      "priority": "D0_SCHEMA",
+      "decisionCount": 9,
+      "rule": "Create species/body-type-aware schema handling for source-marked NOT_APPLICABLE values. Never replace them with human defaults."
+    }
+  ],
+  "core5PriorityMap": {
+    "bodyAdornment": "P0",
+    "skinCoverage": "P0",
+    "personalGrooming": "P1",
+    "footwearGroundInterface": "P1",
+    "accessoryPropInventory": "P2",
+    "materialWearMaintenance": "P2"
+  },
+  "nextActionBoundary": "SCHEMA_OR_AUTHOR_REVIEW_ONLY_NO_IMAGE_RESOLUTION"
+}
