@@ -1,0 +1,30 @@
+name: Life Choice Species Schema Adapter
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/future15-life-choice-profile-migration-intake-v1.json'
+      - 'data/visual/life-choice-species-body-type-schema-adapter-v1.json'
+      - 'docs/visual/life-choice-species-body-type-schema-adapter-v1.md'
+      - 'scripts/quality/check-life-choice-species-schema-adapter.ts'
+      - '.github/workflows/life-choice-species-schema-adapter.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/future15-life-choice-profile-migration-intake-v1.json'
+      - 'data/visual/life-choice-species-body-type-schema-adapter-v1.json'
+      - 'docs/visual/life-choice-species-body-type-schema-adapter-v1.md'
+      - 'scripts/quality/check-life-choice-species-schema-adapter.ts'
+      - '.github/workflows/life-choice-species-schema-adapter.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate body-type schema adapter source coverage
+        run: node --experimental-strip-types scripts/quality/check-life-choice-species-schema-adapter.ts
+      - name: Validate materialized adapter freshness
+        run: node --experimental-strip-types scripts/quality/check-life-choice-species-schema-adapter.ts --check-materialized

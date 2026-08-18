@@ -1,0 +1,676 @@
+{
+  "id": "yoru-no-shirube-life-choice-species-body-type-schema-adapter-v1",
+  "date": "2026-08-18",
+  "status": "DERIVED_BODY_TYPE_SCHEMA_ADAPTER_NON_CANON_REQUIRES_HUMAN_SCHEMA_REVIEW",
+  "sources": {
+    "data/visual/future15-living-visual-profiles-v1.json": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+    "data/visual/future15-life-choice-profile-migration-intake-v1.json": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571"
+  },
+  "scope": {
+    "characterCount": 3,
+    "speciesCount": 3,
+    "axisDefinitionCount": 6,
+    "sourceFuture15DecisionCount": 90,
+    "sourceNotApplicableDecisionCount": 9,
+    "adapterMappedDecisionCount": 9,
+    "humanSchemaReviewRequiredCount": 9,
+    "canonPromotedCount": 0,
+    "imageResolvedCount": 0
+  },
+  "safety": {
+    "noNewCharacterFactsAuthored": true,
+    "sourceNotApplicableMarkersPreserved": true,
+    "sourceProfileUnchanged": true,
+    "sourceIntakeUnchanged": true,
+    "humanDefaultFallbackForbidden": true,
+    "adapterMappingDoesNotEqualCanonPromotion": true,
+    "requiresHumanSchemaReview": true,
+    "imageModelFreedom": false,
+    "generatedImageMayCloseItem": false
+  },
+  "bodyTypeFamilies": [
+    {
+      "id": "REAL_ANIMAL",
+      "species": [
+        "DOG",
+        "CAT"
+      ],
+      "decisionCount": 6
+    },
+    {
+      "id": "MAINTENANCE_ROBOT",
+      "species": [
+        "MAINTENANCE_ROBOT"
+      ],
+      "decisionCount": 3
+    }
+  ],
+  "axisDefinitions": [
+    {
+      "axisId": "realAnimal.coatBodyBoundary",
+      "bodyTypeFamily": "REAL_ANIMAL",
+      "allowedSpecies": [
+        "DOG",
+        "CAT"
+      ],
+      "sourceDomain": "skinCoverage",
+      "humanAxisBoundary": "Human exposure/modesty policy is not applicable to a real-animal body.",
+      "semanticRead": "Read coat, anatomy, seasonal condition, and household care only from existing source evidence.",
+      "sourceEvidencePaths": [
+        "bodyComfort",
+        "exposure.policy",
+        "clothing.patterns",
+        "maintenance"
+      ]
+    },
+    {
+      "axisId": "realAnimal.coatClawCare",
+      "bodyTypeFamily": "REAL_ANIMAL",
+      "allowedSpecies": [
+        "DOG",
+        "CAT"
+      ],
+      "sourceDomain": "personalGrooming",
+      "humanAxisBoundary": "Human makeup is not applicable; animal coat and claw care remain body-specific.",
+      "semanticRead": "Read grooming and care without inventing cosmetic styling or human presentation rules.",
+      "sourceEvidencePaths": [
+        "bodyModification.makeup",
+        "bodyModification.nails",
+        "maintenance",
+        "wearHabits"
+      ]
+    },
+    {
+      "axisId": "realAnimal.bodyAttachmentCarryContext",
+      "bodyTypeFamily": "REAL_ANIMAL",
+      "allowedSpecies": [
+        "DOG",
+        "CAT"
+      ],
+      "sourceDomain": "accessoryPropInventory",
+      "humanAxisBoundary": "Human pocket/storage assumptions are not applicable to a real animal.",
+      "semanticRead": "Read only source-supported collar or household attachment context; carried storage is never inferred.",
+      "sourceEvidencePaths": [
+        "bodyModification.jewelry",
+        "clothing.storage",
+        "clothing.materials",
+        "wearHabits"
+      ]
+    },
+    {
+      "axisId": "maintenanceRobot.shellMarkingAttachmentTopology",
+      "bodyTypeFamily": "MAINTENANCE_ROBOT",
+      "allowedSpecies": [
+        "MAINTENANCE_ROBOT"
+      ],
+      "sourceDomain": "bodyAdornment",
+      "humanAxisBoundary": "Human piercing and tattoo topology is not applicable to a maintenance-robot shell.",
+      "semanticRead": "Read service markings, repair patches, and attachments only where the source already supports them.",
+      "sourceEvidencePaths": [
+        "bodyModification.piercing",
+        "bodyModification.tattoo",
+        "bodyModification.jewelry",
+        "clothing.patterns",
+        "wearHabits"
+      ]
+    },
+    {
+      "axisId": "maintenanceRobot.shellPanelServiceBoundary",
+      "bodyTypeFamily": "MAINTENANCE_ROBOT",
+      "allowedSpecies": [
+        "MAINTENANCE_ROBOT"
+      ],
+      "sourceDomain": "skinCoverage",
+      "humanAxisBoundary": "Human skin exposure and modesty policy is not applicable to a robot shell.",
+      "semanticRead": "Read shell, panel, contact, and service-access behavior only from existing source evidence.",
+      "sourceEvidencePaths": [
+        "bodyComfort",
+        "exposure.policy",
+        "clothing.silhouette",
+        "clothing.materials",
+        "maintenance"
+      ]
+    },
+    {
+      "axisId": "maintenanceRobot.surfaceServiceCare",
+      "bodyTypeFamily": "MAINTENANCE_ROBOT",
+      "allowedSpecies": [
+        "MAINTENANCE_ROBOT"
+      ],
+      "sourceDomain": "personalGrooming",
+      "humanAxisBoundary": "Human makeup and nail care are not applicable to robot maintenance.",
+      "semanticRead": "Read surface wear, part replacement, and service care without inventing decorative cosmetics.",
+      "sourceEvidencePaths": [
+        "bodyModification.makeup",
+        "bodyModification.nails",
+        "maintenance",
+        "wearHabits"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "kuu.skinCoverage",
+      "characterId": "kuu",
+      "characterName": "クウ",
+      "species": "DOG",
+      "bodyTypeFamily": "REAL_ANIMAL",
+      "sourceDomain": "skinCoverage",
+      "sourceState": "SOURCE_MARKED_NOT_APPLICABLE_REQUIRES_SCHEMA_ADAPTER",
+      "sourceNotApplicable": {
+        "preserved": true,
+        "markers": [
+          {
+            "intakePath": "exposure.policy",
+            "sourceProfilePath": "exposure.policy",
+            "value": "NOT_APPLICABLE_REAL_ANIMAL"
+          }
+        ]
+      },
+      "adapter": {
+        "axisId": "realAnimal.coatBodyBoundary",
+        "mappingState": "ADAPTER_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+        "sourceEvidence": [
+          {
+            "sourceProfilePath": "bodyComfort",
+            "value": "real dog body; coat, paws, gait, aging, and comfort are animal-specific and never converted into humanoid fashion anatomy"
+          },
+          {
+            "sourceProfilePath": "exposure.policy",
+            "value": "NOT_APPLICABLE_REAL_ANIMAL"
+          },
+          {
+            "sourceProfilePath": "clothing.patterns",
+            "value": [
+              "natural-coat-only-unless-authored"
+            ]
+          },
+          {
+            "sourceProfilePath": "maintenance",
+            "value": "coat/paw care consistent with real dog life and household context"
+          }
+        ],
+        "createsCharacterFact": false,
+        "permitsHumanFallback": false
+      },
+      "review": {
+        "requiresHumanSchemaReview": true,
+        "canonPromotionBlocked": true,
+        "imageModelFreedom": false,
+        "generatedImageMayCloseItem": false
+      }
+    },
+    {
+      "id": "kuu.personalGrooming",
+      "characterId": "kuu",
+      "characterName": "クウ",
+      "species": "DOG",
+      "bodyTypeFamily": "REAL_ANIMAL",
+      "sourceDomain": "personalGrooming",
+      "sourceState": "SOURCE_MARKED_NOT_APPLICABLE_REQUIRES_SCHEMA_ADAPTER",
+      "sourceNotApplicable": {
+        "preserved": true,
+        "markers": [
+          {
+            "intakePath": "makeup",
+            "sourceProfilePath": "bodyModification.makeup",
+            "value": "NOT_APPLICABLE"
+          }
+        ]
+      },
+      "adapter": {
+        "axisId": "realAnimal.coatClawCare",
+        "mappingState": "ADAPTER_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+        "sourceEvidence": [
+          {
+            "sourceProfilePath": "bodyModification.makeup",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "sourceProfilePath": "bodyModification.nails",
+            "value": "natural-dog-claws"
+          },
+          {
+            "sourceProfilePath": "maintenance",
+            "value": "coat/paw care consistent with real dog life and household context"
+          },
+          {
+            "sourceProfilePath": "wearHabits",
+            "value": [
+              "collar not mandatory in every timeline/context",
+              "movement and scent behavior remain dog-like",
+              "star-beast visual language never applied"
+            ]
+          }
+        ],
+        "createsCharacterFact": false,
+        "permitsHumanFallback": false
+      },
+      "review": {
+        "requiresHumanSchemaReview": true,
+        "canonPromotionBlocked": true,
+        "imageModelFreedom": false,
+        "generatedImageMayCloseItem": false
+      }
+    },
+    {
+      "id": "kuu.accessoryPropInventory",
+      "characterId": "kuu",
+      "characterName": "クウ",
+      "species": "DOG",
+      "bodyTypeFamily": "REAL_ANIMAL",
+      "sourceDomain": "accessoryPropInventory",
+      "sourceState": "SOURCE_MARKED_NOT_APPLICABLE_REQUIRES_SCHEMA_ADAPTER",
+      "sourceNotApplicable": {
+        "preserved": true,
+        "markers": [
+          {
+            "intakePath": "storage",
+            "sourceProfilePath": "clothing.storage",
+            "value": "NOT_APPLICABLE"
+          }
+        ]
+      },
+      "adapter": {
+        "axisId": "realAnimal.bodyAttachmentCarryContext",
+        "mappingState": "ADAPTER_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+        "sourceEvidence": [
+          {
+            "sourceProfilePath": "bodyModification.jewelry",
+            "value": "collar-or-tag-only-if-story-supported"
+          },
+          {
+            "sourceProfilePath": "clothing.storage",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "sourceProfilePath": "clothing.materials",
+            "value": {
+              "likes": [
+                "comfortable-collar-material-if-used"
+              ],
+              "avoids": [
+                "human-fantasy-armor",
+                "cape",
+                "jewelry"
+              ]
+            }
+          },
+          {
+            "sourceProfilePath": "wearHabits",
+            "value": [
+              "collar not mandatory in every timeline/context",
+              "movement and scent behavior remain dog-like",
+              "star-beast visual language never applied"
+            ]
+          }
+        ],
+        "createsCharacterFact": false,
+        "permitsHumanFallback": false
+      },
+      "review": {
+        "requiresHumanSchemaReview": true,
+        "canonPromotionBlocked": true,
+        "imageModelFreedom": false,
+        "generatedImageMayCloseItem": false
+      }
+    },
+    {
+      "id": "yomo.skinCoverage",
+      "characterId": "yomo",
+      "characterName": "ヨモ",
+      "species": "CAT",
+      "bodyTypeFamily": "REAL_ANIMAL",
+      "sourceDomain": "skinCoverage",
+      "sourceState": "SOURCE_MARKED_NOT_APPLICABLE_REQUIRES_SCHEMA_ADAPTER",
+      "sourceNotApplicable": {
+        "preserved": true,
+        "markers": [
+          {
+            "intakePath": "exposure.policy",
+            "sourceProfilePath": "exposure.policy",
+            "value": "NOT_APPLICABLE_REAL_ANIMAL"
+          }
+        ]
+      },
+      "adapter": {
+        "axisId": "realAnimal.coatBodyBoundary",
+        "mappingState": "ADAPTER_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+        "sourceEvidence": [
+          {
+            "sourceProfilePath": "bodyComfort",
+            "value": "real cat body; identity comes from one animal's accumulated habits across homes, not from costume-coded multiple names"
+          },
+          {
+            "sourceProfilePath": "exposure.policy",
+            "value": "NOT_APPLICABLE_REAL_ANIMAL"
+          },
+          {
+            "sourceProfilePath": "clothing.patterns",
+            "value": [
+              "natural-coat"
+            ]
+          },
+          {
+            "sourceProfilePath": "maintenance",
+            "value": "realistic self-grooming plus household care; seasonal variation allowed"
+          }
+        ],
+        "createsCharacterFact": false,
+        "permitsHumanFallback": false
+      },
+      "review": {
+        "requiresHumanSchemaReview": true,
+        "canonPromotionBlocked": true,
+        "imageModelFreedom": false,
+        "generatedImageMayCloseItem": false
+      }
+    },
+    {
+      "id": "yomo.personalGrooming",
+      "characterId": "yomo",
+      "characterName": "ヨモ",
+      "species": "CAT",
+      "bodyTypeFamily": "REAL_ANIMAL",
+      "sourceDomain": "personalGrooming",
+      "sourceState": "SOURCE_MARKED_NOT_APPLICABLE_REQUIRES_SCHEMA_ADAPTER",
+      "sourceNotApplicable": {
+        "preserved": true,
+        "markers": [
+          {
+            "intakePath": "makeup",
+            "sourceProfilePath": "bodyModification.makeup",
+            "value": "NOT_APPLICABLE"
+          }
+        ]
+      },
+      "adapter": {
+        "axisId": "realAnimal.coatClawCare",
+        "mappingState": "ADAPTER_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+        "sourceEvidence": [
+          {
+            "sourceProfilePath": "bodyModification.makeup",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "sourceProfilePath": "bodyModification.nails",
+            "value": "natural-cat-claws"
+          },
+          {
+            "sourceProfilePath": "maintenance",
+            "value": "realistic self-grooming plus household care; seasonal variation allowed"
+          },
+          {
+            "sourceProfilePath": "wearHabits",
+            "value": [
+              "different households may use different collars or none",
+              "same body habits persist across names",
+              "cat chooses surfaces and distances independently"
+            ]
+          }
+        ],
+        "createsCharacterFact": false,
+        "permitsHumanFallback": false
+      },
+      "review": {
+        "requiresHumanSchemaReview": true,
+        "canonPromotionBlocked": true,
+        "imageModelFreedom": false,
+        "generatedImageMayCloseItem": false
+      }
+    },
+    {
+      "id": "yomo.accessoryPropInventory",
+      "characterId": "yomo",
+      "characterName": "ヨモ",
+      "species": "CAT",
+      "bodyTypeFamily": "REAL_ANIMAL",
+      "sourceDomain": "accessoryPropInventory",
+      "sourceState": "SOURCE_MARKED_NOT_APPLICABLE_REQUIRES_SCHEMA_ADAPTER",
+      "sourceNotApplicable": {
+        "preserved": true,
+        "markers": [
+          {
+            "intakePath": "storage",
+            "sourceProfilePath": "clothing.storage",
+            "value": "NOT_APPLICABLE"
+          }
+        ]
+      },
+      "adapter": {
+        "axisId": "realAnimal.bodyAttachmentCarryContext",
+        "mappingState": "ADAPTER_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+        "sourceEvidence": [
+          {
+            "sourceProfilePath": "bodyModification.jewelry",
+            "value": "collar-only-if-specific-home-context"
+          },
+          {
+            "sourceProfilePath": "clothing.storage",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "sourceProfilePath": "clothing.materials",
+            "value": {
+              "likes": [
+                "contextual-collar-material-if-used"
+              ],
+              "avoids": [
+                "human-clothes",
+                "fantasy-cape",
+                "gem-collar"
+              ]
+            }
+          },
+          {
+            "sourceProfilePath": "wearHabits",
+            "value": [
+              "different households may use different collars or none",
+              "same body habits persist across names",
+              "cat chooses surfaces and distances independently"
+            ]
+          }
+        ],
+        "createsCharacterFact": false,
+        "permitsHumanFallback": false
+      },
+      "review": {
+        "requiresHumanSchemaReview": true,
+        "canonPromotionBlocked": true,
+        "imageModelFreedom": false,
+        "generatedImageMayCloseItem": false
+      }
+    },
+    {
+      "id": "rum.bodyAdornment",
+      "characterId": "rum",
+      "characterName": "ルム",
+      "species": "MAINTENANCE_ROBOT",
+      "bodyTypeFamily": "MAINTENANCE_ROBOT",
+      "sourceDomain": "bodyAdornment",
+      "sourceState": "SOURCE_MARKED_NOT_APPLICABLE_REQUIRES_SCHEMA_ADAPTER",
+      "sourceNotApplicable": {
+        "preserved": true,
+        "markers": [
+          {
+            "intakePath": "piercing",
+            "sourceProfilePath": "bodyModification.piercing",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "intakePath": "tattoo",
+            "sourceProfilePath": "bodyModification.tattoo",
+            "value": "NOT_APPLICABLE"
+          }
+        ]
+      },
+      "adapter": {
+        "axisId": "maintenanceRobot.shellMarkingAttachmentTopology",
+        "mappingState": "ADAPTER_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+        "sourceEvidence": [
+          {
+            "sourceProfilePath": "bodyModification.piercing",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "sourceProfilePath": "bodyModification.tattoo",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "sourceProfilePath": "bodyModification.jewelry",
+            "value": "no-default-jewelry"
+          },
+          {
+            "sourceProfilePath": "clothing.patterns",
+            "value": [
+              "maintenance-mark",
+              "individual-scratch/patch"
+            ]
+          },
+          {
+            "sourceProfilePath": "wearHabits",
+            "value": [
+              "shared model geometry remains recognizable",
+              "individual quirk emerges in repairs, attachments, or wear",
+              "no cute hat unless acquired in story"
+            ]
+          }
+        ],
+        "createsCharacterFact": false,
+        "permitsHumanFallback": false
+      },
+      "review": {
+        "requiresHumanSchemaReview": true,
+        "canonPromotionBlocked": true,
+        "imageModelFreedom": false,
+        "generatedImageMayCloseItem": false
+      }
+    },
+    {
+      "id": "rum.skinCoverage",
+      "characterId": "rum",
+      "characterName": "ルム",
+      "species": "MAINTENANCE_ROBOT",
+      "bodyTypeFamily": "MAINTENANCE_ROBOT",
+      "sourceDomain": "skinCoverage",
+      "sourceState": "SOURCE_MARKED_NOT_APPLICABLE_REQUIRES_SCHEMA_ADAPTER",
+      "sourceNotApplicable": {
+        "preserved": true,
+        "markers": [
+          {
+            "intakePath": "exposure.policy",
+            "sourceProfilePath": "exposure.policy",
+            "value": "NOT_APPLICABLE_ROBOT"
+          }
+        ]
+      },
+      "adapter": {
+        "axisId": "maintenanceRobot.shellPanelServiceBoundary",
+        "mappingState": "ADAPTER_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+        "sourceEvidence": [
+          {
+            "sourceProfilePath": "bodyComfort",
+            "value": "small maintenance robot identity; body shape follows task, stability, reach, charge/service access, and individual wear rather than humanoid cuteness"
+          },
+          {
+            "sourceProfilePath": "exposure.policy",
+            "value": "NOT_APPLICABLE_ROBOT"
+          },
+          {
+            "sourceProfilePath": "clothing.silhouette",
+            "value": [
+              "small-maintenance-robot",
+              "task-first",
+              "non-humanoid-allowed"
+            ]
+          },
+          {
+            "sourceProfilePath": "clothing.materials",
+            "value": {
+              "likes": [
+                "serviceable-shell",
+                "replaceable-panel",
+                "rubberized-contact"
+              ],
+              "avoids": [
+                "human-clothes-as-default",
+                "luxury-mecha-armor"
+              ]
+            }
+          },
+          {
+            "sourceProfilePath": "maintenance",
+            "value": "parts replaced pragmatically; mismatched repair components can become individual history"
+          }
+        ],
+        "createsCharacterFact": false,
+        "permitsHumanFallback": false
+      },
+      "review": {
+        "requiresHumanSchemaReview": true,
+        "canonPromotionBlocked": true,
+        "imageModelFreedom": false,
+        "generatedImageMayCloseItem": false
+      }
+    },
+    {
+      "id": "rum.personalGrooming",
+      "characterId": "rum",
+      "characterName": "ルム",
+      "species": "MAINTENANCE_ROBOT",
+      "bodyTypeFamily": "MAINTENANCE_ROBOT",
+      "sourceDomain": "personalGrooming",
+      "sourceState": "SOURCE_MARKED_NOT_APPLICABLE_REQUIRES_SCHEMA_ADAPTER",
+      "sourceNotApplicable": {
+        "preserved": true,
+        "markers": [
+          {
+            "intakePath": "makeup",
+            "sourceProfilePath": "bodyModification.makeup",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "intakePath": "nails",
+            "sourceProfilePath": "bodyModification.nails",
+            "value": "NOT_APPLICABLE"
+          }
+        ]
+      },
+      "adapter": {
+        "axisId": "maintenanceRobot.surfaceServiceCare",
+        "mappingState": "ADAPTER_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+        "sourceEvidence": [
+          {
+            "sourceProfilePath": "bodyModification.makeup",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "sourceProfilePath": "bodyModification.nails",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "sourceProfilePath": "maintenance",
+            "value": "parts replaced pragmatically; mismatched repair components can become individual history"
+          },
+          {
+            "sourceProfilePath": "wearHabits",
+            "value": [
+              "shared model geometry remains recognizable",
+              "individual quirk emerges in repairs, attachments, or wear",
+              "no cute hat unless acquired in story"
+            ]
+          }
+        ],
+        "createsCharacterFact": false,
+        "permitsHumanFallback": false
+      },
+      "review": {
+        "requiresHumanSchemaReview": true,
+        "canonPromotionBlocked": true,
+        "imageModelFreedom": false,
+        "generatedImageMayCloseItem": false
+      }
+    }
+  ],
+  "nextActionBoundary": "HUMAN_SCHEMA_REVIEW_ONLY_NO_CANON_OR_IMAGE_PROMOTION"
+}
