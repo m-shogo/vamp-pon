@@ -1,0 +1,38 @@
+name: Life Choice Schema Migration Ready V1
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/current16-life-choice-profile-migration-intake-v1.json'
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/future15-life-choice-profile-migration-intake-v1.json'
+      - 'data/visual/all-character-life-choice-migration-aware-audit-v2.json'
+      - 'data/visual/all-character-life-choice-review-queue-v2.json'
+      - 'data/visual/all-character-life-choice-schema-migration-ready-v1.json'
+      - 'docs/visual/life-choice-schema-migration-ready-v1.md'
+      - 'scripts/quality/build-life-choice-schema-migration-ready-v1.ts'
+      - '.github/workflows/life-choice-schema-migration-ready-v1.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/current16-life-choice-profile-migration-intake-v1.json'
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'data/visual/future15-life-choice-profile-migration-intake-v1.json'
+      - 'data/visual/all-character-life-choice-migration-aware-audit-v2.json'
+      - 'data/visual/all-character-life-choice-review-queue-v2.json'
+      - 'data/visual/all-character-life-choice-schema-migration-ready-v1.json'
+      - 'docs/visual/life-choice-schema-migration-ready-v1.md'
+      - 'scripts/quality/build-life-choice-schema-migration-ready-v1.ts'
+      - '.github/workflows/life-choice-schema-migration-ready-v1.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate 109 schema-ready decisions
+        run: node --experimental-strip-types scripts/quality/build-life-choice-schema-migration-ready-v1.ts
+      - name: Validate materialized migration read model
+        run: node --experimental-strip-types scripts/quality/build-life-choice-schema-migration-ready-v1.ts --check-materialized

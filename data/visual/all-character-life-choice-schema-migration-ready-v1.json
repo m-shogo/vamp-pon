@@ -1,0 +1,1718 @@
+{
+  "id": "yoru-no-shirube-all-character-life-choice-schema-migration-ready-v1",
+  "date": "2026-08-18",
+  "status": "DERIVED_SCHEMA_MAPPING_READY_NON_CANON_REQUIRES_HUMAN_SCHEMA_REVIEW",
+  "sourceHashes": {
+    "data/visual/current21-extended-living-visual-profiles-v1.json": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+    "data/visual/current16-life-choice-profile-migration-intake-v1.json": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+    "data/visual/future15-living-visual-profiles-v1.json": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+    "data/visual/future15-life-choice-profile-migration-intake-v1.json": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+    "data/visual/all-character-life-choice-migration-aware-audit-v2.json": "3085e63158a73741e68a185623db43eda2830192fba14b1f75e95e93240ea4b3",
+    "data/visual/all-character-life-choice-review-queue-v2.json": "141e40e313acc178ee63c422eba0c9a76d3798e7dfc525180612aecfcc2d76c5"
+  },
+  "scope": {
+    "rosterCount": 2,
+    "characterCount": 31,
+    "sourceDecisionCount": 186,
+    "schemaMigrationReadyDecisionCount": 109,
+    "humanSchemaReviewRequiredCount": 109,
+    "canonPromotedCount": 0,
+    "imageResolvedCount": 0
+  },
+  "rosterCounts": {
+    "CURRENT16": 63,
+    "FUTURE15": 46
+  },
+  "domainCounts": {
+    "bodyAdornment": 19,
+    "skinCoverage": 28,
+    "personalGrooming": 0,
+    "accessoryPropInventory": 0,
+    "footwearGroundInterface": 31,
+    "materialWearMaintenance": 31
+  },
+  "migrationContract": {
+    "readMode": "SOURCE_PATH_AND_EVIDENCE_HASH_ONLY_NO_VALUE_DUPLICATION",
+    "sourceValuesRemainAuthorCandidate": true,
+    "noNewCharacterFactsAuthored": true,
+    "genericPolicyMaySupplyMissingEvidence": false,
+    "migrationDoesNotEqualCanonPromotion": true,
+    "humanSchemaReviewRequired": true,
+    "imageModelFreedom": false,
+    "generatedImageMayCloseItem": false
+  },
+  "characters": [
+    {
+      "roster": "CURRENT16",
+      "characterId": "sen",
+      "characterName": "セン",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.sen.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "8592315ec82ea23f61f847241827a567f2060939428e6752ef34e1a0b5a68a1e",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.sen.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "5cc035070d78edf8ce0eb826409cc300fea54653903414c0fc70ce9bbaa2b09e",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.sen.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "4db7fb58b5cbc4838cb7440fdb0bfee0dedd3a1e6e047a94e0757b9fb5c05c9d",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.sen.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "e662b147ef4cfb6010bd2b01332b88583df9442717181622236cd956ba150175",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "ritsu",
+      "characterName": "リツ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.ritsu.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "1c558e28283ccf83a22915becce3e222bf2871aa7d7add85a56fb806b6730016",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.ritsu.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "3664ea6b388dc9795a7337917ba4f153398df845d138f08ef582ecc63aa07a3d",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.ritsu.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "2f56fe23d01918e71941cf45f94028dcc4d69bd925dd02023f3e2c0afaa8d82c",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.ritsu.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "59eabb68da2eb91f92af8df52322ab262dfb8c470c2988aa5788b13565852c44",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "koyori",
+      "characterName": "コヨリ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.koyori.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "83875150e2a7437b4250d0901ac181340ff4388bd5d1a9cc12b7f835576853af",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.koyori.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "bea33eab38b1e2bfa52b34d134959a0227a64834791a9fe7902216be784c8d3c",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.koyori.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "840da4fdee641a5aa2b36d90f9955e227a700bc28ce8080bfe1d584e9e096aed",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.koyori.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "47d5f12aa04eafb653a17729a53fbcb86ec81035d3c7ccc76096030870aa72f7",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "gen",
+      "characterName": "ゲン",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.gen.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "d33162f5c49b38a2d60fdc8d6db41475b4f5044548194e67207f65232bbbb85e",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.gen.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "f91b3153335ece01cff453e90a560fc5f9449e2f2ca1270bcd190b48c9b61ab2",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.gen.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "0ce434b744939c24c4b6c7d919d7e201aed444390fbe51d8450581ae21b798a0",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.gen.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "735166dbd6bf00de9609f35d3ff4f27038a99b9f2511bbc94157bf2a6aaac0a2",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "hana",
+      "characterName": "ハナ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.hana.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "18f2302fdd2919c3ed6c2199bb8b2a2094b6510f2c6bde93a403701dac764b25",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.hana.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "3096ded1433c9329e86983b95fd2318eba83103e2412e1a38097da1925a944b7",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.hana.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "4db7fb58b5cbc4838cb7440fdb0bfee0dedd3a1e6e047a94e0757b9fb5c05c9d",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.hana.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "9c056bdaf0293133f2fbcfd390c971497d54d71359a75b3d81f342a5b6ca8178",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "yubi",
+      "characterName": "ユウビ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.yubi.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "4bcf332ad10a30ef8c8ab061c3597618a1f95fac5d225a4b7ce396108fd428ed",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.yubi.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "3664ea6b388dc9795a7337917ba4f153398df845d138f08ef582ecc63aa07a3d",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.yubi.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "5aefe13055056d04fdc5c8594a0fb67cd83862f89dff5196c8583c6f5163b074",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.yubi.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "e11d235256286829560e3cd4beb14ae2990bf182106372208bfc14fdbd4b881a",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "madoka",
+      "characterName": "マドカ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.madoka.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "98be2eb4a43e696ade4195a6d6e0d244665601bb918017121915761f0611860a",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.madoka.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.madoka.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "43a0e463df0a8ce509550d49d7e683eee17a8a7686433d9c764e6fa33039137c",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.madoka.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "02a627ec15356444231ce61f3bc7a3191c2851c38f9a5bfe5b4043cefd34f0b8",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "shiro",
+      "characterName": "シロ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.shiro.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "3258ae83d9bc557af7263aae272fbf9a8720a92375bd465e8c873bbef7be540e",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.shiro.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "f91b3153335ece01cff453e90a560fc5f9449e2f2ca1270bcd190b48c9b61ab2",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.shiro.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "43a0e463df0a8ce509550d49d7e683eee17a8a7686433d9c764e6fa33039137c",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.shiro.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "70bb809f0861be24bc61532669cb45a2e82c52eeea000b4e6afa4c94f97a849e",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "tobari",
+      "characterName": "トバリ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.tobari.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "917f071d97b897646063559478692431fcd902759755d7b0fd29421793178c64",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.tobari.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "8de72b8246350e57b19913e54f1efc96bf7387db9ed620e0549a37d142d4d922",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.tobari.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "0d34abf8564159f0d2a51582858e35bec599b6da6c1f8e7c3c466918901f56ad",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.tobari.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "2dd4fe475b290aba7d50c4291fb7b4c12d69651bf4d15f1563260af2a3ad7b56",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "nemu",
+      "characterName": "ネム",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.nemu.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "c0db6e695c6fd39524da1650cb0d6cb8a41ef56b164ff6b7e438264772f5ad2e",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.nemu.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "f39a6fda3e81aa381fd89e5b15e4850beea1f2fe9d317e150e2957995242b483",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.nemu.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "f00b602ee673a837bd191c5c1fa6cff0878ab1f96ea7a3c3ff7378de574a660b",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.nemu.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "5531745723caed7fceccc505b4af19388b8b00091db8a23967178978fa7099b6",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kuroori",
+      "characterName": "クロオリ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kuroori.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "1cb4989f62476f9b631e0e61b64fd6df360fe4bac6b07a91142c8272399ad0ad",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kuroori.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "f91b3153335ece01cff453e90a560fc5f9449e2f2ca1270bcd190b48c9b61ab2",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kuroori.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "43a0e463df0a8ce509550d49d7e683eee17a8a7686433d9c764e6fa33039137c",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kuroori.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "bf8ab8ac15231505153ff897c19b6625713e2a8928bfe1c27d39fcaa7769a17d",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kage1",
+      "characterName": "カナメ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kage1.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "8592315ec82ea23f61f847241827a567f2060939428e6752ef34e1a0b5a68a1e",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage1.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage1.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "3f3080799a40ce91f0d7632f77b837866b1f95aab34333dc2e2aa6a18da017a3",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage1.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "cdef66a9faa97bb568f4e21d8c21a3d9ca16e301b31fadd3f09fc48e5600c791",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kage2",
+      "characterName": "カスミ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kage2.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "1cb4989f62476f9b631e0e61b64fd6df360fe4bac6b07a91142c8272399ad0ad",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage2.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "2a24a520823a94ae8dcc959c5de146d2d3bc8ec4be38aa7cf3c470095f6e2ba0",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage2.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "43a0e463df0a8ce509550d49d7e683eee17a8a7686433d9c764e6fa33039137c",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage2.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "686a6f884ff30befa4e60caf626ddb8b2386c88ac87df16b397af1f28a735fdc",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kage3",
+      "characterName": "トキ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kage3.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "1dd6a48e27d7a65856361ffe9d334c213be93ecc2662051f7f77941d64428712",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage3.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage3.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "4db7fb58b5cbc4838cb7440fdb0bfee0dedd3a1e6e047a94e0757b9fb5c05c9d",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage3.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "f8d1b29d9f9e54fad33bba17c71cb43506cfe20cc9431b45aa82dcabda9db550",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kage4",
+      "characterName": "ツムギ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kage4.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage4.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "e8ab12da70894f13f679082672cf7a68f7964d45050955470e0ded06fa171dbd",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.kage4.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "fc86383ca63310477765c0425bbf1f00064e5fecf6750ae2ddcc549b3de19c84",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "ren",
+      "characterName": "レン",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.ren.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "1cb4989f62476f9b631e0e61b64fd6df360fe4bac6b07a91142c8272399ad0ad",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.ren.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.ren.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "baa799a4f8379c828139959219786e88c79653690860471866c04b4f26209731",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "current16.ren.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "bdea4ae4a4fb9a7f7c25209719097c783ffa5c87e707d2bb60fe97fd92e43a26",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "hiyori",
+      "characterName": "ヒヨリ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.hiyori.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "579bfda1f45a1e094aec9c25edae5b9f52a100bfaf47daa279e031d98934e520",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.hiyori.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "a24e8b71719afa296cfda28f968613948011ecdf140aedca5b4749f6e1ebe2e9",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.hiyori.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "de0e22a1b6e6ae89d951f511b1ddf3813e252fd0bbd04264a588e2d32c90fd5e",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "serika",
+      "characterName": "セリカ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.serika.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "45e243f36e67c52df45f96072946fb16925f37328d5e593b66b45ba44f50723b",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.serika.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "0c7c0c23ed188f460b7310873358248faba5754c916abb0b93544d7ca7de3838",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.serika.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "93e05c42a5ea0d2fbe483ec3695b974a64cd82626bda1b507ceaf7d42a855f54",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.serika.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "7ffb3e595b0a6d250d095d16488d3672e1d671cc857a441f9ccca59295719b89",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "chloe",
+      "characterName": "クロエ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.chloe.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "6e4733fa7be61fa66882e17e4c02c56e34b7d92e260f88e3b5a09507f2ac41fb",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.chloe.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "ffbd2f23bc6e71b383092d7cf37928a84af118edc4509297ed52dd598e2e1c88",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.chloe.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "da881862040cc33e8f91ce07e50b54099d2b35e44ad525b9ec27f87899bfae12",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "renji",
+      "characterName": "レンジ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.renji.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "bc04082c33fb8581278d5f31e386be15f84de3e6c5dd96dd53697691a51383f0",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.renji.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.renji.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "672ccc6a9815ff6d2afd3e48e93aae2023f2ed8736082cb3a8a77b554729d2eb",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.renji.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "8ab02fd8940c793ee09493760471f407dc55cb565b9a8c9a2b2321e7900da13c",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "touma",
+      "characterName": "トウマ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.touma.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.touma.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "835a77cb9896346950f81455aeaaa6e58e8f5f354ac825ca533324695a668247",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.touma.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "47ff73131ef7329e7e52fe9a3ac6e8cafc9846d14ea26e88e7879d2fc500ae82",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "kuu",
+      "characterName": "クウ",
+      "species": "DOG",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.kuu.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "9c2492ab58a388a05eabb9267c420ad29f044fed391a1a4128f8869243d9dc52",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.kuu.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "3cf74855dcb94e9764955ec1819b0386ca55656445a3b8fc57be1f0b35e52fb8",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.kuu.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "df7510171957424cbca973b3e6fd64918d29fcb379918c1f917596cf62a9c9d1",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "yomo",
+      "characterName": "ヨモ",
+      "species": "CAT",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.yomo.bodyAdornment",
+          "domain": "bodyAdornment",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "bodyModification.piercing",
+            "bodyModification.tattoo",
+            "bodyModification.jewelry"
+          ],
+          "sourceEvidenceSha256": "09ebe3f8a0cfdbe40e9b521b0eaf2f57e503fb042e80a575170ca07aa32c96d6",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.yomo.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "3cf74855dcb94e9764955ec1819b0386ca55656445a3b8fc57be1f0b35e52fb8",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.yomo.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "4950456bdae9e4ad7b1415ff0513e7c2c4e8e84e4f6960de8678a5c4c4dbac6f",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "noa",
+      "characterName": "ノア",
+      "species": "ARTIFICIAL_PERSON",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.noa.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.noa.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "b8718dc87d49bf171e520aa78578cc1bb8c93df998e01d1b33a3fa790a4bc211",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.noa.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "7e3e09e81ae994c54d448730bdadd3d103e8ee859b23a6e216d20b94b4bc9a3b",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "rum",
+      "characterName": "ルム",
+      "species": "MAINTENANCE_ROBOT",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.rum.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "a823dc54bda64aa428e750122b93922baacf8b824e4eb6ded60692fd845efddf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.rum.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "ea884a8706fdd50f46b76930e4ceefbbe9f7875237243332f3ea0ae70ca9d071",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "maki",
+      "characterName": "マキ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.maki.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.maki.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "cebcc6f05f2c697c0016b4a542706a0aef648cbd4e0e31cac7d6b9c7925afb52",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.maki.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "d6846f60a4a19db599ce6fa076ab8d98546e7f52addc41d07ec6d4749c015edd",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "suzu",
+      "characterName": "スズ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.suzu.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "1589e91c403ba2788064fc462f97e95353c14a17970c7c5bac2102d073aef99e",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.suzu.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "ccf425a10ad663dc4edaf3ab62e2a6ed3aeb1602e810c0a3a05eb6e02336d548",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.suzu.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "e4063e0836c7060e3424ef292f51b07503e0e5302cecc1c72cf04b950e911038",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "io",
+      "characterName": "イオ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.io.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.io.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "2f56fe23d01918e71941cf45f94028dcc4d69bd925dd02023f3e2c0afaa8d82c",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.io.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "63f074610c1f8e749e9e57da5e5103fb33f79dc3c48d093ada4f54fb76539fa1",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "kai",
+      "characterName": "カイ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.kai.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.kai.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "56e380a7cb5469d2cd2f7c81e9f47590b8c561d7d55acdc6353e217ad204f319",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.kai.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "911891145bb97de3d3944dab760189da85cd47e9c4d044066f511c60fa8306f4",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "nao",
+      "characterName": "ナオ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.nao.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "b4176a2c10f3be7bf5dd41cf2ba80d23b68ea4a07d95496028de2b65948302bf",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.nao.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "0c1cd442a1e2bcd1e61ffae2642e120922ce4c23624fd72980ca2add45d03e92",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.nao.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "f5c183d0a4008368cd3c3ddb96f2b84a802af376b54cc802d74be843c581e331",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "amane",
+      "characterName": "アマネ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.amane.skinCoverage",
+          "domain": "skinCoverage",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "exposure"
+          ],
+          "sourceEvidenceSha256": "6bca1e8726809d1c2c95ba9729a9b848c8ba123e6c7e2dcaf08df1358cbc8bd4",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.amane.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.footwear"
+          ],
+          "sourceEvidenceSha256": "69179b35820c5b5b647258e0ef6a46646eb55206ff314e39c1e8f428b8ca8a65",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        },
+        {
+          "id": "future15.amane.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "sourceState": "MIGRATION_READY_AUTHOR_CANDIDATE",
+          "sourceEvidencePaths": [
+            "clothing.materials",
+            "maintenance",
+            "wearHabits"
+          ],
+          "sourceEvidenceSha256": "8d2d8b48fc7258b544beb5af542ce23ddf25fdef4d49626735c12bc8edca2f84",
+          "mappingState": "SCHEMA_MAPPING_READY_REQUIRES_HUMAN_SCHEMA_REVIEW",
+          "schemaReviewStatus": "PENDING_HUMAN_SCHEMA_REVIEW"
+        }
+      ]
+    }
+  ],
+  "nextActionBoundary": "HUMAN_SCHEMA_REVIEW_OF_109_MAPPINGS_NO_CANON_OR_IMAGE_PROMOTION"
+}
