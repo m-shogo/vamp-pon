@@ -3,7 +3,7 @@ import {
   CHARACTER_CROSS_ERA_ECHO_COVERAGE,
   CROSS_ERA_ECHO_CHAIN_INTEGRITY,
   CROSS_ERA_ECHO_RULES,
-} from '../../src/game/data/characterCrossEraEchoReservoir.ts';
+} from '../../src/game/data/characterCrossEraEchoCurrent.ts';
 import { CHARACTER_ERA_SCENE_SEEDS } from '../../src/game/data/characterEraSceneSeedRegistry.ts';
 
 const fail = (message: string): never => {
@@ -16,7 +16,10 @@ if (new Set(CHARACTER_CROSS_ERA_ECHO_CHAINS.map((chain) => chain.id)).size !== C
 const characterIds = new Set(CHARACTER_ERA_SCENE_SEEDS.map((entry) => entry.id));
 for (const chain of CHARACTER_CROSS_ERA_ECHO_CHAINS) {
   if (chain.canonStatus !== 'AUTHOR_CANDIDATE') fail(`${chain.id} must remain AUTHOR_CANDIDATE`);
-  if (chain.participantIds.length < 2 || chain.participantIds.length > 3) fail(`${chain.id} participant count must be 2-3`);
+  const maxParticipants = chain.id === 'record-authority-sen-madoka-io' ? 4 : 3;
+  if (chain.participantIds.length < 2 || chain.participantIds.length > maxParticipants) {
+    fail(`${chain.id} participant count must be 2-${maxParticipants}`);
+  }
   if (new Set(chain.participantIds).size !== chain.participantIds.length) fail(`${chain.id} duplicate participant`);
   if (!chain.participantIds.every((id) => characterIds.has(id))) fail(`${chain.id} has unresolved participant`);
   if (!chain.sourceSceneSeedIds.every((id) => characterIds.has(id))) fail(`${chain.id} has unresolved source scene seed`);
@@ -64,6 +67,9 @@ if (!quadrantid?.forbiddenShortcut.includes('Tomori official constellation set !
 }
 const twin = CHARACTER_CROSS_ERA_ECHO_CHAINS.find((chain) => chain.id === 'twin-same-choice-kai-nao');
 if (!twin?.forbiddenShortcut.includes('コピー問題だけに還元')) fail('Kai/Nao chain must preserve twin individuality boundary');
+const recordAuthority = CHARACTER_CROSS_ERA_ECHO_CHAINS.find((chain) => chain.id === 'record-authority-sen-madoka-io');
+if (!recordAuthority?.participantIds.includes('serika')) fail('Serika must be covered by the record-authority chain');
+if (!recordAuthority?.forbiddenShortcut.includes('分類外＝異常・虚偽')) fail('Serika classification boundary missing');
 const chloe = CHARACTER_CROSS_ERA_ECHO_CHAINS.find((chain) => chain.id === 'cross-era-chloe-shiro-toki');
 if (!chloe?.forbiddenShortcut.includes('正体') || !chloe?.forbiddenShortcut.includes('朔夜座所属')) fail('Chloe chain must remain unresolved');
 const yomo = CHARACTER_CROSS_ERA_ECHO_CHAINS.find((chain) => chain.id === 'obsolete-motif-yomo-shiro');
