@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import {
   CHARACTER_CROSS_ERA_ECHO_CHAINS,
   CROSS_ERA_ECHO_RULES,
-} from '../../src/game/data/characterCrossEraEchoReservoir.ts';
+} from '../../src/game/data/characterCrossEraEchoCurrent.ts';
 
 const projection = JSON.parse(fs.readFileSync('public/lorebook/data/cross-era-echo-chains.v1.json', 'utf8'));
 const js = fs.readFileSync('public/lorebook/cross-era-echo-enhancement.js', 'utf8');
@@ -14,7 +14,7 @@ const fail = (message: string): never => {
 };
 
 if (projection.schemaVersion !== 1) fail('schema version drift');
-if (projection.authority !== 'src/game/data/characterCrossEraEchoReservoir.ts') fail('authority drift');
+if (projection.authority !== 'src/game/data/characterCrossEraEchoCurrent.ts') fail('authority drift');
 if (projection.chainCount !== CHARACTER_CROSS_ERA_ECHO_CHAINS.length) fail('chain count drift');
 if (projection.coreCount !== CHARACTER_CROSS_ERA_ECHO_CHAINS.filter((chain) => chain.storyUsefulness === 'CORE').length) fail('CORE count drift');
 if (projection.strongCount !== CHARACTER_CROSS_ERA_ECHO_CHAINS.filter((chain) => chain.storyUsefulness === 'STRONG').length) fail('STRONG count drift');
@@ -47,7 +47,7 @@ const selectProjection = (entry: any) => ({
 });
 
 if (JSON.stringify(projection.entries.map(selectProjection)) !== JSON.stringify(CHARACTER_CROSS_ERA_ECHO_CHAINS.map(selectSource))) {
-  fail('Web projection drift from cross-era echo reservoir');
+  fail('Web projection drift from current cross-era echo reservoir');
 }
 
 if (projection.entries.some((entry: any) => entry.canonStatus !== 'AUTHOR_CANDIDATE')) fail('all projected chains must remain AUTHOR_CANDIDATE');
@@ -63,6 +63,7 @@ for (const token of [
   'EVIDENCE GATE',
   'Candidate != Canon',
   'dialogue pairing != relationship or group Canon',
+  '16本のCandidate chain',
 ]) if (!js.includes(token)) fail(`UI contract missing: ${token}`);
 
 for (const token of ['.cross-era-echo-desk', '.echo-chain-grid', '.echo-chain-card', '.echo-dialogue-grid', '.echo-forbidden']) {
@@ -72,6 +73,8 @@ if (!enhancements.includes("'./cross-era-echo-enhancement.js'")) fail('cross-era
 
 const quadrantid = projection.entries.find((entry: any) => entry.id === 'quadrantid-name-fossil-shiro-tomori');
 if (!quadrantid?.forbiddenShortcut.includes('Tomori official constellation set != Yui official constellation set')) fail('Quadrantid rejection guard missing in projection');
+const recordAuthority = projection.entries.find((entry: any) => entry.id === 'record-authority-sen-madoka-io');
+if (!recordAuthority?.participantIds.includes('serika') || !recordAuthority?.forbiddenShortcut.includes('分類外＝異常・虚偽')) fail('Serika classification boundary missing in projection');
 const chloe = projection.entries.find((entry: any) => entry.id === 'cross-era-chloe-shiro-toki');
 if (!chloe?.forbiddenShortcut.includes('朔夜座所属') || !chloe?.forbiddenShortcut.includes('群青残響録所属')) fail('Chloe group-membership Open boundary missing');
 const yomo = projection.entries.find((entry: any) => entry.id === 'obsolete-motif-yomo-shiro');
@@ -82,4 +85,4 @@ if (CROSS_ERA_ECHO_RULES.groupMembershipAutoCanonAllowed !== false) fail('upstre
 if (CROSS_ERA_ECHO_RULES.starBeastAutoAssignmentAllowed !== false) fail('upstream Star Beast guard drift');
 if (CROSS_ERA_ECHO_RULES.obsoleteConstellationAutoAssignmentAllowed !== false) fail('upstream obsolete constellation guard drift');
 
-console.log('[lorebook-cross-era-echo-desk] OK 16 checked Candidate chains / 6 core / 7 strong / 3 support');
+console.log('[lorebook-cross-era-echo-desk] OK 16 checked Candidate chains / 6 core / 7 strong / 3 support / 36-character coverage');
