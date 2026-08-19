@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "authority": "src/game/data/characterCrossEraEchoReservoir.ts",
+  "authority": "src/game/data/characterCrossEraEchoCurrent.ts",
   "status": "AUTHOR_CANDIDATE_NON_CANON_WEB_PROJECTION",
-  "chainCount": 10,
-  "coreCount": 5,
-  "strongCount": 4,
-  "supportCount": 1,
+  "chainCount": 16,
+  "coreCount": 6,
+  "strongCount": 7,
+  "supportCount": 3,
   "runtimeAutoPromotionAllowed": false,
   "relationshipAutoCanonAllowed": false,
   "groupMembershipAutoCanonAllowed": false,
@@ -90,13 +90,13 @@
     {
       "id": "record-authority-sen-madoka-io",
       "storyUsefulness": "STRONG",
-      "participantIds": ["sen", "madoka", "io"],
-      "setupDialogue": ["セン「本にはこう書いてあります。ただし、決着したこととは別です」", "マドカ「みんな中心しか見てないから、端を見るの」", "イオ「内容は合ってる。今はね。誰が直せる？」"],
-      "payoffDialogue": ["マドカ「写ってないんじゃない。外にいたんだ」", "セン「資料が嘘だったわけではありません」", "イオ「権限の外だった、ってことか」"],
-      "storyFunction": "Main Mysteryを「隠された真実」一辺倒にせず、正しい部分記録同士のズレから解く構造を作る。",
-      "evidenceGateCount": 3,
+      "participantIds": ["sen", "madoka", "io", "serika"],
+      "setupDialogue": ["セン「本にはこう書いてあります。ただし、決着したこととは別です」", "マドカ「みんな中心しか見てないから、端を見るの」", "イオ「内容は合ってる。今はね。誰が直せる？」", "セリカ「選ぶ前に、欄が足りない可能性を見たい」"],
+      "payoffDialogue": ["マドカ「写ってないんじゃない。外にいたんだ」", "セン「資料が嘘だったわけではありません」", "イオ「権限の外だった、ってことか」", "セリカ「欄がなかっただけで、いなかったことにはならない」"],
+      "storyFunction": "Main Mysteryを「隠された真実」一辺倒にせず、正しい部分記録と分類枠のズレから解く構造を作る。",
+      "evidenceGateCount": 4,
       "canonStatus": "AUTHOR_CANDIDATE",
-      "forbiddenShortcut": "陰謀・改ざん・悪意を自動原因にせず、観察力やAuthorityを全知化しない。"
+      "forbiddenShortcut": "陰謀・改ざん・悪意を自動原因にせず、分類外＝異常・虚偽とも決めず、観察力やAuthorityを全知化しない。"
     },
     {
       "id": "cross-era-chloe-shiro-toki",
@@ -119,6 +119,72 @@
       "evidenceGateCount": 3,
       "canonStatus": "AUTHOR_CANDIDATE",
       "forbiddenShortcut": "Felis・obsolete constellation・Star Beast・朔夜座・敵性を自動接続しない。"
+    },
+    {
+      "id": "care-consent-kaname-nemu",
+      "storyUsefulness": "STRONG",
+      "participantIds": ["kaname", "nemu"],
+      "setupDialogue": ["カナメ「持つよ」", "ネム「返事してた時間は、休んだ時間に入れなくていいよ」"],
+      "payoffDialogue": ["カナメ「持てる。でも、持つって決めるのは俺じゃない」", "ネム「助ける人まで倒れたら、休ませたことにならないよ」"],
+      "storyFunction": "ケアを自己犠牲ではなく同意と持続可能性の問題として描き、Happy Endの「一人で背負わなくていい」へ接続する。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "恋愛・保護者役・医療設定・家族役割を自動Canon化しない。"
+    },
+    {
+      "id": "repair-memory-tsumugi-renji-hana",
+      "storyUsefulness": "STRONG",
+      "participantIds": ["tsumugi", "renji", "hana"],
+      "setupDialogue": ["ツムギ「全部消したら、前に直した人まで消えるよ」", "レンジ「使う。戻し方を見てから」", "ハナ「空いたんじゃないの。次が決まってないだけ」"],
+      "payoffDialogue": ["レンジ「戻れるようにしておくのと、戻るのは別だ」", "ツムギ「残す傷も、直す傷も選べる」", "ハナ「次に使う人が決められるようにね」"],
+      "storyFunction": "物質文化の伏線を厚くし、「残響」は保存ではなく次の選択肢を渡すことだとHappy Endへ繋げる。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "三人を同じ時代・同じ職業・同じ家族や工房へ結びつけない。"
+    },
+    {
+      "id": "name-context-kasumi-amane-asa",
+      "storyUsefulness": "STRONG",
+      "participantIds": ["kasumi", "amane", "asa"],
+      "setupDialogue": ["カスミ「本名って、一個じゃなきゃだめ？」", "アマネ「誰に言ったかが違う。同じ言葉じゃないよ」", "アサ「呼ばれたい方を教えて」"],
+      "payoffDialogue": ["アマネ「同じ言葉じゃなくて、同じ文字だっただけ」", "カスミ「名前も同じ。文字だけならね」", "アサ「選んだ呼ばれ方は、今のその人のものだよ」"],
+      "storyFunction": "名前・identity・relationshipの誤読を同じ文法で扱い、恋愛や裏切りを一台詞から誤Canon化する事故を防ぐ。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "別名使用から犯罪・性別・恋愛・裏切りを自動確定しない。"
+    },
+    {
+      "id": "record-silence-hiyori-kuroori-ren",
+      "storyUsefulness": "CORE",
+      "participantIds": ["hiyori", "kuroori", "ren"],
+      "setupDialogue": ["ヒヨリ「返事しなかった人もいたよ」", "クロオリ「消したのか、残さなかったのか。まずそこから」", "レン「同じ間違いも一致してる。二件じゃないかも」"],
+      "payoffDialogue": ["ヒヨリ「いなかったんじゃない。黙ってた」", "クロオリ「隠したんじゃない。守るために残さなかった」", "レン「多かったんじゃない。同じ一件が増えて見えてた」"],
+      "storyFunction": "Main Mysteryの情報監査を強化し、プレイヤーに「欠落・編集・重複」を別物として読む習慣を作る。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "沈黙＝反対、redaction＝悪意、複数記録＝独立証言と自動判定しない。"
+    },
+    {
+      "id": "meeting-place-touma-kuu-yuubi",
+      "storyUsefulness": "SUPPORT",
+      "participantIds": ["touma", "kuu", "yuubi"],
+      "setupDialogue": ["トウマ「見えなかった時の場所も決めよう」", "クウ「正式名は知らない。でも、うちではそう呼んでた」", "ユウビ「届いた先に、その人がいたかは別だ」"],
+      "payoffDialogue": ["ユウビ「住所は合ってた。人がもういなかった」", "クウ「名前は違っても、そこって分かる人はいた」", "トウマ「じゃあ次は、場所じゃなく再集合の条件を残そう」"],
+      "storyFunction": "Reality Rootを一点ピンへ単純化せず、移動史・呼称・再集合ルールとして扱うStory grammarを補強する。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "私的呼称や配送痕から出生地・現住所・家族関係を自動確定しない。"
+    },
+    {
+      "id": "signal-meaning-suzu-maki",
+      "storyUsefulness": "SUPPORT",
+      "participantIds": ["suzu", "maki"],
+      "setupDialogue": ["スズ「音は分かる。何の警告かはまだ分からない」", "マキ「安いのは一回？　最後まで？」"],
+      "payoffDialogue": ["スズ「聞こえたことは確か。でも意味はまだ」", "マキ「数字も同じ。見えた額と払う額はまだ別」"],
+      "storyFunction": "Era clueを能力値や生活属性へ固定せず、「signal != meaning」というMain Mysteryの基本姿勢へ繋げる。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "聴覚特性・金銭感覚から超能力・職業・階級・年代を断定しない。"
     }
   ]
 }
