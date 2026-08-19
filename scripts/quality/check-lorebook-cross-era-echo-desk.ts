@@ -19,8 +19,8 @@ if (projection.chainCount !== CHARACTER_CROSS_ERA_ECHO_CHAINS.length) fail('chai
 if (projection.coreCount !== CHARACTER_CROSS_ERA_ECHO_CHAINS.filter((chain) => chain.storyUsefulness === 'CORE').length) fail('CORE count drift');
 if (projection.strongCount !== CHARACTER_CROSS_ERA_ECHO_CHAINS.filter((chain) => chain.storyUsefulness === 'STRONG').length) fail('STRONG count drift');
 if (projection.supportCount !== CHARACTER_CROSS_ERA_ECHO_CHAINS.filter((chain) => chain.storyUsefulness === 'SUPPORT').length) fail('SUPPORT count drift');
-if (projection.chainCount !== 10 || projection.coreCount !== 5 || projection.strongCount !== 4 || projection.supportCount !== 1) {
-  fail('expected 10 chains / 5 CORE / 4 STRONG / 1 SUPPORT');
+if (projection.chainCount !== 16 || projection.coreCount !== 6 || projection.strongCount !== 7 || projection.supportCount !== 3) {
+  fail('expected 16 chains / 6 CORE / 7 STRONG / 3 SUPPORT');
 }
 
 const selectSource = (chain: any) => ({
@@ -82,4 +82,4 @@ if (CROSS_ERA_ECHO_RULES.groupMembershipAutoCanonAllowed !== false) fail('upstre
 if (CROSS_ERA_ECHO_RULES.starBeastAutoAssignmentAllowed !== false) fail('upstream Star Beast guard drift');
 if (CROSS_ERA_ECHO_RULES.obsoleteConstellationAutoAssignmentAllowed !== false) fail('upstream obsolete constellation guard drift');
 
-console.log('[lorebook-cross-era-echo-desk] OK 10 checked Candidate chains / 5 core / 4 strong / 1 support');
+console.log('[lorebook-cross-era-echo-desk] OK 16 checked Candidate chains / 6 core / 7 strong / 3 support');
