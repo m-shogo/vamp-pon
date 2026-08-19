@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "policyId": "yoruno-shirube-visual-autonomous-production-policy-v1",
+  "effectiveDate": "2026-08-19",
+  "status": "CURRENT_AUTONOMOUS_PRODUCTION_AUTHORITY",
+  "repositoryScope": "m-shogo/vamp-pon",
+  "purpose": "Authorize Codex to complete non-logo visual production without intermediate Human gates while preserving explicit setting authority, provenance, QA, rejection history, Master-first lineage, and one final Human review only after the project reaches the 100 percent readiness gate.",
+  "delegation": {
+    "executor": "CODEX",
+    "authorDecisionRole": "DELEGATED_AUTHOR",
+    "mayResolveOpenSettings": true,
+    "mayReviseConflictingSettings": true,
+    "mayMaterializeMasterSpecs": true,
+    "mayGenerateCandidates": true,
+    "mayRejectAndRegenerate": true,
+    "mayPromoteQaPassingMaster": true,
+    "mayMaterializeGuideDbReuse": true,
+    "mayGenerateGameplayDerivativesFromApprovedMasters": true,
+    "mayRunRuntimeVisualQa": true,
+    "intermediateHumanReviewRequired": false,
+    "finalHumanReviewRequired": true,
+    "finalHumanReviewGate": "PROJECT_100_PERCENT_READY"
+  },
+  "authoringBoundary": {
+    "codexMayAuthorCharacterFacts": true,
+    "codexMustRecordDecisionReason": true,
+    "codexMustRecordSourceEvidence": true,
+    "codexMustRecordPreviousState": true,
+    "codexMustRecordConflictResolution": true,
+    "generatedImageMayInventCharacterFacts": false,
+    "generatedImageMayCloseOpenSetting": false,
+    "generatedImageMayCreateStoryCanon": false,
+    "promptMustConsumeMaterializedAuthoritySnapshot": true,
+    "unknownFactMustBeResolvedByCodexBeforePromptOrMarkedNonRequired": true
+  },
+  "productionOrder": [
+    "SETTINGS",
+    "MASTER_SPEC",
+    "MASTER_IMAGE",
+    "GUIDE_DB",
+    "TOP_PROMO",
+    "GAMEPLAY",
+    "RUNTIME_QA",
+    "FINAL_HUMAN_REVIEW"
+  ],
+  "qualityLoop": {
+    "candidateCountDefault": 4,
+    "minimumCandidatesWhenGenerationIsUsed": 4,
+    "automaticQaRequired": true,
+    "structuralHardVetoRequired": true,
+    "semanticQaRequired": true,
+    "smallSizeQaRequiredWhenApplicable": true,
+    "transparencyQaRequiredWhenApplicable": true,
+    "runtimeQaRequiredForRuntimeAssets": true,
+    "rejectReasonRequired": true,
+    "promptRevisionReasonRequired": true,
+    "rejectedCandidateMayParentDerivative": false,
+    "partialMasterPackMayParentDerivative": false,
+    "failedCandidateHistoryMustRemain": true,
+    "repeatUntilPass": true,
+    "maximumRetryCount": null,
+    "stopCondition": "PASS_OR_EXPLICIT_NON_REQUIRED_WITH_REASON"
+  },
+  "lineage": {
+    "masterBeforeGuideDb": true,
+    "masterBeforeTopPromo": true,
+    "masterBeforeGameplay": true,
+    "guideDbMayParentGameplay": false,
+    "topPromoMayParentGameplay": false,
+    "stableAssetIdsMustBePreserved": true,
+    "sha256RequiredForBinaryAssets": true,
+    "duplicateBinaryDetectionRequired": true,
+    "overwriteExistingApprovedBinary": false,
+    "replacementHistoryRequired": true
+  },
+  "currentInputs": {
+    "lifeChoiceDecisionPacket": "data/visual/all-character-life-choice-author-decision-packet-v1.json",
+    "partialEvidenceReview": "data/visual/all-character-life-choice-partial-evidence-review-v1.json",
+    "schemaMigrationReady": "data/visual/all-character-life-choice-schema-migration-ready-v1.json",
+    "speciesSchemaAdapter": "data/visual/life-choice-species-body-type-schema-adapter-v1.json",
+    "legacyExecutionPolicy": "data/character-assets/manifests/visual-production-execution-policy.v2.json",
+    "legacyBacklog": "data/character-assets/manifests/visual-image-generation-backlog.v1.json",
+    "legacyCore5HumanQueue": "data/character-assets/manifests/core5-era-setting-board-execution-queue.v1.json",
+    "yuiRejectedPack": "data/character-assets/reviews/yui-character-design-master-pack-v1.json"
+  },
+  "supersededIntermediateHumanGates": [
+    "life-choice packet explicitHumanActionRequired",
+    "visual-production-execution-policy.v2 authorityBoundary.humanReviewRequired",
+    "visual-image-generation-backlog.v1 authorityBoundary.humanReviewRequired",
+    "core5-era-setting-board-execution-queue.v1 Human review gate",
+    "Yui turnaround/sheet/pack Human approval gate"
+  ],
+  "supersessionRule": "Legacy files remain immutable audit evidence unless a later migration explicitly rewrites them. For Current execution, this policy takes precedence over their intermediate Human-gate flags. Safety, provenance, Canon, lineage, rejection, and QA restrictions remain in force unless this policy explicitly changes them.",
+  "yui": {
+    "holdSuperseded": true,
+    "regenerationAllowed": true,
+    "mustUseRejectedCandidateLearnings": true,
+    "oldEightCandidatesRemainRejected": true,
+    "rejectedCandidatesMayParent": false,
+    "sheet02To04MayBeginOnlyAfterSheet01AutomaticQaPass": true,
+    "humanApprovalBeforeSheet02To04": false
+  },
+  "core5SettingBoards": {
+    "count": 10,
+    "editableSpecsReady": 10,
+    "intermediateHumanApprovalRequired": false,
+    "codexProfessionalReviewRequired": true,
+    "candidateEvidenceGenerationAllowed": true,
+    "generatedCandidateCreatesExactFamilyCanon": false,
+    "exactYearOrFamilyFactMustComeFromCodexAuthorDecision": true
+  },
+  "logo": {
+    "excludedFromThisRunner": true,
+    "reason": "Logo is being produced in a separate production line by explicit user instruction.",
+    "nonLogoPipelineMayContinueWithoutLogo": true,
+    "logoMayNotBeAutoRegeneratedByThisRunner": true,
+    "logoIntegrationRequiredBeforeProjectFinal100Percent": true
+  },
+  "project100PercentGate": {
+    "allRequiredSettingsResolvedOrExplicitlyNonRequired": true,
+    "allRequiredMasterSpecsMaterialized": true,
+    "allRequiredMasterImagesQaPassing": true,
+    "allGuideDbReferencesMaterialized": true,
+    "allAdmittedTopPromoAssetsQaPassing": true,
+    "allAdmittedGameplayAssetsQaPassing": true,
+    "runtimeVisualQaPassing": true,
+    "noRejectedAssetUsedAsParent": true,
+    "noUnresolvedDuplicateOrLineageConflict": true,
+    "allRequiredCiGreenOnCurrentHead": true,
+    "productionRegistryAndControlCenterCurrent": true,
+    "logoIntegratedFromSeparateLine": true,
+    "humanReviewPerformed": false
+  },
+  "finalHumanReview": {
+    "allowedBeforeProject100PercentGate": false,
+    "requestedExactlyOnceByDefault": true,
+    "reviewScope": "final integrated project visual truth, setting coherence, Master consistency, runtime readability and overall artistic approval",
+    "onRevise": "Return failing items to autonomous quality loop, preserve review evidence, and request final Human review again only after the project returns to 100 percent readiness."
+  }
+}
