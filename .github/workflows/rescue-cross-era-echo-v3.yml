@@ -1,0 +1,80 @@
+name: Rescue Cross Era Echo V3
+
+on:
+  push:
+    branches:
+      - story/cross-era-echo-coverage-v3-clean
+    paths:
+      - '.github/workflows/rescue-cross-era-echo-v3.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  rescue:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Materialize only the four unique PR 300 files on current main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin story/cross-era-echo-coverage-v2
+          for path in \
+            docs/cross-character-era-echo-chains-v1.md \
+            scripts/quality/check-cross-character-era-echo-chains.ts \
+            scripts/quality/check-lorebook-cross-era-echo-desk.ts \
+            src/game/data/characterCrossEraEchoReservoir.ts
+          do
+            git show origin/story/cross-era-echo-coverage-v2:"$path" > "$path"
+          done
+
+          python - <<'PY'
+          from pathlib import Path
+
+          reservoir_path = Path('src/game/data/characterCrossEraEchoReservoir.ts')
+          text = reservoir_path.read_text()
+          replacements = {
+              "participantIds: ['sen', 'madoka', 'io'],": "participantIds: ['sen', 'madoka', 'io', 'serika'],",
+              "sourceSceneSeedIds: ['sen', 'madoka', 'io'],": "sourceSceneSeedIds: ['sen', 'madoka', 'io', 'serika'],",
+              "setupScene: 'センは「本にあること」と決着を分け、マドカは写真の端を見て、イオは編集権限を気にする。',": "setupScene: 'センは「本にあること」と決着を分け、マドカは写真の端を見て、イオは編集権限を気にし、セリカは分類欄に当てはまらない入力で止まる。',",
+              "setupDialogue: ['セン「本にはこう書いてあります。ただし、決着したこととは別です」', 'マドカ「みんな中心しか見てないから、端を見るの」', 'イオ「内容は合ってる。今はね。誰が直せる？」'],": "setupDialogue: ['セン「本にはこう書いてあります。ただし、決着したこととは別です」', 'マドカ「みんな中心しか見てないから、端を見るの」', 'イオ「内容は合ってる。今はね。誰が直せる？」', 'セリカ「選ぶ前に、欄が足りない可能性を見たい」'],",
+              "plausibleMisread: '三人それぞれの職人気質・観察癖・管理癖に見える。',": "plausibleMisread: '四人それぞれの職人気質・観察癖・管理癖・融通の利かなさに見える。',",
+              "counterScene: '同じ事件について、教科書・写真・データベースがすべて「間違ってはいない」のに結論だけ食い違う。',": "counterScene: '同じ事件について、教科書・写真・データベース・申請フォームがすべて「間違ってはいない」のに、記録できる範囲と分類欄が違うため結論だけ食い違う。',",
+              "evidenceGate: ['版・撮影範囲・編集履歴のSource', '三資料が同じ原典へ依存していないかの確認', 'Authorityと真実を同一視しない世界ルール'],": "evidenceGate: ['版・撮影範囲・編集履歴・分類schemaのSource', '資料群が同じ原典へ依存していないかの確認', '分類外の事例が古い記録にも存在すること', 'Authorityと真実を同一視しない世界ルール'],",
+              "payoffScene: '欠けていた情報ではなく「誰が、何を、どこまで記録できたか」の差がMain Mysteryを解く鍵になる。',": "payoffScene: '欠けていた情報ではなく「誰が、何を、どこまで記録・分類できたか」の差がMain Mysteryを解く鍵になる。',",
+              "payoffDialogue: ['マドカ「写ってないんじゃない。外にいたんだ」', 'セン「資料が嘘だったわけではありません」', 'イオ「権限の外だった、ってことか」'],": "payoffDialogue: ['マドカ「写ってないんじゃない。外にいたんだ」', 'セン「資料が嘘だったわけではありません」', 'イオ「権限の外だった、ってことか」', 'セリカ「欄がなかっただけで、いなかったことにはならない」'],",
+              "storyFunction: 'Main Mysteryを「隠された真実」一辺倒にせず、正しい部分記録同士のズレから解く構造を作る。',": "storyFunction: 'Main Mysteryを「隠された真実」一辺倒にせず、正しい部分記録と分類枠のズレから解く構造を作る。',",
+              "forbiddenShortcut: '陰謀・改ざん・悪意を自動原因にせず、観察力やAuthorityを全知化しない。',": "forbiddenShortcut: '陰謀・改ざん・悪意を自動原因にせず、分類外＝異常・虚偽とも決めず、観察力やAuthorityを全知化しない。',",
+          }
+          for old, new in replacements.items():
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'expected exactly one match, got {count}: {old}')
+              text = text.replace(old, new, 1)
+          reservoir_path.write_text(text)
+
+          docs_path = Path('docs/cross-character-era-echo-chains-v1.md')
+          docs = docs_path.read_text()
+          if docs.count('## 15 chains') != 1:
+              raise SystemExit('expected exactly one stale 15-chain heading')
+          docs = docs.replace('## 15 chains', '## 16 chains', 1)
+          marker = '- `record-authority-sen-madoka-io` — correct partial records can still disagree'
+          if marker in docs:
+              docs = docs.replace(marker, marker + '; Serika adds the missing-classification-field perspective', 1)
+          docs_path.write_text(docs)
+          PY
+
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            docs/cross-character-era-echo-chains-v1.md \
+            scripts/quality/check-cross-character-era-echo-chains.ts \
+            scripts/quality/check-lorebook-cross-era-echo-desk.ts \
+            src/game/data/characterCrossEraEchoReservoir.ts
+          git commit -m 'story: rescue 36-character cross-era echo coverage'
+          git push origin HEAD:story/cross-era-echo-coverage-v3-clean
