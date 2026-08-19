@@ -5,6 +5,9 @@
   "status": "ACTIVE_AUTONOMOUS_PIPELINE",
   "policy": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
   "checklist": "docs/visual/visual-autonomous-production-checklist-v1.md",
+  "currentExecutionEntrypoint": "src/game/data/visualProductionCurrentEntrypoint.ts",
+  "currentExecutionView": "src/game/data/visualAutonomousProductionExecutionView.ts",
+  "legacyAuditExecutionView": "src/game/data/visualProductionExecutionView.ts",
   "currentStage": "SETTINGS",
   "humanReview": {
     "intermediateRequired": false,
@@ -16,6 +19,10 @@
   "settings": {
     "lifeChoiceAuthorDecisionQueue": {
       "source": "data/visual/all-character-life-choice-author-decision-packet-v1.json",
+      "legacyEvidenceSource": "data/visual/all-character-life-choice-author-decision-packet-v1.json",
+      "currentQueue": "data/visual/all-character-life-choice-autonomous-authoring-queue-v1.json",
+      "decisionLog": "data/visual/all-character-life-choice-codex-author-decisions-v1.json",
+      "operationalState": "READY_CODEX_AUTHOR_DECISION",
       "total": 42,
       "delegatedToCodex": 42,
       "resolvedByAutonomousRunner": 0,
@@ -66,7 +73,7 @@
   "nextWork": [
     "Materialize delegated author decisions for the 42 life-choice items with reasons and source evidence.",
     "Review and close production-facing gaps in the 56 partial-evidence items without using image output as authority.",
-    "Migrate the Core5 ten setting boards from Human-gated queue semantics to Codex professional-review semantics.",
+    "Run Codex professional review over the Core5 ten setting-board specs, then generate and automatically QA candidate evidence.",
     "Regenerate Yui Sheet 01 from the existing reject evidence, then unlock Sheets 02-04 only after automatic structural QA passes.",
     "Continue Character Master production before Guide/DB and Gameplay derivatives."
   ],
