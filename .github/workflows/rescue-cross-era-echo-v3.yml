@@ -1,9 +1,12 @@
 name: Rescue Cross Era Echo V3
 
 on:
-  push:
+  pull_request:
     branches:
-      - story/cross-era-echo-coverage-v3-clean
+      - main
+    types:
+      - opened
+      - synchronize
     paths:
       - '.github/workflows/rescue-cross-era-echo-v3.yml'
 
@@ -17,6 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: story/cross-era-echo-coverage-v3-clean
           fetch-depth: 0
       - name: Materialize only the four unique PR 300 files on current main
         shell: bash
