@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "stateId": "yoruno-shirube-visual-autonomous-production-runner-state-v1",
+  "date": "2026-08-19",
+  "status": "ACTIVE_AUTONOMOUS_PIPELINE",
+  "policy": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
+  "checklist": "docs/visual/visual-autonomous-production-checklist-v1.md",
+  "currentStage": "SETTINGS",
+  "humanReview": {
+    "intermediateRequired": false,
+    "finalRequired": true,
+    "finalRequested": false,
+    "requestAllowed": false,
+    "gate": "PROJECT_100_PERCENT_READY"
+  },
+  "settings": {
+    "lifeChoiceAuthorDecisionQueue": {
+      "source": "data/visual/all-character-life-choice-author-decision-packet-v1.json",
+      "total": 42,
+      "delegatedToCodex": 42,
+      "resolvedByAutonomousRunner": 0,
+      "remaining": 42
+    },
+    "partialEvidence": {
+      "source": "data/visual/all-character-life-choice-partial-evidence-review-v1.json",
+      "total": 56,
+      "reviewedForAutonomousAuthoring": 0,
+      "remaining": 56
+    },
+    "schemaReady": {
+      "source": "data/visual/all-character-life-choice-schema-migration-ready-v1.json",
+      "total": 109
+    },
+    "speciesAdapter": {
+      "source": "data/visual/life-choice-species-body-type-schema-adapter-v1.json",
+      "total": 9
+    }
+  },
+  "masterProduction": {
+    "characterPacks": 36,
+    "characterSheetSlots": 144,
+    "yuiPreviousCandidatesRejected": 8,
+    "yuiRegenerationAuthorized": true,
+    "core5SettingBoards": 10,
+    "sakuyazaMasters": 8,
+    "starBeastMasters": 21,
+    "namedObjectMasters": 21,
+    "enemyReferenceSubjects": 48,
+    "locationMasters": 20,
+    "toumonVectorMasters": 21,
+    "itemSourceRowsPendingLineageNormalization": 105
+  },
+  "managedExecution": {
+    "stableRows": 480,
+    "imageBearingRows": 266,
+    "logicalNonImageRows": 214,
+    "assetFactoryContractsIndexed": 977,
+    "assetFactoryContractsAdmittedForGeneration": 0
+  },
+  "logo": {
+    "ownedByThisRunner": false,
+    "status": "EXTERNAL_SEPARATE_PRODUCTION_LINE",
+    "blocksNonLogoPipeline": false,
+    "requiredBeforeFinal100Percent": true
+  },
+  "nextWork": [
+    "Materialize delegated author decisions for the 42 life-choice items with reasons and source evidence.",
+    "Review and close production-facing gaps in the 56 partial-evidence items without using image output as authority.",
+    "Migrate the Core5 ten setting boards from Human-gated queue semantics to Codex professional-review semantics.",
+    "Regenerate Yui Sheet 01 from the existing reject evidence, then unlock Sheets 02-04 only after automatic structural QA passes.",
+    "Continue Character Master production before Guide/DB and Gameplay derivatives."
+  ],
+  "completionGate": {
+    "project100PercentReady": false,
+    "reason": "Autonomous settings authoring and Master production have not completed yet."
+  }
+}
