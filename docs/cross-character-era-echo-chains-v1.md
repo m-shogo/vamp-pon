@@ -39,7 +39,7 @@ Coverage means only that the author has a reusable scene bridge. It does **not**
 
 `CHARACTER_CROSS_ERA_ECHO_COVERAGE` is a machine-readable audit, not Story authority.
 
-## 15 chains
+## 16 chains
 
 ### CORE
 
@@ -54,7 +54,7 @@ Coverage means only that the author has a reusable scene bridge. It does **not**
 
 - `household-name-ritsu-koyori` — formal record vs household name
 - `twin-same-choice-kai-nao` — same choice does not erase individuality
-- `record-authority-sen-madoka-io` — correct partial records can still disagree
+- `record-authority-sen-madoka-io` — correct partial records can still disagree; Serika adds the missing-classification-field perspective
 - `cross-era-chloe-shiro-toki` — cross-era evidence remains OPEN instead of becoming an early identity answer
 - `care-consent-kaname-nemu` — helping / carrying / resting require consent and sustainable care
 - `repair-memory-tsumugi-renji-hana` — repair / rollback / reuse preserve choices without worshipping the past
@@ -86,6 +86,7 @@ Coverage means only that the author has a reusable scene bridge. It does **not**
 - care != permission to decide for another person
 - same name/text != same meaning without recipient/context
 - private place-name / delivery trace != birth place or current home
+- missing classification field != person absent / invalid / false
 
 ## Story integration principle
 
