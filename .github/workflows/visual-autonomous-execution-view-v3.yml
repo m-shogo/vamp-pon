@@ -1,0 +1,40 @@
+name: Visual Autonomous Execution View V3
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/visualProductionExecutionView.ts'
+      - 'src/game/data/visualAutonomousProductionExecutionView.ts'
+      - 'src/game/data/visualProductionCurrentEntrypoint.ts'
+      - 'data/character-assets/manifests/visual-autonomous-production-policy.v1.json'
+      - 'data/character-assets/manifests/visual-autonomous-production-runner-state.v1.json'
+      - 'data/visual/all-character-life-choice-autonomous-authoring-queue-v1.json'
+      - 'data/visual/all-character-life-choice-codex-author-decisions-v1.json'
+      - 'data/character-assets/manifests/core5-era-setting-board-autonomous-queue.v2.json'
+      - 'data/character-assets/reviews/yui-character-design-master-pack-autonomous-v2.json'
+      - 'docs/visual/visual-autonomous-production-checklist-v1.md'
+      - 'scripts/quality/check-visual-autonomous-execution-view-v3.ts'
+      - '.github/workflows/visual-autonomous-execution-view-v3.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/visualProductionExecutionView.ts'
+      - 'src/game/data/visualAutonomousProductionExecutionView.ts'
+      - 'src/game/data/visualProductionCurrentEntrypoint.ts'
+      - 'data/character-assets/manifests/visual-autonomous-production-policy.v1.json'
+      - 'data/character-assets/manifests/visual-autonomous-production-runner-state.v1.json'
+      - 'data/visual/all-character-life-choice-autonomous-authoring-queue-v1.json'
+      - 'data/visual/all-character-life-choice-codex-author-decisions-v1.json'
+      - 'data/character-assets/manifests/core5-era-setting-board-autonomous-queue.v2.json'
+      - 'data/character-assets/reviews/yui-character-design-master-pack-autonomous-v2.json'
+      - 'docs/visual/visual-autonomous-production-checklist-v1.md'
+      - 'scripts/quality/check-visual-autonomous-execution-view-v3.ts'
+      - '.github/workflows/visual-autonomous-execution-view-v3.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Current autonomous execution view
+        run: node --experimental-strip-types scripts/quality/check-visual-autonomous-execution-view-v3.ts
