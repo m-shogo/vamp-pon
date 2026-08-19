@@ -1,0 +1,879 @@
+{
+  "id": "yoru-no-shirube-all-character-life-choice-author-decision-packet-v1",
+  "date": "2026-08-18",
+  "status": "AUTHOR_DECISION_PACKET_NON_CANON_PENDING_HUMAN_ACTION",
+  "sourceHashes": {
+    "data/visual/core5-living-visual-profiles-v1.json": "519465641e03d1cbc2e4530c1e53f3367fe0e79b65b30bac0dc1f4ba24560a86",
+    "data/visual/all-character-life-choice-author-review-queue-v1.json": "87f27719bb02d7b5a6a1d116626ee9dd4451e24ec2172749c8cf901e34ff7f64",
+    "data/visual/core5-p0-life-choice-review-contract-v1.json": "dcb1dcd582370780cfb9b9536ca2e89d399f9e55766d0addbb096aca6d2bc8c3",
+    "data/visual/core5-p1-life-choice-review-contract-v1.json": "009cd60d782d47b2427b03dfb46109fe385710dfe44689320098655e23741284",
+    "data/visual/core5-p2-life-choice-review-contract-v1.json": "cbedc29f69859ae6586bf07b70573589e0e3a691299b9d69849a2ff9655f2c28",
+    "data/visual/current21-extended-living-visual-profiles-v1.json": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+    "data/visual/current16-life-choice-profile-migration-intake-v1.json": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+    "data/visual/future15-living-visual-profiles-v1.json": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+    "data/visual/future15-life-choice-profile-migration-intake-v1.json": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+    "data/visual/all-character-life-choice-migration-aware-audit-v2.json": "3085e63158a73741e68a185623db43eda2830192fba14b1f75e95e93240ea4b3",
+    "data/visual/all-character-life-choice-review-queue-v2.json": "141e40e313acc178ee63c422eba0c9a76d3798e7dfc525180612aecfcc2d76c5",
+    "data/visual/all-character-life-choice-schema-migration-ready-v1.json": "21125178e03dbc125a1f9ca53c3249b00d28aa265ff13b554a66fd175384e76e",
+    "data/visual/all-character-life-choice-partial-evidence-review-v1.json": "59c29c43e742bf1fe7ebfad558b31426469304e63315668f9e308d0b5821a996",
+    "data/visual/life-choice-species-body-type-schema-adapter-v1.json": "e20c784319e26570662c5e75a6a8b069f3b9c04a877f9d0c158670df6f4d3207"
+  },
+  "scope": {
+    "rosterCount": 3,
+    "characterCount": 16,
+    "authorDecisionCount": 42,
+    "pendingHumanDecisionCount": 42,
+    "canonPromotedCount": 0,
+    "imageResolvedCount": 0
+  },
+  "partition": {
+    "authorContentReview": 42,
+    "schemaMigrationReady": 109,
+    "partialEvidenceReview": 56,
+    "speciesSchemaAdapter": 9,
+    "total": 216
+  },
+  "rosterCounts": {
+    "CORE5": 30,
+    "CURRENT16": 2,
+    "FUTURE15": 10
+  },
+  "domainCounts": {
+    "bodyAdornment": 16,
+    "skinCoverage": 5,
+    "personalGrooming": 6,
+    "footwearGroundInterface": 5,
+    "accessoryPropInventory": 5,
+    "materialWearMaintenance": 5
+  },
+  "decisionContract": {
+    "core5ReviewOutcomes": [
+      "ACCEPT_CANDIDATE_FOR_SCHEMA_REVIEW",
+      "REVISE_CANDIDATE",
+      "HOLD"
+    ],
+    "openContentOutcomes": [
+      "AUTHOR_SUPPLIES_DECISION",
+      "KEEP_OPEN",
+      "HOLD"
+    ],
+    "acceptedOutcomeDoesNotPromoteCanon": true,
+    "noNewCharacterFactsAuthoredByPacket": true,
+    "alternativesAuthoredByPacket": false,
+    "explicitHumanActionRequired": true,
+    "imageModelFreedom": false,
+    "generatedImageMayCloseItem": false
+  },
+  "characters": [
+    {
+      "roster": "CORE5",
+      "characterId": "yui",
+      "characterName": "ユイ",
+      "decisions": [
+        {
+          "id": "core5.yui.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "P0",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p0-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=yui].bodyAdornment",
+          "sourceEvidenceSha256": "e7ca4c4e6298f9926f70071eee8dd4a0382ec91ae2afc1627f37b5e0ea9f2367",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.yui.skinCoverage",
+          "domain": "skinCoverage",
+          "priority": "P0",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p0-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=yui].skinCoverage",
+          "sourceEvidenceSha256": "2b417fa6a85a62eb27f963b81ca3557e84c94d5f7251b3497b0fa62e3c8427b1",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.yui.personalGrooming",
+          "domain": "personalGrooming",
+          "priority": "P1",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p1-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=yui].personalGrooming",
+          "sourceEvidenceSha256": "69fa1c2e3a07ccad02cc3c2b3f694030316910cd46d6146c16446fa52af70270",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.yui.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "priority": "P1",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p1-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=yui].footwearGroundInterface",
+          "sourceEvidenceSha256": "1ad9046c91d205f7c2ac13b5da1470270608ec7144a66c39ef4c80a91f8221c0",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.yui.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "priority": "P2",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p2-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=yui].accessoryPropInventory",
+          "sourceEvidenceSha256": "f899a5b831361723ab0e387f30e6a4f543ef4385e89774c0c6fdd444dd6a4b19",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.yui.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "priority": "P2",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p2-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=yui].materialWearMaintenance",
+          "sourceEvidenceSha256": "126f2e912f50853ec4a3fbf06c189c22323555da7482e31c2cd04bae86effa2b",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "CORE5",
+      "characterId": "asa",
+      "characterName": "アサ",
+      "decisions": [
+        {
+          "id": "core5.asa.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "P0",
+          "reviewMode": "EXISTING_CONTRACT_WITH_OPEN_OR_PENDING_MARKER",
+          "sourceContract": "data/visual/core5-p0-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=asa].bodyAdornment",
+          "sourceEvidenceSha256": "6d522f3958ebc92c6c4f1f93107b79f338bd85a7e8076330a18cf9bae318dc64",
+          "openAuthorDecisionPaths": [
+            "piercingPolicy.tongue"
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.asa.skinCoverage",
+          "domain": "skinCoverage",
+          "priority": "P0",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p0-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=asa].skinCoverage",
+          "sourceEvidenceSha256": "732293cbe119ef2b5d41af7d5bbf006ead411c09d9fe1e4b12823aa37b5beaf6",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.asa.personalGrooming",
+          "domain": "personalGrooming",
+          "priority": "P1",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p1-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=asa].personalGrooming",
+          "sourceEvidenceSha256": "30ee08d6f80d3c70372b3c8285fd22b74b762df1786abe53ad3c1e73a13bda1a",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.asa.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "priority": "P1",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p1-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=asa].footwearGroundInterface",
+          "sourceEvidenceSha256": "329eb5716a0633c7a7e05af1ea92919dbc81f9bb1be217b75917efbe5fc558c9",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.asa.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "priority": "P2",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p2-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=asa].accessoryPropInventory",
+          "sourceEvidenceSha256": "332c6936ac0bcf9a4463054a631c045a54ab686d5a13d3534f34b6863c74ed0b",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.asa.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "priority": "P2",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p2-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=asa].materialWearMaintenance",
+          "sourceEvidenceSha256": "17622c82728b78509eb44400171fb9fcc08cf2b375fca0a25ac9361e00e2d268",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "CORE5",
+      "characterId": "nagi",
+      "characterName": "ナギ",
+      "decisions": [
+        {
+          "id": "core5.nagi.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "P0",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p0-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=nagi].bodyAdornment",
+          "sourceEvidenceSha256": "8f3b78b6e50b470f9c5df4ea4595ff41dc5b0590d41d4bd23f6a3e2265c9073f",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.nagi.skinCoverage",
+          "domain": "skinCoverage",
+          "priority": "P0",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p0-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=nagi].skinCoverage",
+          "sourceEvidenceSha256": "8248c1d558981b23cf75fbce6b681d30e158e16f4fe691131cf64a502c8d943d",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.nagi.personalGrooming",
+          "domain": "personalGrooming",
+          "priority": "P1",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p1-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=nagi].personalGrooming",
+          "sourceEvidenceSha256": "822a05974483ddd230e3b5709948ab472164c8799e4d288a834c9a795f74d02e",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.nagi.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "priority": "P1",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p1-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=nagi].footwearGroundInterface",
+          "sourceEvidenceSha256": "018e6f68369901612b6ca9fc87b1f2580e4c6997911cacc5e3a42ba9361ca6e6",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.nagi.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "priority": "P2",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p2-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=nagi].accessoryPropInventory",
+          "sourceEvidenceSha256": "9a179853535726d7fc8ac90352736ed53eb38e147c9e0f5ff02a659efd3789b3",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.nagi.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "priority": "P2",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p2-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=nagi].materialWearMaintenance",
+          "sourceEvidenceSha256": "8aa1fb8a9e21acca8fdb1246113783474eed1346045acf7def87fc7fe3393015",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "CORE5",
+      "characterId": "michiru",
+      "characterName": "ミチル",
+      "decisions": [
+        {
+          "id": "core5.michiru.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "P0",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p0-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=michiru].bodyAdornment",
+          "sourceEvidenceSha256": "0b7c4524aca2480e1f63e82c0d8210ca8f15323cc76f66c770000ae72f331dc0",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.michiru.skinCoverage",
+          "domain": "skinCoverage",
+          "priority": "P0",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p0-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=michiru].skinCoverage",
+          "sourceEvidenceSha256": "c03a977a8885f80a5fd9bb9b3e57896d0eb5435fa358ba4c4eab54645a379420",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.michiru.personalGrooming",
+          "domain": "personalGrooming",
+          "priority": "P1",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p1-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=michiru].personalGrooming",
+          "sourceEvidenceSha256": "ca16bb5d72105fa6b40de2d25f1cf10d6270648730ec5815870393f14965d4ac",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.michiru.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "priority": "P1",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p1-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=michiru].footwearGroundInterface",
+          "sourceEvidenceSha256": "6ec18d55b11c6d23ea441e8489b1d1cb515492dba9b5854d17fb281ac02cf790",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.michiru.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "priority": "P2",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p2-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=michiru].accessoryPropInventory",
+          "sourceEvidenceSha256": "27dd091c73feead6e5d5a9904dd866503d7df1962838ac0ac889290c52a5900c",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.michiru.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "priority": "P2",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p2-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=michiru].materialWearMaintenance",
+          "sourceEvidenceSha256": "d53506f7d1d88dba4cc2cc424eefe6513ceeaeb993b5a7d44252878707d1b927",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "CORE5",
+      "characterId": "tomori",
+      "characterName": "トモリ",
+      "decisions": [
+        {
+          "id": "core5.tomori.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "P0",
+          "reviewMode": "EXISTING_CONTRACT_WITH_OPEN_OR_PENDING_MARKER",
+          "sourceContract": "data/visual/core5-p0-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=tomori].bodyAdornment",
+          "sourceEvidenceSha256": "f7d367de061af308cfe7280ec30dfdb2823f4182a79b4a6dad1bd015c043256a",
+          "openAuthorDecisionPaths": [
+            "tattooPolicy.value"
+          ],
+          "pendingReviewPaths": [
+            "piercingPolicy.value"
+          ],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.tomori.skinCoverage",
+          "domain": "skinCoverage",
+          "priority": "P0",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p0-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=tomori].skinCoverage",
+          "sourceEvidenceSha256": "835b607969979fe37f365f5058f25ed640b3693a960062261826f1833e7cfd50",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.tomori.personalGrooming",
+          "domain": "personalGrooming",
+          "priority": "P1",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p1-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=tomori].personalGrooming",
+          "sourceEvidenceSha256": "838132985b7fa25f03a09689a0364a0973ad274d11974d8ffb8a44eb61917096",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.tomori.footwearGroundInterface",
+          "domain": "footwearGroundInterface",
+          "priority": "P1",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p1-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=tomori].footwearGroundInterface",
+          "sourceEvidenceSha256": "2e2ddb7c23855528605a724fdfee216023381e79bc3c5e8acf655a1dd8017a7f",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.tomori.accessoryPropInventory",
+          "domain": "accessoryPropInventory",
+          "priority": "P2",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p2-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=tomori].accessoryPropInventory",
+          "sourceEvidenceSha256": "382b3a6f92760355718ea7f3f045accb76b79d5f0600bbcdafd2d8eaf09907fb",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "core5.tomori.materialWearMaintenance",
+          "domain": "materialWearMaintenance",
+          "priority": "P2",
+          "reviewMode": "EXISTING_CANDIDATE_REVIEW",
+          "sourceContract": "data/visual/core5-p2-life-choice-review-contract-v1.json",
+          "sourceSelector": "characters[id=tomori].materialWearMaintenance",
+          "sourceEvidenceSha256": "73fba032445c8133531b449f3890aed35ed684dd8afadb54088bc3543a944f29",
+          "openAuthorDecisionPaths": [],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "CURRENT16",
+      "characterId": "kage4",
+      "characterName": "ツムギ",
+      "species": null,
+      "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "1d7824a254e7bed70a463d141768560fba9d56d87500122f8c6d6a75a6a8b4d7",
+      "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "05120970faa9df68dd926759be3afec9653364a9c71cf62723bf328181bd9b20",
+      "decisions": [
+        {
+          "id": "current16.kage4.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "48611663c61c5c3594078722b0ecfbc75b41c26a70b5af184e42b9085fc87981",
+          "openAuthorDecisionPaths": [
+            "piercing",
+            "tattoo"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "piercing",
+              "sourceProfilePath": "bodyModification.piercing",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            },
+            {
+              "intakePath": "tattoo",
+              "sourceProfilePath": "bodyModification.tattoo",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        },
+        {
+          "id": "current16.kage4.personalGrooming",
+          "domain": "personalGrooming",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "PARTIAL_MIGRATION_EVIDENCE_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/current21-extended-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/current16-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "9e9d3a6fb91121e54375fae13582f0846f30d36ab32fd3c955fdc9fe9237163f",
+          "openAuthorDecisionPaths": [
+            "makeup"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "makeup",
+              "sourceProfilePath": "bodyModification.makeup",
+              "sourceMarkerSha256": "9e453cabfd7186c44d697c41ac98b62497292eb48e8f4f7b516e170d4e037086"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "hiyori",
+      "characterName": "ヒヨリ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.hiyori.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "e02470359015be5fdf393f9ab591c244639c4b66a8a3981ea47945d385ecfa39",
+          "openAuthorDecisionPaths": [
+            "piercing"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "piercing",
+              "sourceProfilePath": "bodyModification.piercing",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "chloe",
+      "characterName": "クロエ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.chloe.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "d5aeacfd37be3bed12ebdda7cf3bd0606c50b1f6320afd5e83418f78743fcb3a",
+          "openAuthorDecisionPaths": [
+            "piercing",
+            "tattoo"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "piercing",
+              "sourceProfilePath": "bodyModification.piercing",
+              "sourceMarkerSha256": "eff6cf8eecd659046c4bd9e55a6c0ab480921166464162f71108d452d30e4ffa"
+            },
+            {
+              "intakePath": "tattoo",
+              "sourceProfilePath": "bodyModification.tattoo",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "touma",
+      "characterName": "トウマ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.touma.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "1b6666c3a088a247ffe9d213bb030ff8d434614b7fa71db8cfc6f5f4e78124d0",
+          "openAuthorDecisionPaths": [
+            "piercing"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "piercing",
+              "sourceProfilePath": "bodyModification.piercing",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "noa",
+      "characterName": "ノア",
+      "species": "ARTIFICIAL_PERSON",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.noa.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "b4cb75b675385b72372eeac2e4912563ee43b9a40f8581b27032984ecae7adf8",
+          "openAuthorDecisionPaths": [
+            "piercing"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "piercing",
+              "sourceProfilePath": "bodyModification.piercing",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "maki",
+      "characterName": "マキ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.maki.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "8efe83977821542a21411dc3c7863f0e6f7a1f58c81ffbffb0ae202a61416a88",
+          "openAuthorDecisionPaths": [
+            "piercing"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "piercing",
+              "sourceProfilePath": "bodyModification.piercing",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "suzu",
+      "characterName": "スズ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.suzu.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "fe6af99ff68fd290e0980223c34101882707c6d68d17850c21e652f382337af1",
+          "openAuthorDecisionPaths": [
+            "tattoo"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "tattoo",
+              "sourceProfilePath": "bodyModification.tattoo",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "io",
+      "characterName": "イオ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.io.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "04c5f72750b57ed4cfbab7c733a5a2a4b649c4bfdc51c2a26ef89aaa538f89c9",
+          "openAuthorDecisionPaths": [
+            "piercing"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "piercing",
+              "sourceProfilePath": "bodyModification.piercing",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "kai",
+      "characterName": "カイ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.kai.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "d41bd2b101f59cb47c2509864866055ed0a46c76e697ae06f6043b8230e81403",
+          "openAuthorDecisionPaths": [
+            "piercing"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "piercing",
+              "sourceProfilePath": "bodyModification.piercing",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "nao",
+      "characterName": "ナオ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.nao.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "2ee8be3dbd4c157f8d0b2832b40d59d7f7a6ed84b48ea1ee3bce2ea9209d52a0",
+          "openAuthorDecisionPaths": [
+            "piercing"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "piercing",
+              "sourceProfilePath": "bodyModification.piercing",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    },
+    {
+      "roster": "FUTURE15",
+      "characterId": "amane",
+      "characterName": "アマネ",
+      "species": "HUMAN_LIKE",
+      "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+      "sourceProfileSha256": "86a551fdd328d31df899288c522a757f1024054ae2379209a9c3d9a36af755df",
+      "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+      "sourceIntakeSha256": "9a142a5ea38c0ebc39eba24967b7fed34e40b98835b8c2ded206117d9267a571",
+      "decisions": [
+        {
+          "id": "future15.amane.bodyAdornment",
+          "domain": "bodyAdornment",
+          "priority": "A0",
+          "reviewMode": "OPEN_AUTHOR_CONTENT_SELECTION_REQUIRED",
+          "sourceIntakeState": "MIGRATION_READY_WITH_OPEN_AUTHOR_DECISION",
+          "sourceProfile": "data/visual/future15-living-visual-profiles-v1.json",
+          "sourceIntake": "data/visual/future15-life-choice-profile-migration-intake-v1.json",
+          "sourceEvidenceSha256": "206013fd1049c78cd603e16e201e5c17b0c9ad112827b7fe39ee8b570c456908",
+          "openAuthorDecisionPaths": [
+            "piercing"
+          ],
+          "sourceProfileOpenMarkers": [
+            {
+              "intakePath": "piercing",
+              "sourceProfilePath": "bodyModification.piercing",
+              "sourceMarkerSha256": "9a002d325b6e1876f99198d3d00bdaa761c58755d3bf265956065a940b22b9be"
+            }
+          ],
+          "pendingReviewPaths": [],
+          "decisionState": "PENDING_HUMAN_AUTHOR_DECISION"
+        }
+      ]
+    }
+  ],
+  "nextActionBoundary": "HUMAN_AUTHOR_ACTION_REQUIRED_NO_AUTOMATIC_CANON_OR_IMAGE_PROMOTION"
+}
