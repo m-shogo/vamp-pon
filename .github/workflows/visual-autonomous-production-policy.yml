@@ -1,0 +1,28 @@
+name: Visual Autonomous Production Policy
+
+on:
+  pull_request:
+    paths:
+      - 'data/character-assets/manifests/visual-autonomous-production-policy.v1.json'
+      - 'data/character-assets/manifests/visual-autonomous-production-runner-state.v1.json'
+      - 'docs/visual/visual-autonomous-production-checklist-v1.md'
+      - 'data/visual/all-character-life-choice-author-decision-packet-v1.json'
+      - 'scripts/quality/check-visual-autonomous-production-policy.ts'
+      - '.github/workflows/visual-autonomous-production-policy.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/character-assets/manifests/visual-autonomous-production-policy.v1.json'
+      - 'data/character-assets/manifests/visual-autonomous-production-runner-state.v1.json'
+      - 'docs/visual/visual-autonomous-production-checklist-v1.md'
+      - 'data/visual/all-character-life-choice-author-decision-packet-v1.json'
+      - 'scripts/quality/check-visual-autonomous-production-policy.ts'
+      - '.github/workflows/visual-autonomous-production-policy.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate autonomous production authority and checklist
+        run: node --experimental-strip-types scripts/quality/check-visual-autonomous-production-policy.ts
