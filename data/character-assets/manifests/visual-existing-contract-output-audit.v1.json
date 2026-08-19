@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "auditId": "yoruno-shirube-existing-asset-factory-output-audit-v1",
+  "status": "OBSERVED_PR_CI_SNAPSHOT_REVALIDATE_AFTER_MAIN_SYNC",
+  "purpose": "Persist the CI-observed repository-path existence classification for all 977 indexed Asset Factory contracts. This snapshot is evidence for planning only; it does not authorize generation, final approval, or runtime use.",
+  "sourcePolicy": "data/character-assets/manifests/visual-existing-contract-output-audit-policy.v1.json",
+  "sourceContracts": "src/game/data/assetGenerationPolicy.ts",
+  "observedWorkingHead": "503ac26591861141a72bf65aedc7a62c930bc4ac",
+  "observedPrMergeRef": "94564f47fb6ed1784b6614c9ec41bab8089ca572",
+  "observedWorkflow": {
+    "name": "Visual Asset Master Registry",
+    "runId": 31663636852,
+    "jobId": 94333512509,
+    "conclusion": "success"
+  },
+  "revalidationRules": {
+    "afterLatestMainSync": true,
+    "afterAssetFactoryContractChange": true,
+    "afterAnyOutputPathIsAddedRemovedOrReplaced": true,
+    "beforeGameplayGenerationAdmission": true,
+    "snapshotMayNotBeTreatedAsLiveForever": true
+  },
+  "classifications": {
+    "existing": "EXISTS_REVIEW_REUSE_OR_REPLACE",
+    "missing": "MISSING_OUTPUT_REQUIRES_AUTHORITY_ADMISSION"
+  },
+  "counts": {
+    "totalContracts": 977,
+    "existing": 0,
+    "missing": 977,
+    "duplicateOutputPaths": 0,
+    "duplicateExistingBinaryHashes": 0,
+    "byType": {
+      "character": {
+        "total": 180,
+        "existing": 0,
+        "missing": 180
+      },
+      "enemy": {
+        "total": 192,
+        "existing": 0,
+        "missing": 192
+      },
+      "item": {
+        "total": 525,
+        "existing": 0,
+        "missing": 525
+      },
+      "stage": {
+        "total": 80,
+        "existing": 0,
+        "missing": 80
+      }
+    }
+  },
+  "interpretation": {
+    "missingMeansGenerateNow": false,
+    "missingMeansProductionGapExists": true,
+    "all977AreIndependentNewMasterImages": false,
+    "all977AreGameplayOrDerivativeContracts": true,
+    "characterContractsRequireApprovedCharacterMasterAndLatestProductionEntrypoint": true,
+    "enemyContractsRequireEnemyReferenceMaster": true,
+    "itemContractsRequireResolvedPhysicalObjectLineage": true,
+    "stageContractsRequireLocationEnvironmentMaster": true,
+    "phaseOrderStillMasterGuideTopGameplay": true
+  },
+  "generationAdmission": {
+    "automaticGenerationAuthorized": false,
+    "character": "BLOCKED_MASTER_AND_LATEST_PRODUCTION_PROMPT_CHAIN",
+    "enemy": "BLOCKED_ENEMY_REFERENCE_MASTERS",
+    "item": "BLOCKED_ITEM_PHYSICAL_LINEAGE_REVIEW",
+    "stage": "BLOCKED_LOCATION_ENVIRONMENT_MASTERS"
+  },
+  "dedupeImpact": {
+    "itemRawRows": 105,
+    "itemGameplayContracts": 525,
+    "itemPhysicalMasterCount": "TBD_AFTER_LINEAGE_REVIEW",
+    "sakuyazaEnemySubjectsAreSubsetOfEnemy48": true,
+    "guideDbCreatesIndependentCopiesByDefault": false,
+    "topLoadingExistingAssetsAreAuditedSeparately": true
+  }
+}

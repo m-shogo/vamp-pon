@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "masterId": "modern-iau88-project-line-art-vector-master-v1",
+  "displayName": "Modern IAU88 Project Line-Art Vector Master",
+  "status": "CURRENT_VECTOR_SYSTEM_SPEC_GEOMETRY_NOT_YET_AUTHORED_HUMAN_REVIEW_REQUIRED",
+  "format": "SVG_VECTOR_SYSTEM_SPEC",
+  "mandatoryRasterImage": false,
+  "constellationCount": 88,
+  "authority": {
+    "projectStorySource": "src/game/data/constellationStoryClueReservoir.ts",
+    "worldMaster": "src/game/data/storyWorldMasterSource.ts",
+    "lorebookArchiveMethod": "docs/lorebook-constellation-archive-v1.md",
+    "externalResearchBoundary": {
+      "standardIdentityAndBoundaryAuthority": "INTERNATIONAL_ASTRONOMICAL_UNION_88_CONSTELLATIONS",
+      "projectLineGeometryAuthority": "YORUNO_SHIRUBE_PROJECT_OWNED_NOT_IAU_OFFICIAL_LINE_ART",
+      "historicalFigureAuthority": "SEPARATE_SOURCE_BACKED_HISTORICAL_ATLAS_OVERLAY"
+    }
+  },
+  "purpose": "Provide one stable modern constellation visual identity system for UI, Lorebook, merchandise/reference and Star Beast linkage while keeping IAU constellation identity/boundaries, project-owned connect-the-stars geometry and historical atlas figures explicitly separate.",
+  "geometryState": {
+    "all88LinePathsAuthored": false,
+    "all88LinePathsHumanReviewed": false,
+    "generationMayInventMissingLinePaths": false,
+    "placeholderGeometryMayShipAsFinal": false,
+    "exactStarCoordinateDatasetBound": false,
+    "nextGate": "Bind a source-backed modern star-coordinate/identifier dataset and author/review project-owned line paths per constellation."
+  },
+  "identityModel": {
+    "stableModernConstellationSet": "IAU_88",
+    "constellationIdentityUsesIAUStandardNamesOrProjectLocaleMapping": true,
+    "constellationBoundaryReferenceIsSeparateFromLinePath": true,
+    "projectLinePathMayNotChangeConstellationMembership": true,
+    "projectLinePathMayNotBeCalledIAUOfficialFigure": true,
+    "historicalFigureMayNotOverwriteModernProjectLinePath": true,
+    "zodiacGlyphIsNotModernLinePath": true
+  },
+  "svgSystem": {
+    "viewBox": "0 0 1000 1000",
+    "coordinateNormalization": "SOURCE_STAR_POSITIONS_TO_NORMALIZED_LOCAL_CONSTELLATION_VIEWBOX",
+    "background": "TRANSPARENT",
+    "authoritativePrimitives": ["line", "polyline", "path", "circle-for-star-node-only"],
+    "textInsideGeometry": false,
+    "embeddedRaster": false,
+    "decorativeGlowInAuthorityGeometry": false,
+    "strokeLinecap": "round",
+    "strokeLinejoin": "round",
+    "fillForLineGeometry": "none",
+    "strokeWidthPolicy": "RELATIVE_TOKEN_NOT_BAKED_DEVICE_PIXEL",
+    "starNodeRadiusPolicy": "RELATIVE_TOKEN_NOT_BAKED_DEVICE_PIXEL",
+    "geometryTransformPolicy": "NO_NON_UNIFORM_STRETCH_AFTER_APPROVAL"
+  },
+  "requiredPerConstellationRecord": [
+    "iau-identity-key",
+    "project-stable-id",
+    "localized-display-name",
+    "source-star-identifiers",
+    "normalized-star-node-positions",
+    "project-line-segments",
+    "geometry-version",
+    "source-reference",
+    "human-review-state",
+    "historical-overlay-links"
+  ],
+  "lineAuthoringRules": [
+    "Use only source-backed stars/identifiers admitted to the modern constellation record.",
+    "Prefer a sparse readable line figure over tracing every visible star.",
+    "Do not add a star node merely to make the silhouette prettier.",
+    "Do not cross the adopted constellation boundary to borrow a star from another constellation.",
+    "Do not distort star positions to force an animal/object silhouette.",
+    "Do not use birth-sign/zodiac symbolism as the source of line geometry.",
+    "Shared visual grammar may standardize stroke/node tokens but must not homogenize all constellations into one icon shape.",
+    "A project line revision increments geometry version and preserves superseded lineage rather than silently replacing approved geometry.",
+    "Historical atlas line/figure differences remain overlays and may not silently mutate the modern project canonical geometry."
+  ],
+  "smallScaleDerivatives": {
+    "sourceMustBeApprovedVectorMaster": true,
+    "allowed": [
+      "stroke-width-token-adjustment",
+      "node-radius-token-adjustment",
+      "approved-segment-omission-for-tiny-size-only-if-identity-remains-readable",
+      "crop-and-padding-adjustment"
+    ],
+    "forbidden": [
+      "move-star-node",
+      "invent-new-star-node",
+      "change-constellation-membership",
+      "replace-with-zodiac-glyph",
+      "replace-with-Star-Beast-silhouette",
+      "add-decorative-stars-to-fill-space"
+    ],
+    "tinyDerivativeCreatesNewMaster": false
+  },
+  "historicalArchiveBoundary": {
+    "modernProjectGeometryIsStableReference": true,
+    "historicalConstellationSetMayDifferByEra": true,
+    "historicalFiguresRequireSourceCitation": true,
+    "historicalOverlayMayShowLostOrLaterAddedConstellations": true,
+    "historicalOverlayMayBeCalledIAUOfficialModernLineArt": false,
+    "projectModernLinePathMayBePresentedAsHistoricalFact": false
+  },
+  "usageTargets": [
+    "Lorebook constellation mini visual",
+    "Star Beast profile linkage",
+    "constellation archive modern comparison",
+    "UI reference icon where scale permits",
+    "merch/reference diagram",
+    "author DB visual reference"
+  ],
+  "forbiddenClaimsAndShortcuts": [
+    "claim-project-connect-the-stars-geometry-is-IAU-official-line-art",
+    "claim-historical-atlas-figure-is-modern-IAU-standard-line-art",
+    "use-zodiac-glyph-as-constellation-line-art",
+    "invent-star-membership-from-animal-silhouette",
+    "move-stars-for-prettier-character-shape",
+    "force-identical-constellation-set-across-all-historical-eras",
+    "treat-88-as-proof-that-historical-cultures-used-the-same-figures",
+    "rasterize-before-vector-authority-is-reviewed",
+    "generate-missing-line-paths-without-source-backed-star-dataset",
+    "let-Star-Beast-art-create-constellation-geometry"
+  ],
+  "authorityBoundary": {
+    "thisMasterClaimsIAUOfficialLineFigures": false,
+    "thisMasterCreatesHistoricalFacts": false,
+    "thisMasterCreatesConstellationMembership": false,
+    "thisMasterCreatesStarCoordinates": false,
+    "thisMasterCreatesStarBeastCanon": false,
+    "generatedLineArtCreatesCanon": false,
+    "humanReviewRequired": true,
+    "imageGenerationAuthorized": false,
+    "vectorGeometryAuthoringAuthorizedBeforeDatasetBinding": false
+  }
+}

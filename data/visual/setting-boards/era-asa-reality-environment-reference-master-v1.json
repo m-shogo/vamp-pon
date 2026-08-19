@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "assetId": "era-asa-reality-environment-reference-master-v1",
+  "status": "EDITABLE_SETTING_BOARD_SPEC_AUTHORED_HUMAN_REVIEW_REQUIRED_NO_RASTER",
+  "characterId": "asa",
+  "boardType": "ENVIRONMENT",
+  "eraBand": "far_future_human_android_robot_avatar_coexistence",
+  "exactYearState": "OPEN",
+  "authoritySources": ["data/visual/core5-era-life-design-master-v1.json","data/visual/core5-reality-era-environment-authoring-brief-v1.json","data/visual/core5-era-setting-board-production-contract-v1.json","data/visual/core5-era-setting-board-evidence-packets-v1.json","src/game/data/characterRealityRootRegistry.ts"],
+  "panels": [
+    {"id":"E01-establishing-system-view","content":"Function-first far-future ordinary environment where humans, androids/robots/avatars may coexist through identity, access, maintenance and mobility infrastructure; present-day trajectory research is used as a question anchor, never as proof of exact future technology."},
+    {"id":"E02-system-comparison-strip","content":{"communication":["identity-aware network access candidate","multiple embodiment channels candidate","offline path must remain possible"],"transportNavigation":["mobility must accommodate different body/device needs"],"shoppingAvailability":["ownership/access may differ between person, body, account and device"],"repairReplacement":["maintenance and hardware-generation history matter","replacement is not personality growth"],"privacyRecords":["identity credential, copy, backup and history disagreement are infrastructure questions"]}},
+    {"id":"E03-material-prop-detail","content":["repairable personal hardware candidate","functional access-device candidate","service/maintenance interface class","body-specific environmental accommodation","identity credential representation without fixing exact UI"]},
+    {"id":"E04-human-use-and-friction","content":["identity verification can create waiting or disagreement","different bodies may require different environmental support","old body/device attachment can coexist with upgrades","social participation does not require identical human needs"]},
+    {"id":"E05-source-open-boundary","content":{"open":["exact future year","exact legal personhood system","exact body-transfer technology","exact authentication UI","exact household composition","exact political side","exact incident"],"note":"Moonshot/Digital Agency/AI-governance material is trajectory research only and may not be presented as future fact."}}
+  ],
+  "forbiddenShortcuts": ["everyone_has_body_replacement","everyone_uses_holograms","everyone_wears_bodysuits","neon_chrome_equals_future","android_must_humanize","upgrade_equals_personal_growth","franchise_specific_cyberpunk_copy"],
+  "downstreamReuse": ["Character era-context review","Story blocking","Lorebook composition","Reality keyframe admission","Stage environment authoring","future prop/material reference"],
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "masterApproval": false,
+  "runtimeApproval": false
+}

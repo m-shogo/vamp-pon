@@ -1,0 +1,480 @@
+{
+  "schemaVersion": 1,
+  "queueId": "yoruno-shirube-pre-game-master-expansion-queue-v1",
+  "status": "LIST_ONLY_NO_AUTOMATIC_GENERATION",
+  "purpose": "Define every missing pre-game visual master family that must be normalized before guide/TOP/gameplay image execution, without duplicating existing production rows or current main visual authorities.",
+  "dependsOn": [
+    "data/character-assets/manifests/visual-generation-count-baseline.v1.json",
+    "data/character-assets/manifests/visual-image-production-list.v1.json",
+    "data/character-assets/manifests/visual-story-authority-coverage-audit.v1.json",
+    "docs/visual/visual-generation-master-backlog-v1.md"
+  ],
+  "branchSyncBoundary": {
+    "mustRebaseOrReconstructOnCurrentMainBeforeMerge": true,
+    "reason": "main contains newer all-character identity/garment/night-light/color/embodied/cross-asset production authorities that this branch must reuse rather than duplicate",
+    "imageGenerationBeforeLatestMainSyncAllowed": false
+  },
+  "globalRules": {
+    "masterBeforeGuideTopGameplay": true,
+    "onePhysicalSubjectOneMasterLineage": true,
+    "sameBinaryDifferentPathForbidden": true,
+    "sameSubjectDifferentUsageUsesUsageTargetsNotCopies": true,
+    "openStoryFieldsMayNotBeFilledByImageModel": true,
+    "vectorOrEditableSystemMustNotBeForcedIntoRaster": true,
+    "legacyYatsukageMayNotNameCurrentMasters": true,
+    "currentSeason1AntagonistFormalName": "朔夜座",
+    "gunjoIsRecordTaxonomyNotFaction": true
+  },
+  "families": [
+    {
+      "order": 1,
+      "familyId": "character-state-transformation-master",
+      "artifactType": "IMAGE_OR_EDITABLE_COMPARISON_BOARD",
+      "layer": "master",
+      "source": "src/game/data/characterDatabase.ts",
+      "supportingSources": [
+        "src/game/data/kokuyouForms.ts",
+        "src/game/data/characterProductionPlans.ts",
+        "src/game/data/characterAppearanceGenerationContracts.ts"
+      ],
+      "enumeration": "characterDefinitions",
+      "sourceCount": 20,
+      "logicalMasterCount": 20,
+      "masterIdTemplate": "char-{characterId}-state-transformation-master-v1",
+      "contains": [
+        "normal-baseline-link",
+        "kokuyou-state",
+        "akatsuki-dawn-state",
+        "before-after-identity-lock",
+        "lighting-material-vfx-boundary"
+      ],
+      "productionState": "BLOCKED_BASE_CHARACTER_MASTER_AND_STATE_VISUAL_AUTHORING",
+      "generationAllowed": false,
+      "dedupeRule": "Normal/Kokuyou/Dawn are states of one character identity and must be reviewed in one logical comparison master before separate gameplay cut-ins/sprites are produced."
+    },
+    {
+      "order": 2,
+      "familyId": "enemy-reference-master",
+      "artifactType": "IMAGE_SETTING_MASTER",
+      "layer": "master",
+      "source": "src/game/data/enemyProductionDatabase.ts",
+      "enumeration": "enemyProductionEntries",
+      "sourceCount": 48,
+      "logicalMasterCount": 48,
+      "masterIdTemplate": "enemy-{enemyId}-reference-master-v1",
+      "existingGameplayKinds": [
+        "sprite_sheet_180",
+        "reference",
+        "attack_sheet",
+        "collection_icon"
+      ],
+      "masterPromotionRule": "existing `reference` intent is normalized as pre-game visual master evidence; sprite/attack/icon remain derivatives",
+      "sakuyazaSubset": {
+        "count": 8,
+        "currentSource": "src/game/data/sakumeiCandidateSource.ts",
+        "legacyCompatibilitySource": "src/game/data/yatsukageIdentitySource.ts",
+        "enemyIds": [
+          "boss_name_without_owner",
+          "boss_closed_morning_box",
+          "boss_night_without_route",
+          "omburo_black_origami",
+          "omburo_blank_card",
+          "omburo_repair_seam",
+          "omburo_dream_wave",
+          "omburo_nameplate"
+        ],
+        "countedAsAdditionalEnemyMasters": false,
+        "formalName": "朔夜座",
+        "legacyObserverLabel": "八影"
+      },
+      "yatsukageSubset": {
+        "compatibilityAliasOnly": true,
+        "count": 8,
+        "enemyIds": [
+          "boss_name_without_owner",
+          "boss_closed_morning_box",
+          "boss_night_without_route",
+          "omburo_black_origami",
+          "omburo_blank_card",
+          "omburo_repair_seam",
+          "omburo_dream_wave",
+          "omburo_nameplate"
+        ],
+        "countedAsAdditionalEnemyMasters": false,
+        "currentFormalName": "朔夜座",
+        "legacyObserverLabel": "八影"
+      },
+      "productionState": "REFERENCE_MASTER_MODEL_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 3,
+      "familyId": "item-object-design-master",
+      "artifactType": "IMAGE_OR_OBJECT_SETTING_BOARD",
+      "layer": "master",
+      "source": "src/game/data/itemAssetProductionDatabase.ts",
+      "supportingSource": "src/game/data/characterProductionPlans.ts",
+      "enumeration": "itemAssetProductionEntries",
+      "rawSourceCount": 105,
+      "characterLinkedRawCount": 100,
+      "fieldDropCount": 5,
+      "exactDistinctLabelCount": 94,
+      "logicalPhysicalMasterCount": "TBD_AFTER_LINEAGE_REVIEW",
+      "masterIdTemplateBeforeLineageResolution": "item-{itemId}-design-master-candidate-v1",
+      "existingGameplayKinds": [
+        "icon_64",
+        "card_512",
+        "pickup_32",
+        "evolution_burst",
+        "ui_slot"
+      ],
+      "productionState": "BLOCKED_PHYSICAL_OBJECT_LINEAGE_RESOLUTION",
+      "generationAllowed": false,
+      "dedupeRules": [
+        "same textual label creates a lineage review candidate but does not prove physical identity",
+        "starter/passive/rare/evolved/final phases may be states of one object and must not be independently generated before lineage review",
+        "Named Object luminous possessions remain a separate 21-record source until an explicit cross-lineage relation is authorized"
+      ]
+    },
+    {
+      "order": 4,
+      "familyId": "location-environment-setting-master",
+      "artifactType": "IMAGE_SETTING_MASTER",
+      "layer": "master",
+      "source": "src/game/data/stageProductionDatabase.ts",
+      "enumeration": "stageProductionEntries",
+      "sourceCount": 20,
+      "logicalMasterCount": 20,
+      "masterIdTemplate": "location-{stageId}-environment-setting-master-v1",
+      "existingGameplayKinds": [
+        "background_390x844",
+        "parallax_layer_pack",
+        "stage_thumbnail",
+        "battle_tile_patch"
+      ],
+      "masterRequiredFields": [
+        "establishing-view",
+        "landmark-and-architecture",
+        "foreground-midground-background",
+        "material-aging",
+        "lighting-color-script",
+        "character-scale-reference",
+        "spatial-plan-when-needed",
+        "signage-text-authority-boundary"
+      ],
+      "productionState": "MASTER_ROW_MODEL_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 5,
+      "familyId": "toumon-sigil-vector-master",
+      "artifactType": "VECTOR_SVG",
+      "layer": "master-vector",
+      "source": "src/game/data/toumonSimpleSigilCanon.ts",
+      "enumeration": "toumonSigils",
+      "sourceCount": 21,
+      "current20Count": 20,
+      "officialReserveCount": 1,
+      "officialReserveIds": ["ren"],
+      "logicalMasterCount": 21,
+      "masterIdTemplate": "toumon-{characterId}-vector-master-v1",
+      "preferredOutput": "SVG",
+      "imageGenerationAllowedForAuthority": false,
+      "explorationRasterMayBeUsed": true,
+      "productionState": "VECTOR_AUTHORING_REQUIRED"
+    },
+    {
+      "order": 6,
+      "familyId": "constellation-historical-archive-master",
+      "artifactType": "EDITABLE_ARCHIVE_PLATE_OR_VECTOR",
+      "layer": "master-lore",
+      "source": "src/game/data/constellationStoryClueReservoir.ts",
+      "enumeration": "CONSTELLATION_STORY_CLUE_CANDIDATES",
+      "sourceCandidateCount": 8,
+      "logicalMasterCount": "TBD_AFTER_PER_OBJECT_ARCHIVE_AUTHORITY",
+      "productionState": "BLOCKED_RESEARCH_OBJECT_AUTHORITY",
+      "generationAllowed": false,
+      "rule": "candidate clues may define archive needs but may not auto-create final constellation objects, Character assignments, Star Beast assignments, enemy roles, or Story Canon"
+    },
+    {
+      "order": 7,
+      "familyId": "world-effect-reference-plates",
+      "artifactType": "EDITABLE_REFERENCE_PLATE",
+      "layer": "master-reference",
+      "sources": [
+        "data/visual/visual-design-production-master-v1.json",
+        "data/visual/world-material-translation-master-v1.json",
+        "data/visual/all-character-night-light-rendering-master-v1.json"
+      ],
+      "topicCount": 12,
+      "logicalMasterCount": "TBD_COMBINE_TOPICS_WHEN_ONE_PLATE_CAN_SERVE_MULTIPLE_RULES",
+      "productionState": "REFERENCE_PLATE_AUTHORING_REQUIRED",
+      "generationAllowed": false,
+      "rule": "visual examples/evidence sit under current world/material/light authorities and never become a competing world authority"
+    },
+    {
+      "order": 8,
+      "familyId": "sakuyaza-team-comparison-master",
+      "artifactType": "IMAGE_OR_EDITABLE_COMPARISON_BOARD",
+      "layer": "master",
+      "source": "src/game/data/sakumeiCandidateSource.ts",
+      "logicalMasterCount": 1,
+      "masterId": "sakuyaza-s1-team-comparison-master-v1",
+      "contains": [
+        "eight-member-height-and-body-rhythm",
+        "shared-vs-individual-visual-grammar",
+        "pair-contrast",
+        "color-material-overlap-boundary",
+        "symbol-use-boundary",
+        "no-clone-uniform-rule"
+      ],
+      "legacyAliasMayNameOutput": false,
+      "productionState": "BLOCKED_UNTIL_EIGHT_INDIVIDUAL_MASTERS_HAVE_APPROVED_IDENTITY",
+      "generationAllowed": false
+    },
+    {
+      "order": 9,
+      "familyId": "gunjo-record-foundation-masters",
+      "artifactType": "EDITABLE_HTML_SVG_BOARD",
+      "layer": "master-record-system",
+      "source": "docs/gunjo-zankyoroku-current-v1.md",
+      "logicalMasterCount": 2,
+      "masterIds": [
+        "gunjo-record-taxonomy-system-master-v1",
+        "gunjo-record-medium-evidence-master-v1"
+      ],
+      "rules": [
+        "not-a-faction",
+        "not-fixed-count",
+        "not-all-villain",
+        "not-all-combat-boss",
+        "do-not-create-member-uniform-or-headquarters",
+        "incident-specific-subjects-admitted-later"
+      ],
+      "productionState": "EDITABLE_MASTER_AUTHORING_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 10,
+      "familyId": "core5-reality-era-environment-reference-master",
+      "artifactType": "RESEARCH_BACKED_SETTING_BOARD",
+      "layer": "master-world",
+      "source": "data/visual/core5-era-life-design-master-v1.json",
+      "logicalMasterCount": 5,
+      "masterIds": [
+        "era-tomori-reality-environment-reference-master-v1",
+        "era-michiru-reality-environment-reference-master-v1",
+        "era-nagi-reality-environment-reference-master-v1",
+        "era-yui-reality-environment-reference-master-v1",
+        "era-asa-reality-environment-reference-master-v1"
+      ],
+      "rule": "show ordinary systems, objects, transport, communication, work and household material culture without inventing OPEN exact addresses/schools/jobs/families",
+      "productionState": "RESEARCH_REFERENCE_BOARD_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 11,
+      "familyId": "core5-era-population-household-reference-master",
+      "artifactType": "RESEARCH_BACKED_EDITABLE_REFERENCE_BOARD",
+      "layer": "master-world",
+      "source": "src/game/data/storyWorldMasterSource.ts",
+      "logicalMasterCount": 5,
+      "requiredPopulationLenses": [
+        "CHILD",
+        "TEEN_OR_YOUNG_ADULT",
+        "PARENT_AGE_ADULT",
+        "OLDER_ADULT",
+        "NON_PARENT_AUNT_UNCLE_LIKE_ADULT",
+        "NON_NUCLEAR_HOUSEHOLD_EXAMPLE"
+      ],
+      "rule": "background population references are world evidence, not automatic named cast or Canon relatives",
+      "productionState": "RESEARCH_REFERENCE_BOARD_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 12,
+      "familyId": "dream-common-daily-life-infrastructure-master",
+      "artifactType": "SETTING_BOARD",
+      "layer": "master-world",
+      "source": "src/game/data/storyWorldMasterSource.ts",
+      "logicalMasterCount": 1,
+      "masterId": "dream-common-daily-life-infrastructure-master-v1",
+      "contains": [
+        "pantry-refrigerator-cupboard-kitchen",
+        "drink-and-liquor-storage",
+        "closet-changing-storage",
+        "washing-bathing-rest",
+        "sleeping-and-recovery",
+        "post-boss-meal-and-social-space",
+        "storage-mediated-provisioning",
+        "no-direct-hand-air-materialization"
+      ],
+      "productionState": "WORLD_SETTING_BOARD_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 13,
+      "familyId": "sky-moon-resolution-color-script-master",
+      "artifactType": "COLOR_SCRIPT_AND_SKY_SETTING_BOARD",
+      "layer": "master-world",
+      "source": "src/game/data/storyWorldMasterSource.ts",
+      "logicalMasterCount": 1,
+      "masterId": "world-sky-moon-resolution-color-script-master-v1",
+      "contains": [
+        "incident-depth-moon-phases",
+        "saku-moonless-stars-remain",
+        "boss-unresolved-darkness",
+        "post-resolution-brightening-without-physical-sunrise",
+        "local-light-source-priority",
+        "legacy-dawn-name-does-not-mean-normal-morning"
+      ],
+      "productionState": "COLOR_SCRIPT_AUTHORING_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 14,
+      "familyId": "modern-iau88-constellation-line-art-vector-master",
+      "artifactType": "VECTOR_SVG_SYSTEM",
+      "layer": "master-sky",
+      "source": "docs/00-current-story-world-master.md",
+      "logicalMasterCount": 1,
+      "masterId": "modern-iau88-project-line-art-vector-master-v1",
+      "contains": [
+        "88-stable-constellation-identities",
+        "project-canonical-connect-the-stars-system",
+        "explicit-not-iau-official-line-art-label",
+        "historical-overlay-separation",
+        "minimum-size-and-ui-merch-proof"
+      ],
+      "productionState": "VECTOR_SYSTEM_AUTHORING_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 15,
+      "familyId": "era-incident-visual-admission-policy",
+      "artifactType": "ADMISSION_POLICY_NOT_IMAGE",
+      "layer": "governance",
+      "source": "src/game/data/storyWorldMasterSource.ts",
+      "logicalMasterCount": 1,
+      "policyId": "era-incident-visual-admission-policy-v1",
+      "futureOutputTemplate": "incident-{incidentId}-visual-system-master-v1",
+      "admissionRequires": [
+        "incident-authority-not-open-placeholder",
+        "era-boundary",
+        "system-or-process-definition",
+        "location-authority-or-explicit-unknown",
+        "central-person-group-system-boundary",
+        "gunjo-record-role-separated",
+        "combat-boss-role-separated",
+        "spoiler-tier"
+      ],
+      "productionState": "POLICY_REQUIRED_BEFORE_INCIDENT_ART",
+      "generationAllowed": false
+    },
+    {
+      "order": 16,
+      "familyId": "dream-reality-form-comparison-master",
+      "artifactType": "CONDITIONAL_COMPARISON_BOARD",
+      "layer": "master-character",
+      "source": "docs/00-current-story-world-master.md",
+      "logicalMasterCount": "TBD_ONLY_AUTHORIZED_CROSS_FORM_CHARACTERS",
+      "masterIdTemplate": "char-{characterId}-dream-reality-form-comparison-master-v1",
+      "rules": [
+        "do-not-infer-reality-body-from-dream-body",
+        "do-not-use-dream-form-as-gender-or-soul-truth-detector",
+        "only-admit-materially-different-authoritative-forms"
+      ],
+      "productionState": "CONDITIONAL_ADMISSION_MODEL_REQUIRED",
+      "generationAllowed": false
+    },
+    {
+      "order": 17,
+      "familyId": "sunny-if-reward-ensemble-master-family",
+      "artifactType": "NON_CANON_REWARD_KEY_ART",
+      "layer": "reward-presentation",
+      "source": "docs/00-current-story-world-master.md",
+      "logicalMasterCount": "TBD_AFTER_EVENT_AND_COMPOSITION_REVIEW",
+      "candidateThemes": [
+        "hanami",
+        "sea-or-pool",
+        "bbq",
+        "outdoor-event-optional"
+      ],
+      "clearGetter": {
+        "approxPieceCountDirection": 24,
+        "pieceCountFrozen": false,
+        "fullArtHighResolutionReward": true
+      },
+      "canonStatus": "NON_CANON_IF_REWARD",
+      "productionState": "BACKLOG_FAMILY_REQUIRED_NOT_READY",
+      "generationAllowed": false
+    },
+    {
+      "order": 18,
+      "familyId": "season-antagonist-visual-admission-policy",
+      "artifactType": "ADMISSION_POLICY_NOT_IMAGE",
+      "layer": "governance",
+      "source": "src/game/data/storyWorldMasterSource.ts",
+      "logicalMasterCount": 1,
+      "policyId": "season-antagonist-visual-admission-policy-v1",
+      "rules": [
+        "S2-S3-open-team-name-roster-count-may-not-be-filled-by-candidate-art",
+        "S1-Sakuyaza-visual-language-not-default-for-later-seasons",
+        "candidate-eight-person-S2-ensemble-is-not-final-count",
+        "new-season-team-requires-new-authority-admission"
+      ],
+      "productionState": "POLICY_REQUIRED_BEFORE_LATER_SEASON_MASTER_ART",
+      "generationAllowed": false
+    },
+    {
+      "order": 19,
+      "familyId": "title-logo-lockup-master",
+      "artifactType": "VECTOR_OR_EDITABLE_BRAND_MASTER",
+      "layer": "master-brand",
+      "logicalMasterCount": "TBD_AFTER_EXISTING_ASSET_AUDIT",
+      "productionState": "EXISTING_ASSET_AND_AUTHORITY_AUDIT_REQUIRED",
+      "generationAllowed": false,
+      "rule": "audit existing title/logo assets before replacement; one brand master may serve TOP, Loading, Guide and DB through usage targets"
+    }
+  ],
+  "downstreamBlockedUntilNormalized": {
+    "guideLorebookDb": true,
+    "topLoadingNewReplacementWork": true,
+    "gameplayDerivatives": true
+  },
+  "explicitlyNotDuplicatedHere": [
+    {
+      "family": "character-design-master-pack",
+      "reason": "already modeled as 36 logical packs / 144 source sheets in visual-image-production-list"
+    },
+    {
+      "family": "star-beast-master",
+      "reason": "already modeled as 21 production rows"
+    },
+    {
+      "family": "named-object-master",
+      "reason": "already modeled as 21 production rows"
+    },
+    {
+      "family": "all-character-production-authorities",
+      "reason": "latest main owns identity/garment/night-light/color/embodied/cross-asset/readiness/feedback production authority; this queue must consume rather than duplicate it"
+    },
+    {
+      "family": "world-material-authority",
+      "reason": "current main already provides world-material-translation-master-v1"
+    },
+    {
+      "family": "gunjo-incident-subjects",
+      "reason": "formal incident subjects are dynamic admissions after authority exists; fixed-count placeholder portraits are forbidden"
+    }
+  ],
+  "nextImplementationPass": [
+    "sync/reconstruct on latest main before executable image work",
+    "migrate remaining legacy 八影 pair/relation/player-facing semantics into Sakuyaza review reservoirs without deleting stable IDs",
+    "materialize deterministic explicit rows for fixed-count families from their source arrays rather than hand-copying runtime lists",
+    "implement character Sheet 01-04 adapter on top of the single latest-main production character exporter",
+    "complete item-lineage review for duplicate-label groups before final physical-master count",
+    "audit existing TOP/Loading/title/logo and all 977 Asset Factory output paths before creating replacement generation work",
+    "only after masters/guide/TOP gates are normalized may gameplay derivatives enter execution"
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 2,
+  "packetId": "visual-prompt:yui:identity-turnaround:autonomous-v2",
+  "packId": "char-yui-design-master-pack-v2",
+  "date": "2026-08-19",
+  "status": "READY_FOR_AUTONOMOUS_REGENERATION",
+  "authority": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
+  "previousRejectedPack": "data/character-assets/reviews/yui-character-design-master-pack-v1.json",
+  "rejectEvidence": [
+    "data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json",
+    "data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json",
+    "data/character-assets/reviews/yui-full-body-master-v2.qa.json",
+    "data/character-assets/reviews/yui-full-body-master-v2.rejects.json"
+  ],
+  "purpose": "Restart Yui Character Design Master production without an intermediate Human gate while preserving all previous reject evidence and requiring automatic structural QA before downstream sheets or derivatives can proceed.",
+  "historyBoundary": {
+    "previousEightCandidatesRemainRejected": true,
+    "previousRejectedBinaryMayBeDeleted": false,
+    "previousRejectedBinaryMayParentDerivative": false,
+    "previousRejectReasonsMustBeConsumedBeforePromptRevision": true,
+    "previousPromptMayBeReusedUnchanged": false
+  },
+  "regeneration": {
+    "sheet01Role": "identity-turnaround",
+    "candidateCount": 4,
+    "generationAllowed": true,
+    "intermediateHumanReviewRequired": false,
+    "authoritySnapshotRequired": true,
+    "promptHashRequired": true,
+    "candidateSha256Required": true,
+    "automaticQaRequired": true,
+    "structuralHardVetoRequired": true,
+    "semanticQaRequired": true,
+    "rejectLedgerRequired": true,
+    "retryUntilPass": true
+  },
+  "mandatoryIdentityAnchors": [
+    "YOUNG_ADULT age coding",
+    "soft oval face",
+    "rounded cheeks",
+    "non-pointed chin",
+    "smaller almost-level almond-round brown eyes",
+    "tapered double eyelids",
+    "soft straight brows",
+    "warm-dark asymmetric bob with one ear tuck",
+    "bilateral smile dimples whenever smiling"
+  ],
+  "mandatoryConstructionAnchors": [
+    "front, anatomical left, anatomical right, and back depict the same person at identical scale",
+    "shared ground/proportion lines",
+    "dominant hand remains OPEN unless Current authority resolves it before generation",
+    "lantern placement and other held-object placement never infer dominant hand",
+    "body-left/body-right rules take precedence over screen-left/screen-right",
+    "asymmetric construction may not be mirrored",
+    "hair must preserve the same scalp-attached topology across all views",
+    "face must preserve the same craniofacial landmark construction across all views"
+  ],
+  "hardVeto": [
+    "child/loli/doll age drift",
+    "generic pointed V jaw",
+    "giant-eye beautification",
+    "missing required dimples in smiling expression",
+    "duplicated or mirrored side view",
+    "wrong anatomical-side equipment",
+    "cross-view face/body/proportion drift",
+    "hair topology or grooming drift",
+    "generic premium/gacha makeover",
+    "unauthorized Story/relationship/Star Beast inference",
+    "readable text/logo/watermark/UI contamination"
+  ],
+  "sheetUnlock": {
+    "sheet02GenerationAllowedAfterSheet01AutomaticQaPass": true,
+    "sheet03GenerationAllowedAfterSheet01AutomaticQaPass": true,
+    "sheet04GenerationAllowedAfterSheet01AutomaticQaPass": true,
+    "humanApprovalRequiredBeforeUnlock": false,
+    "partialPackMayParentDerivatives": false,
+    "fullPackCrossSheetConsistencyRequiredBeforeDerivativeParenting": true
+  },
+  "promotion": {
+    "automaticMasterPromotionAllowedAfterRequiredQaPass": true,
+    "humanApprovalRequiredForIntermediatePromotion": false,
+    "approvedAsFinalProject": false,
+    "runtimeApproved": false,
+    "finalHumanReviewDeferredToProject100Percent": true
+  }
+}

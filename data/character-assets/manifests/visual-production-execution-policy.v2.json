@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 2,
+  "policyId": "yoruno-shirube-visual-production-execution-policy-v2",
+  "status": "CURRENT_PRE_GENERATION_EXECUTION_VIEW",
+  "purpose": "Define the current pre-generation view without deleting stable legacy planning rows. The old image-production list remains a compatibility/planning input, but cannot directly authorize image generation because Guide/Lorebook rows must reuse approved Masters rather than bake duplicate subject art.",
+  "currentExecutionSource": "src/game/data/visualProductionExecutionView.ts",
+  "legacyInput": {
+    "path": "data/character-assets/manifests/visual-image-production-list.v1.json",
+    "directGenerationAuthority": false,
+    "reason": "It predates the Master-reuse Guide/Lorebook policy and still models 142 composition cards as historical PNG-shaped rows."
+  },
+  "expectedCounts": {
+    "totalManagedRows": 480,
+    "imageBearingRows": 266,
+    "logicalNonImageRows": 214,
+    "migratedLegacyLorebookBakedRows": 142,
+    "independentLorebookRasterRows": 0,
+    "characterDesignMasterPacks": 36,
+    "characterDesignSourceSheets": 144,
+    "characterDesignOverviewReadModels": 36,
+    "lorebookCompositionReadModels": 142,
+    "gameplayImageRows": 72,
+    "indexedAssetFactoryContracts": 977
+  },
+  "lorebookMigration": {
+    "kinds": [
+      "lorebook-profile",
+      "lorebook-era",
+      "lorebook-reality-root",
+      "lorebook-relationship",
+      "lorebook-foreshadow"
+    ],
+    "legacyBreakdown": {
+      "lorebook-profile": 36,
+      "lorebook-era": 36,
+      "lorebook-reality-root": 36,
+      "lorebook-relationship": 24,
+      "lorebook-foreshadow": 10
+    },
+    "newIndependentBinaryDefault": 0,
+    "compositionOutput": "JSON_COMPOSITION_READ_MODEL",
+    "subjectArtwork": "APPROVED_MASTER_REFERENCE_OR_CROP",
+    "layout": "HTML_CSS_SVG_DATA",
+    "bakedReadableTextIntoRaster": false
+  },
+  "authorityBoundary": {
+    "executionAllowed": false,
+    "imageGenerationAuthorized": false,
+    "yuiHoldMustRemain": true,
+    "masterBeforeGuideLorebook": true,
+    "masterBeforeGameplay": true,
+    "guideLorebookMayParentGameplay": false,
+    "generatedCompositionCreatesCanon": false,
+    "humanReviewRequired": true
+  },
+  "migrationRule": "Keep stable asset IDs/kinds for traceability, but reinterpret the five legacy Lorebook kinds as non-image composition/read-model rows in the current execution view. Do not delete history and do not create replacement PNGs by default."
+}

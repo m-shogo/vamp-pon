@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "attemptId": "attempt-yui-full-body-master-v2-2026-08-12",
+  "assetFamilyId": "char-yui-full-body-master-v2",
+  "subjectId": "yui",
+  "sourceCommit": "5ec2a8f519e5ea5bcbf2d653a4e5f1d3893951d1",
+  "status": "EXECUTED_REJECT_ALL",
+  "authority": {
+    "storyStatus": "CURRENT",
+    "visualApprovalStatus": "REJECTED_ITERATION",
+    "approvedAsFinal": false,
+    "runtimeApproved": false,
+    "storyAuthorityPromotedByImage": false
+  },
+  "references": [
+    {
+      "path": "assets/reference/character-master/core5/yui-character-master-v1.png",
+      "sha256": "7e60d964246fc31f91ceb1df5bab8bd6c5fbdd381eadaa9e8a5f218c3338c7fe",
+      "role": "identity"
+    },
+    {
+      "path": "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png",
+      "sha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+      "role": "gameplay-size"
+    }
+  ],
+  "requestedIdentity": [
+    "young adult human woman",
+    "soft oval face and rounded cheeks",
+    "brown asymmetric bob",
+    "brown almond-round eyes",
+    "bilateral dimples in smile",
+    "short navy hooded outer cloak",
+    "old-paper cream practical inner clothing",
+    "practical boots",
+    "small dark-metal warm lantern",
+    "found paper fragment",
+    "quiet picker/verifier/offering behavior"
+  ],
+  "equipmentContinuity": {
+    "dominantHand": {
+      "value": null,
+      "status": "OPEN_NO_SOURCE"
+    },
+    "lanternHeldIn": "BODY_RIGHT_HAND",
+    "bagStrap": "BODY_RIGHT_SHOULDER_TO_BODY_LEFT_HIP",
+    "bagAt": "BODY_LEFT_HIP",
+    "frontViewProjection": {
+      "bodyRightAppearsOn": "SCREEN_LEFT",
+      "bodyLeftAppearsOn": "SCREEN_RIGHT"
+    },
+    "heldItemHandMayNotInferDominantHand": true,
+    "uncorrectedMirrorForbidden": true,
+    "source": "src/game/data/goldenReferenceRegistry.ts"
+  },
+  "avoid": [
+    "child coding",
+    "generic anime face",
+    "giant round eyes",
+    "generic V jaw",
+    "battle pose or weapon framing",
+    "excessive glow or particles",
+    "unapproved constellation glyph",
+    "floating lantern",
+    "wrong body-side placement",
+    "uncorrected mirrored asymmetric equipment",
+    "Story Canon or runtime promotion"
+  ],
+  "candidateCount": 4,
+  "executionNote": "初回は4つの構図variationを別callで生成した。比較可能性を高める次回は、同一prompt/reference stackでseed/variationだけを変える。"
+}

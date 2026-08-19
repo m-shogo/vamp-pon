@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "assetId": "era-yui-population-household-reference-master-v1",
+  "status": "EDITABLE_SETTING_BOARD_SPEC_AUTHORED_HUMAN_REVIEW_REQUIRED_NO_RASTER",
+  "characterId": "yui",
+  "boardType": "POPULATION_HOUSEHOLD",
+  "eraBand": "1990s_born_2026_tokyo_arakawa",
+  "exactYearState": "2026_CURRENT",
+  "literalFamilyCanonCreated": false,
+  "authoritySources": ["data/visual/core5-era-life-design-master-v1.json","data/visual/core5-era-population-household-authoring-brief-v1.json","data/visual/core5-era-setting-board-production-contract-v1.json","data/visual/core5-era-setting-board-evidence-packets-v1.json","src/game/data/characterRealityRootRegistry.ts"],
+  "panels": [
+    {"id":"P01-six-population-lenses","content":["child","teen-or-young-adult","parent-age adult","older adult","non-parent aunt/uncle-like adult","non-nuclear household example"]},
+    {"id":"P02-household-system-variation","content":["multi-generation or nearby-support household with mixed digital access","single-person/older-adult household with different food/mobility/access needs","non-nuclear/shared household using local and online services in different proportions"]},
+    {"id":"P03-ordinary-task-distribution","content":["provisioning/cooking","work/study","care","communication","travel","record/verification management","delivery/takeout handling"]},
+    {"id":"P04-system-access-differences","content":["cash/IC/app payment","device/account access","local shopping vs delivery","rail/walking/mobility access","cloud/group-log participation","food access constraints"]},
+    {"id":"P05-not-literal-family-boundary","content":"These are population-study composites. They do not define Yui's parents, siblings, grandparents, partner, children, private address, school or literal household."}
+  ],
+  "forbiddenShortcuts": ["everyone_is_always_online","everyone_is_cashless","elderly_technology_illiterate_gag","father_equals_work_only","mother_equals_housework_only","one_household_is_whole_era","family_photo_implies_literal_character_family"],
+  "openFields": ["literal Yui family members","private address","exact household composition","specific frequently used business","exact workplace/school","recognizable private residents"],
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "masterApproval": false,
+  "runtimeApproval": false
+}

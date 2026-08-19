@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "policyId": "yoruno-shirube-existing-asset-factory-output-audit-policy-v1",
+  "status": "ACTIVE_AUDIT_POLICY_NO_AUTOMATIC_GENERATION",
+  "purpose": "Classify all indexed Asset Factory contracts by repository output-path existence without treating file existence as approval or file absence as generation authorization.",
+  "source": "src/game/data/assetGenerationPolicy.ts",
+  "expectedCurrentContractBreakdown": {
+    "character": 180,
+    "enemy": 192,
+    "item": 525,
+    "stage": 80,
+    "total": 977
+  },
+  "classifications": {
+    "EXISTS_REVIEW_REUSE_OR_REPLACE": {
+      "meaning": "outputPathHint exists in the checked worktree. Inspect lineage, authority, visual quality, approval and current parent masters before deciding reuse or replacement.",
+      "generationAuthorized": false,
+      "reuseAutomaticallyApproved": false
+    },
+    "MISSING_OUTPUT_REQUIRES_AUTHORITY_ADMISSION": {
+      "meaning": "outputPathHint does not exist in the checked worktree. Absence is a production gap signal only; generation still requires the correct approved parent Master / prompt entrypoint / authority gate.",
+      "generationAuthorized": false,
+      "missingMeansGenerateNow": false
+    }
+  },
+  "rules": {
+    "contractMembershipComesFromSource": true,
+    "hardcodedPerContractCopyForbidden": true,
+    "existenceDoesNotEqualApproval": true,
+    "absenceDoesNotEqualGenerationPermission": true,
+    "fileHashRecordedWhenExisting": true,
+    "duplicateExistingBinaryHashMustBeSurfaced": true,
+    "duplicateOutputPathMustBeSurfaced": true,
+    "gameplayRemainsAfterMasterGuideTopPhases": true,
+    "characterGenerationMustUseLatestSingleProductionEntrypoint": true,
+    "itemGameplayGenerationBlockedUntilPhysicalLineageResolution": true,
+    "enemyGameplayDerivativesMustReferenceEnemyMaster": true,
+    "stageGameplayDerivativesMustReferenceLocationMaster": true
+  },
+  "inspectionOrder": [
+    "repo-path-existence",
+    "sha256-if-existing",
+    "lineage-and-parent-authority",
+    "human-visual-quality-review",
+    "reuse-vs-replace-decision",
+    "generation-admission-only-if-truly-missing-or-rejected"
+  ]
+}

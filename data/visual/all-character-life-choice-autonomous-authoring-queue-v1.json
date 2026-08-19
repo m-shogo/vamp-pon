@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "queueId": "yoru-no-shirube-all-character-life-choice-autonomous-authoring-queue-v1",
+  "date": "2026-08-19",
+  "status": "READY_CODEX_AUTHORING",
+  "authority": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
+  "sourcePacket": "data/visual/all-character-life-choice-author-decision-packet-v1.json",
+  "decisionLog": "data/visual/all-character-life-choice-codex-author-decisions-v1.json",
+  "purpose": "Convert the legacy 42-item Human author-decision packet into the Current delegated Codex authoring queue without altering the legacy packet's audit semantics.",
+  "selection": {
+    "sourceDecisionState": "PENDING_HUMAN_AUTHOR_DECISION",
+    "currentOperationalState": "READY_CODEX_AUTHOR_DECISION",
+    "expectedCount": 42,
+    "copyDecisionIdsFromSource": true,
+    "duplicateDecisionDefinitions": false
+  },
+  "partition": {
+    "bodyAdornment": 16,
+    "skinCoverage": 5,
+    "personalGrooming": 6,
+    "footwearGroundInterface": 5,
+    "accessoryPropInventory": 5,
+    "materialWearMaintenance": 5,
+    "total": 42
+  },
+  "authoringContract": {
+    "executor": "CODEX",
+    "intermediateHumanReviewRequired": false,
+    "imageOutputMayDecide": false,
+    "mustReadSourceContract": true,
+    "mustReadSourceEvidence": true,
+    "mustRecordPreviousState": true,
+    "mustRecordDecision": true,
+    "mustRecordReason": true,
+    "mustRecordEvidencePaths": true,
+    "mustRecordConflicts": true,
+    "mustRecordForbiddenImageInferences": true,
+    "mustUpdateMachineReadableAuthorityBeforePromptExport": true,
+    "mayKeepOpenOnlyWhenNotAProductionBlocker": true,
+    "mustResolveProductionBlockerBeforePromptExport": true,
+    "mayInventUnrelatedLore": false
+  },
+  "priorityOrder": [
+    "bodyAdornment",
+    "skinCoverage",
+    "personalGrooming",
+    "footwearGroundInterface",
+    "accessoryPropInventory",
+    "materialWearMaintenance"
+  ],
+  "completion": {
+    "decisionsRequired": 42,
+    "decisionsMaterialized": 0,
+    "remaining": 42,
+    "complete": false,
+    "nextStageWhenComplete": "PARTIAL_EVIDENCE_56_REVIEW_THEN_MASTER_SPEC"
+  }
+}

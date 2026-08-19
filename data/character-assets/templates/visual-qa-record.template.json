@@ -1,16 +1,13 @@
 {
   "schemaVersion": 1,
-  "assetId": "char-subject-master-v1",
+  "packId": "char-subject-design-master-pack-v1",
+  "sheetId": "char-subject-design-sheet-01-identity-turnaround-v1",
+  "sheetRole": "identity-turnaround",
   "candidateId": "candidate-a",
   "status": "not-reviewed",
-  "checks": {
-    "identity": "not-reviewed", "face": "not-reviewed", "hair": "not-reviewed", "eyes": "not-reviewed",
-    "body": "not-reviewed", "ageImpression": "not-reviewed", "silhouette": "not-reviewed",
-    "costume": "not-reviewed", "props": "not-reviewed", "themeColor": "not-reviewed",
-    "eraConsistency": "not-reviewed", "smallSizeReadability": "not-reviewed",
-    "fileAndAlpha": "not-reviewed", "canonBoundary": "not-reviewed"
-  },
+  "hashes": {"prompt": "REQUIRED_SHA256", "references": [], "output": "REQUIRED_SHA256"},
+  "checks": {"requiredViews": "not-reviewed", "identityAnchors": "not-reviewed", "bodyRelativeEquipment": "not-reviewed", "noMirrorDuplication": "not-reviewed", "sameScaleAndGroundLines": "not-reviewed", "crossSheetConsistency": "not-applicable-until-multiple-sheets", "fileAndAlpha": "not-reviewed", "storyFinalRuntimeBoundary": "not-reviewed"},
   "issues": [],
   "decision": "pending",
-  "humanReview": {"required": true, "result": "not-provided"}
+  "humanReview": {"required": true, "scope": "sheet-identity-and-construction", "result": "not-provided"}
 }

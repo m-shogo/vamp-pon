@@ -4,9 +4,22 @@ import {
   current21YatsukageRelationshipEntries,
   type Current21YatsukageRelationEntry,
 } from './current21YatsukageRelationshipSource.ts';
+import { SAKUYAZA_CURRENT_IDENTITY } from './sakumeiCandidateSource.ts';
 import { yatsukageCallNames } from './yatsukageIdentitySource.ts';
 
+/**
+ * Stable `Yatsukage*` API names are retained for compatibility only.
+ * Current presentation authority is Season 1 `朔夜座`; `八影` is an early
+ * observer label and must not be emitted here as the late formal team label.
+ */
 export const YATSUKAGE_ENCOUNTER_MEMORY_STATUS = 'CONTENT_LEDGER_CONTRACT_RUNTIME_NOT_IMPLEMENTED' as const;
+export const YATSUKAGE_ENCOUNTER_MEMORY_NAMING_BOUNDARY = {
+  legacyApiNamespace: 'YATSUKAGE',
+  legacyObserverLabel: '八影',
+  currentFormalTeamName: SAKUYAZA_CURRENT_IDENTITY.formalName,
+  legacyApiNameCreatesCurrentNamingAuthority: false,
+  latePresentationUsesCurrentFormalName: true,
+} as const;
 
 export const YATSUKAGE_RELATION_MEMORY_PHASES = [
   'FIRST_ENCOUNTER',
@@ -69,7 +82,7 @@ const callNameByEnemyId = new Map(yatsukageCallNames.map((entry) => [entry.enemy
 
 function relationFor(enemyId: string, characterId: CurrentRelationCharacterId): Current21YatsukageRelationEntry {
   const relation = relationByKey.get(`${enemyId}:${characterId}`);
-  if (!relation) throw new Error(`unknown 八影 relation: ${enemyId}/${characterId}`);
+  if (!relation) throw new Error(`unknown Sakuyaza relation (legacy Yatsukage API): ${enemyId}/${characterId}`);
   return relation;
 }
 
@@ -108,7 +121,7 @@ export function applyYatsukageEncounterMemoryEvent(
   event: YatsukageEncounterMemoryEvent,
 ): YatsukageRelationMemoryState {
   if (current.enemyId !== event.enemyId || current.characterId !== event.characterId) {
-    throw new Error(`八影 encounter event relation mismatch: ${event.eventId}`);
+    throw new Error(`Sakuyaza encounter event relation mismatch (legacy Yatsukage API): ${event.eventId}`);
   }
 
   const nextBase = {
@@ -134,7 +147,7 @@ export function applyYatsukageEncounterMemoryEvent(
       break;
     default: {
       const neverKind: never = event.kind;
-      throw new Error(`unknown 八影 encounter event: ${neverKind}`);
+      throw new Error(`unknown Sakuyaza encounter event kind: ${neverKind}`);
     }
   }
 
@@ -165,13 +178,13 @@ export function buildYatsukageRelationPresentation(
 ): YatsukageRelationPresentation {
   const relation = relationFor(state.enemyId, state.characterId);
   const identity = callNameByEnemyId.get(state.enemyId);
-  if (!identity) throw new Error(`missing 八影 display identity: ${state.enemyId}`);
+  if (!identity) throw new Error(`missing Sakuyaza display identity (legacy Yatsukage API): ${state.enemyId}`);
 
   const enemyDisplayName = state.phase === 'FIRST_ENCOUNTER'
     ? identity.currentEnemyName
     : state.phase === 'CALL_NAME_RECOGNIZED'
       ? `${identity.callName} / ${identity.currentEnemyName}`
-      : `八影・${identity.callName}`;
+      : `${SAKUYAZA_CURRENT_IDENTITY.formalName}・${identity.callName}`;
 
   const presentationByPhase: Record<YatsukageRelationMemoryPhase, { text: string; question: string }> = {
     FIRST_ENCOUNTER: {
@@ -226,12 +239,12 @@ export function buildYatsukageTrioEncounterPresentationPlan(
   states: readonly YatsukageRelationMemoryState[],
 ): YatsukageTrioEncounterPresentationPlan {
   const partyPlan = buildYatsukagePartyEncounterPlan(enemyId, party);
-  if (states.length !== 3) throw new Error('八影 trio presentation requires exactly three relation memory states');
+  if (states.length !== 3) throw new Error('Sakuyaza trio presentation requires exactly three relation memory states');
 
   const stateByCharacter = new Map(states.map((state) => [state.characterId, state]));
   const personalPresentations = party.map((characterId) => {
     const state = stateByCharacter.get(characterId);
-    if (!state || state.enemyId !== enemyId) throw new Error(`missing 八影 memory state for party member: ${characterId}`);
+    if (!state || state.enemyId !== enemyId) throw new Error(`missing Sakuyaza memory state for party member: ${characterId}`);
     return buildYatsukageRelationPresentation(state);
   });
 
@@ -261,6 +274,9 @@ export function buildYatsukageTrioEncounterPresentationPlan(
 }
 
 export const yatsukageEncounterMemorySummary = {
+  apiNamespaceStatus: 'LEGACY_COMPATIBILITY_CURRENT_PRESENTATION_SAKUYAZA',
+  currentFormalTeamName: SAKUYAZA_CURRENT_IDENTITY.formalName,
+  legacyObserverLabel: '八影',
   relationCount: current21YatsukageRelationshipEntries.length,
   phaseCount: YATSUKAGE_RELATION_MEMORY_PHASES.length,
   semanticProgressEventCount: 4,
@@ -268,6 +284,7 @@ export const yatsukageEncounterMemorySummary = {
   duplicateEventIdempotent: true,
   readingGrantsPower: false,
   friendshipOrRecruitmentProgressCreated: false,
+  latePresentationUsesCurrentFormalName: true,
   runtimeImplemented: false,
   runtimeAutoPromotionAllowed: false,
   status: YATSUKAGE_ENCOUNTER_MEMORY_STATUS,

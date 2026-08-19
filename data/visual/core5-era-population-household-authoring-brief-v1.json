@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "id": "yoruno-shirube-core5-era-population-household-authoring-brief-v1",
+  "status": "SOURCE_GROUNDED_AUTHORING_BRIEF_VISUAL_BOARD_PENDING",
+  "purpose": "Define five ordinary-population/household reference-board briefs so each Reality era is shown through multiple generations and household structures without inventing the Core5 characters' literal family members.",
+  "authoritySources": [
+    "src/game/data/storyWorldMasterSource.ts",
+    "src/game/data/characterRealityRootRegistry.ts",
+    "data/visual/core5-era-life-design-master-v1.json"
+  ],
+  "targetMasterFamily": "CORE5_ERA_POPULATION_HOUSEHOLD_REFERENCE_MASTERS",
+  "expectedVisualBoardCount": 5,
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "requiredPopulationLenses": [
+    "CHILD",
+    "TEEN_OR_YOUNG_ADULT",
+    "PARENT_AGE_ADULT",
+    "OLDER_ADULT",
+    "NON_PARENT_AUNT_UNCLE_LIKE_ADULT",
+    "NON_NUCLEAR_HOUSEHOLD_EXAMPLE"
+  ],
+  "globalRules": {
+    "worldAxis": "ERA_X_GENERATION_X_HOUSEHOLD",
+    "onePersonRepresentsWholeEra": false,
+    "oneHouseholdTypeRepresentsWholeEra": false,
+    "populationLensesAreNotLiteralCharacterFamilyMembers": true,
+    "exactCore5FamilyMembersFrozen": false,
+    "fatherEqualsWorkOnly": false,
+    "motherEqualsHouseworkOnly": false,
+    "grandparentEqualsWisdomOnly": false,
+    "auntUncleEqualsComicReliefOnly": false,
+    "childEqualsPureTruthOnly": false,
+    "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING"
+  },
+  "boards": [
+    {
+      "characterId": "tomori",
+      "name": "トモリ",
+      "eraBand": "postwar_reconstruction_scarcity",
+      "exactYear": "OPEN",
+      "realityRoot": {"value": "長野県諏訪・中信文化圏", "status": "CURRENT_DERIVED"},
+      "populationLenses": ["CHILD","TEEN_OR_YOUNG_ADULT","PARENT_AGE_ADULT","OLDER_ADULT","NON_PARENT_AUNT_UNCLE_LIKE_ADULT","NON_NUCLEAR_HOUSEHOLD_EXAMPLE"],
+      "ordinaryLifeEvidenceTargets": [
+        "show more than one access level to food, repair, transport and distribution rather than one universal poverty image",
+        "show repair/reuse labor distributed across ages and household roles rather than assigning all practical work to one gender",
+        "include at least one non-nuclear or mutual-aid living example as a population lens, not as Tomori Canon family",
+        "show children and older adults as participants with constraints and agency, not symbolic innocence/wisdom devices",
+        "show paper records, reused containers and household hardware as lived systems across different people"
+      ],
+      "researchRequiredBeforeVisualBoardApproval": ["postwar household diversity and ordinary domestic/work conditions appropriate to the eventually chosen exact year","regional/class/access variation rather than a single representative household"],
+      "openFields": ["Tomori exact family members","literal household composition","exact occupations","exact ages","exact year","exact address"],
+      "literalFamilyCanonCreatedByThisBoard": false,
+      "exactFamilyMembersFrozen": false,
+      "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "characterId": "michiru",
+      "name": "ミチル",
+      "eraBand": "late_high_growth_pollution_oil_shock",
+      "exactYear": "OPEN",
+      "realityRoot": {"value": "静岡県西部", "status": "CURRENT_DERIVED"},
+      "populationLenses": ["CHILD","TEEN_OR_YOUNG_ADULT","PARENT_AGE_ADULT","OLDER_ADULT","NON_PARENT_AUNT_UNCLE_LIKE_ADULT","NON_NUCLEAR_HOUSEHOLD_EXAMPLE"],
+      "ordinaryLifeEvidenceTargets": [
+        "show prosperity, price/energy pressure and environmental burden as unevenly experienced rather than one retro mood",
+        "show old routes/new towns/rail/road development affecting generations differently",
+        "show processed foods and new household goods without making every household equally affluent or equally modernized",
+        "show care, paid work, civic complaint and domestic labor distributed beyond father-work/mother-housework shorthand",
+        "include a non-nuclear household lens without declaring it Michiru's literal family"
+      ],
+      "researchRequiredBeforeVisualBoardApproval": ["household and generation diversity in the late-high-growth/oil-shock era appropriate to the eventually chosen exact year","development-area differences in housing, pollution exposure, transport and consumption"],
+      "openFields": ["Michiru exact family members","literal household composition","exact occupations","exact ages","exact year","exact address"],
+      "literalFamilyCanonCreatedByThisBoard": false,
+      "exactFamilyMembersFrozen": false,
+      "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "characterId": "nagi",
+      "name": "ナギ",
+      "eraBand": "post_bubble_early_mobile_internet",
+      "exactYear": "OPEN",
+      "realityRoot": {"value": "宮城県仙台圏", "status": "CURRENT_DERIVED"},
+      "populationLenses": ["CHILD","TEEN_OR_YOUNG_ADULT","PARENT_AGE_ADULT","OLDER_ADULT","NON_PARENT_AUNT_UNCLE_LIKE_ADULT","NON_NUCLEAR_HOUSEHOLD_EXAMPLE"],
+      "ordinaryLifeEvidenceTargets": [
+        "show unequal access to feature phones, PHS, household PCs and connectivity across generations/households",
+        "show shared-PC and screen/privacy practices as household negotiation rather than tech decoration",
+        "show cash, convenience-store food and printed directions across multiple ages without modern-smartphone leakage",
+        "show employment/school instability or reputation pressure without making one household the whole era",
+        "include a non-nuclear/shared-living lens without declaring it Nagi's literal family"
+      ],
+      "researchRequiredBeforeVisualBoardApproval": ["early-mobile-internet household access and device-sharing patterns appropriate to the eventually chosen exact year","generation differences in communication/privacy norms and employment/school conditions"],
+      "openFields": ["Nagi exact family members","literal household composition","exact occupations","exact ages","exact year","exact address"],
+      "literalFamilyCanonCreatedByThisBoard": false,
+      "exactFamilyMembersFrozen": false,
+      "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "characterId": "yui",
+      "name": "ユイ",
+      "eraBand": "1990s_born_2026_tokyo_arakawa",
+      "exactYear": 2026,
+      "realityRoot": {"value": "東京都荒川区", "status": "DECIDED"},
+      "populationLenses": ["CHILD","TEEN_OR_YOUNG_ADULT","PARENT_AGE_ADULT","OLDER_ADULT","NON_PARENT_AUNT_UNCLE_LIKE_ADULT","NON_NUCLEAR_HOUSEHOLD_EXAMPLE"],
+      "ordinaryLifeEvidenceTargets": [
+        "show 2026 digital access, payment, delivery and transport as uneven by age/household rather than universal smartphone sameness",
+        "show older and younger residents using different mixtures of paper, cash, IC, apps and local support",
+        "show caregiving, paid work, domestic work and community participation across genders and household roles",
+        "show non-nuclear and solo/shared household examples as population diversity, not Yui literal family Canon",
+        "show children as ordinary residents with constraints/agency, not truth-oracle symbols"
+      ],
+      "researchRequiredBeforeVisualBoardApproval": ["2026 Arakawa/east-Tokyo household diversity using privacy-safe public statistics/references","current housing, multigenerational, solo, non-nuclear and support-network patterns without exposing private residents"],
+      "openFields": ["Yui exact family members","literal household composition","exact occupations","exact ages","exact home address"],
+      "literalFamilyCanonCreatedByThisBoard": false,
+      "exactFamilyMembersFrozen": false,
+      "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    },
+    {
+      "characterId": "asa",
+      "name": "アサ",
+      "eraBand": "far_future_human_android_robot_avatar_coexistence",
+      "exactYear": "OPEN",
+      "realityRoot": {"value": "Far Future首都圏Human household", "status": "CURRENT_DERIVED"},
+      "populationLenses": ["CHILD","TEEN_OR_YOUNG_ADULT","PARENT_AGE_ADULT","OLDER_ADULT","NON_PARENT_AUNT_UNCLE_LIKE_ADULT","NON_NUCLEAR_HOUSEHOLD_EXAMPLE"],
+      "ordinaryLifeEvidenceTargets": [
+        "show human, Android/Robot/avatar and different-body needs without ranking human embodiment as the default ideal",
+        "show identity/account/body access rules affecting households differently rather than one universal future lifestyle",
+        "show maintenance, ownership, care and access work distributed across ages/roles without gender shorthand",
+        "show households that may include distinct embodiment/access needs while keeping Asa's literal family composition OPEN",
+        "show children/older adults as participants in future systems rather than exposition devices"
+      ],
+      "researchRequiredBeforeVisualBoardApproval": ["social/family-system scenario research for multiple embodiment and identity continuity without copying franchise-specific institutions","accessibility, maintenance, ownership and care implications across age/household structures"],
+      "openFields": ["Asa exact family members","literal household composition","exact occupations","exact ages","exact future year","exact address","exact legal/personhood system"],
+      "literalFamilyCanonCreatedByThisBoard": false,
+      "exactFamilyMembersFrozen": false,
+      "visualBoardState": "SOURCE_GROUNDED_BRIEF_VISUAL_BOARD_PENDING",
+      "imageGenerationAuthorized": false,
+      "humanReviewRequired": true
+    }
+  ],
+  "completionBoundary": {
+    "authoringBriefImplemented": true,
+    "visualBoardsAuthored": false,
+    "visualBoardsHumanApproved": false,
+    "literalCore5FamilyMembersDefined": false,
+    "rasterMastersGenerated": false,
+    "mayPromoteStoryCanon": false,
+    "mayPromoteRuntime": false
+  }
+}

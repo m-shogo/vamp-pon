@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "registryId": "yoruno-shirube-visual-generation-batches-v1",
+  "generatedFrom": "src/game/data/visualAssetGenerationInventory.ts",
   "executionPolicy": {
     "automaticExecutionAllowed": false,
     "exactCandidateCount": 4,
@@ -10,5 +11,391 @@
     "humanReviewRequiredForCurrent": true,
     "runtimeDerivationBeforeMasterApprovalForbidden": true
   },
-  "batches": []
+  "groupBindings": {
+    "sakuyaza": {
+      "formalName": "朔夜座",
+      "memberCount": 8,
+      "members": [
+        "ナシロ",
+        "アサトジ",
+        "ミチグレ",
+        "オリネ",
+        "ハクマ",
+        "ツグリ",
+        "ユラネ",
+        "ペタ"
+      ],
+      "isConstellationArchiveClassification": false
+    },
+    "gunjoZankyoroku": {
+      "formalName": "群青残響録",
+      "taxonomy": "RETROSPECTIVE_RECORD_LABEL_FOR_INCIDENT_CENTRAL_PERSON_OR_PEOPLE",
+      "fixedFaction": false
+    }
+  },
+  "batches": [
+    {
+      "batchId": "batch-01-core-main-character-master-v1",
+      "title": "core-main-character-master",
+      "status": "planned-not-started",
+      "layer": "master",
+      "dependsOn": [],
+      "subjectSource": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "character-reference-production-queue",
+        "core5-reference-manifest"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "character-reference-production-queue",
+        "core5-reference-manifest"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-01-core-main-character-master-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-01-core-main-character-master-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-01-core-main-character-master-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-02-sakuyaza-eight-master-v1",
+      "title": "sakuyaza-eight-master",
+      "status": "planned-not-started",
+      "layer": "master",
+      "dependsOn": [],
+      "subjectSource": [
+        "story-world-master",
+        "sakuyaza-member-source"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "story-world-master",
+        "sakuyaza-member-source"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-02-sakuyaza-eight-master-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-02-sakuyaza-eight-master-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-02-sakuyaza-eight-master-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-03-important-mystery-characters-v1",
+      "title": "important-mystery-characters",
+      "status": "planned-not-started",
+      "layer": "master",
+      "dependsOn": [],
+      "subjectSource": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-03-important-mystery-characters-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-03-important-mystery-characters-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-03-important-mystery-characters-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-04-remaining-character-master-v1",
+      "title": "remaining-character-master",
+      "status": "planned-not-started",
+      "layer": "master",
+      "dependsOn": [],
+      "subjectSource": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-04-remaining-character-master-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-04-remaining-character-master-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-04-remaining-character-master-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-05-star-beast-master-v1",
+      "title": "star-beast-master",
+      "status": "planned-not-started",
+      "layer": "master",
+      "dependsOn": [
+        "batch-01-core-main-character-master-v1"
+      ],
+      "subjectSource": [
+        "star-beast-visual-source"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "star-beast-visual-source"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-05-star-beast-master-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-05-star-beast-master-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-05-star-beast-master-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-06-story-artifact-master-v1",
+      "title": "story-artifact-master",
+      "status": "planned-not-started",
+      "layer": "master",
+      "dependsOn": [],
+      "subjectSource": [
+        "named-object-visual-source",
+        "cross-era-echo-chains"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "named-object-visual-source",
+        "cross-era-echo-chains"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-06-story-artifact-master-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-06-story-artifact-master-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-06-story-artifact-master-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-07-constellation-historical-archive-master-v1",
+      "title": "constellation-historical-archive-master",
+      "status": "planned-not-started",
+      "layer": "master",
+      "dependsOn": [],
+      "subjectSource": [
+        "constellation-story-clues",
+        "constellation-history-research"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "constellation-story-clues",
+        "constellation-history-research"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-07-constellation-historical-archive-master-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-07-constellation-historical-archive-master-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-07-constellation-historical-archive-master-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-08-lorebook-profile-cards-v1",
+      "title": "lorebook-profile-cards",
+      "status": "planned-not-started",
+      "layer": "lorebook",
+      "dependsOn": [
+        "batch-01-core-main-character-master-v1"
+      ],
+      "subjectSource": [
+        "character-author-db",
+        "character-appearance-contracts"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "character-author-db",
+        "character-appearance-contracts"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-08-lorebook-profile-cards-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-08-lorebook-profile-cards-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-08-lorebook-profile-cards-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-09-era-reality-root-cards-v1",
+      "title": "era-reality-root-cards",
+      "status": "planned-not-started",
+      "layer": "lorebook",
+      "dependsOn": [
+        "batch-01-core-main-character-master-v1"
+      ],
+      "subjectSource": [
+        "character-era-registry",
+        "character-reality-roots"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "character-era-registry",
+        "character-reality-roots"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-09-era-reality-root-cards-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-09-era-reality-root-cards-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-09-era-reality-root-cards-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-10-foreshadow-mystery-cards-v1",
+      "title": "foreshadow-mystery-cards",
+      "status": "planned-not-started",
+      "layer": "lorebook",
+      "dependsOn": [
+        "batch-06-story-artifact-master-v1"
+      ],
+      "subjectSource": [
+        "cross-era-echo-chains",
+        "constellation-story-clues"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "cross-era-echo-chains",
+        "constellation-story-clues"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-10-foreshadow-mystery-cards-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-10-foreshadow-mystery-cards-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-10-foreshadow-mystery-cards-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-11-gameplay-icons-v1",
+      "title": "gameplay-icons",
+      "status": "planned-not-started",
+      "layer": "gameplay",
+      "dependsOn": [
+        "batch-01-core-main-character-master-v1"
+      ],
+      "subjectSource": [
+        "asset-generation-policy"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "asset-generation-policy"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-11-gameplay-icons-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-11-gameplay-icons-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-11-gameplay-icons-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-12-gameplay-portraits-card-art-v1",
+      "title": "gameplay-portraits-card-art",
+      "status": "planned-not-started",
+      "layer": "gameplay",
+      "dependsOn": [
+        "batch-01-core-main-character-master-v1"
+      ],
+      "subjectSource": [
+        "asset-generation-policy"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "asset-generation-policy"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-12-gameplay-portraits-card-art-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-12-gameplay-portraits-card-art-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-12-gameplay-portraits-card-art-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-13-key-art-v1",
+      "title": "key-art",
+      "status": "planned-not-started",
+      "layer": "gameplay",
+      "dependsOn": [
+        "batch-01-core-main-character-master-v1",
+        "batch-02-sakuyaza-eight-master-v1"
+      ],
+      "subjectSource": [
+        "story-world-master",
+        "asset-generation-policy"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "story-world-master",
+        "asset-generation-policy"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-13-key-art-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-13-key-art-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-13-key-art-v1.rejects.json",
+      "generationAllowed": false
+    },
+    {
+      "batchId": "batch-14-visual-replacement-qa-v1",
+      "title": "visual-replacement-qa",
+      "status": "planned-not-started",
+      "layer": "master",
+      "dependsOn": [],
+      "subjectSource": [
+        "asset-generation-policy",
+        "generation-lineage-template"
+      ],
+      "exactCandidateCountPerAsset": 4,
+      "authoritySnapshot": [
+        "visual-asset-master-registry-v1",
+        "asset-generation-policy",
+        "generation-lineage-template"
+      ],
+      "assetIds": [],
+      "promptPacketPaths": [],
+      "referencePaths": [],
+      "outputRoot": "assets/import-staging/batch-14-visual-replacement-qa-v1/",
+      "qaRecordPath": "data/character-assets/reviews/batch-14-visual-replacement-qa-v1.qa.json",
+      "rejectLedgerPath": "data/character-assets/reviews/batch-14-visual-replacement-qa-v1.rejects.json",
+      "generationAllowed": false
+    }
+  ]
 }

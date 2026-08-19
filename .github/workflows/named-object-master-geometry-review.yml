@@ -1,0 +1,38 @@
+name: Named Object Master Geometry Review
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/namedObjectMasterGeometryReviewQueue.ts'
+      - 'tools/asset-factory/scripts/export-named-object-geometry-review-packet.ts'
+      - 'scripts/quality/check-named-object-master-geometry-review-queue.ts'
+      - '.github/workflows/named-object-master-geometry-review.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/namedObjectMasterGeometryReviewQueue.ts'
+      - 'tools/asset-factory/scripts/export-named-object-geometry-review-packet.ts'
+      - 'scripts/quality/check-named-object-master-geometry-review-queue.ts'
+      - '.github/workflows/named-object-master-geometry-review.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate live Named Object geometry review queue
+        run: node --experimental-strip-types scripts/quality/check-named-object-master-geometry-review-queue.ts
+      - name: Smoke-test Named Object geometry review exporter
+        run: |
+          node --experimental-strip-types tools/asset-factory/scripts/export-named-object-geometry-review-packet.ts --list > /tmp/named-object-index.json
+          node --experimental-strip-types tools/asset-factory/scripts/export-named-object-geometry-review-packet.ts --owner-id=asa > /tmp/named-object-asa.json
+          node --experimental-strip-types tools/asset-factory/scripts/export-named-object-geometry-review-packet.ts --owner-id=ren > /tmp/named-object-ren-working-name.json
+          node --experimental-strip-types tools/asset-factory/scripts/export-named-object-geometry-review-packet.ts --owner-id=yui > /tmp/named-object-yui-hold.json

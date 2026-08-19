@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "bindingPlanId": "yoruno-shirube-modern-iau88-dataset-binding-plan-v1",
+  "status": "SOURCE_SELECTION_DEFINED_DATA_NOT_YET_VENDORED_OR_BOUND",
+  "purpose": "Define reproducible external data roles for modern constellation boundaries and source-star coordinates without confusing IAU constellation boundaries with project-owned connect-the-stars geometry or copying external catalogues before redistribution/provenance review.",
+  "targetMaster": "data/visual/modern-iau88-project-line-art-vector-master-v1.json",
+  "sourceRoles": {
+    "constellationIdentityAndBoundary": {
+      "authority": "INTERNATIONAL_ASTRONOMICAL_UNION",
+      "sourcePage": "https://www.iau.org/Iau/Science/What-we-do/The-Constellations.aspx",
+      "coordinateFrame": "J2000_AS_PUBLISHED_BY_IAU_BOUNDARY_TXT",
+      "requiredFields": ["right-ascension", "declination", "iau-three-letter-abbreviation"],
+      "mayDefineProjectLineSegments": false,
+      "mayBeCalledOfficialBoundary": true
+    },
+    "starIdentifierAndPosition": {
+      "authority": "ESA_HIPPARCOS_CATALOGUE",
+      "sourcePage": "https://www.cosmos.esa.int/web/hipparcos/catalogues",
+      "stableIdentifier": "HIP",
+      "positionFields": ["right-ascension", "declination"],
+      "magnitudeFieldCandidate": "V_Johnson",
+      "catalogueEpoch": "J1991.25_NATIVE_HIPPARCOS",
+      "requiresFrameEpochNormalizationBeforeBoundaryOrSVGUse": true,
+      "mayDefineConstellationBoundary": false,
+      "mayDefineProjectLineSegments": false
+    },
+    "machineReadableBoundaryCrossCheck": {
+      "authority": "CDS_VI_49_DAVENHALL_LEGGETT_CONSTELLATION_BOUNDARY_DATA",
+      "sourcePage": "https://cdsarc.cds.unistra.fr/viz-bin/ReadMe/VI/49?format=html&tex=true",
+      "role": "CROSS_CHECK_AND_MACHINE_READABLE_IMPORT_CANDIDATE_NOT_HIGHER_THAN_IAU_BOUNDARY_AUTHORITY",
+      "containsJ2000BoundaryData": true,
+      "mayReplaceIAUAuthority": false
+    },
+    "projectLineGeometry": {
+      "authority": "YORUNO_SHIRUBE_PROJECT",
+      "source": "HUMAN_AUTHORED_LINE_GRAPH_OVER_BOUND_SOURCE_STARS",
+      "mayBeCalledIAUOfficialLineArt": false,
+      "mustStayWithinAdoptedConstellationMembership": true,
+      "mustPreserveSourceStarPositions": true
+    }
+  },
+  "bindingPipeline": [
+    "Record exact source version/retrieval date/checksum before importing any external machine-readable dataset.",
+    "Review terms/licensing/redistribution before vendoring source data in the repository; if redistribution is unclear, store a deterministic fetch/import recipe plus derived minimal records instead of copying a catalogue wholesale.",
+    "Normalize Hipparcos positions to the adopted coordinate frame/epoch before testing constellation membership or normalizing into local SVG viewBox coordinates.",
+    "Use IAU boundary data as the membership/boundary authority; CDS VI/49 may be used as a machine-readable cross-check/import convenience but may not outrank the IAU definition.",
+    "Create a minimal per-star project record keyed by HIP identifier with provenance and normalized coordinates; do not copy unrelated catalogue fields.",
+    "Human-author project line segments only after the admitted star set and normalized positions are deterministic.",
+    "Version every project line graph separately from the external star/boundary dataset binding so an art revision does not rewrite source astronomy data."
+  ],
+  "requiredBindingManifestFields": [
+    "dataset-binding-version",
+    "retrieved-at",
+    "source-urls",
+    "source-version-or-catalogue-id",
+    "source-checksums-or-response-hashes",
+    "coordinate-frame-and-epoch",
+    "normalization-method",
+    "constellation-membership-method",
+    "hip-identifiers-used",
+    "license-redistribution-review-state",
+    "human-review-state"
+  ],
+  "currentState": {
+    "sourceAuthoritiesSelected": true,
+    "iauBoundarySourceSelected": true,
+    "hipparcosStarSourceSelected": true,
+    "machineReadableBoundaryCrossCheckSelected": true,
+    "licenseRedistributionReviewComplete": false,
+    "sourceFilesVendored": false,
+    "sourceChecksumsRecorded": false,
+    "coordinateNormalizationImplemented": false,
+    "exactStarCoordinateDatasetBound": false,
+    "all88ConstellationMembershipResolved": false,
+    "all88LinePathsAuthored": false,
+    "imageGenerationAuthorized": false,
+    "vectorGeometryAuthoringAuthorized": false
+  },
+  "hardVetoes": [
+    "call-project-line-graph-IAU-official",
+    "use-Hipparcos-native-epoch-coordinates-as-J2000-without-normalization",
+    "move-source-star-coordinates-to-improve-silhouette",
+    "borrow-star-from-neighbor-constellation-for-prettier-line-art",
+    "vendor-full-external-catalogue-before-redistribution-review",
+    "let-historical-atlas-figure-overwrite-modern-project-geometry",
+    "generate-88-line-graphs-before-deterministic-star-binding",
+    "treat-CDS-machine-readable-copy-as-higher-authority-than-IAU-boundary-definition"
+  ],
+  "nextGate": "Complete source licensing/redistribution review and implement a deterministic minimal-data import/normalization manifest; keep exactStarCoordinateDatasetBound=false until that import is reproducible and reviewed."
+}

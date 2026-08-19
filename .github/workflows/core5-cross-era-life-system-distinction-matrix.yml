@@ -1,0 +1,22 @@
+name: Core5 Cross-Era Distinction Matrix
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/core5-cross-era-life-system-distinction-matrix-v1.json'
+      - 'scripts/quality/check-core5-cross-era-life-system-distinction-matrix.ts'
+      - '.github/workflows/core5-cross-era-life-system-distinction-matrix.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/core5-cross-era-life-system-distinction-matrix-v1.json'
+      - 'scripts/quality/check-core5-cross-era-life-system-distinction-matrix.ts'
+      - '.github/workflows/core5-cross-era-life-system-distinction-matrix.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Core5 cross-era matrix
+        run: node --experimental-strip-types scripts/quality/check-core5-cross-era-life-system-distinction-matrix.ts

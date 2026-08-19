@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "attemptId": "attempt-yui-full-body-master-v2-2026-08-12",
+  "assetFamilyId": "char-yui-full-body-master-v2",
+  "decision": "REJECT_ALL",
+  "selectedCandidateId": null,
+  "storyAuthorityPromoted": false,
+  "approvedAsFinal": false,
+  "runtimeApproved": false,
+  "reasonCodes": [
+    "wrong-body-relative-hand-a-c-d",
+    "wrong-body-relative-strap",
+    "young-adult-read-weak",
+    "generic-anime-face-drift",
+    "unapproved-star-ornament-risk"
+  ],
+  "preservationPolicy": "KEEP_IN_GIT_FOR_PROMPT_LEARNING_DO_NOT_USE_AS_PARENT",
+  "files": [
+    "assets/import-staging/batch-character-master/yui/rejected-v2/char-yui-full-body-master-reject-a-v2.png",
+    "assets/import-staging/batch-character-master/yui/rejected-v2/char-yui-full-body-master-reject-b-v2.png",
+    "assets/import-staging/batch-character-master/yui/rejected-v2/char-yui-full-body-master-reject-c-v2.png",
+    "assets/import-staging/batch-character-master/yui/rejected-v2/char-yui-full-body-master-reject-d-v2.png"
+  ]
+}

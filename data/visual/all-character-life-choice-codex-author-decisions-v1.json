@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "logId": "yoru-no-shirube-all-character-life-choice-codex-author-decisions-v1",
+  "date": "2026-08-19",
+  "status": "AUTHORING_IN_PROGRESS",
+  "authority": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
+  "queue": "data/visual/all-character-life-choice-autonomous-authoring-queue-v1.json",
+  "sourcePacket": "data/visual/all-character-life-choice-author-decision-packet-v1.json",
+  "expectedDecisionCount": 42,
+  "materializedDecisionCount": 0,
+  "remainingDecisionCount": 42,
+  "decisions": [],
+  "decisionRecordContract": {
+    "requiredFields": [
+      "decisionId",
+      "characterId",
+      "domain",
+      "previousState",
+      "decision",
+      "reason",
+      "evidencePaths",
+      "conflictsConsidered",
+      "forbiddenImageInferences",
+      "authorityUpdates",
+      "status"
+    ],
+    "statusValues": [
+      "CODEX_AUTHOR_DECISION_MATERIALIZED",
+      "EXPLICIT_NON_REQUIRED_WITH_REASON"
+    ],
+    "imageOutputMayBeEvidence": false,
+    "imageOutputMayBeAuthority": false,
+    "intermediateHumanReviewRequired": false
+  },
+  "completion": {
+    "complete": false,
+    "nextStage": "PARTIAL_EVIDENCE_56_REVIEW_THEN_MASTER_SPEC"
+  }
+}

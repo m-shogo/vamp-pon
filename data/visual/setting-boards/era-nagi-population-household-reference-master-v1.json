@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "assetId": "era-nagi-population-household-reference-master-v1",
+  "status": "EDITABLE_SETTING_BOARD_SPEC_AUTHORED_HUMAN_REVIEW_REQUIRED_NO_RASTER",
+  "characterId": "nagi",
+  "boardType": "POPULATION_HOUSEHOLD",
+  "eraBand": "post_bubble_early_mobile_internet",
+  "exactYearState": "OPEN",
+  "literalFamilyCanonCreated": false,
+  "authoritySources": ["data/visual/core5-era-life-design-master-v1.json","data/visual/core5-era-population-household-authoring-brief-v1.json","data/visual/core5-era-setting-board-production-contract-v1.json","data/visual/core5-era-setting-board-evidence-packets-v1.json"],
+  "panels": [
+    {"id":"P01-six-population-lenses","content":["child","teen-or-young-adult","parent-age adult","older adult","non-parent aunt/uncle-like adult","non-nuclear household example"]},
+    {"id":"P02-household-system-variation","content":["shared-PC household with limited private access","mobile/PHS-centered household where fixed-line/PC use remains relevant","household with lower or delayed network access where print/FAX/cash remain central"]},
+    {"id":"P03-ordinary-task-distribution","content":["communication/reply management","shopping/provisioning","work/study application or records","care","travel/navigation","device sharing/maintenance"]},
+    {"id":"P04-system-access-differences","content":["private vs shared screen access","mobile/PHS ownership/access","cash/physical transaction dependence","printed vs online navigation","reply-delay and availability expectations"]},
+    {"id":"P05-not-literal-family-boundary","content":"These are population-study composites. They do not define Nagi's parents, siblings, grandparents, partner, children, address or literal household."}
+  ],
+  "forbiddenShortcuts": ["everyone_has_home_internet","everyone_has_mobile_internet","modern_smartphone_UI","father_equals_work_only","mother_equals_housework_only","one_household_is_whole_era","family_photo_implies_literal_character_family"],
+  "openFields": ["exact year","exact household composition","exact device ownership rate","specific handset/PC/network","specific job-search medium","specific residence"],
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "masterApproval": false,
+  "runtimeApproval": false
+}

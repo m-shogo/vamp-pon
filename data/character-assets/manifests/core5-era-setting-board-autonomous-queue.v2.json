@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 2,
+  "queueId": "yoruno-shirube-core5-era-setting-board-autonomous-queue-v2",
+  "date": "2026-08-19",
+  "status": "READY_FOR_CODEX_PROFESSIONAL_REVIEW_AND_CANDIDATE_EVIDENCE",
+  "authority": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
+  "legacyHumanQueue": "data/character-assets/manifests/core5-era-setting-board-execution-queue.v1.json",
+  "professionalPreReview": "data/character-assets/reviews/core5-era-setting-board-professional-pre-review.v1.json",
+  "purpose": "Provide the Current execution adapter for the ten existing Core5 editable setting-board specs. The old Human-review queue remains audit history; Current execution uses Codex professional review, automatic QA, reject/regenerate loops, and no intermediate Human approval.",
+  "counts": {
+    "environment": 5,
+    "populationHousehold": 5,
+    "total": 10,
+    "editableSpecsReady": 10,
+    "codexReviewReady": 10,
+    "intermediateHumanReviewRequired": 0,
+    "candidateEvidenceGenerationAuthorized": 10,
+    "finalApprovedMasters": 0
+  },
+  "rules": {
+    "stableAssetIdsMustMatchLegacyQueue": true,
+    "legacyHumanReviewPacketRemainsAuditEvidence": true,
+    "legacyHumanReviewStatusDoesNotBlockCurrentExecution": true,
+    "codexProfessionalReviewRequired": true,
+    "automaticQaRequired": true,
+    "rejectReasonRequired": true,
+    "regenerateOnFailure": true,
+    "generatedImageCreatesStoryCanon": false,
+    "generatedImageCreatesLiteralFamilyCanon": false,
+    "imageMayNotResolveExactYear": true,
+    "imageMayNotResolveExactFamilyMembers": true,
+    "codexMayResolveExactYearWhenProductionRequiresIt": true,
+    "codexMayResolveExactFamilyFactsWhenProductionRequiresIt": true,
+    "authorDecisionReasonAndSourcesRequired": true,
+    "eraDifferenceMustNotBeClothingOnly": true,
+    "populationHouseholdBoardIsNotLiteralFamilyPortrait": true,
+    "intermediateHumanReviewRequired": false,
+    "finalHumanReviewOnlyAtProject100Percent": true
+  },
+  "entries": [
+    {"assetId":"era-tomori-reality-environment-reference-master-v1","characterId":"tomori","boardType":"ENVIRONMENT","specPath":"data/visual/setting-boards/era-tomori-reality-environment-reference-master-v1.json","exactYearState":"OPEN","currentState":"READY_CODEX_REVIEW","candidateGenerationAllowed":true},
+    {"assetId":"era-michiru-reality-environment-reference-master-v1","characterId":"michiru","boardType":"ENVIRONMENT","specPath":"data/visual/setting-boards/era-michiru-reality-environment-reference-master-v1.json","exactYearState":"OPEN","currentState":"READY_CODEX_REVIEW","candidateGenerationAllowed":true},
+    {"assetId":"era-nagi-reality-environment-reference-master-v1","characterId":"nagi","boardType":"ENVIRONMENT","specPath":"data/visual/setting-boards/era-nagi-reality-environment-reference-master-v1.json","exactYearState":"OPEN","currentState":"READY_CODEX_REVIEW","candidateGenerationAllowed":true},
+    {"assetId":"era-yui-reality-environment-reference-master-v1","characterId":"yui","boardType":"ENVIRONMENT","specPath":"data/visual/setting-boards/era-yui-reality-environment-reference-master-v1.json","exactYearState":"2026_CURRENT","currentState":"READY_CODEX_REVIEW","candidateGenerationAllowed":true},
+    {"assetId":"era-asa-reality-environment-reference-master-v1","characterId":"asa","boardType":"ENVIRONMENT","specPath":"data/visual/setting-boards/era-asa-reality-environment-reference-master-v1.json","exactYearState":"OPEN","currentState":"READY_CODEX_REVIEW","candidateGenerationAllowed":true},
+    {"assetId":"era-tomori-population-household-reference-master-v1","characterId":"tomori","boardType":"POPULATION_HOUSEHOLD","specPath":"data/visual/setting-boards/era-tomori-population-household-reference-master-v1.json","exactYearState":"OPEN","literalFamilyCanonCreated":false,"currentState":"READY_CODEX_REVIEW","candidateGenerationAllowed":true},
+    {"assetId":"era-michiru-population-household-reference-master-v1","characterId":"michiru","boardType":"POPULATION_HOUSEHOLD","specPath":"data/visual/setting-boards/era-michiru-population-household-reference-master-v1.json","exactYearState":"OPEN","literalFamilyCanonCreated":false,"currentState":"READY_CODEX_REVIEW","candidateGenerationAllowed":true},
+    {"assetId":"era-nagi-population-household-reference-master-v1","characterId":"nagi","boardType":"POPULATION_HOUSEHOLD","specPath":"data/visual/setting-boards/era-nagi-population-household-reference-master-v1.json","exactYearState":"OPEN","literalFamilyCanonCreated":false,"currentState":"READY_CODEX_REVIEW","candidateGenerationAllowed":true},
+    {"assetId":"era-yui-population-household-reference-master-v1","characterId":"yui","boardType":"POPULATION_HOUSEHOLD","specPath":"data/visual/setting-boards/era-yui-population-household-reference-master-v1.json","exactYearState":"2026_CURRENT","literalFamilyCanonCreated":false,"currentState":"READY_CODEX_REVIEW","candidateGenerationAllowed":true},
+    {"assetId":"era-asa-population-household-reference-master-v1","characterId":"asa","boardType":"POPULATION_HOUSEHOLD","specPath":"data/visual/setting-boards/era-asa-population-household-reference-master-v1.json","exactYearState":"OPEN","literalFamilyCanonCreated":false,"currentState":"READY_CODEX_REVIEW","candidateGenerationAllowed":true}
+  ],
+  "nextGate": {
+    "action": "CODEX_PROFESSIONAL_REVIEW_THEN_GENERATE_CANDIDATE_EVIDENCE",
+    "humanReviewRequiredBeforeGeneration": false,
+    "humanReviewRequiredBeforeAutomaticMasterPromotion": false,
+    "automaticQaMustPassBeforeMasterPromotion": true,
+    "finalHumanReviewDeferredToProject100Percent": true
+  }
+}

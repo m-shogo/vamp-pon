@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "id": "yoruno-shirube-core5-era-setting-board-production-contract-v1",
+  "status": "CURRENT_EDITABLE_SETTING_BOARD_CONTRACT_NO_IMAGE_GENERATION",
+  "purpose": "Turn the Core5 5+5 source-grounded briefs into consistent anime-production-style setting boards that communicate ordinary systems, population diversity and reusable visual evidence rather than ten unrelated mood illustrations.",
+  "authoritySources": [
+    "docs/visual/master-authoring-professional-standard-v1.md",
+    "data/visual/core5-era-life-design-master-v1.json",
+    "data/visual/core5-reality-era-environment-authoring-brief-v1.json",
+    "data/visual/core5-era-population-household-authoring-brief-v1.json",
+    "docs/research/era-society-food-future-sourcebook-v1.md"
+  ],
+  "boardFamilies": {
+    "environment": {
+      "count": 5,
+      "subjectIds": ["yui","asa","nagi","michiru","tomori"],
+      "purpose": "Show how ordinary Reality-era infrastructure is used, carried, repaired, waited for, navigated and recorded.",
+      "requiredPanels": [
+        {
+          "id": "E01-establishing-system-view",
+          "role": "One readable ordinary environment view with multiple established systems visible in use; not a cinematic key art shot.",
+          "minimumEvidenceAxes": 3
+        },
+        {
+          "id": "E02-system-comparison-strip",
+          "role": "Small comparative panels for communication, transport/navigation, shopping/availability, repair/replacement and privacy/records.",
+          "requiredAxes": ["communication","transportNavigation","shoppingAvailability","repairReplacement","privacyRecords"]
+        },
+        {
+          "id": "E03-material-prop-detail",
+          "role": "Close references for ordinary carried objects, packaging, hardware, storage, wear/repair and material clues that downstream artists can reuse without inventing era shorthand."
+        },
+        {
+          "id": "E04-human-use-and-friction",
+          "role": "At least two ordinary task/use states showing where waiting, access, weather, movement, maintenance or system friction appears in daily life."
+        },
+        {
+          "id": "E05-source-open-boundary",
+          "role": "Research/source labels, authority status and OPEN fields stay visible so an attractive board cannot silently freeze unresolved year/place/incident/household details."
+        }
+      ],
+      "forbiddenCompositionShortcuts": [
+        "single_mood_painting_only",
+        "era_explained_by_costume_only",
+        "famous_historical_event_reenactment_as_setting_board",
+        "cinematic_lens_blur_hiding_reference_detail",
+        "decorative_signage_with_fake_historical_claims",
+        "one_character_is_whole_era",
+        "unlabeled_AI_invented_prop_as_reference_authority"
+      ]
+    },
+    "populationHousehold": {
+      "count": 5,
+      "subjectIds": ["yui","asa","nagi","michiru","tomori"],
+      "purpose": "Show era/generation/household diversity as production reference without defining the Core5 character's literal family.",
+      "requiredPanels": [
+        {
+          "id": "P01-six-population-lenses",
+          "role": "A comparable six-lens lineup/reference field for child, teen-or-young-adult, parent-age adult, older adult, non-parent aunt/uncle-like adult and one non-nuclear household example.",
+          "requiredLensCount": 6
+        },
+        {
+          "id": "P02-household-system-variation",
+          "role": "At least three non-identical household/access situations showing that one household type does not represent the era.",
+          "minimumSituations": 3
+        },
+        {
+          "id": "P03-ordinary-task-distribution",
+          "role": "Show cooking/provisioning, work/study, care, repair, communication, travel or record-keeping distributed across roles without gender/age stereotype shorthand.",
+          "minimumTaskCategories": 4
+        },
+        {
+          "id": "P04-system-access-differences",
+          "role": "Compare access to devices, money/payment, transport, food/provisioning, records/privacy or maintenance across generations/households as appropriate to that era.",
+          "minimumEvidenceAxes": 3
+        },
+        {
+          "id": "P05-not-literal-family-boundary",
+          "role": "A visible production note stating that population lenses are research/reference composites and do not define the Core5 character's exact parents, siblings, grandparents, children, partner, address or household."
+        }
+      ],
+      "forbiddenCompositionShortcuts": [
+        "family_photo_implies_literal_character_family",
+        "father_equals_work_only",
+        "mother_equals_housework_only",
+        "grandparent_equals_wisdom_only",
+        "child_equals_pure_truth_only",
+        "non_nuclear_household_used_as_novelty_prop",
+        "one_household_is_whole_era",
+        "everyone_has_same_device_access_income_or_lifestyle"
+      ]
+    }
+  },
+  "sharedProductionRules": {
+    "editableFirst": true,
+    "preferredAuthorityFormat": "EDITABLE_VECTOR_TEXT_LAYOUT_WITH_REFERENCED_RASTER_EVIDENCE_WHEN_NEEDED",
+    "flattenedRasterIsAuthority": false,
+    "nativeTextRequiredForLabelsAndOpenFields": true,
+    "sourceLabelsRemainEditable": true,
+    "panelIdsRemainStable": true,
+    "oneBoardOneEraLane": true,
+    "crossBoardComparisonUsesSharedPanelRoles": true,
+    "exactPixelsAreImplementationDetailNotStoryCanon": true,
+    "backgroundMayUseResearchReferencePhotographyOnlyWithSourceRightsReview": true,
+    "generatedImageMayOnlyBeCandidateEvidence": true,
+    "generatedImageCreatesHistoricalFact": false,
+    "generatedImageCreatesHouseholdCanon": false,
+    "generatedImageCreatesCharacterFamilyCanon": false,
+    "generatedImageCreatesStoryCanon": false,
+    "humanReviewRequired": true,
+    "imageGenerationAuthorized": false
+  },
+  "visualReadabilityRules": [
+    "The main panel must be legible as a setting reference at overview scale while detail panels remain inspectable at zoom.",
+    "Labels must identify whether an element is EXISTING_CANON, RESEARCH_BACKED_CURRENT, AUTHOR_CANDIDATE or OPEN where ambiguity matters.",
+    "No panel may use beauty lighting, depth of field, weather or effects to hide system construction, material, signage or ordinary-use evidence.",
+    "Era-specific clutter must be functional evidence; decorative density is not historical authenticity.",
+    "Population silhouettes and props must preserve enough negative space to compare body/role/access differences without forced touching or visual merger.",
+    "A future board must look functionally plausible before it looks futuristic; present/historical boards must look lived-in before nostalgic."
+  ],
+  "downstreamReuseTargets": [
+    "Character Master era-context review",
+    "Story scene blocking",
+    "Lorebook/Guide DB composition",
+    "Reality flashback/keyframe admission",
+    "TOP/promo background research",
+    "Stage environment master authoring",
+    "prop/item material reference",
+    "dialogue and ordinary-life consistency review"
+  ],
+  "completionGate": {
+    "contractImplemented": true,
+    "environmentBriefCount": 5,
+    "populationHouseholdBriefCount": 5,
+    "requiredFinalSettingBoardCount": 10,
+    "settingBoardsAuthored": 0,
+    "settingBoardsHumanApproved": 0,
+    "rasterAuthorityBoards": 0,
+    "imageGenerationAuthorized": false,
+    "mayPromoteCanon": false,
+    "mayPromoteRuntime": false
+  }
+}

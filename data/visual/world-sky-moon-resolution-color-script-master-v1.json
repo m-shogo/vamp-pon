@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "masterId": "world-sky-moon-resolution-color-script-master-v1",
+  "displayName": "ヨルノシルベ Sky / Moon / Resolution Color Script Master",
+  "status": "CURRENT_EDITABLE_WORLD_COLOR_SCRIPT_SPEC_HUMAN_REVIEW_REQUIRED",
+  "format": "EDITABLE_COLOR_SCRIPT_AND_STATE_GRAPH_SPEC",
+  "mandatoryRasterImage": false,
+  "authority": {
+    "primary": "src/game/data/storyWorldMasterSource.ts",
+    "highestDocument": "docs/00-current-story-world-master.md"
+  },
+  "purpose": "Keep sky, stars, moon state and resolution presentation consistent with Current world rules without turning the moon into a clock, inventing a physical sunrise, or forcing one identical astronomical sky across eras.",
+  "skyInvariants": {
+    "starsVisible": true,
+    "starsCoreVisualIdentity": true,
+    "constellationSameAcrossErasRequired": false,
+    "lostOldConstellationsAllowed": true,
+    "newlyCreatedLaterConstellationsAllowed": true,
+    "finalConstellationChangeCauseFrozen": false,
+    "realAstronomyIsDreamAbsoluteConstraint": false
+  },
+  "moonInvariants": {
+    "meaning": "INCIDENT_DEPTH",
+    "elapsedTimeClock": false,
+    "fixedFiveStageProgression": false,
+    "deepestPhase": "SAKU_MOONLESS",
+    "starsRemainAtSaku": true,
+    "fixedEraBossRequiredAtSaku": false
+  },
+  "returnAndResolutionBoundary": {
+    "physicalMorningExists": false,
+    "physicalSunriseReturnAllowed": false,
+    "returnMode": "WAKING_TO_OWN_REALITY_ERA",
+    "resolutionWakingMemoryRecoveryDirection": true,
+    "exactResolutionSkyPaletteFrozen": false,
+    "exactResolutionBrightnessFrozen": false,
+    "exactResolutionMoonPhaseFrozen": false,
+    "resolutionMayBeDepictedAsOrdinaryPhysicalSunriseByDefault": false
+  },
+  "stateGraph": [
+    {
+      "id": "ordinary-dream-night",
+      "role": "baseline-night-state",
+      "moonState": "NOT_FIXED_BY_THIS_MASTER",
+      "stars": "VISIBLE",
+      "incidentDepth": "LOW_OR_UNSPECIFIED",
+      "palette": "OPEN_WITHIN_NIGHT_WORLD_AUTHORITY",
+      "notes": "Baseline sky must still read as the same project world; do not force one universal moon phase or one identical constellation arrangement across every era."
+    },
+    {
+      "id": "incident-deepening",
+      "role": "incident-depth-increase",
+      "moonState": "MAY_CHANGE_WITH_INCIDENT_DEPTH_BUT_EXACT_SEQUENCE_OPEN",
+      "stars": "VISIBLE_UNLESS_SEPARATE_AUTHORITY_SAYS_OTHERWISE",
+      "incidentDepth": "INCREASING",
+      "palette": "OPEN_NO_FIXED_STEP_COUNT",
+      "notes": "Moon change is semantic depth, not elapsed hours and not a five-step boss meter."
+    },
+    {
+      "id": "saku-moonless",
+      "role": "deepest-current-moon-state",
+      "moonState": "SAKU_MOONLESS",
+      "stars": "VISIBLE",
+      "incidentDepth": "DEEPEST",
+      "palette": "OPEN_DARK_STATE_WITH_STAR_VISIBILITY_REQUIRED",
+      "notes": "Moonless does not mean starless, physical dawn is not automatically next, and no fixed era Boss is implied."
+    },
+    {
+      "id": "resolution-transition",
+      "role": "resolution-without-physical-sunrise",
+      "moonState": "OPEN",
+      "stars": "PRESERVE_PROJECT_SKY_IDENTITY_UNLESS_EXPLICITLY_RESOLVED",
+      "incidentDepth": "RESOLVING_OR_REFRAMED",
+      "palette": "OPEN_HUMAN_AUTHORING_REQUIRED",
+      "notes": "Resolution may change emotional read, but this Master does not invent a specific brighter palette, sunrise gradient, moon return, or astronomical explanation."
+    },
+    {
+      "id": "waking-boundary",
+      "role": "leave-dream-world",
+      "moonState": "NOT_A_RETURN_CONDITION",
+      "stars": "NOT_A_RETURN_CONDITION",
+      "incidentDepth": "NOT_A_CLOCK",
+      "palette": "OPEN",
+      "notes": "Return occurs by waking to each person's Reality era, not by waiting for physical morning."
+    }
+  ],
+  "eraAndConstellationRules": [
+    "Do not force all eras to display identical constellation membership or historical line figures.",
+    "Modern IAU88 project line-art is a separate stable modern reference system, not proof that old Dream skies used the same historical figures.",
+    "Historical constellation evidence and lost/added constellations remain separate archive/reference layers.",
+    "Do not use a modern zodiac-glyph wallpaper as a substitute for actual constellation/world logic.",
+    "Do not turn constellation change into Canon cause until the final cause is authorized."
+  ],
+  "colorScriptRules": [
+    "Use relative state labels before exact HEX when Story authority has not fixed exact palette.",
+    "Moonless depth may darken composition but must preserve star readability and useful scene readability.",
+    "Resolution treatment may re-balance contrast, atmosphere or local light, but may not imply physical sunrise unless authority changes.",
+    "Do not make every Boss scene use the same black-purple grade.",
+    "Do not make every resolved scene use the same gold-orange dawn grade.",
+    "Character body/skin/fur/shell identity colors remain governed by Character production authorities rather than this sky script."
+  ],
+  "forbiddenShortcuts": [
+    "moon-used-as-elapsed-time-clock",
+    "fixed-five-moon-phase-boss-meter",
+    "saku-made-starless",
+    "saku-requires-one-fixed-era-boss",
+    "physical-sunrise-used-as-return-condition",
+    "automatic-gold-orange-resolution-sunrise",
+    "identical-constellation-set-across-all-eras",
+    "invented-constellation-change-cause",
+    "real-astronomy-treated-as-absolute-dream-constraint",
+    "moon-phase-used-to-canonize-exact-date",
+    "universal-black-purple-boss-grade",
+    "universal-cyan-night-grade"
+  ],
+  "openFields": [
+    "exact-moon-state-sequence-before-saku",
+    "exact-resolution-sky-palette",
+    "exact-resolution-brightness",
+    "exact-resolution-moon-state",
+    "final-constellation-increase-decrease-cause",
+    "exact-historical-constellation-composition-per-era",
+    "final-dream-mechanism-or-origin"
+  ],
+  "authorityBoundary": {
+    "thisMasterCreatesExactMoonSequence": false,
+    "thisMasterCreatesConstellationChangeCause": false,
+    "thisMasterCreatesPhysicalSunrise": false,
+    "thisMasterCreatesExactDate": false,
+    "thisMasterCreatesIncidentCanon": false,
+    "generatedSkyCreatesCanon": false,
+    "humanReviewRequired": true,
+    "imageGenerationAuthorized": false
+  }
+}

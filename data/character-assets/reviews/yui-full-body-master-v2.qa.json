@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "attemptId": "attempt-yui-full-body-master-v2-2026-08-12",
+  "reviewStatus": "AI_VISUAL_QA_COMPLETE_HUMAN_REVIEW_NOT_REQUESTED_BECAUSE_HARD_VETO",
+  "decision": "REJECT_ALL_ITERATE",
+  "approvalThreshold": {
+    "minimumScore": 80,
+    "hardVetoMustBeZero": true,
+    "qualityScoreDoesNotPromoteStoryAuthority": true
+  },
+  "rubric": [
+    { "id": "world-fit", "max": 10 },
+    { "id": "role-emotional-behavior", "max": 10 },
+    { "id": "face-identity-young-adult", "max": 15 },
+    { "id": "silhouette-cast-differentiation", "max": 15 },
+    { "id": "costume-prop-continuity", "max": 10 },
+    { "id": "color-material-light", "max": 10 },
+    { "id": "gameplay-pixel-derivability", "max": 10 },
+    { "id": "composition", "max": 10 },
+    { "id": "production-evidence-boundary", "max": 10 }
+  ],
+  "batchFindings": [
+    "4枚とも1024x1536 PNGとして生成された。",
+    "navy/cream/brown/warm-lanternの大枠は参照に近い。",
+    "正面系3枚はランタンが身体左手にあり、Current visual continuityの身体右手と逆。",
+    "身体右肩から身体左腰へ渡るストラップも一貫していない。",
+    "保持手は利き腕ではない。dominantHandはOPENのまま。",
+    "顔は既存Appearance Contractより幼く、generic anime方向が残る。",
+    "gold stitchが星座装飾に見えやすく、根拠のない星motifを増やしている。",
+    "全件Story Canon/final/runtimeへ昇格しない。"
+  ],
+  "candidates": [
+    {
+      "id": "char-yui-full-body-master-reject-a-v2",
+      "file": "assets/import-staging/batch-character-master/yui/rejected-v2/char-yui-full-body-master-reject-a-v2.png",
+      "sha256": "6b6b31f498ffd68fc9ddcbe80ed6b61531c2fb1209aa133b9ba95abf5685651d",
+      "score": 60,
+      "hardVeto": ["lantern-wrong-body-hand", "bag-strap-wrong-body-direction"],
+      "notes": ["シルエットと灯りは明快。", "紙片の手とランタン手が指定と左右逆。", "衣装装飾が過多。"]
+    },
+    {
+      "id": "char-yui-full-body-master-reject-b-v2",
+      "file": "assets/import-staging/batch-character-master/yui/rejected-v2/char-yui-full-body-master-reject-b-v2.png",
+      "sha256": "544422faaf2dff52cfaef6accf1ebb457c402bb97d916a3bb5843ef4ad2a49e1",
+      "score": 62,
+      "hardVeto": ["bag-strap-unproven", "paper-fragment-missing", "face-contract-failed"],
+      "notes": ["唯一、身体右手ランタンとして読める。", "紙片がなく、拾う・確認する役割が弱い。", "背面寄りでstrap始点と顔を検証しにくい。"]
+    },
+    {
+      "id": "char-yui-full-body-master-reject-c-v2",
+      "file": "assets/import-staging/batch-character-master/yui/rejected-v2/char-yui-full-body-master-reject-c-v2.png",
+      "sha256": "858b40a9fb186a0f6474c53c361003d7d01079e90e67c94a3848e6eb4cfe8965",
+      "score": 57,
+      "hardVeto": ["lantern-wrong-body-hand", "bag-strap-wrong-body-direction"],
+      "notes": ["紙片確認の意図は伝わる。", "ランタン・バッグ・肩紐の体側が逆。", "若年寄りでyoung-adult readが弱い。"]
+    },
+    {
+      "id": "char-yui-full-body-master-reject-d-v2",
+      "file": "assets/import-staging/batch-character-master/yui/rejected-v2/char-yui-full-body-master-reject-d-v2.png",
+      "sha256": "edbb28573a0b85322da3a31ec79921d7e9677d169975cff24854d75230561fc3",
+      "score": 57,
+      "hardVeto": ["lantern-wrong-body-hand", "bag-strap-wrong-body-direction"],
+      "notes": ["4枚中もっとも簡潔で小サイズ向き。", "装備の体側が逆。", "顔が幼く、両側ディンプルの証拠が弱い。"]
+    }
+  ],
+  "nextIteration": [
+    "正面図では身体右手=画面左、身体左腰バッグ=画面右と明記する。",
+    "人物の身体右腕とランタンを画面左側に離して描く。",
+    "ストラップは画面左上の身体右肩から画面右下の身体左腰へ横切らせる。",
+    "利き腕はOPENのままにし、保持手から推論しない。",
+    "young adult、almond-round eyes、rounded cheeks、bilateral dimplesを顔cropで検証する。",
+    "根拠のない星刺繍・星座glyph・過剰装飾を除く。",
+    "同一prompt/reference stackで4候補を生成する。"
+  ]
+}

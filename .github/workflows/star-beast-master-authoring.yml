@@ -1,0 +1,35 @@
+name: Star Beast Master Authoring
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/starBeastMasterAuthoringQueue.ts'
+      - 'tools/asset-factory/scripts/export-star-beast-master-authoring-packet.ts'
+      - 'scripts/quality/check-star-beast-master-authoring-queue.ts'
+      - '.github/workflows/star-beast-master-authoring.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/starBeastMasterAuthoringQueue.ts'
+      - 'tools/asset-factory/scripts/export-star-beast-master-authoring-packet.ts'
+      - 'scripts/quality/check-star-beast-master-authoring-queue.ts'
+      - '.github/workflows/star-beast-master-authoring.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate live Star Beast Master authoring queue
+        run: node --experimental-strip-types scripts/quality/check-star-beast-master-authoring-queue.ts
+      - name: Smoke-test Star Beast packet exporter
+        run: |
+          node --experimental-strip-types tools/asset-factory/scripts/export-star-beast-master-authoring-packet.ts --list > /tmp/star-beast-index.json
+          node --experimental-strip-types tools/asset-factory/scripts/export-star-beast-master-authoring-packet.ts --character-id=asa > /tmp/star-beast-asa.json
+          node --experimental-strip-types tools/asset-factory/scripts/export-star-beast-master-authoring-packet.ts --character-id=yui > /tmp/star-beast-yui-hold.json

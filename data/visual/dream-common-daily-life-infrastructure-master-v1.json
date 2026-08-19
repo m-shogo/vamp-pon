@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "masterId": "dream-common-daily-life-infrastructure-master-v1",
+  "displayName": "ヨルノシルベ Dream Common Daily-Life Infrastructure Master",
+  "status": "CURRENT_EDITABLE_WORLD_MASTER_SPEC_HUMAN_REVIEW_REQUIRED",
+  "format": "EDITABLE_LAYOUT_AND_PROP_SYSTEM_SPEC",
+  "mandatoryRasterImage": false,
+  "authority": {
+    "primary": "src/game/data/storyWorldMasterSource.ts",
+    "derived": "src/game/data/dreamSocialWorldSource.ts",
+    "highestDocument": "docs/00-current-story-world-master.md"
+  },
+  "purpose": "Define the shared daily-life infrastructure logic that stages may reuse so food, drink, rest and basic living do not get reinvented independently by each background or scene.",
+  "worldBoundary": {
+    "layerType": "DREAM_WORLD",
+    "survivalSim": false,
+    "normalEconomyRequired": false,
+    "physicalMorningExists": false,
+    "returnMode": "WAKING_TO_OWN_REALITY_ERA",
+    "exactBuildingPlanFrozen": false,
+    "exactRoomCountFrozen": false,
+    "exactArchitectureStyleFrozen": false
+  },
+  "provisioning": {
+    "mode": "STORAGE_MEDIATED_DISCOVERY",
+    "directHandOrAirFoodMaterializationAllowed": false,
+    "surfaces": [
+      "PANTRY",
+      "REFRIGERATOR",
+      "CUPBOARD",
+      "KITCHEN",
+      "COOL_STORAGE",
+      "DRINK_SHELF",
+      "LIQUOR_SHELF"
+    ],
+    "easyProvisioning": [
+      "FOOD",
+      "DRINK",
+      "DAILY_GOODS",
+      "REST",
+      "BASIC_LIVING_ITEMS"
+    ],
+    "storageMustMediateAppearance": true,
+    "uniqueNamedObjectMayMaterializeAsGenericProvision": false,
+    "incidentEvidenceMayMaterializeAsGenericProvision": false
+  },
+  "wishCannotOverride": [
+    "OTHER_PERSON_MIND",
+    "CONSENT",
+    "MEMORY_TRUTH",
+    "TRAUMA",
+    "RELATIONSHIP",
+    "BLACK_YOUKA",
+    "REALITY_INCIDENT",
+    "LIFE_DEATH",
+    "AUTHENTIC_CHOICE",
+    "UNIQUE_OBJECT",
+    "INCIDENT_EVIDENCE"
+  ],
+  "sharedZones": [
+    {
+      "id": "food-storage-zone",
+      "requiredCapability": "store-and-discover-food",
+      "allowedSurfaces": ["PANTRY", "REFRIGERATOR", "CUPBOARD", "COOL_STORAGE"],
+      "exactLayout": "OPEN",
+      "mustShowPlausibleAccessPath": true
+    },
+    {
+      "id": "food-preparation-zone",
+      "requiredCapability": "prepare-or-serve-discovered-food",
+      "allowedSurfaces": ["KITCHEN", "CUPBOARD"],
+      "exactApplianceSet": "OPEN",
+      "mustNotImplyNormalEconomy": true
+    },
+    {
+      "id": "drink-storage-zone",
+      "requiredCapability": "store-and-discover-drinks",
+      "allowedSurfaces": ["DRINK_SHELF", "COOL_STORAGE", "REFRIGERATOR"],
+      "exactBranding": "GENERIC_OR_OPEN",
+      "mustNotGenerateUniqueEvidence": true
+    },
+    {
+      "id": "adult-liquor-storage-zone",
+      "requiredCapability": "store-alcohol-when-scene-authority-allows",
+      "allowedSurfaces": ["LIQUOR_SHELF"],
+      "adultConfirmationRequiredForFinalScene": true,
+      "intoxicationOverridesConsent": false,
+      "intoxicationIsTruthSerum": false
+    },
+    {
+      "id": "rest-zone",
+      "requiredCapability": "support-rest-as-basic-living",
+      "exactFurniture": "OPEN",
+      "exactSleepingArrangement": "OPEN",
+      "relationshipImplicationFromPlacementAllowed": false
+    },
+    {
+      "id": "basic-living-storage-zone",
+      "requiredCapability": "store-basic-living-items-and-daily-goods",
+      "exactContents": "OPEN",
+      "exactOwnership": "OPEN",
+      "inventPersonalBelongings": false
+    },
+    {
+      "id": "post-confrontation-social-zone",
+      "requiredCapability": "support-variable-tone-gathering-after-named-boss-or-major-confrontation",
+      "exactLocation": "OPEN",
+      "fixedPartyLayout": false,
+      "partyToneMustVary": true,
+      "relationshipEvidenceMayBeInventedBySeating": false
+    }
+  ],
+  "notYetAuthorizedAsFixedInfrastructure": [
+    "exact-bath-or-shower-layout",
+    "exact-washing-facility",
+    "exact-changing-room",
+    "exact-bedroom-count",
+    "exact-private-room-assignment",
+    "exact-building-address-or-city",
+    "exact-household-style",
+    "fixed-commercial-brands"
+  ],
+  "genericProductLanguage": {
+    "preferGenericCommercialProductNames": true,
+    "exampleDrinkLabels": [
+      "黒い炭酸",
+      "柑橘のシュワシュワ",
+      "ぶどうソーダ",
+      "麦の泡酒",
+      "米の酒",
+      "果実酒",
+      "炭酸割り"
+    ],
+    "examplesCreateProductCanon": false
+  },
+  "stageReuseRules": [
+    "Reuse this common infrastructure logic instead of inventing a different food/materialization law per stage.",
+    "A stage may omit zones that are off-screen; omission does not mean the capability does not exist globally.",
+    "Visible storage, doors, counters and shelves need plausible access/movement paths.",
+    "Do not create hero-specific luxury rooms, kitchens or bars without separate authority.",
+    "Do not use generic cozy-room clutter as proof of personality or relationship.",
+    "Do not make basic needs a survival-resource loop unless Story/Game authority explicitly changes."
+  ],
+  "forbiddenShortcuts": [
+    "food-materializes-directly-in-hand",
+    "food-materializes-in-open-air",
+    "unique-named-object-appears-as-provisioning-reward",
+    "incident-evidence-appears-as-provisioning-reward",
+    "normal-shop-economy-assumed-by-default",
+    "fixed-western-tavern-as-universal-social-space",
+    "fixed-japanese-house-as-universal-dream-home",
+    "one-bedroom-per-character-invented",
+    "relationship-or-consent-resolved-by-wish",
+    "alcohol-used-as-truth-serum",
+    "adult-status-inferred-from-art-alone",
+    "brand-logo-invention",
+    "generic-cozy-clutter-used-as-worldbuilding"
+  ],
+  "authorityBoundary": {
+    "thisMasterCreatesExactArchitecture": false,
+    "thisMasterCreatesPersonalRooms": false,
+    "thisMasterCreatesRelationships": false,
+    "thisMasterCreatesUniqueObjects": false,
+    "thisMasterCreatesIncidentEvidence": false,
+    "thisMasterCreatesCommercialBrands": false,
+    "generatedInfrastructureCreatesCanon": false,
+    "humanReviewRequired": true,
+    "imageGenerationAuthorized": false
+  }
+}

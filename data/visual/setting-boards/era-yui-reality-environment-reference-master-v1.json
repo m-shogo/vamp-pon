@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "assetId": "era-yui-reality-environment-reference-master-v1",
+  "status": "EDITABLE_SETTING_BOARD_SPEC_AUTHORED_HUMAN_REVIEW_REQUIRED_NO_RASTER",
+  "characterId": "yui",
+  "boardType": "ENVIRONMENT",
+  "eraBand": "1990s_born_2026_tokyo_arakawa",
+  "exactYearState": "2026_CURRENT",
+  "realityRoot": "東京都荒川区",
+  "authoritySources": ["data/visual/core5-era-life-design-master-v1.json","data/visual/core5-reality-era-environment-authoring-brief-v1.json","data/visual/core5-era-setting-board-production-contract-v1.json","data/visual/core5-era-setting-board-evidence-packets-v1.json","src/game/data/characterRealityRootRegistry.ts"],
+  "panels": [
+    {"id":"E01-establishing-system-view","content":"2026 Tokyo east-side ordinary life showing rail/local street scale, smartphone and paper coexistence, local/online shopping, delivery/takeout and mixed-age access without reducing present day to phone screens."},
+    {"id":"E02-system-comparison-strip","content":{"communication":["smartphone","group chat","paper/legacy contact traces"],"transportNavigation":["Tokyo rail","smartphone navigation","local landmarks"],"shoppingAvailability":["local shops","convenience","delivery","online purchasing"],"repairReplacement":["easy replacement coexists with long-used personal objects"],"privacyRecords":["cloud photo","group log","fake image/deepfake verification"]}},
+    {"id":"E03-material-prop-detail","content":["realistic phone storage/use","cash/IC/app-payment coexistence","takeout/delivery packaging","paper note or printed artifact","one long-used personal-object class without freezing exact object history"]},
+    {"id":"E04-human-use-and-friction","content":["verification/provenance friction","older/younger access differences without caricature","always-online option coexists with isolation","food access/convenience differ by household and mobility"]},
+    {"id":"E05-source-open-boundary","content":{"open":["specific private residence","exact frequently used business","exact workplace/school","recognizable private resident","unapproved literal street/store reproduction"],"note":"Arakawa is DECIDED, but privacy-safe local specificity and real-business use require separate review."}}
+  ],
+  "forbiddenShortcuts": ["everyone_is_always_online","everyone_is_cashless","everyone_uses_same_apps","elderly_technology_illiterate_gag","smartphone_only_present_day","generic_neon_Tokyo","private_address_invention"],
+  "downstreamReuse": ["Character era-context review","Story blocking","Lorebook composition","Reality keyframe admission","Stage environment authoring","TOP/promo background research"],
+  "imageGenerationAuthorized": false,
+  "humanReviewRequired": true,
+  "masterApproval": false,
+  "runtimeApproval": false
+}

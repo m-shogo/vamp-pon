@@ -1,0 +1,37 @@
+name: Core5 Era Setting Board Professional Pre-Review
+
+on:
+  pull_request:
+    paths:
+      - 'data/character-assets/manifests/core5-era-setting-board-execution-queue.v1.json'
+      - 'data/character-assets/reviews/core5-era-setting-board-human-review-packet.v1.json'
+      - 'data/character-assets/reviews/core5-era-setting-board-professional-pre-review.v1.json'
+      - 'data/visual/setting-boards/era-*-reality-environment-reference-master-v1.json'
+      - 'data/visual/setting-boards/era-*-population-household-reference-master-v1.json'
+      - 'scripts/quality/check-core5-era-setting-board-professional-pre-review.ts'
+      - '.github/workflows/core5-era-setting-board-professional-pre-review.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/character-assets/manifests/core5-era-setting-board-execution-queue.v1.json'
+      - 'data/character-assets/reviews/core5-era-setting-board-human-review-packet.v1.json'
+      - 'data/character-assets/reviews/core5-era-setting-board-professional-pre-review.v1.json'
+      - 'data/visual/setting-boards/era-*-reality-environment-reference-master-v1.json'
+      - 'data/visual/setting-boards/era-*-population-household-reference-master-v1.json'
+      - 'scripts/quality/check-core5-era-setting-board-professional-pre-review.ts'
+      - '.github/workflows/core5-era-setting-board-professional-pre-review.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Core5 professional pre-Human review boundary
+        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-professional-pre-review.ts
