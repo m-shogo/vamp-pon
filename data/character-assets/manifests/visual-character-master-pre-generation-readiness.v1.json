@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "readinessId": "yoruno-shirube-character-master-pre-generation-readiness-v1",
+  "date": "2026-08-20",
+  "status": "READY_FOR_IMAGE_GENERATION_WHEN_CURRENT_HEAD_CI_GREEN",
+  "authority": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
+  "entrypoint": "src/game/data/characterDesignSheetAutonomousProductionEntrypoint.ts",
+  "exporter": "tools/asset-factory/scripts/export-autonomous-character-design-sheet-prompt.ts",
+  "bridge": "data/character-assets/manifests/visual-character-sheet-autonomous-production-bridge.v2.json",
+  "settings": {
+    "authorDecisionLog": "data/visual/all-character-life-choice-codex-author-decisions-v1.json",
+    "authorDecisionCount": 42,
+    "authorDecisionRemaining": 0,
+    "partialEvidenceClosure": "data/visual/all-character-life-choice-partial-evidence-autonomous-closure-v1.json",
+    "partialEvidenceCount": 56,
+    "partialEvidenceRemaining": 0,
+    "productionFacingSettingsReady": true
+  },
+  "characterMaster": {
+    "characterCount": 36,
+    "sheetsPerCharacter": 4,
+    "logicalSheetSlots": 144,
+    "livePromptMaterialization": "JIT_FROM_CURRENT_PARENT_AUTHORITY",
+    "staticLegacyPromptPacketsProductionReady": false,
+    "authoritySnapshotMaterializedPerExport": true,
+    "authoritySnapshotSha256Required": true,
+    "candidateCountPerGeneratedSheet": 4,
+    "sheetRoles": {
+      "01": "identity-turnaround",
+      "02": "face-expression-acting",
+      "03": "costume-equipment-material",
+      "04": "silhouette-motion-derivation"
+    }
+  },
+  "generationAdmission": {
+    "all36PromptExportsMayBeValidatedNow": true,
+    "all144LogicalPromptSlotsMayBeValidatedNow": true,
+    "imageExecutionStartsFromSheet01": true,
+    "sheet02To04RequireSameCharacterSheet01AutomaticQaPass": true,
+    "partialPackMayParentDerivative": false,
+    "rejectedCandidateMayParentDerivative": false,
+    "intermediateHumanReviewRequired": false,
+    "finalHumanReviewDeferredToProject100Percent": true
+  },
+  "yui": {
+    "currentHold": false,
+    "previousRejectedCandidates": 8,
+    "autonomousPacket": "data/character-assets/reviews/yui-character-design-master-pack-autonomous-v2.json",
+    "rejectEvidenceMustBeConsumedBeforeFirstNewGeneration": true
+  },
+  "qa": {
+    "automaticStructuralHardVeto": true,
+    "automaticSemanticQa": true,
+    "crossViewIdentityConsistency": true,
+    "faceSkullLandmarkConsistency": true,
+    "hairGroomingTopologyConsistency": true,
+    "bodyAgeSpeciesMobilityConsistency": true,
+    "garmentEquipmentMaterialConsistency": true,
+    "sideAsymmetryAndAnatomicalCoordinates": true,
+    "smallScaleSilhouetteReadability": true,
+    "textLogoWatermarkContaminationVeto": true,
+    "rejectLedgerRequired": true,
+    "promptRevisionReasonRequired": true,
+    "repeatUntilPass": true
+  },
+  "imageGeneration": {
+    "executed": false,
+    "generatedCandidateCount": 0,
+    "authorizedByThisPreparationCommit": false,
+    "nextRunMayBeginOnlyAfterCurrentHeadCiGreen": true
+  },
+  "logo": {
+    "ownedByThisLine": false,
+    "excludedFromCharacterMasterPromptExport": true,
+    "blocksCharacterMasterPreparation": false
+  }
+}

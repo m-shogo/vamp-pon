@@ -1,15 +1,15 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "queueId": "yoru-no-shirube-all-character-life-choice-autonomous-authoring-queue-v1",
-  "date": "2026-08-19",
-  "status": "READY_CODEX_AUTHORING",
+  "date": "2026-08-20",
+  "status": "COMPLETE_CODEX_AUTHORING",
   "authority": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
   "sourcePacket": "data/visual/all-character-life-choice-author-decision-packet-v1.json",
   "decisionLog": "data/visual/all-character-life-choice-codex-author-decisions-v1.json",
-  "purpose": "Convert the legacy 42-item Human author-decision packet into the Current delegated Codex authoring queue without altering the legacy packet's audit semantics.",
+  "purpose": "Adapt the legacy 42-item Human author-decision packet into Current Codex production authority while preserving the legacy packet unchanged as audit evidence.",
   "selection": {
     "sourceDecisionState": "PENDING_HUMAN_AUTHOR_DECISION",
-    "currentOperationalState": "READY_CODEX_AUTHOR_DECISION",
+    "currentOperationalState": "CODEX_AUTHOR_DECISION_MATERIALIZED",
     "expectedCount": 42,
     "copyDecisionIdsFromSource": true,
     "duplicateDecisionDefinitions": false
@@ -50,9 +50,9 @@
   ],
   "completion": {
     "decisionsRequired": 42,
-    "decisionsMaterialized": 0,
-    "remaining": 42,
-    "complete": false,
-    "nextStageWhenComplete": "PARTIAL_EVIDENCE_56_REVIEW_THEN_MASTER_SPEC"
+    "decisionsMaterialized": 42,
+    "remaining": 0,
+    "complete": true,
+    "nextStageWhenComplete": "PARTIAL_EVIDENCE_56_AUTONOMOUS_CLOSURE_THEN_MASTER_SPEC"
   }
 }

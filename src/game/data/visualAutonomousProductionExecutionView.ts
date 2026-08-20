@@ -5,22 +5,22 @@ import {
 
 export const VISUAL_AUTONOMOUS_PRODUCTION_POLICY_PATH =
   'data/character-assets/manifests/visual-autonomous-production-policy.v1.json';
-
 export const VISUAL_AUTONOMOUS_RUNNER_STATE_PATH =
   'data/character-assets/manifests/visual-autonomous-production-runner-state.v1.json';
-
 export const VISUAL_AUTONOMOUS_LIFE_CHOICE_QUEUE_PATH =
   'data/visual/all-character-life-choice-autonomous-authoring-queue-v1.json';
-
 export const VISUAL_AUTONOMOUS_LIFE_CHOICE_DECISION_LOG_PATH =
   'data/visual/all-character-life-choice-codex-author-decisions-v1.json';
-
+export const VISUAL_AUTONOMOUS_PARTIAL_EVIDENCE_CLOSURE_PATH =
+  'data/visual/all-character-life-choice-partial-evidence-autonomous-closure-v1.json';
+export const VISUAL_AUTONOMOUS_CHARACTER_SHEET_ENTRYPOINT_PATH =
+  'src/game/data/characterDesignSheetAutonomousProductionEntrypoint.ts';
+export const VISUAL_AUTONOMOUS_CHARACTER_PREGEN_READINESS_PATH =
+  'data/character-assets/manifests/visual-character-master-pre-generation-readiness.v1.json';
 export const VISUAL_AUTONOMOUS_CORE5_QUEUE_PATH =
   'data/character-assets/manifests/core5-era-setting-board-autonomous-queue.v2.json';
-
 export const VISUAL_AUTONOMOUS_YUI_PACKET_PATH =
   'data/character-assets/reviews/yui-character-design-master-pack-autonomous-v2.json';
-
 export const VISUAL_AUTONOMOUS_PRODUCTION_CHECKLIST_PATH =
   'docs/visual/visual-autonomous-production-checklist-v1.md';
 
@@ -28,25 +28,15 @@ type ProductionItem = Record<string, any>;
 
 function looksLikeLogo(item: ProductionItem): boolean {
   const haystack = [item.assetId, item.kind, item.outputPath, item.promptPacketId]
-    .filter((value) => typeof value === 'string')
-    .join(' ')
-    .toLowerCase();
+    .filter((value) => typeof value === 'string').join(' ').toLowerCase();
   return /(?:^|[-_/\s])logo(?:$|[-_/\s.])/.test(haystack);
 }
-
 function isImageBearing(item: ProductionItem): boolean {
-  return (
-    Array.isArray(item.candidateIds) &&
-    item.candidateIds.length > 0 &&
-    typeof item.outputPath === 'string' &&
-    /\.(?:png|webp|jpg|jpeg)$/i.test(item.outputPath)
-  );
+  return Array.isArray(item.candidateIds) && item.candidateIds.length > 0 && typeof item.outputPath === 'string' && /\.(?:png|webp|jpg|jpeg)$/i.test(item.outputPath);
 }
-
 function annotateCurrentExecution(item: ProductionItem): ProductionItem {
   const logoExcluded = looksLikeLogo(item);
   const imageBearing = isImageBearing(item);
-
   return {
     ...item,
     currentAutonomousExecution: {
@@ -67,18 +57,7 @@ function annotateCurrentExecution(item: ProductionItem): ProductionItem {
   };
 }
 
-/**
- * Current execution facade.
- *
- * V2 remains an immutable pre-generation / Human-gated historical read model because
- * older review packets and CI use it as audit evidence. V3 is the operational adapter
- * that tells Codex whether the autonomous production *runner* may proceed.
- *
- * `executionAllowed: true` authorizes the runner and its phase machine. It does NOT
- * authorize every indexed image row. Each image-bearing row still requires a
- * materialized authority snapshot, explicit item/family admission, automatic QA,
- * and Master-first lineage before promotion.
- */
+/** Current operational facade. Legacy V2 stays immutable audit evidence. */
 export function buildVisualAutonomousProductionExecutionView() {
   const legacy = buildVisualProductionExecutionView() as any;
   const items: ProductionItem[] = legacy.items.map(annotateCurrentExecution);
@@ -112,25 +91,32 @@ export function buildVisualAutonomousProductionExecutionView() {
     authoring: {
       settingsAuthoringAllowed: true,
       conflictingSettingResolutionAllowed: true,
+      settingsReadyForMasterSpec: true,
       machineReadableAuthorityUpdateRequiredBeforePrompt: true,
       imageOutputMayDecideSetting: false,
       imageOutputMayCreateStoryCanon: false,
       lifeChoiceQueue: VISUAL_AUTONOMOUS_LIFE_CHOICE_QUEUE_PATH,
       lifeChoiceDecisionLog: VISUAL_AUTONOMOUS_LIFE_CHOICE_DECISION_LOG_PATH,
+      partialEvidenceClosure: VISUAL_AUTONOMOUS_PARTIAL_EVIDENCE_CLOSURE_PATH,
     },
     phaseGates: {
       SETTINGS: {
         allowed: true,
-        current: true,
+        current: false,
+        complete: true,
         intermediateHumanReviewRequired: false,
       },
       MASTER_SPEC: {
         allowed: true,
+        current: true,
         requiresSettingsReady: true,
+        characterSheetEntrypoint: VISUAL_AUTONOMOUS_CHARACTER_SHEET_ENTRYPOINT_PATH,
+        preGenerationReadiness: VISUAL_AUTONOMOUS_CHARACTER_PREGEN_READINESS_PATH,
         intermediateHumanReviewRequired: false,
       },
       MASTER_IMAGE: {
         allowed: true,
+        current: false,
         requiresMaterializedAuthoritySnapshot: true,
         requiresExplicitSubjectAdmission: true,
         defaultCandidateCount: 4,
@@ -138,34 +124,15 @@ export function buildVisualAutonomousProductionExecutionView() {
         rejectRegenerateLoopRequired: true,
         intermediateHumanReviewRequired: false,
       },
-      GUIDE_DB: {
-        allowed: true,
-        requiresApprovedMaster: true,
-        independentDuplicateSubjectRasterDefault: false,
-      },
-      TOP_PROMO: {
-        allowed: true,
-        reuseFirst: true,
-        requiresExplicitAssetAdmission: true,
-        logoOwnedByThisRunner: false,
-      },
-      GAMEPLAY: {
-        allowed: true,
-        bulkGenerationAllowedNow: false,
-        requiresApprovedParentMaster: true,
-        requiresContractNormalizationAndAdmission: true,
-      },
-      RUNTIME_QA: {
-        allowed: true,
-        requiresMaterializedRuntimeAsset: true,
-        failureReturnsToOwningProductionStage: true,
-      },
-      FINAL_HUMAN_REVIEW: {
-        allowedNow: false,
-        requiredAtProject100Percent: true,
-      },
+      GUIDE_DB: { allowed: true, requiresApprovedMaster: true, independentDuplicateSubjectRasterDefault: false },
+      TOP_PROMO: { allowed: true, reuseFirst: true, requiresExplicitAssetAdmission: true, logoOwnedByThisRunner: false },
+      GAMEPLAY: { allowed: true, bulkGenerationAllowedNow: false, requiresApprovedParentMaster: true, requiresContractNormalizationAndAdmission: true },
+      RUNTIME_QA: { allowed: true, requiresMaterializedRuntimeAsset: true, failureReturnsToOwningProductionStage: true },
+      FINAL_HUMAN_REVIEW: { allowedNow: false, requiredAtProject100Percent: true },
     },
     familyAdapters: {
+      characterSheets: VISUAL_AUTONOMOUS_CHARACTER_SHEET_ENTRYPOINT_PATH,
+      characterPreGenerationReadiness: VISUAL_AUTONOMOUS_CHARACTER_PREGEN_READINESS_PATH,
       core5: VISUAL_AUTONOMOUS_CORE5_QUEUE_PATH,
       yui: VISUAL_AUTONOMOUS_YUI_PACKET_PATH,
     },
@@ -195,6 +162,9 @@ export function buildVisualAutonomousProductionExecutionView() {
       currentLogoExcludedRows: logoRows.length,
       indexedAssetFactoryContracts: legacy.counts.indexedAssetFactoryContracts,
       assetFactoryContractsBulkGenerationAuthorizedNow: 0,
+      materializedLifeChoiceDecisions: 42,
+      closedPartialEvidenceItems: 56,
+      characterMasterPromptSlots: 144,
     },
     items,
   };

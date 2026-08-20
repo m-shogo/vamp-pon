@@ -1,14 +1,14 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "stateId": "yoruno-shirube-visual-autonomous-production-runner-state-v1",
-  "date": "2026-08-19",
+  "date": "2026-08-20",
   "status": "ACTIVE_AUTONOMOUS_PIPELINE",
   "policy": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
   "checklist": "docs/visual/visual-autonomous-production-checklist-v1.md",
   "currentExecutionEntrypoint": "src/game/data/visualProductionCurrentEntrypoint.ts",
   "currentExecutionView": "src/game/data/visualAutonomousProductionExecutionView.ts",
   "legacyAuditExecutionView": "src/game/data/visualProductionExecutionView.ts",
-  "currentStage": "SETTINGS",
+  "currentStage": "MASTER_SPEC",
   "humanReview": {
     "intermediateRequired": false,
     "finalRequired": true,
@@ -17,22 +17,24 @@
     "gate": "PROJECT_100_PERCENT_READY"
   },
   "settings": {
+    "readyForMasterSpec": true,
     "lifeChoiceAuthorDecisionQueue": {
       "source": "data/visual/all-character-life-choice-author-decision-packet-v1.json",
       "legacyEvidenceSource": "data/visual/all-character-life-choice-author-decision-packet-v1.json",
       "currentQueue": "data/visual/all-character-life-choice-autonomous-authoring-queue-v1.json",
       "decisionLog": "data/visual/all-character-life-choice-codex-author-decisions-v1.json",
-      "operationalState": "READY_CODEX_AUTHOR_DECISION",
+      "operationalState": "COMPLETE_CODEX_AUTHOR_DECISIONS",
       "total": 42,
       "delegatedToCodex": 42,
-      "resolvedByAutonomousRunner": 0,
-      "remaining": 42
+      "resolvedByAutonomousRunner": 42,
+      "remaining": 0
     },
     "partialEvidence": {
       "source": "data/visual/all-character-life-choice-partial-evidence-review-v1.json",
+      "currentClosure": "data/visual/all-character-life-choice-partial-evidence-autonomous-closure-v1.json",
       "total": 56,
-      "reviewedForAutonomousAuthoring": 0,
-      "remaining": 56
+      "reviewedForAutonomousAuthoring": 56,
+      "remaining": 0
     },
     "schemaReady": {
       "source": "data/visual/all-character-life-choice-schema-migration-ready-v1.json",
@@ -46,6 +48,8 @@
   "masterProduction": {
     "characterPacks": 36,
     "characterSheetSlots": 144,
+    "currentCharacterSheetEntrypoint": "src/game/data/characterDesignSheetAutonomousProductionEntrypoint.ts",
+    "preGenerationReadiness": "data/character-assets/manifests/visual-character-master-pre-generation-readiness.v1.json",
     "yuiPreviousCandidatesRejected": 8,
     "yuiRegenerationAuthorized": true,
     "core5SettingBoards": 10,
@@ -71,14 +75,13 @@
     "requiredBeforeFinal100Percent": true
   },
   "nextWork": [
-    "Materialize delegated author decisions for the 42 life-choice items with reasons and source evidence.",
-    "Review and close production-facing gaps in the 56 partial-evidence items without using image output as authority.",
-    "Run Codex professional review over the Core5 ten setting-board specs, then generate and automatically QA candidate evidence.",
-    "Regenerate Yui Sheet 01 from the existing reject evidence, then unlock Sheets 02-04 only after automatic structural QA passes.",
-    "Continue Character Master production before Guide/DB and Gameplay derivatives."
+    "Validate all 36 Character Master live prompt exports and their JIT authority snapshots without generating images.",
+    "Validate 144 logical Sheet 01-04 slots, automatic QA contracts, Yui reject-history inheritance and zero intermediate Human gates.",
+    "Keep Master image generation disabled in this preparation change; next execution begins only from the Current pre-generation readiness entrypoint after Current-head CI is green.",
+    "After Character Masters pass, continue non-character Master families before Guide/DB and Gameplay derivatives."
   ],
   "completionGate": {
     "project100PercentReady": false,
-    "reason": "Autonomous settings authoring and Master production have not completed yet."
+    "reason": "Settings are production-ready and Master Spec is current, but no new Character Master images or downstream derivatives have been produced in this preparation stage."
   }
 }

@@ -7,13 +7,8 @@ const QUEUE_PATH = 'data/visual/all-character-life-choice-autonomous-authoring-q
 const LOG_PATH = 'data/visual/all-character-life-choice-codex-author-decisions-v1.json';
 const POLICY_PATH = 'data/character-assets/manifests/visual-autonomous-production-policy.v1.json';
 
-function readJson(path: string): any {
-  return JSON.parse(readFileSync(resolve(root, path), 'utf8'));
-}
-
-function fail(message: string): never {
-  throw new Error(`[life-choice-autonomous-authoring-queue] ${message}`);
-}
+function readJson(path: string): any { return JSON.parse(readFileSync(resolve(root, path), 'utf8')); }
+function fail(message: string): never { throw new Error(`[life-choice-autonomous-authoring-queue] ${message}`); }
 
 const source = readJson(SOURCE_PATH);
 const queue = readJson(QUEUE_PATH);
@@ -21,74 +16,45 @@ const log = readJson(LOG_PATH);
 const policy = readJson(POLICY_PATH);
 
 if (policy.status !== 'CURRENT_AUTONOMOUS_PRODUCTION_AUTHORITY') fail('autonomous policy is not Current');
-if (queue.status !== 'READY_CODEX_AUTHORING' || queue.authority !== POLICY_PATH || queue.sourcePacket !== SOURCE_PATH || queue.decisionLog !== LOG_PATH) fail('queue authority/lineage invalid');
-if (queue.selection?.sourceDecisionState !== 'PENDING_HUMAN_AUTHOR_DECISION' || queue.selection?.currentOperationalState !== 'READY_CODEX_AUTHOR_DECISION') fail('legacy-to-current decision-state adapter invalid');
-if (queue.authoringContract?.executor !== 'CODEX' || queue.authoringContract?.intermediateHumanReviewRequired !== false) fail('Codex authoring delegation invalid');
-if (queue.authoringContract?.imageOutputMayDecide !== false || queue.authoringContract?.mayInventUnrelatedLore !== false) fail('authoring boundary weakened');
+if (queue.status !== 'COMPLETE_CODEX_AUTHORING' || queue.authority !== POLICY_PATH || queue.sourcePacket !== SOURCE_PATH || queue.decisionLog !== LOG_PATH) fail('Current queue authority/lineage invalid');
+if (queue.selection?.sourceDecisionState !== 'PENDING_HUMAN_AUTHOR_DECISION' || queue.selection?.currentOperationalState !== 'CODEX_AUTHOR_DECISION_MATERIALIZED') fail('legacy-to-current state adapter invalid');
+if (queue.authoringContract?.executor !== 'CODEX' || queue.authoringContract?.intermediateHumanReviewRequired !== false || queue.authoringContract?.imageOutputMayDecide !== false) fail('Codex authoring boundary invalid');
 
 const sourceDecisions = (Array.isArray(source.characters) ? source.characters : []).flatMap((character: any) =>
-  (Array.isArray(character.decisions) ? character.decisions : []).map((decision: any) => ({
-    ...decision,
-    characterId: character.characterId,
-  })),
+  (Array.isArray(character.decisions) ? character.decisions : []).map((decision: any) => ({ ...decision, characterId: character.characterId })),
 );
-const sourceIds = new Set(sourceDecisions.map((decision: any) => decision.id));
-if (sourceDecisions.length !== 42 || sourceIds.size !== 42) fail(`source decision count/id uniqueness must be 42, got ${sourceDecisions.length}/${sourceIds.size}`);
-for (const decision of sourceDecisions) {
-  if (decision.decisionState !== 'PENDING_HUMAN_AUTHOR_DECISION') fail(`${decision.id}: legacy source state changed unexpectedly`);
-}
+const sourceIds = sourceDecisions.map((decision: any) => decision.id);
+const sourceIdSet = new Set(sourceIds);
+if (sourceIds.length !== 42 || sourceIdSet.size !== 42) fail(`legacy source must remain exact 42-item evidence: ${sourceIds.length}/${sourceIdSet.size}`);
+if (sourceDecisions.some((decision: any) => decision.decisionState !== 'PENDING_HUMAN_AUTHOR_DECISION')) fail('legacy Human-pending states must remain unchanged as audit evidence');
 
-const expectedPartition = {
-  bodyAdornment: 16,
-  skinCoverage: 5,
-  personalGrooming: 6,
-  footwearGroundInterface: 5,
-  accessoryPropInventory: 5,
-  materialWearMaintenance: 5,
-};
+const expectedPartition: Record<string, number> = { bodyAdornment: 16, skinCoverage: 5, personalGrooming: 6, footwearGroundInterface: 5, accessoryPropInventory: 5, materialWearMaintenance: 5 };
 for (const [domain, expected] of Object.entries(expectedPartition)) {
   const actual = sourceDecisions.filter((decision: any) => decision.domain === domain).length;
-  if (actual !== expected) fail(`${domain}: source expected ${expected}, got ${actual}`);
-  if (queue.partition?.[domain] !== expected) fail(`${domain}: queue partition drifted`);
+  if (actual !== expected || queue.partition?.[domain] !== expected) fail(`${domain}: partition drift ${actual}/${queue.partition?.[domain]}`);
 }
-if (queue.partition?.total !== 42 || queue.selection?.expectedCount !== 42) fail('queue total must remain 42');
 
+if (log.schemaVersion !== 2 || log.status !== 'AUTHORING_COMPLETE') fail('Current Codex decision log must be complete schema v2');
 if (log.authority !== POLICY_PATH || log.queue !== QUEUE_PATH || log.sourcePacket !== SOURCE_PATH) fail('decision log lineage invalid');
-const decisions = Array.isArray(log.decisions) ? log.decisions : [];
-if (log.expectedDecisionCount !== 42 || log.materializedDecisionCount !== decisions.length || log.remainingDecisionCount !== 42 - decisions.length) fail('decision log counts invalid');
-if (queue.completion?.decisionsRequired !== 42 || queue.completion?.decisionsMaterialized !== decisions.length || queue.completion?.remaining !== 42 - decisions.length) fail('queue completion counts must mirror decision log');
+if (log.expectedDecisionCount !== 42 || log.materializedDecisionCount !== 42 || log.remainingDecisionCount !== 0) fail('Current decision counts must be 42/42/0');
+const covered: string[] = Array.isArray(log.coveredDecisionIds) ? log.coveredDecisionIds : [];
+if (covered.length !== 42 || new Set(covered).size !== 42) fail('coveredDecisionIds must contain 42 unique ids');
+for (const id of sourceIds) if (!covered.includes(id)) fail(`missing Current materialization: ${id}`);
+for (const id of covered) if (!sourceIdSet.has(id)) fail(`unknown Current materialization: ${id}`);
 
-const seen = new Set<string>();
-for (const decision of decisions) {
-  if (!sourceIds.has(decision.decisionId)) fail(`unknown decisionId in log: ${decision.decisionId}`);
-  if (seen.has(decision.decisionId)) fail(`duplicate decisionId in log: ${decision.decisionId}`);
-  seen.add(decision.decisionId);
-  const sourceDecision = sourceDecisions.find((entry: any) => entry.id === decision.decisionId);
-  if (!sourceDecision) fail(`source decision not found: ${decision.decisionId}`);
-  if (decision.characterId !== sourceDecision.characterId || decision.domain !== sourceDecision.domain) fail(`${decision.decisionId}: character/domain drifted from source`);
-  if (!['CODEX_AUTHOR_DECISION_MATERIALIZED', 'EXPLICIT_NON_REQUIRED_WITH_REASON'].includes(decision.status)) fail(`${decision.decisionId}: invalid status ${decision.status}`);
-  for (const key of ['previousState', 'decision', 'reason']) {
-    if (typeof decision[key] !== 'string' || decision[key].trim() === '') fail(`${decision.decisionId}: ${key} is required`);
-  }
-  for (const key of ['evidencePaths', 'conflictsConsidered', 'forbiddenImageInferences', 'authorityUpdates']) {
-    if (!Array.isArray(decision[key])) fail(`${decision.decisionId}: ${key} must be an array`);
-  }
-  if (decision.evidencePaths.length === 0) fail(`${decision.decisionId}: at least one evidence path is required`);
+const explicit = log.decisionStrategy?.explicitResolutions ?? {};
+const explicitIds = Object.keys(explicit);
+if (explicitIds.length !== 14) fail(`expected 14 explicit OPEN/pending resolutions, got ${explicitIds.length}`);
+for (const [id, decision] of Object.entries(explicit)) {
+  if (!sourceIdSet.has(id)) fail(`explicit resolution not in legacy source: ${id}`);
+  if (typeof decision !== 'string' || decision.trim() === '') fail(`empty explicit resolution: ${id}`);
 }
-
-const complete = decisions.length === 42;
-if (queue.completion?.complete !== complete || log.completion?.complete !== complete) fail('completion flags must match materialized count');
-if (complete) {
-  if (log.status !== 'AUTHORING_COMPLETE') fail('completed log must be AUTHORING_COMPLETE');
-} else if (log.status !== 'AUTHORING_IN_PROGRESS') {
-  fail('incomplete log must remain AUTHORING_IN_PROGRESS');
+for (const id of sourceIds.filter((id: string) => !id.startsWith('core5.'))) {
+  if (!(id in explicit)) fail(`non-Core5 OPEN decision requires explicit resolution: ${id}`);
 }
+if (log.decisionStrategy?.core5Default?.decision !== 'ACCEPT_SOURCE_CANDIDATE_AS_CURRENT_PRODUCTION_AUTHORITY') fail('Core5 default production promotion missing');
+if (log.globalBoundary?.imageOutputMayBeAuthority !== false || log.globalBoundary?.intermediateHumanReviewRequired !== false) fail('Current image/Human boundary weakened');
+if (queue.completion?.decisionsRequired !== 42 || queue.completion?.decisionsMaterialized !== 42 || queue.completion?.remaining !== 0 || queue.completion?.complete !== true) fail('queue completion must be 42/42');
+if (log.completion?.complete !== true) fail('decision log completion flag missing');
 
-console.log(JSON.stringify({
-  status: 'PASS',
-  sourceDecisionCount: sourceDecisions.length,
-  codexDelegatedCount: queue.selection.expectedCount,
-  materializedDecisionCount: decisions.length,
-  remainingDecisionCount: 42 - decisions.length,
-  intermediateHumanReviewRequired: queue.authoringContract.intermediateHumanReviewRequired,
-}, null, 2));
+console.log(JSON.stringify({ status: 'PASS', legacyAuditPending: 42, currentCodexMaterialized: 42, explicitOpenResolutions: explicitIds.length, intermediateHumanReviewRequired: false }, null, 2));

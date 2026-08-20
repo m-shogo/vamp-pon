@@ -1,39 +1,105 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "logId": "yoru-no-shirube-all-character-life-choice-codex-author-decisions-v1",
-  "date": "2026-08-19",
-  "status": "AUTHORING_IN_PROGRESS",
+  "date": "2026-08-20",
+  "status": "AUTHORING_COMPLETE",
   "authority": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
   "queue": "data/visual/all-character-life-choice-autonomous-authoring-queue-v1.json",
   "sourcePacket": "data/visual/all-character-life-choice-author-decision-packet-v1.json",
   "expectedDecisionCount": 42,
-  "materializedDecisionCount": 0,
-  "remainingDecisionCount": 42,
-  "decisions": [],
-  "decisionRecordContract": {
-    "requiredFields": [
-      "decisionId",
-      "characterId",
-      "domain",
-      "previousState",
-      "decision",
-      "reason",
-      "evidencePaths",
-      "conflictsConsidered",
-      "forbiddenImageInferences",
-      "authorityUpdates",
-      "status"
+  "materializedDecisionCount": 42,
+  "remainingDecisionCount": 0,
+  "coveredDecisionIds": [
+    "core5.yui.bodyAdornment",
+    "core5.yui.skinCoverage",
+    "core5.yui.personalGrooming",
+    "core5.yui.footwearGroundInterface",
+    "core5.yui.accessoryPropInventory",
+    "core5.yui.materialWearMaintenance",
+    "core5.asa.bodyAdornment",
+    "core5.asa.skinCoverage",
+    "core5.asa.personalGrooming",
+    "core5.asa.footwearGroundInterface",
+    "core5.asa.accessoryPropInventory",
+    "core5.asa.materialWearMaintenance",
+    "core5.nagi.bodyAdornment",
+    "core5.nagi.skinCoverage",
+    "core5.nagi.personalGrooming",
+    "core5.nagi.footwearGroundInterface",
+    "core5.nagi.accessoryPropInventory",
+    "core5.nagi.materialWearMaintenance",
+    "core5.michiru.bodyAdornment",
+    "core5.michiru.skinCoverage",
+    "core5.michiru.personalGrooming",
+    "core5.michiru.footwearGroundInterface",
+    "core5.michiru.accessoryPropInventory",
+    "core5.michiru.materialWearMaintenance",
+    "core5.tomori.bodyAdornment",
+    "core5.tomori.skinCoverage",
+    "core5.tomori.personalGrooming",
+    "core5.tomori.footwearGroundInterface",
+    "core5.tomori.accessoryPropInventory",
+    "core5.tomori.materialWearMaintenance",
+    "current16.kage4.bodyAdornment",
+    "current16.kage4.personalGrooming",
+    "future15.hiyori.bodyAdornment",
+    "future15.chloe.bodyAdornment",
+    "future15.touma.bodyAdornment",
+    "future15.noa.bodyAdornment",
+    "future15.maki.bodyAdornment",
+    "future15.suzu.bodyAdornment",
+    "future15.io.bodyAdornment",
+    "future15.kai.bodyAdornment",
+    "future15.nao.bodyAdornment",
+    "future15.amane.bodyAdornment"
+  ],
+  "decisionStrategy": {
+    "core5Default": {
+      "appliesTo": "all CORE5 covered decisions unless an explicit resolution below refines an OPEN/pending path",
+      "decision": "ACCEPT_SOURCE_CANDIDATE_AS_CURRENT_PRODUCTION_AUTHORITY",
+      "reason": "The source contracts are already character-specific and sufficiently concrete for visual production. Promotion here is production authority, not new Story Canon.",
+      "evidencePaths": [
+        "data/visual/core5-p0-life-choice-review-contract-v1.json",
+        "data/visual/core5-p1-life-choice-review-contract-v1.json",
+        "data/visual/core5-p2-life-choice-review-contract-v1.json",
+        "data/visual/core5-living-visual-profiles-v1.json"
+      ]
+    },
+    "explicitResolutions": {
+      "core5.asa.bodyAdornment": "Accept authored lobe/helix consideration; tongue piercing is NO_CURRENT_INTEREST and must not be added to the Current baseline.",
+      "core5.tomori.bodyAdornment": "Current baseline permits only minimal work-safe ear metal consistent with existing appearance evidence; NO_CURRENT_TATTOO because no personal/cultural tattoo history is established.",
+      "current16.kage4.bodyAdornment": "NO_CURRENT_PIERCING and NO_CURRENT_TATTOO. Tsumugi's incompletion stays in repairable clothing, basting/blank-space construction and later choice, not permanent body modification.",
+      "current16.kage4.personalGrooming": "Makeup is NONE_OR_LIGHT_CONTEXT_ONLY_LOW_DEFAULT; nails remain natural-or-work-worn; grooming may be lived-in but not randomly unfinished.",
+      "future15.hiyori.bodyAdornment": "Small simple lobe stud(s) are Current baseline; personal and low-density. No additional piercing or tattoo may be inferred.",
+      "future15.chloe.bodyAdornment": "Historical former simple ear piercing may exist, but Current baseline requires no visible piercing jewelry and has NO_CURRENT_TATTOO. Never use body modification as long-lived/magical shorthand.",
+      "future15.touma.bodyAdornment": "NO_CURRENT_PIERCING. Jewelry stays sentimental/work-related and minimal with no dangling metal near tools; tattoo requires separate personal/cultural history authority.",
+      "future15.noa.bodyAdornment": "NO_CURRENT_PIERCING_AT_BASELINE. Artificial-person identity is not signaled by body modification; later personal divergence requires separate authority.",
+      "future15.maki.bodyAdornment": "A small secure simple lobe stud is allowed in Current baseline; no dangling/high-density jewelry and no tattoo.",
+      "future15.suzu.bodyAdornment": "NO_CURRENT_TATTOO. Feminine self-presentation remains in authored clothing, makeup, nails and jewelry without forced permanent body modification.",
+      "future15.io.bodyAdornment": "NO_CURRENT_PIERCING. Body modification must not become gender-classification or androgyny shorthand.",
+      "future15.kai.bodyAdornment": "NO_CURRENT_PIERCING. Twin similarity/difference comes from authored shared choices, wear, posture, storage and grooming, not random body modification.",
+      "future15.nao.bodyAdornment": "NO_CURRENT_PIERCING. Do not escalate piercing to separate Nao from Kai; use the authored garment/grooming differences.",
+      "future15.amane.bodyAdornment": "Small secure flat lobe stud(s) are allowed in Current baseline; no dangling jewelry. Wheelchair propulsion, transfer and reach safety take priority."
+    },
+    "current16Evidence": [
+      "data/visual/current21-extended-living-visual-profiles-v1.json",
+      "data/visual/current16-life-choice-profile-migration-intake-v1.json"
     ],
-    "statusValues": [
-      "CODEX_AUTHOR_DECISION_MATERIALIZED",
-      "EXPLICIT_NON_REQUIRED_WITH_REASON"
-    ],
+    "future15Evidence": [
+      "data/visual/future15-living-visual-profiles-v1.json",
+      "data/visual/future15-life-choice-profile-migration-intake-v1.json"
+    ]
+  },
+  "globalBoundary": {
     "imageOutputMayBeEvidence": false,
     "imageOutputMayBeAuthority": false,
-    "intermediateHumanReviewRequired": false
+    "imageOutputMayAddBodyModification": false,
+    "imageOutputMayCreateRelationshipMeaning": false,
+    "intermediateHumanReviewRequired": false,
+    "legacyHumanGateIsAuditOnly": true
   },
   "completion": {
-    "complete": false,
-    "nextStage": "PARTIAL_EVIDENCE_56_REVIEW_THEN_MASTER_SPEC"
+    "complete": true,
+    "nextStage": "PARTIAL_EVIDENCE_56_AUTONOMOUS_CLOSURE_THEN_MASTER_SPEC"
   }
 }

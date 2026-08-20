@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "closureId": "yoru-no-shirube-all-character-life-choice-partial-evidence-autonomous-closure-v1",
+  "date": "2026-08-20",
+  "status": "CURRENT_AUTONOMOUS_PRODUCTION_CLOSURE_COMPLETE",
+  "authority": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
+  "sourcePacket": "data/visual/all-character-life-choice-partial-evidence-review-v1.json",
+  "scope": {
+    "sourceDecisionCount": 56,
+    "reviewedForAutonomousAuthoring": 56,
+    "remaining": 0,
+    "characterCount": 29,
+    "personalGrooming": 27,
+    "accessoryPropInventory": 29
+  },
+  "resolution": {
+    "selector": "ALL_56_SOURCE_DECISIONS",
+    "preserveDirectSourceEvidence": true,
+    "sourceCandidateValuesMayBeRendered": true,
+    "unsupportedSemanticDimensions": "EXPLICIT_NON_REQUIRED_FOR_MASTER_V1_AND_MUST_NOT_BE_RENDERED",
+    "unsupportedRemovableObjectIdentity": "DO_NOT_INVENT",
+    "unsupportedOwnershipGiftRelationshipMeaning": "DO_NOT_INVENT",
+    "unsupportedGroomingPersonalMeaning": "DO_NOT_INVENT",
+    "genericPolicyMaySupplyMissingCharacterEvidence": false,
+    "imageOutputMayFillMissingMeaning": false,
+    "missingNonVisibleMeaningBlocksMasterGeneration": false,
+    "intermediateHumanReviewRequired": false
+  },
+  "promptBoundary": [
+    "Use only grooming, storage, wear, object, ownership and placement evidence already visible in the source profile/authority chain.",
+    "When a review dimension lacks character-specific evidence, omit it from the image rather than inventing a neutral-looking answer.",
+    "No gift, relationship, ownership transition, personal meaning or removable object may be inferred from generated composition.",
+    "A visually irrelevant unsupported semantic is explicitly non-required for Character Master v1 and remains unavailable to later image-derived authority."
+  ],
+  "completion": {
+    "complete": true,
+    "productionBlockersRemaining": 0,
+    "nextStage": "MASTER_SPEC"
+  }
+}
