@@ -62,7 +62,7 @@ function renderEchoDesk(data) {
         <div>
           <span>FORESHADOW DESK / CROSS-CHARACTER ECHO</span>
           <h2 id="crossEraEchoTitle">最初は性格描写。後から、別の人の言葉と物証で意味が変わる。</h2>
-          <p>10本のCandidate chainを、序盤会話 → 後半の意味反転 → Evidence Gateの順で読む。CORE/STRONG/SUPPORTは完成度点数ではなく、Story上の使い方。</p>
+          <p>16本のCandidate chainを、序盤会話 → 後半の意味反転 → Evidence Gateの順で読む。CORE/STRONG/SUPPORTは完成度点数ではなく、Story上の使い方。</p>
         </div>
         <dl>
           <div><dt>CORE</dt><dd>${data.coreCount}</dd></div>
