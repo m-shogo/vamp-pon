@@ -701,7 +701,7 @@ else {
 
 const counts = isObject(imageProductionList.counts) ? imageProductionList.counts : {};
 if (counts.totalItems !== productionItems.length) fail('image production list totalItems does not match items length');
-if (productionItems.length !== 480) fail(`production plan must contain exactly 480 rows; got ${productionItems.length}`);
+if (productionItems.length !== 486) fail(`production plan must contain exactly 486 rows; got ${productionItems.length}`);
 const characterMasterItems = productionItems.filter((item) => item.recordType === 'master-pack');
 const characterSourceSheetItems = productionItems.filter((item) => item.recordType === 'source-sheet');
 const characterOverviewItems = productionItems.filter((item) => item.recordType === 'overview-read-model');
@@ -712,7 +712,7 @@ if (characterOverviewItems.length !== 36) fail(`production plan must contain 36 
 if (sakuyazaItems.length !== 8) fail(`image production list must contain 8 朔夜座 Masters; got ${sakuyazaItems.length}`);
 if (productionItems.filter((item) => item.kind === 'star-beast-master').length !== 21) fail('image production list must contain 21 Star Beast Masters');
 if (productionItems.filter((item) => item.kind === 'named-object-master').length !== 21) fail('image production list must contain 21 named-object Masters');
-if (productionItems.filter((item) => item.layer === 'lorebook' && item.recordType !== 'overview-read-model').length !== 142) fail('production plan must contain 142 Lorebook derivative rows');
+if (productionItems.filter((item) => item.layer === 'lorebook' && item.recordType !== 'overview-read-model').length !== 148) fail('production plan must contain 148 Lorebook derivative rows');
 if (productionItems.filter((item) => item.layer === 'gameplay').length !== 72) fail('image production list must contain 72 Gameplay rows');
 
 if (errors.length > 0) {

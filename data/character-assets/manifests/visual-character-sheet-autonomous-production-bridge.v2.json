@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 2,
+  "bridgeId": "yoruno-shirube-character-sheet-autonomous-production-bridge-v2",
+  "status": "CURRENT_AUTONOMOUS_PRE_GENERATION_READY",
+  "date": "2026-08-20",
+  "purpose": "Provide the Current no-intermediate-Human Character Design Sheet 01-04 prompt-export bridge while preserving the legacy Human-gated bridge as immutable audit evidence.",
+  "currentAuthority": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
+  "legacyAuditBridge": "data/character-assets/manifests/visual-character-sheet-production-entrypoint-bridge.v1.json",
+  "parentProductionEntrypointSource": "src/game/data/characterReferenceProductionEntrypoint.ts",
+  "parentExporterResolution": "LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT",
+  "parentPolicyResolution": "LIVE_FROM_CHARACTER_REFERENCE_PRODUCTION_ENTRYPOINT",
+  "sheetAdapter": "tools/asset-factory/scripts/export-autonomous-character-design-sheet-prompt.ts",
+  "codeEntrypoint": "src/game/data/characterDesignSheetAutonomousProductionEntrypoint.ts",
+  "settingsAuthority": {
+    "decisionLog": "data/visual/all-character-life-choice-codex-author-decisions-v1.json",
+    "partialEvidenceClosure": "data/visual/all-character-life-choice-partial-evidence-autonomous-closure-v1.json",
+    "decisionCount": 42,
+    "partialEvidenceCount": 56,
+    "allProductionFacingSettingsReady": true
+  },
+  "roster": {
+    "totalCharacters": 36,
+    "sheetsPerCharacter": 4,
+    "totalLogicalSheetSlots": 144,
+    "activeCharacters": 36,
+    "activeLiveAdapterSheetPrompts": 144,
+    "heldCharacters": 0,
+    "heldSheetSlots": 0
+  },
+  "sheetRoles": {
+    "01": "identity-turnaround",
+    "02": "face-expression-acting",
+    "03": "costume-equipment-material",
+    "04": "silhouette-motion-derivation"
+  },
+  "yui": {
+    "legacyHoldSupersededForCurrentExecution": true,
+    "autonomousPacket": "data/character-assets/reviews/yui-character-design-master-pack-autonomous-v2.json",
+    "previousRejectedCandidates": 8,
+    "previousRejectEvidenceMustBeConsumed": true,
+    "sheet02To04GenerationRequiresSheet01AutomaticQaPass": true
+  },
+  "productionBoundary": {
+    "directLegacyPacketProductionAllowed": false,
+    "handWrittenSheetPromptProductionAllowed": false,
+    "lowerExporterProductionAllowed": false,
+    "generatedSheetMayCreateCanon": false,
+    "generatedSheetMayCreateCharacterMasterApproval": false,
+    "generatedSheetMayCreateRuntimeApproval": false,
+    "generatedSheetMayCreateFeedbackRule": false,
+    "humanReviewRequired": false,
+    "automaticQaRequired": true,
+    "structuralHardVetoRequired": true,
+    "semanticQaRequired": true,
+    "finalHumanReviewDeferredToProject100Percent": true,
+    "promptExportAuthorized": true,
+    "imageGenerationAuthorizedByThisBridge": false,
+    "imageGenerationExecutedByThisBridge": false
+  },
+  "authoritySnapshot": {
+    "materializedJitPerExport": true,
+    "sha256RequiredForDecisionLog": true,
+    "sha256RequiredForPartialClosure": true,
+    "sha256RequiredForBridge": true,
+    "promptMustIncludeCharacterDecisionIds": true,
+    "imageMayNotFillUnsupportedMeaning": true
+  },
+  "validationGate": {
+    "parentExporterMustResolveLive": true,
+    "allParentDeclaredRequiredFlagGroupsMustPass": true,
+    "allParentRequiredAuthorityPathsMustPass": true,
+    "all36CharactersMustExportSheet01To04": true,
+    "all144LogicalPromptsMustBeReady": true,
+    "zeroHeldSheetSlotsRequired": true,
+    "zeroIntermediateHumanGatesRequired": true,
+    "noImageGenerationDuringReadinessCheck": true
+  }
+}

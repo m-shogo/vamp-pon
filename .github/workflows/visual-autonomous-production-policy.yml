@@ -5,6 +5,8 @@ on:
     paths:
       - 'data/character-assets/manifests/visual-autonomous-production-policy.v1.json'
       - 'data/character-assets/manifests/visual-autonomous-production-runner-state.v1.json'
+      - 'data/character-assets/manifests/visual-character-sheet-autonomous-production-bridge.v2.json'
+      - 'data/character-assets/manifests/visual-character-master-pre-generation-readiness.v1.json'
       - 'data/character-assets/manifests/core5-era-setting-board-autonomous-queue.v2.json'
       - 'data/character-assets/manifests/core5-era-setting-board-execution-queue.v1.json'
       - 'data/character-assets/reviews/yui-character-design-master-pack-autonomous-v2.json'
@@ -15,15 +17,22 @@ on:
       - 'data/visual/all-character-life-choice-author-decision-packet-v1.json'
       - 'data/visual/all-character-life-choice-autonomous-authoring-queue-v1.json'
       - 'data/visual/all-character-life-choice-codex-author-decisions-v1.json'
+      - 'data/visual/all-character-life-choice-partial-evidence-autonomous-closure-v1.json'
+      - 'src/game/data/characterDesignSheetAutonomousProductionEntrypoint.ts'
+      - 'src/game/data/visualAutonomousProductionExecutionView.ts'
+      - 'tools/asset-factory/scripts/export-autonomous-character-design-sheet-prompt.ts'
       - 'scripts/quality/check-visual-autonomous-production-policy.ts'
       - 'scripts/quality/check-visual-autonomous-execution-adapters.ts'
       - 'scripts/quality/check-life-choice-autonomous-authoring-queue.ts'
+      - 'scripts/quality/check-character-master-pre-generation-readiness.ts'
       - '.github/workflows/visual-autonomous-production-policy.yml'
   push:
     branches: [main]
     paths:
       - 'data/character-assets/manifests/visual-autonomous-production-policy.v1.json'
       - 'data/character-assets/manifests/visual-autonomous-production-runner-state.v1.json'
+      - 'data/character-assets/manifests/visual-character-sheet-autonomous-production-bridge.v2.json'
+      - 'data/character-assets/manifests/visual-character-master-pre-generation-readiness.v1.json'
       - 'data/character-assets/manifests/core5-era-setting-board-autonomous-queue.v2.json'
       - 'data/character-assets/manifests/core5-era-setting-board-execution-queue.v1.json'
       - 'data/character-assets/reviews/yui-character-design-master-pack-autonomous-v2.json'
@@ -34,9 +43,14 @@ on:
       - 'data/visual/all-character-life-choice-author-decision-packet-v1.json'
       - 'data/visual/all-character-life-choice-autonomous-authoring-queue-v1.json'
       - 'data/visual/all-character-life-choice-codex-author-decisions-v1.json'
+      - 'data/visual/all-character-life-choice-partial-evidence-autonomous-closure-v1.json'
+      - 'src/game/data/characterDesignSheetAutonomousProductionEntrypoint.ts'
+      - 'src/game/data/visualAutonomousProductionExecutionView.ts'
+      - 'tools/asset-factory/scripts/export-autonomous-character-design-sheet-prompt.ts'
       - 'scripts/quality/check-visual-autonomous-production-policy.ts'
       - 'scripts/quality/check-visual-autonomous-execution-adapters.ts'
       - 'scripts/quality/check-life-choice-autonomous-authoring-queue.ts'
+      - 'scripts/quality/check-character-master-pre-generation-readiness.ts'
       - '.github/workflows/visual-autonomous-production-policy.yml'
 
 jobs:
@@ -48,5 +62,7 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-visual-autonomous-production-policy.ts
       - name: Validate Core5 and Yui autonomous execution adapters
         run: node --experimental-strip-types scripts/quality/check-visual-autonomous-execution-adapters.ts
-      - name: Validate delegated 42-item life-choice authoring queue
+      - name: Validate completed 42-item Codex authoring queue
         run: node --experimental-strip-types scripts/quality/check-life-choice-autonomous-authoring-queue.ts
+      - name: Validate 36-character 144-sheet pre-generation readiness without image execution
+        run: node --experimental-strip-types scripts/quality/check-character-master-pre-generation-readiness.ts

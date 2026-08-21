@@ -28,12 +28,12 @@ for (const [field, expected] of Object.entries(expectedCounts)) {
 
 const legacyItems = Array.isArray(legacy.items) ? legacy.items : [];
 const currentItems = Array.isArray(current.items) ? current.items : [];
-if (legacyItems.length !== currentItems.length || currentItems.length !== 480) fail(`stable managed row count must remain 480: legacy=${legacyItems.length}, current=${currentItems.length}`);
+if (legacyItems.length !== currentItems.length || currentItems.length !== 486) fail(`stable managed row count must remain 486: legacy=${legacyItems.length}, current=${currentItems.length}`);
 
 const legacyKindSet = new Set<string>(LEGACY_BAKED_LOREBOOK_KINDS);
 const legacyBakedRows = legacyItems.filter((item: any) => item.layer === 'lorebook' && legacyKindSet.has(item.kind));
 const migratedRows = currentItems.filter((item: any) => item.recordType === 'lorebook-composition-read-model');
-if (legacyBakedRows.length !== 142 || migratedRows.length !== 142) fail(`expected 142 legacy/migrated Lorebook rows, got ${legacyBakedRows.length}/${migratedRows.length}`);
+if (legacyBakedRows.length !== 148 || migratedRows.length !== 148) fail(`expected 148 legacy/migrated Lorebook rows, got ${legacyBakedRows.length}/${migratedRows.length}`);
 
 const breakdown = new Map<string, number>();
 for (const row of migratedRows) breakdown.set(row.kind, (breakdown.get(row.kind) ?? 0) + 1);
@@ -73,7 +73,7 @@ if (currentIndependentBaked.length !== 0) fail(`current execution view still has
 const imageBearing = currentItems.filter((item: any) => Array.isArray(item.candidateIds) && item.candidateIds.length > 0 && /\.(?:png|webp|jpe?g)$/i.test(String(item.outputPath ?? '')));
 if (imageBearing.length !== 266) fail(`expected 266 image-bearing managed rows after Lorebook migration, got ${imageBearing.length}`);
 const nonImage = currentItems.length - imageBearing.length;
-if (nonImage !== 214) fail(`expected 214 non-image logical rows after Lorebook migration, got ${nonImage}`);
+if (nonImage !== 220) fail(`expected 220 non-image logical rows after Lorebook migration, got ${nonImage}`);
 
 // The human-facing image-generation backlog must describe this Current execution view,
 // not the superseded 408-image interpretation that counted 142 Lorebook cards as PNGs.
@@ -122,7 +122,7 @@ if (master.nonRasterOrNotYetAdmittedMasterWork?.core5EraSettingBoards?.count !==
 if (master.nonRasterOrNotYetAdmittedMasterWork?.toumon?.format !== 'SVG_VECTOR' || master.nonRasterOrNotYetAdmittedMasterWork?.toumon?.countedInManaged266 !== false) fail('Toumon must remain non-raster vector authority');
 
 const guide: any = phaseById.get('GUIDE_DB');
-if (guide.managedIndependentImageRows !== 0 || guide.lorebookCompositionReadModels !== migratedRows.length) fail('Guide/DB must remain 142 compositions and zero independent images');
+if (guide.managedIndependentImageRows !== 0 || guide.lorebookCompositionReadModels !== migratedRows.length) fail('Guide/DB must remain 148 compositions and zero independent images');
 if (guide.compositionOutput !== 'JSON_COMPOSITION_READ_MODEL' || guide.subjectArtwork !== 'APPROVED_MASTER_REFERENCE_OR_CROP' || guide.layout !== 'HTML_CSS_SVG_DATA') fail('Guide/DB reuse composition contract drifted');
 if (guide.bakedReadableTextIntoRaster !== false || guide.guideDbMayParentGameplay !== false) fail('Guide/DB raster/gameplay-parent boundary weakened');
 
