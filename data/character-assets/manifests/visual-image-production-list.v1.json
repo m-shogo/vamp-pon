@@ -70,7 +70,7 @@
     "yui-character-design-sheet-01-v1-rejects": "data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json"
   },
   "counts": {
-    "totalItems": 480,
+    "totalItems": 486,
     "characterDesignMasterPacks": 36,
     "characterDesignSourceSheets": 144,
     "characterDesignSourceSheetsPerPack": 4,
@@ -79,7 +79,7 @@
     "sakuyazaMasters": 8,
     "starBeastMasters": 21,
     "namedObjectMasters": 21,
-    "lorebookItems": 178,
+    "lorebookItems": 184,
     "gameplayItems": 72,
     "existingAssetGenerationContractsIndexed": 977
   },
@@ -40714,6 +40714,274 @@
         "plannedParentPackIds": [
           "char-yomo-design-master-pack-v1",
           "char-shiro-design-master-pack-v1"
+        ]
+      }
+    },
+    {
+      "assetId": "foreshadow-care-consent-kaname-nemu-lorebook-card-v1",
+      "subjectId": "care-consent-kaname-nemu",
+      "subjectType": "foreshadow-chain",
+      "title": "care-consent-kaname-nemu Foreshadow Card",
+      "batchId": "batch-10-foreshadow-mystery-cards-v1",
+      "priority": "P6_LOREBOOK",
+      "layer": "lorebook",
+      "kind": "lorebook-foreshadow",
+      "authorityStatus": "AUTHOR_CANDIDATE",
+      "productionStatus": "blocked-parent-pack",
+      "reviewStatus": "needs-generation",
+      "sourceOfTruth": [
+        "cross-era-echo-chains"
+      ],
+      "parentAssetIds": [],
+      "promptPacketId": null,
+      "outputPath": "assets/import-staging/lorebook/foreshadow-care-consent-kaname-nemu-lorebook-card-v1/foreshadow-care-consent-kaname-nemu-lorebook-card-v1.png",
+      "candidateIds": [
+        "foreshadow-care-consent-kaname-nemu-lorebook-card-candidate-a-v1",
+        "foreshadow-care-consent-kaname-nemu-lorebook-card-candidate-b-v1",
+        "foreshadow-care-consent-kaname-nemu-lorebook-card-candidate-c-v1",
+        "foreshadow-care-consent-kaname-nemu-lorebook-card-candidate-d-v1"
+      ],
+      "qaChecklist": [
+        "setup",
+        "misread",
+        "evidence",
+        "reinterpretation",
+        "payoff",
+        "candidate-visible"
+      ],
+      "blocker": "Approved complete Character Design Master PackのparentPackId/hash/usedSheetIdsが固定されるまで生成禁止。",
+      "notes": "恋愛・保護者役・医療設定・家族役割を自動Canon化しない。",
+      "derivationParent": {
+        "parentPackId": null,
+        "parentPackHash": null,
+        "usedSheetIds": [],
+        "plannedParentPackIds": [
+          "char-kaname-design-master-pack-v1",
+          "char-nemu-design-master-pack-v1"
+        ]
+      }
+    },
+    {
+      "assetId": "foreshadow-repair-memory-tsumugi-renji-hana-lorebook-card-v1",
+      "subjectId": "repair-memory-tsumugi-renji-hana",
+      "subjectType": "foreshadow-chain",
+      "title": "repair-memory-tsumugi-renji-hana Foreshadow Card",
+      "batchId": "batch-10-foreshadow-mystery-cards-v1",
+      "priority": "P6_LOREBOOK",
+      "layer": "lorebook",
+      "kind": "lorebook-foreshadow",
+      "authorityStatus": "AUTHOR_CANDIDATE",
+      "productionStatus": "blocked-parent-pack",
+      "reviewStatus": "needs-generation",
+      "sourceOfTruth": [
+        "cross-era-echo-chains"
+      ],
+      "parentAssetIds": [],
+      "promptPacketId": null,
+      "outputPath": "assets/import-staging/lorebook/foreshadow-repair-memory-tsumugi-renji-hana-lorebook-card-v1/foreshadow-repair-memory-tsumugi-renji-hana-lorebook-card-v1.png",
+      "candidateIds": [
+        "foreshadow-repair-memory-tsumugi-renji-hana-lorebook-card-candidate-a-v1",
+        "foreshadow-repair-memory-tsumugi-renji-hana-lorebook-card-candidate-b-v1",
+        "foreshadow-repair-memory-tsumugi-renji-hana-lorebook-card-candidate-c-v1",
+        "foreshadow-repair-memory-tsumugi-renji-hana-lorebook-card-candidate-d-v1"
+      ],
+      "qaChecklist": [
+        "setup",
+        "misread",
+        "evidence",
+        "reinterpretation",
+        "payoff",
+        "candidate-visible"
+      ],
+      "blocker": "Approved complete Character Design Master PackのparentPackId/hash/usedSheetIdsが固定されるまで生成禁止。",
+      "notes": "三人を同じ時代・同じ職業・同じ家族や工房へ結びつけない。",
+      "derivationParent": {
+        "parentPackId": null,
+        "parentPackHash": null,
+        "usedSheetIds": [],
+        "plannedParentPackIds": [
+          "char-tsumugi-design-master-pack-v1",
+          "char-renji-design-master-pack-v1",
+          "char-hana-design-master-pack-v1"
+        ]
+      }
+    },
+    {
+      "assetId": "foreshadow-name-context-kasumi-amane-asa-lorebook-card-v1",
+      "subjectId": "name-context-kasumi-amane-asa",
+      "subjectType": "foreshadow-chain",
+      "title": "name-context-kasumi-amane-asa Foreshadow Card",
+      "batchId": "batch-10-foreshadow-mystery-cards-v1",
+      "priority": "P6_LOREBOOK",
+      "layer": "lorebook",
+      "kind": "lorebook-foreshadow",
+      "authorityStatus": "AUTHOR_CANDIDATE",
+      "productionStatus": "blocked-parent-pack",
+      "reviewStatus": "needs-generation",
+      "sourceOfTruth": [
+        "cross-era-echo-chains"
+      ],
+      "parentAssetIds": [],
+      "promptPacketId": null,
+      "outputPath": "assets/import-staging/lorebook/foreshadow-name-context-kasumi-amane-asa-lorebook-card-v1/foreshadow-name-context-kasumi-amane-asa-lorebook-card-v1.png",
+      "candidateIds": [
+        "foreshadow-name-context-kasumi-amane-asa-lorebook-card-candidate-a-v1",
+        "foreshadow-name-context-kasumi-amane-asa-lorebook-card-candidate-b-v1",
+        "foreshadow-name-context-kasumi-amane-asa-lorebook-card-candidate-c-v1",
+        "foreshadow-name-context-kasumi-amane-asa-lorebook-card-candidate-d-v1"
+      ],
+      "qaChecklist": [
+        "setup",
+        "misread",
+        "evidence",
+        "reinterpretation",
+        "payoff",
+        "candidate-visible"
+      ],
+      "blocker": "Approved complete Character Design Master PackのparentPackId/hash/usedSheetIdsが固定されるまで生成禁止。",
+      "notes": "別名使用から犯罪・性別・恋愛・裏切りを自動確定しない。",
+      "derivationParent": {
+        "parentPackId": null,
+        "parentPackHash": null,
+        "usedSheetIds": [],
+        "plannedParentPackIds": [
+          "char-kasumi-design-master-pack-v1",
+          "char-amane-design-master-pack-v1",
+          "char-asa-design-master-pack-v1"
+        ]
+      }
+    },
+    {
+      "assetId": "foreshadow-record-silence-hiyori-kuroori-ren-lorebook-card-v1",
+      "subjectId": "record-silence-hiyori-kuroori-ren",
+      "subjectType": "foreshadow-chain",
+      "title": "record-silence-hiyori-kuroori-ren Foreshadow Card",
+      "batchId": "batch-10-foreshadow-mystery-cards-v1",
+      "priority": "P6_LOREBOOK",
+      "layer": "lorebook",
+      "kind": "lorebook-foreshadow",
+      "authorityStatus": "AUTHOR_CANDIDATE",
+      "productionStatus": "blocked-parent-pack",
+      "reviewStatus": "needs-generation",
+      "sourceOfTruth": [
+        "cross-era-echo-chains"
+      ],
+      "parentAssetIds": [],
+      "promptPacketId": null,
+      "outputPath": "assets/import-staging/lorebook/foreshadow-record-silence-hiyori-kuroori-ren-lorebook-card-v1/foreshadow-record-silence-hiyori-kuroori-ren-lorebook-card-v1.png",
+      "candidateIds": [
+        "foreshadow-record-silence-hiyori-kuroori-ren-lorebook-card-candidate-a-v1",
+        "foreshadow-record-silence-hiyori-kuroori-ren-lorebook-card-candidate-b-v1",
+        "foreshadow-record-silence-hiyori-kuroori-ren-lorebook-card-candidate-c-v1",
+        "foreshadow-record-silence-hiyori-kuroori-ren-lorebook-card-candidate-d-v1"
+      ],
+      "qaChecklist": [
+        "setup",
+        "misread",
+        "evidence",
+        "reinterpretation",
+        "payoff",
+        "candidate-visible"
+      ],
+      "blocker": "Approved complete Character Design Master PackのparentPackId/hash/usedSheetIdsが固定されるまで生成禁止。",
+      "notes": "沈黙＝反対、redaction＝悪意、複数記録＝独立証言と自動判定しない。",
+      "derivationParent": {
+        "parentPackId": null,
+        "parentPackHash": null,
+        "usedSheetIds": [],
+        "plannedParentPackIds": [
+          "char-hiyori-design-master-pack-v1",
+          "char-kuroori-design-master-pack-v1",
+          "char-ren-design-master-pack-v1"
+        ]
+      }
+    },
+    {
+      "assetId": "foreshadow-meeting-place-touma-kuu-yuubi-lorebook-card-v1",
+      "subjectId": "meeting-place-touma-kuu-yuubi",
+      "subjectType": "foreshadow-chain",
+      "title": "meeting-place-touma-kuu-yuubi Foreshadow Card",
+      "batchId": "batch-10-foreshadow-mystery-cards-v1",
+      "priority": "P6_LOREBOOK",
+      "layer": "lorebook",
+      "kind": "lorebook-foreshadow",
+      "authorityStatus": "AUTHOR_CANDIDATE",
+      "productionStatus": "blocked-parent-pack",
+      "reviewStatus": "needs-generation",
+      "sourceOfTruth": [
+        "cross-era-echo-chains"
+      ],
+      "parentAssetIds": [],
+      "promptPacketId": null,
+      "outputPath": "assets/import-staging/lorebook/foreshadow-meeting-place-touma-kuu-yuubi-lorebook-card-v1/foreshadow-meeting-place-touma-kuu-yuubi-lorebook-card-v1.png",
+      "candidateIds": [
+        "foreshadow-meeting-place-touma-kuu-yuubi-lorebook-card-candidate-a-v1",
+        "foreshadow-meeting-place-touma-kuu-yuubi-lorebook-card-candidate-b-v1",
+        "foreshadow-meeting-place-touma-kuu-yuubi-lorebook-card-candidate-c-v1",
+        "foreshadow-meeting-place-touma-kuu-yuubi-lorebook-card-candidate-d-v1"
+      ],
+      "qaChecklist": [
+        "setup",
+        "misread",
+        "evidence",
+        "reinterpretation",
+        "payoff",
+        "candidate-visible"
+      ],
+      "blocker": "Approved complete Character Design Master PackのparentPackId/hash/usedSheetIdsが固定されるまで生成禁止。",
+      "notes": "私的呼称や配送痕から出生地・現住所・家族関係を自動確定しない。",
+      "derivationParent": {
+        "parentPackId": null,
+        "parentPackHash": null,
+        "usedSheetIds": [],
+        "plannedParentPackIds": [
+          "char-touma-design-master-pack-v1",
+          "char-kuu-design-master-pack-v1",
+          "char-yuubi-design-master-pack-v1"
+        ]
+      }
+    },
+    {
+      "assetId": "foreshadow-signal-meaning-suzu-maki-lorebook-card-v1",
+      "subjectId": "signal-meaning-suzu-maki",
+      "subjectType": "foreshadow-chain",
+      "title": "signal-meaning-suzu-maki Foreshadow Card",
+      "batchId": "batch-10-foreshadow-mystery-cards-v1",
+      "priority": "P6_LOREBOOK",
+      "layer": "lorebook",
+      "kind": "lorebook-foreshadow",
+      "authorityStatus": "AUTHOR_CANDIDATE",
+      "productionStatus": "blocked-parent-pack",
+      "reviewStatus": "needs-generation",
+      "sourceOfTruth": [
+        "cross-era-echo-chains"
+      ],
+      "parentAssetIds": [],
+      "promptPacketId": null,
+      "outputPath": "assets/import-staging/lorebook/foreshadow-signal-meaning-suzu-maki-lorebook-card-v1/foreshadow-signal-meaning-suzu-maki-lorebook-card-v1.png",
+      "candidateIds": [
+        "foreshadow-signal-meaning-suzu-maki-lorebook-card-candidate-a-v1",
+        "foreshadow-signal-meaning-suzu-maki-lorebook-card-candidate-b-v1",
+        "foreshadow-signal-meaning-suzu-maki-lorebook-card-candidate-c-v1",
+        "foreshadow-signal-meaning-suzu-maki-lorebook-card-candidate-d-v1"
+      ],
+      "qaChecklist": [
+        "setup",
+        "misread",
+        "evidence",
+        "reinterpretation",
+        "payoff",
+        "candidate-visible"
+      ],
+      "blocker": "Approved complete Character Design Master PackのparentPackId/hash/usedSheetIdsが固定されるまで生成禁止。",
+      "notes": "聴覚特性・金銭感覚から超能力・職業・階級・年代を断定しない。",
+      "derivationParent": {
+        "parentPackId": null,
+        "parentPackHash": null,
+        "usedSheetIds": [],
+        "plannedParentPackIds": [
+          "char-suzu-design-master-pack-v1",
+          "char-maki-design-master-pack-v1"
         ]
       }
     },
