@@ -56,7 +56,8 @@ if (state.settings?.lifeChoiceAuthorDecisionQueue?.total !== 42 || state.setting
 if (state.settings?.partialEvidence?.total !== 56 || state.settings?.partialEvidence?.reviewedForAutonomousAuthoring !== 56 || state.settings?.partialEvidence?.remaining !== 0) fail('runner 56-closure progress invalid');
 if (state.settings?.schemaReady?.total !== 109 || state.settings?.speciesAdapter?.total !== 9) fail('216-item partition drifted');
 if (state.masterProduction?.characterPacks !== 36 || state.masterProduction?.characterSheetSlots !== 144 || state.masterProduction?.yuiPreviousCandidatesRejected !== 8 || state.masterProduction?.yuiRegenerationAuthorized !== true) fail('Character Master counts/Yui state invalid');
-if (state.managedExecution?.stableRows !== 480 || state.managedExecution?.imageBearingRows !== 266 || state.managedExecution?.logicalNonImageRows !== 214 || state.managedExecution?.assetFactoryContractsIndexed !== 977 || state.managedExecution?.assetFactoryContractsAdmittedForGeneration !== 0) fail('managed execution/admission counts drifted');
+if (state.managedExecution?.stableRows !== 486 || state.managedExecution?.imageBearingRows !== 266 || state.managedExecution?.logicalNonImageRows !== 220 || state.managedExecution?.assetFactoryContractsIndexed !== 977 || state.managedExecution?.assetFactoryContractsAdmittedForGeneration !== 0) fail('managed execution/admission counts drifted');
+if (state.managedExecution?.sourceOfTruth !== 'src/game/data/visualProductionExecutionView.ts') fail('managed execution count source-of-truth missing');
 if (state.humanReview?.intermediateRequired !== false || state.humanReview?.finalRequired !== true || state.humanReview?.requestAllowed !== false) fail('runner Human gate invalid');
 if (state.logo?.ownedByThisRunner !== false || state.logo?.blocksNonLogoPipeline !== false || state.logo?.requiredBeforeFinal100Percent !== true) fail('runner logo boundary invalid');
 if (state.completionGate?.project100PercentReady !== false) fail('project prematurely marked 100%');
@@ -67,4 +68,4 @@ if (pregen.generationAdmission?.intermediateHumanReviewRequired !== false || pre
 
 for (const required of ['There is no intermediate Human approval gate.','Generated images are never allowed to invent or close setting facts.','Do not generate or alter the logo in this loop.','Only then:']) if (!checklist.includes(required)) fail(`checklist boundary missing: ${required}`);
 
-console.log(JSON.stringify({ status:'PASS', currentStage:state.currentStage, settings:'42/42 + 56/56', characterMasterPromptSlots:144, generatedImagesInPreparation:0, intermediateHumanReviewRequired:false, logoOwnedByRunner:false }, null, 2));
+console.log(JSON.stringify({ status:'PASS', currentStage:state.currentStage, settings:'42/42 + 56/56', managedRows:'486 = 266 image + 220 non-image', characterMasterPromptSlots:144, generatedImagesInPreparation:0, intermediateHumanReviewRequired:false, logoOwnedByRunner:false }, null, 2));
