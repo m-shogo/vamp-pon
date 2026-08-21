@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "stateId": "yoruno-shirube-visual-autonomous-production-runner-state-v1",
-  "date": "2026-08-20",
+  "date": "2026-08-21",
   "status": "ACTIVE_AUTONOMOUS_PIPELINE",
   "policy": "data/character-assets/manifests/visual-autonomous-production-policy.v1.json",
   "checklist": "docs/visual/visual-autonomous-production-checklist-v1.md",
@@ -62,9 +62,11 @@
     "itemSourceRowsPendingLineageNormalization": 105
   },
   "managedExecution": {
-    "stableRows": 480,
+    "stableRows": 486,
     "imageBearingRows": 266,
-    "logicalNonImageRows": 214,
+    "logicalNonImageRows": 220,
+    "sourceOfTruth": "src/game/data/visualProductionExecutionView.ts",
+    "countSyncReason": "Cross-era Story/Lorebook expansion added six logical non-image managed rows; image-bearing scope remains unchanged.",
     "assetFactoryContractsIndexed": 977,
     "assetFactoryContractsAdmittedForGeneration": 0
   },
