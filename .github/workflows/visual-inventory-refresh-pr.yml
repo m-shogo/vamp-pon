@@ -1,0 +1,44 @@
+name: Visual Inventory Refresh PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: github.event.pull_request.head.ref == 'visual/pre-generation-readiness-v1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Regenerate canonical visual inventory snapshots
+        run: pnpm visual-assets:inventory:export
+      - name: Commit generated snapshots when changed
+        shell: bash
+        run: |
+          if git diff --quiet -- data/character-assets/manifests; then
+            echo 'Visual inventory snapshots already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/character-assets/manifests/visual-asset-coverage.v1.json \
+                  data/character-assets/manifests/visual-asset-master-registry.v1.json \
+                  data/character-assets/manifests/visual-generation-batches.v1.json \
+                  data/character-assets/manifests/visual-character-prompt-packets.v1.json \
+                  data/character-assets/manifests/visual-image-production-list.v1.json
+          git commit -m 'chore: refresh visual inventory snapshots'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
