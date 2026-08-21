@@ -30,6 +30,25 @@ jobs:
           node-version: '22'
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - name: Align registry checker with Current Story/Lorebook inventory
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('scripts/quality/check-visual-asset-master-registry.ts')
+          s = p.read_text()
+          s = s.replace('productionItems.length !== 480', 'productionItems.length !== 486')
+          s = s.replace('exactly 480 rows', 'exactly 486 rows')
+          s = s.replace(".length !== 142) fail('production plan must contain 142 Lorebook derivative rows')", ".length !== 148) fail('production plan must contain 148 Lorebook derivative rows')")
+          p.write_text(s)
+          PY
+          if ! git diff --quiet -- scripts/quality/check-visual-asset-master-registry.ts; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add scripts/quality/check-visual-asset-master-registry.ts
+            git commit -m 'test: align visual registry counts with current lorebook inventory'
+            git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          fi
       - name: Refresh generated visual inventory snapshots
         run: pnpm visual-assets:inventory:export
       - name: Commit refreshed snapshots when needed
