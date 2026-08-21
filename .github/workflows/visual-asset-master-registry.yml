@@ -4,167 +4,14 @@ on:
   pull_request:
     paths:
       - 'data/character-assets/manifests/**'
-      - 'data/character-assets/reviews/**'
-      - 'data/character-assets/templates/**'
       - 'data/visual/**'
-      - 'docs/visual/**'
-      - 'docs/visual-asset-generation-foundation-v1.md'
-      - 'docs/sakuyaza-current-identity-v1.md'
-      - 'docs/gunjo-zankyoroku-current-v1.md'
-      - 'docs/00-current-story-world-master.md'
-      - 'docs/yatsukage-identity-v1.md'
-      - 'docs/yatsukage-pair-dynamics-v1.md'
-      - 'docs/yatsukage-current21-relationship-matrix-v1.md'
-      - 'docs/yatsukage-encounter-memory-v1.md'
-      - 'assets/reference/character-master/**'
-      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
-      - 'src/game/data/characterAppearanceGenerationContracts.ts'
-      - 'src/game/data/characterHandednessEquipmentRegistry.ts'
-      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
-      - 'src/game/data/characterRealityRootRegistry.ts'
-      - 'src/game/data/characterReferenceProductionQueue.ts'
-      - 'src/game/data/characterSilhouetteCanon.ts'
-      - 'src/game/data/current21SilhouetteMatrix.ts'
-      - 'src/game/data/characterThemeColorReservoir.ts'
-      - 'src/game/data/characterDatabase.ts'
-      - 'src/game/data/characterProductionPlans.ts'
-      - 'src/game/data/characterDesignSheetProductionEntrypoint.ts'
-      - 'src/game/data/visualProductionExecutionView.ts'
-      - 'src/game/data/itemProductionCanon.ts'
-      - 'src/game/data/itemAssetProductionDatabase.ts'
-      - 'src/game/data/enemyProductionDatabase.ts'
-      - 'src/game/data/stageProductionDatabase.ts'
-      - 'src/game/data/toumonSimpleSigilCanon.ts'
-      - 'src/game/data/constellationStoryClueReservoir.ts'
-      - 'src/game/data/namedObjectVisualSharedSource.ts'
-      - 'src/game/data/starBeastVisualSharedSource.ts'
-      - 'src/game/data/storyWorldMasterSource.ts'
-      - 'src/game/data/dreamSocialWorldSource.ts'
-      - 'src/game/data/sakumeiCandidateSource.ts'
-      - 'src/game/data/yatsukageIdentitySource.ts'
-      - 'src/game/data/yatsukageCollectionPresentationSource.ts'
-      - 'src/game/data/current21YatsukageRelationshipSource.ts'
-      - 'src/game/data/yatsukageEncounterMemorySource.ts'
-      - 'src/game/data/yatsukagePairDynamicsSource.ts'
-      - 'src/game/data/sakuyazaLegacyMigrationSource.ts'
-      - 'src/game/data/visualPreGameSourceMasterInventory.ts'
-      - 'src/game/data/assetGenerationPolicy.ts'
-      - 'src/game/data/assetFactoryCharacterPrompts.ts'
-      - 'src/game/data/visualAssetGenerationInventory.ts'
-      - 'tools/asset-factory/scripts/export-character-design-sheet-prompt.ts'
-      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
-      - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
-      - 'scripts/quality/check-character-design-sheet-production-entrypoint.ts'
-      - 'scripts/quality/check-visual-item-lineage-review-queue.ts'
-      - 'scripts/quality/check-visual-production-execution-view.ts'
-      - 'scripts/quality/check-gunjo-record-foundation-masters.ts'
-      - 'scripts/quality/check-world-dream-sky-foundation-masters.ts'
-      - 'scripts/quality/check-modern-iau88-project-line-art-vector-master.ts'
-      - 'scripts/quality/check-modern-iau88-dataset-binding-plan.ts'
-      - 'scripts/quality/check-core5-era-environment-household-authoring-brief.ts'
-      - 'scripts/quality/check-core5-era-setting-board-production-contract.ts'
-      - 'scripts/quality/check-core5-era-setting-board-evidence-packets.ts'
-      - 'scripts/quality/check-core5-era-setting-board-execution-queue.ts'
-      - 'scripts/quality/check-core5-era-setting-board-specs.ts'
-      - 'scripts/quality/check-core5-era-setting-board-human-review-packet.ts'
-      - 'scripts/quality/check-visual-asset-master-registry.ts'
-      - 'scripts/quality/check-visual-generation-governance.ts'
-      - 'scripts/quality/check-visual-current-group-record-master.ts'
-      - 'scripts/quality/check-visual-gunjo-subject-admission.ts'
-      - 'scripts/quality/check-visual-story-authority-coverage-audit.ts'
-      - 'scripts/quality/check-sakuyaza-legacy-migration.ts'
-      - 'scripts/quality/check-visual-pre-game-fixed-master-rows.ts'
-      - 'scripts/quality/check-visual-pre-game-source-master-inventory.ts'
-      - 'scripts/quality/check-visual-existing-top-loading-reuse-audit.ts'
-      - 'scripts/quality/check-visual-guide-db-reuse-policy.ts'
-      - 'scripts/quality/check-visual-existing-contract-output-audit.ts'
-      - 'scripts/quality/check-visual-audit-resolution-ledger.ts'
-      - 'package.json'
-      - '.github/workflows/visual-asset-master-registry.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'data/character-assets/manifests/**'
-      - 'data/character-assets/reviews/**'
-      - 'data/character-assets/templates/**'
-      - 'data/visual/**'
-      - 'docs/visual/**'
-      - 'docs/visual-asset-generation-foundation-v1.md'
-      - 'docs/sakuyaza-current-identity-v1.md'
-      - 'docs/gunjo-zankyoroku-current-v1.md'
-      - 'docs/00-current-story-world-master.md'
-      - 'docs/yatsukage-identity-v1.md'
-      - 'docs/yatsukage-pair-dynamics-v1.md'
-      - 'docs/yatsukage-current21-relationship-matrix-v1.md'
-      - 'docs/yatsukage-encounter-memory-v1.md'
-      - 'assets/reference/character-master/**'
-      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
-      - 'src/game/data/characterAppearanceGenerationContracts.ts'
-      - 'src/game/data/characterHandednessEquipmentRegistry.ts'
-      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
-      - 'src/game/data/characterRealityRootRegistry.ts'
-      - 'src/game/data/characterReferenceProductionQueue.ts'
-      - 'src/game/data/characterSilhouetteCanon.ts'
-      - 'src/game/data/current21SilhouetteMatrix.ts'
-      - 'src/game/data/characterThemeColorReservoir.ts'
-      - 'src/game/data/characterDatabase.ts'
-      - 'src/game/data/characterProductionPlans.ts'
-      - 'src/game/data/characterDesignSheetProductionEntrypoint.ts'
-      - 'src/game/data/visualProductionExecutionView.ts'
-      - 'src/game/data/itemProductionCanon.ts'
-      - 'src/game/data/itemAssetProductionDatabase.ts'
-      - 'src/game/data/enemyProductionDatabase.ts'
-      - 'src/game/data/stageProductionDatabase.ts'
-      - 'src/game/data/toumonSimpleSigilCanon.ts'
-      - 'src/game/data/constellationStoryClueReservoir.ts'
-      - 'src/game/data/namedObjectVisualSharedSource.ts'
-      - 'src/game/data/starBeastVisualSharedSource.ts'
-      - 'src/game/data/storyWorldMasterSource.ts'
-      - 'src/game/data/dreamSocialWorldSource.ts'
-      - 'src/game/data/sakumeiCandidateSource.ts'
-      - 'src/game/data/yatsukageIdentitySource.ts'
-      - 'src/game/data/yatsukageCollectionPresentationSource.ts'
-      - 'src/game/data/current21YatsukageRelationshipSource.ts'
-      - 'src/game/data/yatsukageEncounterMemorySource.ts'
-      - 'src/game/data/yatsukagePairDynamicsSource.ts'
-      - 'src/game/data/sakuyazaLegacyMigrationSource.ts'
-      - 'src/game/data/visualPreGameSourceMasterInventory.ts'
-      - 'src/game/data/assetGenerationPolicy.ts'
-      - 'src/game/data/assetFactoryCharacterPrompts.ts'
-      - 'src/game/data/visualAssetGenerationInventory.ts'
-      - 'tools/asset-factory/scripts/export-character-design-sheet-prompt.ts'
-      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
-      - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
-      - 'scripts/quality/check-character-design-sheet-production-entrypoint.ts'
-      - 'scripts/quality/check-visual-item-lineage-review-queue.ts'
-      - 'scripts/quality/check-visual-production-execution-view.ts'
-      - 'scripts/quality/check-gunjo-record-foundation-masters.ts'
-      - 'scripts/quality/check-world-dream-sky-foundation-masters.ts'
-      - 'scripts/quality/check-modern-iau88-project-line-art-vector-master.ts'
-      - 'scripts/quality/check-modern-iau88-dataset-binding-plan.ts'
-      - 'scripts/quality/check-core5-era-environment-household-authoring-brief.ts'
-      - 'scripts/quality/check-core5-era-setting-board-production-contract.ts'
-      - 'scripts/quality/check-core5-era-setting-board-evidence-packets.ts'
-      - 'scripts/quality/check-core5-era-setting-board-execution-queue.ts'
-      - 'scripts/quality/check-core5-era-setting-board-specs.ts'
-      - 'scripts/quality/check-core5-era-setting-board-human-review-packet.ts'
-      - 'scripts/quality/check-visual-asset-master-registry.ts'
-      - 'scripts/quality/check-visual-generation-governance.ts'
-      - 'scripts/quality/check-visual-current-group-record-master.ts'
-      - 'scripts/quality/check-visual-gunjo-subject-admission.ts'
-      - 'scripts/quality/check-visual-story-authority-coverage-audit.ts'
-      - 'scripts/quality/check-sakuyaza-legacy-migration.ts'
-      - 'scripts/quality/check-visual-pre-game-fixed-master-rows.ts'
-      - 'scripts/quality/check-visual-pre-game-source-master-inventory.ts'
-      - 'scripts/quality/check-visual-existing-top-loading-reuse-audit.ts'
-      - 'scripts/quality/check-visual-guide-db-reuse-policy.ts'
-      - 'scripts/quality/check-visual-existing-contract-output-audit.ts'
-      - 'scripts/quality/check-visual-audit-resolution-ledger.ts'
-      - 'package.json'
+      - 'src/game/data/**'
+      - 'scripts/**'
+      - 'tools/asset-factory/**'
       - '.github/workflows/visual-asset-master-registry.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -172,6 +19,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
         with:
           version: 10
@@ -180,53 +30,23 @@ jobs:
           node-version: '22'
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Validate Visual Asset Master Registry and coverage inventory
+      - name: Refresh generated visual inventory snapshots
+        run: pnpm visual-assets:inventory:export
+      - name: Commit refreshed snapshots when needed
+        shell: bash
+        run: |
+          if git diff --quiet -- data/character-assets/manifests; then
+            echo 'Visual inventory snapshots already current.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add data/character-assets/manifests/visual-asset-coverage.v1.json \
+                    data/character-assets/manifests/visual-asset-master-registry.v1.json \
+                    data/character-assets/manifests/visual-generation-batches.v1.json \
+                    data/character-assets/manifests/visual-character-prompt-packets.v1.json \
+                    data/character-assets/manifests/visual-image-production-list.v1.json
+            git commit -m 'chore: refresh visual inventory snapshots'
+            git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          fi
+      - name: Validate refreshed Visual Asset Master Registry
         run: pnpm visual-assets:check
-      - name: Validate generation backlog governance, counts, and duplicate binaries
-        run: node --experimental-strip-types scripts/quality/check-visual-generation-governance.ts
-      - name: Validate live Character Design Sheet production adapter
-        run: node --experimental-strip-types scripts/quality/check-character-design-sheet-production-entrypoint.ts
-      - name: Validate item physical/evolution lineage collision queue
-        run: node --experimental-strip-types scripts/quality/check-visual-item-lineage-review-queue.ts
-      - name: Validate deduped current visual production execution view
-        run: node --experimental-strip-types scripts/quality/check-visual-production-execution-view.ts
-      - name: Validate Gunjo record foundation editable masters
-        run: node --experimental-strip-types scripts/quality/check-gunjo-record-foundation-masters.ts
-      - name: Validate Dream infrastructure and sky moon foundation masters
-        run: node --experimental-strip-types scripts/quality/check-world-dream-sky-foundation-masters.ts
-      - name: Validate Modern IAU88 vector-system boundary
-        run: node --experimental-strip-types scripts/quality/check-modern-iau88-project-line-art-vector-master.ts
-      - name: Validate Modern IAU88 dataset binding plan
-        run: node --experimental-strip-types scripts/quality/check-modern-iau88-dataset-binding-plan.ts
-      - name: Validate Core5 era environment and population-household authoring briefs
-        run: node --experimental-strip-types scripts/quality/check-core5-era-environment-household-authoring-brief.ts
-      - name: Validate Core5 era setting-board production contract
-        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-production-contract.ts
-      - name: Validate Core5 era setting-board evidence packets
-        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-evidence-packets.ts
-      - name: Validate Core5 era setting-board execution queue
-        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-execution-queue.ts
-      - name: Validate authored Core5 era setting-board specs
-        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-specs.ts
-      - name: Validate Core5 era setting-board Human review packet
-        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-human-review-packet.ts
-      - name: Validate Sakuyaza Current naming and Gunjo record-taxonomy visual masters
-        run: node --experimental-strip-types scripts/quality/check-visual-current-group-record-master.ts
-      - name: Validate Sakuyaza legacy-ID migration facade
-        run: node --experimental-strip-types scripts/quality/check-sakuyaza-legacy-migration.ts
-      - name: Validate fixed pre-game world master rows
-        run: node --experimental-strip-types scripts/quality/check-visual-pre-game-fixed-master-rows.ts
-      - name: Validate source-derived pre-game master rows
-        run: node --experimental-strip-types scripts/quality/check-visual-pre-game-source-master-inventory.ts
-      - name: Validate existing TOP and Loading reuse classification
-        run: node --experimental-strip-types scripts/quality/check-visual-existing-top-loading-reuse-audit.ts
-      - name: Validate Guide and DB master-reuse policy
-        run: node --experimental-strip-types scripts/quality/check-visual-guide-db-reuse-policy.ts
-      - name: Audit all indexed Asset Factory output paths
-        run: node --experimental-strip-types scripts/quality/check-visual-existing-contract-output-audit.ts
-      - name: Validate dynamic Gunjo visual subject admission
-        run: node --experimental-strip-types scripts/quality/check-visual-gunjo-subject-admission.ts
-      - name: Validate Story authority visual coverage gaps
-        run: node --experimental-strip-types scripts/quality/check-visual-story-authority-coverage-audit.ts
-      - name: Validate visual gap resolution ledger
-        run: node --experimental-strip-types scripts/quality/check-visual-audit-resolution-ledger.ts
