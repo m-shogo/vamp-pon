@@ -4,11 +4,167 @@ on:
   pull_request:
     paths:
       - 'data/character-assets/manifests/**'
+      - 'data/character-assets/reviews/**'
+      - 'data/character-assets/templates/**'
+      - 'data/visual/**'
+      - 'docs/visual/**'
+      - 'docs/visual-asset-generation-foundation-v1.md'
+      - 'docs/sakuyaza-current-identity-v1.md'
+      - 'docs/gunjo-zankyoroku-current-v1.md'
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/yatsukage-identity-v1.md'
+      - 'docs/yatsukage-pair-dynamics-v1.md'
+      - 'docs/yatsukage-current21-relationship-matrix-v1.md'
+      - 'docs/yatsukage-encounter-memory-v1.md'
+      - 'assets/reference/character-master/**'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+      - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'src/game/data/characterHandednessEquipmentRegistry.ts'
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'src/game/data/characterReferenceProductionQueue.ts'
+      - 'src/game/data/characterSilhouetteCanon.ts'
+      - 'src/game/data/current21SilhouetteMatrix.ts'
+      - 'src/game/data/characterThemeColorReservoir.ts'
+      - 'src/game/data/characterDatabase.ts'
+      - 'src/game/data/characterProductionPlans.ts'
+      - 'src/game/data/characterDesignSheetProductionEntrypoint.ts'
+      - 'src/game/data/visualProductionExecutionView.ts'
+      - 'src/game/data/itemProductionCanon.ts'
+      - 'src/game/data/itemAssetProductionDatabase.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/stageProductionDatabase.ts'
+      - 'src/game/data/toumonSimpleSigilCanon.ts'
+      - 'src/game/data/constellationStoryClueReservoir.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/storyWorldMasterSource.ts'
+      - 'src/game/data/dreamSocialWorldSource.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'src/game/data/yatsukageIdentitySource.ts'
+      - 'src/game/data/yatsukageCollectionPresentationSource.ts'
+      - 'src/game/data/current21YatsukageRelationshipSource.ts'
+      - 'src/game/data/yatsukageEncounterMemorySource.ts'
+      - 'src/game/data/yatsukagePairDynamicsSource.ts'
+      - 'src/game/data/sakuyazaLegacyMigrationSource.ts'
+      - 'src/game/data/visualPreGameSourceMasterInventory.ts'
+      - 'src/game/data/assetGenerationPolicy.ts'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
+      - 'src/game/data/visualAssetGenerationInventory.ts'
+      - 'tools/asset-factory/scripts/export-character-design-sheet-prompt.ts'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
+      - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
+      - 'scripts/quality/check-character-design-sheet-production-entrypoint.ts'
+      - 'scripts/quality/check-visual-item-lineage-review-queue.ts'
       - 'scripts/quality/check-visual-production-execution-view.ts'
+      - 'scripts/quality/check-gunjo-record-foundation-masters.ts'
+      - 'scripts/quality/check-world-dream-sky-foundation-masters.ts'
+      - 'scripts/quality/check-modern-iau88-project-line-art-vector-master.ts'
+      - 'scripts/quality/check-modern-iau88-dataset-binding-plan.ts'
+      - 'scripts/quality/check-core5-era-environment-household-authoring-brief.ts'
+      - 'scripts/quality/check-core5-era-setting-board-production-contract.ts'
+      - 'scripts/quality/check-core5-era-setting-board-evidence-packets.ts'
+      - 'scripts/quality/check-core5-era-setting-board-execution-queue.ts'
+      - 'scripts/quality/check-core5-era-setting-board-specs.ts'
+      - 'scripts/quality/check-core5-era-setting-board-human-review-packet.ts'
+      - 'scripts/quality/check-visual-asset-master-registry.ts'
+      - 'scripts/quality/check-visual-generation-governance.ts'
+      - 'scripts/quality/check-visual-current-group-record-master.ts'
+      - 'scripts/quality/check-visual-gunjo-subject-admission.ts'
+      - 'scripts/quality/check-visual-story-authority-coverage-audit.ts'
+      - 'scripts/quality/check-sakuyaza-legacy-migration.ts'
+      - 'scripts/quality/check-visual-pre-game-fixed-master-rows.ts'
+      - 'scripts/quality/check-visual-pre-game-source-master-inventory.ts'
+      - 'scripts/quality/check-visual-existing-top-loading-reuse-audit.ts'
+      - 'scripts/quality/check-visual-guide-db-reuse-policy.ts'
+      - 'scripts/quality/check-visual-existing-contract-output-audit.ts'
+      - 'scripts/quality/check-visual-audit-resolution-ledger.ts'
+      - 'package.json'
+      - '.github/workflows/visual-asset-master-registry.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/character-assets/manifests/**'
+      - 'data/character-assets/reviews/**'
+      - 'data/character-assets/templates/**'
+      - 'data/visual/**'
+      - 'docs/visual/**'
+      - 'docs/visual-asset-generation-foundation-v1.md'
+      - 'docs/sakuyaza-current-identity-v1.md'
+      - 'docs/gunjo-zankyoroku-current-v1.md'
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/yatsukage-identity-v1.md'
+      - 'docs/yatsukage-pair-dynamics-v1.md'
+      - 'docs/yatsukage-current21-relationship-matrix-v1.md'
+      - 'docs/yatsukage-encounter-memory-v1.md'
+      - 'assets/reference/character-master/**'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+      - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'src/game/data/characterHandednessEquipmentRegistry.ts'
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'src/game/data/characterReferenceProductionQueue.ts'
+      - 'src/game/data/characterSilhouetteCanon.ts'
+      - 'src/game/data/current21SilhouetteMatrix.ts'
+      - 'src/game/data/characterThemeColorReservoir.ts'
+      - 'src/game/data/characterDatabase.ts'
+      - 'src/game/data/characterProductionPlans.ts'
+      - 'src/game/data/characterDesignSheetProductionEntrypoint.ts'
+      - 'src/game/data/visualProductionExecutionView.ts'
+      - 'src/game/data/itemProductionCanon.ts'
+      - 'src/game/data/itemAssetProductionDatabase.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/stageProductionDatabase.ts'
+      - 'src/game/data/toumonSimpleSigilCanon.ts'
+      - 'src/game/data/constellationStoryClueReservoir.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/storyWorldMasterSource.ts'
+      - 'src/game/data/dreamSocialWorldSource.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'src/game/data/yatsukageIdentitySource.ts'
+      - 'src/game/data/yatsukageCollectionPresentationSource.ts'
+      - 'src/game/data/current21YatsukageRelationshipSource.ts'
+      - 'src/game/data/yatsukageEncounterMemorySource.ts'
+      - 'src/game/data/yatsukagePairDynamicsSource.ts'
+      - 'src/game/data/sakuyazaLegacyMigrationSource.ts'
+      - 'src/game/data/visualPreGameSourceMasterInventory.ts'
+      - 'src/game/data/assetGenerationPolicy.ts'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
+      - 'src/game/data/visualAssetGenerationInventory.ts'
+      - 'tools/asset-factory/scripts/export-character-design-sheet-prompt.ts'
+      - 'tools/asset-factory/scripts/export-production-character-design-prompt.ts'
+      - 'scripts/asset-factory/export-visual-asset-generation-inventory.ts'
+      - 'scripts/quality/check-character-design-sheet-production-entrypoint.ts'
+      - 'scripts/quality/check-visual-item-lineage-review-queue.ts'
+      - 'scripts/quality/check-visual-production-execution-view.ts'
+      - 'scripts/quality/check-gunjo-record-foundation-masters.ts'
+      - 'scripts/quality/check-world-dream-sky-foundation-masters.ts'
+      - 'scripts/quality/check-modern-iau88-project-line-art-vector-master.ts'
+      - 'scripts/quality/check-modern-iau88-dataset-binding-plan.ts'
+      - 'scripts/quality/check-core5-era-environment-household-authoring-brief.ts'
+      - 'scripts/quality/check-core5-era-setting-board-production-contract.ts'
+      - 'scripts/quality/check-core5-era-setting-board-evidence-packets.ts'
+      - 'scripts/quality/check-core5-era-setting-board-execution-queue.ts'
+      - 'scripts/quality/check-core5-era-setting-board-specs.ts'
+      - 'scripts/quality/check-core5-era-setting-board-human-review-packet.ts'
+      - 'scripts/quality/check-visual-asset-master-registry.ts'
+      - 'scripts/quality/check-visual-generation-governance.ts'
+      - 'scripts/quality/check-visual-current-group-record-master.ts'
+      - 'scripts/quality/check-visual-gunjo-subject-admission.ts'
+      - 'scripts/quality/check-visual-story-authority-coverage-audit.ts'
+      - 'scripts/quality/check-sakuyaza-legacy-migration.ts'
+      - 'scripts/quality/check-visual-pre-game-fixed-master-rows.ts'
+      - 'scripts/quality/check-visual-pre-game-source-master-inventory.ts'
+      - 'scripts/quality/check-visual-existing-top-loading-reuse-audit.ts'
+      - 'scripts/quality/check-visual-guide-db-reuse-policy.ts'
+      - 'scripts/quality/check-visual-existing-contract-output-audit.ts'
+      - 'scripts/quality/check-visual-audit-resolution-ledger.ts'
+      - 'package.json'
       - '.github/workflows/visual-asset-master-registry.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
@@ -16,64 +172,6 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
-      - name: Sync historical V2 count projections to Current inventory
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-
-          files = {
-            'data/character-assets/manifests/visual-production-execution-policy.v2.json': [
-              ('"totalManagedRows": 480', '"totalManagedRows": 486'),
-              ('"logicalNonImageRows": 214', '"logicalNonImageRows": 220'),
-              ('"migratedLegacyLorebookBakedRows": 142', '"migratedLegacyLorebookBakedRows": 148'),
-              ('"lorebookCompositionReadModels": 142', '"lorebookCompositionReadModels": 148'),
-              ('"lorebook-foreshadow": 10', '"lorebook-foreshadow": 16'),
-              ('still models 142 composition cards', 'still models 148 composition cards'),
-            ],
-            'data/character-assets/manifests/visual-image-generation-backlog.v1.json': [
-              ('"stableManagedRows": 480', '"stableManagedRows": 486'),
-              ('"logicalNonImageRows": 214', '"logicalNonImageRows": 220'),
-              ('"lorebookCompositionReadModels": 142', '"lorebookCompositionReadModels": 148'),
-              ('"logicalNonImage": "36 + 36 + 142 = 214"', '"logicalNonImage": "36 + 36 + 148 = 220"'),
-              ('"totalManaged": "266 + 214 = 480"', '"totalManaged": "266 + 220 = 486"'),
-              ('"migratedLegacyLorebookRows": 142', '"migratedLegacyLorebookRows": 148'),
-              ('"lorebookCompositionReadModels": 142', '"lorebookCompositionReadModels": 148'),
-              ('"foreshadow": 10', '"foreshadow": 16'),
-              ('142 Lorebook profile/era/reality-root/relationship/foreshadow cards', '148 Lorebook profile/era/reality-root/relationship/foreshadow cards'),
-              ('all 142 to composition/read-model rows', 'all 148 to composition/read-model rows'),
-              ('Do not create 142 Lorebook PNG replacements', 'Do not create 148 Lorebook PNG replacements'),
-            ],
-            'scripts/quality/check-visual-production-execution-view.ts': [
-              ('currentItems.length !== 480', 'currentItems.length !== 486'),
-              ('stable managed row count must remain 480', 'stable managed row count must remain 486'),
-              ('legacyBakedRows.length !== 142 || migratedRows.length !== 142', 'legacyBakedRows.length !== 148 || migratedRows.length !== 148'),
-              ('expected 142 legacy/migrated Lorebook rows', 'expected 148 legacy/migrated Lorebook rows'),
-              ('nonImage !== 214', 'nonImage !== 220'),
-              ('expected 214 non-image logical rows', 'expected 220 non-image logical rows'),
-              ('Guide/DB must remain 142 compositions', 'Guide/DB must remain 148 compositions'),
-            ],
-          }
-
-          for path, replacements in files.items():
-            p = Path(path)
-            s = p.read_text()
-            for old, new in replacements:
-              s = s.replace(old, new)
-            p.write_text(s)
-          PY
-          if ! git diff --quiet -- data/character-assets/manifests/visual-production-execution-policy.v2.json data/character-assets/manifests/visual-image-generation-backlog.v1.json scripts/quality/check-visual-production-execution-view.ts; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add data/character-assets/manifests/visual-production-execution-policy.v2.json \
-                    data/character-assets/manifests/visual-image-generation-backlog.v1.json \
-                    scripts/quality/check-visual-production-execution-view.ts
-            git commit -m 'test: sync V2 audit counts to current inventory'
-            git push origin HEAD:${{ github.event.pull_request.head.ref }}
-          fi
       - uses: pnpm/action-setup@v4
         with:
           version: 10
@@ -82,5 +180,53 @@ jobs:
           node-version: '22'
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Validate V2 audit execution view after count sync
+      - name: Validate Visual Asset Master Registry and coverage inventory
+        run: pnpm visual-assets:check
+      - name: Validate generation backlog governance, counts, and duplicate binaries
+        run: node --experimental-strip-types scripts/quality/check-visual-generation-governance.ts
+      - name: Validate live Character Design Sheet production adapter
+        run: node --experimental-strip-types scripts/quality/check-character-design-sheet-production-entrypoint.ts
+      - name: Validate item physical/evolution lineage collision queue
+        run: node --experimental-strip-types scripts/quality/check-visual-item-lineage-review-queue.ts
+      - name: Validate deduped current visual production execution view
         run: node --experimental-strip-types scripts/quality/check-visual-production-execution-view.ts
+      - name: Validate Gunjo record foundation editable masters
+        run: node --experimental-strip-types scripts/quality/check-gunjo-record-foundation-masters.ts
+      - name: Validate Dream infrastructure and sky moon foundation masters
+        run: node --experimental-strip-types scripts/quality/check-world-dream-sky-foundation-masters.ts
+      - name: Validate Modern IAU88 vector-system boundary
+        run: node --experimental-strip-types scripts/quality/check-modern-iau88-project-line-art-vector-master.ts
+      - name: Validate Modern IAU88 dataset binding plan
+        run: node --experimental-strip-types scripts/quality/check-modern-iau88-dataset-binding-plan.ts
+      - name: Validate Core5 era environment and population-household authoring briefs
+        run: node --experimental-strip-types scripts/quality/check-core5-era-environment-household-authoring-brief.ts
+      - name: Validate Core5 era setting-board production contract
+        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-production-contract.ts
+      - name: Validate Core5 era setting-board evidence packets
+        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-evidence-packets.ts
+      - name: Validate Core5 era setting-board execution queue
+        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-execution-queue.ts
+      - name: Validate authored Core5 era setting-board specs
+        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-specs.ts
+      - name: Validate Core5 era setting-board Human review packet
+        run: node --experimental-strip-types scripts/quality/check-core5-era-setting-board-human-review-packet.ts
+      - name: Validate Sakuyaza Current naming and Gunjo record-taxonomy visual masters
+        run: node --experimental-strip-types scripts/quality/check-visual-current-group-record-master.ts
+      - name: Validate Sakuyaza legacy-ID migration facade
+        run: node --experimental-strip-types scripts/quality/check-sakuyaza-legacy-migration.ts
+      - name: Validate fixed pre-game world master rows
+        run: node --experimental-strip-types scripts/quality/check-visual-pre-game-fixed-master-rows.ts
+      - name: Validate source-derived pre-game master rows
+        run: node --experimental-strip-types scripts/quality/check-visual-pre-game-source-master-inventory.ts
+      - name: Validate existing TOP and Loading reuse classification
+        run: node --experimental-strip-types scripts/quality/check-visual-existing-top-loading-reuse-audit.ts
+      - name: Validate Guide and DB master-reuse policy
+        run: node --experimental-strip-types scripts/quality/check-visual-guide-db-reuse-policy.ts
+      - name: Audit all indexed Asset Factory output paths
+        run: node --experimental-strip-types scripts/quality/check-visual-existing-contract-output-audit.ts
+      - name: Validate dynamic Gunjo visual subject admission
+        run: node --experimental-strip-types scripts/quality/check-visual-gunjo-subject-admission.ts
+      - name: Validate Story authority visual coverage gaps
+        run: node --experimental-strip-types scripts/quality/check-visual-story-authority-coverage-audit.ts
+      - name: Validate visual gap resolution ledger
+        run: node --experimental-strip-types scripts/quality/check-visual-audit-resolution-ledger.ts
