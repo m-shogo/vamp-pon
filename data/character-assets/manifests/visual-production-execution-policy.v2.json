@@ -7,18 +7,18 @@
   "legacyInput": {
     "path": "data/character-assets/manifests/visual-image-production-list.v1.json",
     "directGenerationAuthority": false,
-    "reason": "It predates the Master-reuse Guide/Lorebook policy and still models 142 composition cards as historical PNG-shaped rows."
+    "reason": "It predates the Master-reuse Guide/Lorebook policy and still models 148 composition cards as historical PNG-shaped rows."
   },
   "expectedCounts": {
-    "totalManagedRows": 480,
+    "totalManagedRows": 486,
     "imageBearingRows": 266,
-    "logicalNonImageRows": 214,
-    "migratedLegacyLorebookBakedRows": 142,
+    "logicalNonImageRows": 220,
+    "migratedLegacyLorebookBakedRows": 148,
     "independentLorebookRasterRows": 0,
     "characterDesignMasterPacks": 36,
     "characterDesignSourceSheets": 144,
     "characterDesignOverviewReadModels": 36,
-    "lorebookCompositionReadModels": 142,
+    "lorebookCompositionReadModels": 148,
     "gameplayImageRows": 72,
     "indexedAssetFactoryContracts": 977
   },
@@ -35,7 +35,7 @@
       "lorebook-era": 36,
       "lorebook-reality-root": 36,
       "lorebook-relationship": 24,
-      "lorebook-foreshadow": 10
+      "lorebook-foreshadow": 16
     },
     "newIndependentBinaryDefault": 0,
     "compositionOutput": "JSON_COMPOSITION_READ_MODEL",

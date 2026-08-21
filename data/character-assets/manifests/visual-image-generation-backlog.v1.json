@@ -38,9 +38,9 @@
     "legacyPlanningRowsMayNotAuthorizeGeneration": true
   },
   "currentManagedExecution": {
-    "stableManagedRows": 480,
+    "stableManagedRows": 486,
     "imageBearingRows": 266,
-    "logicalNonImageRows": 214,
+    "logicalNonImageRows": 220,
     "imageBearingBreakdown": {
       "characterDesignSourceSheets": 144,
       "sakuyazaMasters": 8,
@@ -51,19 +51,19 @@
     "logicalNonImageBreakdown": {
       "characterDesignMasterPacks": 36,
       "characterDesignOverviewReadModels": 36,
-      "lorebookCompositionReadModels": 142
+      "lorebookCompositionReadModels": 148
     },
     "arithmetic": {
       "imageBearing": "144 + 8 + 21 + 21 + 72 = 266",
-      "logicalNonImage": "36 + 36 + 142 = 214",
-      "totalManaged": "266 + 214 = 480"
+      "logicalNonImage": "36 + 36 + 148 = 220",
+      "totalManaged": "266 + 220 = 486"
     }
   },
   "legacy408Interpretation": {
     "state": "SUPERSEDED_TRACEABILITY_ONLY",
     "oldImageBearingRows": 408,
-    "reasonForDifference": "The old model counted 142 Lorebook profile/era/reality-root/relationship/foreshadow cards as independent raster images. Current execution migrates all 142 to composition/read-model rows that reuse approved Master artwork.",
-    "migratedLegacyLorebookRows": 142,
+    "reasonForDifference": "The old model counted 148 Lorebook profile/era/reality-root/relationship/foreshadow cards as independent raster images. Current execution migrates all 148 to composition/read-model rows that reuse approved Master artwork.",
+    "migratedLegacyLorebookRows": 148,
     "currentIndependentLorebookRasterRows": 0,
     "directGenerationAuthority": false
   },
@@ -156,13 +156,13 @@
       "order": 2,
       "purpose": "Build攻略サイト/Lorebook/DB from approved Masters through data, crop, mask, HTML, CSS and SVG rather than duplicating subject artwork.",
       "managedIndependentImageRows": 0,
-      "lorebookCompositionReadModels": 142,
+      "lorebookCompositionReadModels": 148,
       "legacyBreakdown": {
         "profile": 36,
         "era": 36,
         "realityRoot": 36,
         "relationship": 24,
-        "foreshadow": 10
+        "foreshadow": 16
       },
       "reusableMasterSubjectCoverage": 110,
       "compositionOutput": "JSON_COMPOSITION_READ_MODEL",
@@ -269,7 +269,7 @@
     "Keep Core5 setting-board authoring moving without treating editable board specs as raster-generation rows.",
     "Keep Character Design Sheet production bound live to the latest Character Reference Production Entrypoint and recheck main immediately before any image generation.",
     "Finish per-subject Master authority/prompt review for non-Yui characters, Sakuyaza, Star Beasts and Named Objects before image execution.",
-    "Do not create 142 Lorebook PNG replacements; build them as composition/read-model outputs from approved Masters.",
+    "Do not create 148 Lorebook PNG replacements; build them as composition/read-model outputs from approved Masters.",
     "Audit TOP/Loading/key-art reuse before admitting new Promo image rows.",
     "Treat all 977 Asset Factory contracts as an index requiring authority/output classification, not as 977 automatic generation tasks.",
     "Keep Gameplay derivatives last."
